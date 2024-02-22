@@ -8,9 +8,9 @@ public class DebugScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Block block = FindObjectOfType<Block>();
+        //Block block = FindObjectOfType<Block>();
 		//Block[] block = FindObjectsOfType(typeof(Block)) as Block[];
-		Debug.Log(block.name);
+		//Debug.Log(block.name);
     }
 
     // Update is called once per frame

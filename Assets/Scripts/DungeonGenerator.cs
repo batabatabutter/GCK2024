@@ -17,8 +17,8 @@ public class DungeonGenerator : MonoBehaviour
 
     [Header("何の変哲もないブロック")]
     [SerializeField] private string m_blockNormal = "1";
-    [Header("破壊不可能ブロック")]
-    [SerializeField] private string m_blockDontBroken = "2";
+    [Header("岩盤ブロック")]
+    [SerializeField] private string m_blockBedrock = "2";
     [Header("ダンジョンの核")]
     [SerializeField] private string m_blockCore = "3";
 
@@ -43,7 +43,7 @@ public class DungeonGenerator : MonoBehaviour
             if (line == "")
                 break;
 
-            string lin = line.Remove(line.Length - 2);
+            string lin = line.Remove(line.Length - 1);
 
             List<string> list = new List<string>();
 
@@ -77,7 +77,7 @@ public class DungeonGenerator : MonoBehaviour
                 block.AddComponent<Block>();
 
 				// 破壊不可能ブロックにする
-				if (mapList[y][x] == m_blockDontBroken)
+				if (mapList[y][x] == m_blockBedrock)
                 {
                     // 分かりやすいようにとりあえず色を変える
                     block.GetComponent<SpriteRenderer>().color = Color.gray;
