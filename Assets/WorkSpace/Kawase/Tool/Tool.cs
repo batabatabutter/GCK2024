@@ -6,7 +6,7 @@ using UnityEngine;
 public class Tool : MonoBehaviour
 {
     //設置クールタイム
-    public float plantCooltime;
+    [Header("設置クールタイム")][SerializeField] float plantCooltime;
     //設置クールタイムの最大値
     [NonSerialized] public float maxCoolTime;
     void Start()
