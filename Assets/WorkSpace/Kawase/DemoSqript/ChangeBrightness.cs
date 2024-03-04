@@ -18,8 +18,9 @@ public class ChangeBrightness : MonoBehaviour
     [Header("明るさの最大値(０はかんべん)")]
     [SerializeField] int MaxBrightness = 7;
 
+    //松明格納List
+    List<GameObject> colList = new List<GameObject>();
 
-    
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +35,7 @@ public class ChangeBrightness : MonoBehaviour
         //rgbをhsvに変換
         Color.RGBToHSV(spriteRenderer.color, out h, out s, out v);
 
+        //０にすると色が消える
         v = 0.001f;
 
         //hsvをrgbに変換
@@ -52,36 +54,60 @@ public class ChangeBrightness : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-
         if (collision.gameObject.GetComponent<Tool_Toach>())
         {
-            //松明との距離
-            toachLength = Vector3.Distance(collision.transform.position, this.transform.position);
-            //小数点切り上げ
-            Mathf.Ceil(toachLength);
 
+            //当たった松明の保存
+            colList.Add(collision.gameObject);
 
-            //HSVのカラーの吐き出し用
-            float h = 0.0f;
-            float s = 0.0f;
-            float v = 0.0f;
-            //rgbをhsvに変換
-            Color.RGBToHSV(spriteRenderer.color, out h, out s, out v);
+            //一番近い松明の距離
+            //松明から自身の距離(初期値として最初のやつ)
+            float nearToachLength = Vector3.Distance(colList[0].transform.position, this.transform.position);
 
+            //一番近い松明の算出
+            for (int i = 0; i < colList.Count; i++)
+            {
+                //より近いなら
+                if (nearToachLength > Vector3.Distance(colList[i].transform.position, this.transform.position))
+                {
+                    nearToachLength = Vector3.Distance(colList[i].transform.position, this.transform.position);
+                }
+            }
 
+            //なんでかわからんけど2回やんないとバグる？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？
+            for (int i = 0; i < 2; i++)
+            {
 
-            //(vの明度が０～１００なので)１００を基準にした一メモリを算出
-            int rate = 100 / MaxBrightness;
+                //松明との距離
+                toachLength = nearToachLength;
+                //小数点切り上げ
+                Mathf.Ceil(toachLength);
 
-            //多分０．０～１．０の間なのかな？
-            v = (100 - rate * toachLength) / 100;
+                //HSVのカラーの吐き出し用
+                float h = 0.0f;
+                float s = 0.0f;
+                float v = 0.0f;
+                //rgbをhsvに変換
+                Color.RGBToHSV(spriteRenderer.color, out h, out s, out v);
 
+                //(vの明度が０～１００なので)１００を基準にした一メモリを算出
+                int rate = 100 / MaxBrightness;
 
+                //多分０．０～１．０の間なのかな？
+                v = (100 - rate * toachLength) / 100;
 
-            //hsvをrgbに変換
-            spriteRenderer.color = Color.HSVToRGB(h, s, v);
+                //hsvをrgbに変換
+                spriteRenderer.color = Color.HSVToRGB(h, s, v);
+            }
         }
 
     }
 
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<Tool_Toach>())
+        {
+
+        }
+    }
 }
