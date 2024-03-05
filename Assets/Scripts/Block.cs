@@ -5,10 +5,13 @@ using UnityEngine;
 public class Block : MonoBehaviour
 {
     [Header("ブロックの耐久")]
-    [SerializeField] private float m_blockEndurance;
+    [SerializeField] private float m_blockEndurance = 100;
 
     [Header("破壊不可")]
     [SerializeField] private bool m_dontBroken = false;
+
+    [Header("ドロップするアイテム")]
+    [SerializeField] private List<GameObject> m_dropItems = new List<GameObject>();
 
 
     // Start is called before the first frame update
@@ -40,23 +43,44 @@ public class Block : MonoBehaviour
         }
     }
 
-    // ブロックが壊れた
-    private void BrokenBlock()
+
+	// ブロックが壊れた
+	private void BrokenBlock()
     {
         // 破壊不可能ブロックの場合は処理しない
         if (m_dontBroken)
             return;
 
         // アイテムドロップ
-
+        DropItem();
 
         // 自身を削除
         Destroy(gameObject);
 
     }
 
-    
-    public bool DontBroken
+	// アイテムドロップ
+	public virtual void DropItem(int count = 1)
+	{
+        foreach (GameObject dropItem in m_dropItems)
+        {
+            // アイテムのゲームオブジェクトを生成
+            GameObject obj = Instantiate(dropItem);
+            obj.transform.position = transform.position;
+
+            // アイテムがドロップしたときの処理
+            if (obj.TryGetComponent(out Item item))
+            {
+                item.Drop(count);
+            }
+
+        }
+
+	}
+
+
+
+	public bool DontBroken
     {
         get { return m_dontBroken; }
         set { m_dontBroken = value; }
