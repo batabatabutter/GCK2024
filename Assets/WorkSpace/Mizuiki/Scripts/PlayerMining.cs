@@ -96,7 +96,7 @@ public class PlayerMining : MonoBehaviour
                 // 採掘ダメージ加算
                 block.AddMiningDamage(m_miningPower);
             }
-            Debug.Log("MINING");
+            //Debug.Log("MINING");
 		}
 
         // クールタイム設定
