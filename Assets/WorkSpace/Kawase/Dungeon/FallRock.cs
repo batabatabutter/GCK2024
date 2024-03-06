@@ -63,16 +63,15 @@ public class FallRock : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Destroy(gameObject);
-
-            Debug.Log("player");
         }
         if (collision.gameObject.GetComponent<Highlight>())
         {
             Destroy(gameObject);
             Destroy(collision.gameObject);
-            Debug.Log("hiaglhfh");
 
         }
     }
+
+
 
 }
