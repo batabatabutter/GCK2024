@@ -751,7 +751,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isfall: 0
-  isroll: 1
+  isroll: 0
+  isbank: 1
   target: {fileID: 634212210}
   rockfall: {fileID: 2940951798871330703, guid: 829d86242de0c674a8b178b0f249f289, type: 3}
   highlight: {fileID: 4708925638394852652, guid: 82994475c12be0f4da5df8587e7d4dec, type: 3}
@@ -763,6 +764,8 @@ MonoBehaviour:
   right: 5
   down: 5
   left: 5
+  bank: {fileID: 6085554247375089227, guid: 1d29c80645233fb4c94bf95ca0e1b1f3, type: 3}
+  bankHighlight: {fileID: 1067109971471968558, guid: 29f861859c529b1498a780cee08eb5fb, type: 3}
 --- !u!1001 &104130906
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3140,7 +3143,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 634212210}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: de94272c74e0c6440803b4a30ced815d, type: 3}
   m_Name: 

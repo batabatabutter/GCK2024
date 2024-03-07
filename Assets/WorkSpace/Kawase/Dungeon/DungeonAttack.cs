@@ -18,6 +18,7 @@ public class DungeonAttack : MonoBehaviour
     [Header("発生コウゲキON:OFF（これデバッグ用）")]
     [SerializeField] bool isfall;
     [SerializeField] bool isroll;
+    [SerializeField] bool isbank;
 
     [Header("--------------------------------------------")]
 
@@ -47,6 +48,11 @@ public class DungeonAttack : MonoBehaviour
     [SerializeField] float down;
     [Header("左から")]
     [SerializeField] float left;
+    [Header("--------------------------------------------")]
+    [Header("土手")]
+    [SerializeField] GameObject bank;
+    [Header("土手ハイライト")]
+    [SerializeField] GameObject bankHighlight;
 
 
     float keepCoolTime;
@@ -67,6 +73,8 @@ public class DungeonAttack : MonoBehaviour
                 FallrockAttack();
             if(isroll)
                 RockRollingAttack();
+            if(isbank)
+                BankAttack();
 
             attackCoolTime = keepCoolTime;
         }
@@ -120,5 +128,26 @@ public class DungeonAttack : MonoBehaviour
         Instantiate(highlightArrow, rollingPos, Quaternion.Euler(0, 0, rollingRotation));
         Instantiate(rollRock, rollingPos, Quaternion.Euler(0, 0, rollingRotation));
 
+    }
+    private void BankAttack()
+    {
+        Vector3 pos = target.transform.position;
+
+        pos.x -= 1;
+        pos.y += 1;
+
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                if (i == 1 && j == 1)
+                    continue;
+                    
+
+                Instantiate(bank, new Vector3(pos.x + j,pos.y - i,0), Quaternion.identity);
+                Instantiate(bankHighlight, new Vector3(pos.x + j, pos.y - i, 0), Quaternion.identity);
+            }
+
+        }
     }
 }
