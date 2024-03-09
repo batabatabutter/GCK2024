@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [Header("体力")]
-    [SerializeField] private float m_health = 10.0f;
+    [Header("ライフ")]
+    [SerializeField] private int m_life = 5;
 
 
 
@@ -22,10 +22,10 @@ public class Player : MonoBehaviour
         
     }
 
-    // ダメージ加算
-    public void AddDamage(float damage)
+    // ダメージ
+    public void AddDamage(int damage)
     {
-        m_health -= damage;
+        m_life -= damage;
     }
 
 }
