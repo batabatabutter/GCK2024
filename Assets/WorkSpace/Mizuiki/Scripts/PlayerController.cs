@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
     [Header("プレイヤーの採掘スクリプト")]
     [SerializeField] private PlayerMining m_playerMining;
 
+	[Header("プレイヤーの設置スクリプト")]
+	[SerializeField] private PlayerAction m_playerAction;
+
 	// 入力
 	private Controls m_controls = null;
 
@@ -37,6 +40,12 @@ public class PlayerController : MonoBehaviour
 		if (m_controls.Player.Attack.IsPressed())
 		{
 			m_playerMining.Mining();
+		}
+
+		// 設置
+		if (m_controls.Player.Put.IsPressed())
+		{
+			m_playerAction.Put();
 		}
 
 	}

@@ -2,13 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class DemoPlayer : MonoBehaviour
 {
-    [Header("ëÃóÕ")]
-    [SerializeField] private float m_health = 10.0f;
-
-
-
+    float x;
+    float y;
 
     // Start is called before the first frame update
     void Start()
@@ -19,13 +16,10 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
+        x = Mathf.Sin( Time.time ) * 5;
+        y = Mathf.Cos( Time.time ) * 1;
 
-    // É_ÉÅÅ[ÉWâ¡éZ
-    public void AddDamage(float damage)
-    {
-        m_health -= damage;
-    }
 
+        transform.position = new Vector3(x, 0.0f,0.0f);
+    }
 }
