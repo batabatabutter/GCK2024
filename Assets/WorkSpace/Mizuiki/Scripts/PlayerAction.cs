@@ -12,6 +12,9 @@ public class PlayerAction : MonoBehaviour
     [Header("カーソル画像")]
     [SerializeField] private GameObject m_cursorImage = null;
 
+	[Header("設置アイテム")]
+	[SerializeField] private GameObject[] m_putItems;
+
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +31,16 @@ public class PlayerAction : MonoBehaviour
 		// マウスの位置を取得
 		Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
+		// プレイヤーの位置からマウスの位置へのベクトル
+		Vector2 playerToMouse = mousePos - playerPos;
+		// ベクトル正規化
+		playerToMouse.Normalize();
+		// プレイヤーから採掘方向へのRayCast
+		RaycastHit2D rayCast = Physics2D.Raycast(playerPos, playerToMouse, m_itemSettingRange);
+
+		//mousePos.x = RoundHalfUp(rayCast.point.x);
+		//mousePos.y = RoundHalfUp(rayCast.point.y);
+
 		// 四捨五入する
 		mousePos.x = RoundHalfUp(mousePos.x);
 		mousePos.y = RoundHalfUp(mousePos.y);
@@ -43,10 +56,10 @@ public class PlayerAction : MonoBehaviour
 		}
 		else
 		{
-			// プレイヤーの位置からマウスの位置へのベクトル
-			Vector2 playerToMouse = mousePos - playerPos;
-			// ベクトル正規化
-			playerToMouse.Normalize();
+			//// プレイヤーの位置からマウスの位置へのベクトル
+			//Vector2 playerToMouse = mousePos - playerPos;
+			//// ベクトル正規化
+			//playerToMouse.Normalize();
 
 			mousePos = playerPos + (playerToMouse * m_itemSettingRange);
 
@@ -64,6 +77,9 @@ public class PlayerAction : MonoBehaviour
 	public void Put()
     {
 		// アイテムを置く
+		GameObject tool = Instantiate(m_putItems[0]);
+		// 座標設定
+		tool.transform.position = m_cursorImage.transform.position;
     }
 
 

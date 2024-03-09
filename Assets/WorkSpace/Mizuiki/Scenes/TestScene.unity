@@ -4833,6 +4833,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_itemSettingRange: 2
   m_cursorImage: {fileID: 125756895}
+  m_putItems:
+  - {fileID: 1605569564547797263, guid: 5cd6e11a21e8d74498a673fc06be8e44, type: 3}
 --- !u!114 &1763385161
 MonoBehaviour:
   m_ObjectHideFlags: 0

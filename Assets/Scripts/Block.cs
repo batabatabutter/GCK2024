@@ -68,6 +68,9 @@ public class Block : MonoBehaviour
             GameObject obj = Instantiate(dropItem);
             obj.transform.position = transform.position;
 
+            // 明るさの概念を追加
+            obj.AddComponent<ChangeBrightness>();
+
             // アイテムがドロップしたときの処理
             if (obj.TryGetComponent(out Item item))
             {

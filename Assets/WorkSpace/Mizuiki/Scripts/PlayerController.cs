@@ -37,13 +37,13 @@ public class PlayerController : MonoBehaviour
 		m_playerMove.MovePlayer(velocity);
 
 		// ÌŒ@
-		if (m_controls.Player.Attack.IsPressed())
+		if (m_controls.Player.Attack.IsPressed())		// ‰Ÿ‚³‚ê‚Ä‚éŠÔ
 		{
 			m_playerMining.Mining();
 		}
 
 		// İ’u
-		if (m_controls.Player.Put.IsPressed())
+		if (m_controls.Player.Put.WasPressedThisFrame())	// ‰Ÿ‚µ‚½uŠÔ
 		{
 			m_playerAction.Put();
 		}
