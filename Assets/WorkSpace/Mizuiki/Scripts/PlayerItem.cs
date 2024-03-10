@@ -97,4 +97,19 @@ public class PlayerItem : MonoBehaviour
 		return false;
 	}
 
+	// ƒAƒCƒeƒ€‚ÌŠ”æ“¾
+	public int GetItemCount(Item.Type type)
+	{
+		return m_items[type];
+	}
+
+
+
+
+	public Dictionary<Item.Type, int> Items
+	{
+		get { return m_items; }
+	}
+
+
 }

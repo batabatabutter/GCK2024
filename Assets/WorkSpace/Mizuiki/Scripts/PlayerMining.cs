@@ -15,6 +15,11 @@ public class PlayerMining : MonoBehaviour
     [SerializeField] private float m_miningSpeed = 1.0f;
     private float m_miningCoolTime = 0.0f;
 
+    [Header("クリティカル率(%)")]
+    [SerializeField] private float m_criticalRate = 0.0f;
+    [Header("クリティカルダメージ(%)")]
+    [SerializeField] private float m_criticalDamageRate = 2.0f;
+
     [Header("レイヤーマスク")]
     [SerializeField] private LayerMask m_layerMask;
 
@@ -94,7 +99,7 @@ public class PlayerMining : MonoBehaviour
             if (rayCast.transform.TryGetComponent(out Block block))
             {
                 // 採掘ダメージ加算
-                block.AddMiningDamage(m_miningPower);
+                block.AddMiningDamage(GetPower());
             }
             //Debug.Log("MINING");
 		}
@@ -103,4 +108,28 @@ public class PlayerMining : MonoBehaviour
         m_miningCoolTime = 1.0f / m_miningSpeed;
 
 	}
+
+
+
+    // 採掘力算出
+    private float GetPower()
+    {
+        // 採掘力
+        float power = m_miningPower;
+
+        // 0 ~ 100%
+        float rand = Random.Range(0, 100);
+
+        // 出目がクリティカル率より小さい
+        if (rand <= m_criticalRate)
+        {
+            // ダメージ倍率をかける
+            power *= m_criticalDamageRate;
+        }
+
+        // 採掘力を返す
+        return power;
+    }
+
+
 }
