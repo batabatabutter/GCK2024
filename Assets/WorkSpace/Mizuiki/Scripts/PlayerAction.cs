@@ -43,15 +43,12 @@ public class PlayerAction : MonoBehaviour
 		// プレイヤーから採掘方向へのRayCast
 		RaycastHit2D rayCast = Physics2D.Raycast(playerPos, playerToMouse, length, m_layerMask);
 
-		Debug.Log(rayCast.point);
 		// ブロックに当たった
 		if (rayCast)
 		{
+			// 埋まり防止で当たった面の法線方向に 0.1 加算する
 			mousePos = rayCast.point + (rayCast.normal * new Vector2(0.1f, 0.1f));
 		}
-
-		//mousePos = rayCast.point;
-		//Debug.Log(rayCast.point);
 
 		// プレイヤーとマウスカーソルの位置が設置範囲内
 		if (Vector2.Distance(playerPos, mousePos) < m_itemSettingRange)

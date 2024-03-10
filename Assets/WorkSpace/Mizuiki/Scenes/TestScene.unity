@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8beeff47756d2a345992583b10fca279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_dungeonPath: Assets/DungeonData/Dungeon.csv
+  m_dungeonPath: Assets/DungeonData/Test.csv
   m_dungeonSizeX: 10
   m_dungeonSizeY: 10
   m_block: {fileID: 3457520386420079125, guid: cbe61a2527b59f44ea88ed42d8cd8019, type: 3}
@@ -3291,7 +3291,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!156049354 &1177904970
 Grid:
   m_ObjectHideFlags: 0
