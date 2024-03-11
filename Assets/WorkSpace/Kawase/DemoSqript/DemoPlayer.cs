@@ -20,6 +20,6 @@ public class DemoPlayer : MonoBehaviour
         y = Mathf.Cos( Time.time ) * 1;
 
 
-        transform.position = new Vector3(x, 0.0f,0.0f);
+        //transform.position = new Vector3(x, 0.0f,0.0f);
     }
 }
