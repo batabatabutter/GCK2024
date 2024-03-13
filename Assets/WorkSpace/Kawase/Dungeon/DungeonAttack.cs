@@ -61,13 +61,13 @@ public class DungeonAttack : MonoBehaviour
     float keepCoolTime;
 
     GameObject target;
-    List<GameObject> core;
+    GameObject core;
 
     // Start is called before the first frame update
     void Start()
     {
         target = SceneManager.GetPlayer();
-        core = SceneManager.GetCores();
+        core = SceneManager.GetCore();
         keepCoolTime = attackCoolTime;
     }
 
@@ -76,7 +76,7 @@ public class DungeonAttack : MonoBehaviour
     {
         int ratio = 1;
 
-        if (Vector2.Distance(core[0].transform.position, target.transform.position) < twiceAttackLength)
+        if (Vector2.Distance(core.transform.position, target.transform.position) < twiceAttackLength)
         {
             ratio = 2;
         }

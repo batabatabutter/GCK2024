@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class HPUI : MonoBehaviour
 {
+    //  シーンマネージャー
+    [Header("プレイシーンマネージャー")]
+    [SerializeField] private PlaySceneManager m_playSceneManager;
+
     //  プレイヤー
-    [Header("プレイヤー情報")]
-    [SerializeField] Player m_player;
+    private GameObject m_player;
 
     //  HPUIのプレハブ
     [Header("HPUIのプレハブ")]
-    [SerializeField] GameObject m_hpGauge;
-    [SerializeField] GameObject m_hpGaugeFrame;
-    [SerializeField] Vector2 m_hpOffset;
+    [SerializeField] private GameObject m_hpGauge;
+    [SerializeField] private GameObject m_hpGaugeFrame;
+    [SerializeField] private Vector2 m_hpOffset;
 
     //  デバッグ用
     [Header("デバッグ用")]
@@ -26,6 +29,14 @@ public class HPUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //  プレイシーンマネージャーが無かったら格納しない
+        if (m_playSceneManager == null)
+            Debug.Log("Error:Playerの格納に失敗 PlaySceneManagerが見つかりません:DungeonManager");
+        else
+        {
+            //  プレイヤー格納
+            m_player = m_playSceneManager.GetPlayer();
+        }
         //  プレイヤーが見つからなかったらデバッグ状態に
         if (m_player == null) m_debug = true;
 

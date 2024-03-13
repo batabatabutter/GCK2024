@@ -86,7 +86,7 @@ public class DungeonGenerator : MonoBehaviour
         else
         {
             m_playSceneManager.SetPlayer(pl);
-            m_playSceneManager.AddCore(co);
+            m_playSceneManager.SetCore(co);
         }
     }
 

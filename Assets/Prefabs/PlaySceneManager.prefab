@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4028424752848547877}
   - component: {fileID: 3469568166959932924}
   - component: {fileID: 792408576829412996}
+  - component: {fileID: -4963957752362924521}
   m_Layer: 0
   m_Name: PlaySceneManager
   m_TagString: Untagged
@@ -76,3 +77,32 @@ MonoBehaviour:
   m_playerLength: 20
   m_player: {fileID: 6945831396311541013, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
   m_playSceneManager: {fileID: 3469568166959932924}
+--- !u!114 &-4963957752362924521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1614570275442964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 056d818782ba6374eb284482fdafcf01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isfall: 0
+  isroll: 0
+  isbank: 0
+  SceneManager: {fileID: 3469568166959932924}
+  rockfall: {fileID: 2940951798871330703, guid: 829d86242de0c674a8b178b0f249f289, type: 3}
+  highlight: {fileID: 4708925638394852652, guid: 82994475c12be0f4da5df8587e7d4dec, type: 3}
+  attackCoolTime: 3
+  heightRock: 3
+  rollRock: {fileID: 796929451571866827, guid: e54c54e3e9cf6284b904d9e1c38277e3, type: 3}
+  highlightArrow: {fileID: 5906353031345709085, guid: 1e3c7638253476640a9e522370a172fd, type: 3}
+  up: 5
+  right: 5
+  down: 5
+  left: 5
+  bank: {fileID: 6085554247375089227, guid: 1d29c80645233fb4c94bf95ca0e1b1f3, type: 3}
+  bankHighlight: {fileID: 1067109971471968558, guid: 29f861859c529b1498a780cee08eb5fb, type: 3}
+  twiceAttackLength: 20
