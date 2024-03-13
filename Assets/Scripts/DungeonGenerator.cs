@@ -68,13 +68,25 @@ public class DungeonGenerator : MonoBehaviour
 
         //  プレイヤーの生成
         GameObject pl = Instantiate<GameObject>(m_player, m_playerPos, Quaternion.identity);
+
+        // coreの生成
+        GameObject co = Instantiate<GameObject>(m_blockCore, new Vector3(m_corePosX,m_corePosY), Quaternion.identity);
+
+        // ブロックスクリプトをつける
+        co.AddComponent<Block>();
+
+        //明るさの追加
+        if (m_isBrightness)
+            co.AddComponent<ChangeBrightness>();
+
+
         //  プレイシーンマネージャーが無かったら格納しない
         if (m_playSceneManager == null)
             Debug.Log("Error:Playerの格納に失敗 PlaySceneManagerが見つかりません:DungeonManager");
         else
         {
             m_playSceneManager.SetPlayer(pl);
-            m_playSceneManager.AddCore(m_blockCore);
+            m_playSceneManager.AddCore(co);
         }
     }
 
@@ -171,7 +183,6 @@ public class DungeonGenerator : MonoBehaviour
                 //コアを生成
                 if(m_corePosX == x + originX && m_corePosY == y + originY)
                 {
-                    MakeCore();
 
                     continue;
                 }
@@ -235,18 +246,7 @@ public class DungeonGenerator : MonoBehaviour
 
     private void MakeCore()
     {
-        // 生成座標
-        Vector3 pos = new(m_corePosX, m_corePosY, 0.0f);
 
-        // ブロックの生成
-        GameObject block = Instantiate<GameObject>(m_blockCore, pos, Quaternion.identity);
-
-        // ブロックスクリプトをつける
-        block.AddComponent<Block>();
-
-        //明るさの追加
-        if (m_isBrightness)
-            block.AddComponent<ChangeBrightness>();
 
     }
 }
