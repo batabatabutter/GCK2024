@@ -20,18 +20,14 @@ public class DungeonGenerator : MonoBehaviour
 
     [Header("核ブロック")]
     [SerializeField] private　GameObject m_blockCore;
+    [Header("岩盤ブロック")]
+    [SerializeField] private GameObject m_betRock;
 
     [Header("生成ブロック")]
     [SerializeField] private List<GameObject> m_block = null;
     [Header("生成ブロックの確率％（０～１００）（上のと同じ順番ね）")]
     [SerializeField] private List<int> m_blockOdds = null;
 
-    [Header("何の変哲もないブロック")]
-    //[SerializeField] private string m_blockNormalNum = "1";
-    [Header("岩盤ブロック")]
-    [SerializeField] private string m_blockBedrockNum = "2";
-    [Header("ダンジョンの核")]
-    [SerializeField] private string m_blockCoreNum = "3";
 
     [Header("核からプレイヤーの出現しない距離")]
     [SerializeField] private int m_playerLength = 35;
@@ -157,8 +153,17 @@ public class DungeonGenerator : MonoBehaviour
             }
         }
 
-
-
+        //岩盤で囲う
+        for(int i = 0; i < m_dungeonSizeY * 10; i++)
+        {
+            Instantiate<GameObject>(m_betRock, new Vector3(-1,i,0), Quaternion.identity);
+            Instantiate<GameObject>(m_betRock, new Vector3(m_dungeonSizeY * 10 , i,0), Quaternion.identity);
+        }
+        for (int i = 0; i < m_dungeonSizeX * 10; i++)
+        {
+            Instantiate<GameObject>(m_betRock, new Vector3(i, - 1, 0), Quaternion.identity);
+            Instantiate<GameObject>(m_betRock, new Vector3(i, m_dungeonSizeY * 10, 0), Quaternion.identity);
+        }
 
     }
 
@@ -198,24 +203,6 @@ public class DungeonGenerator : MonoBehaviour
 
                 // ブロックスクリプトをつける
                 block.AddComponent<Block>();
-
-                // 破壊不可能ブロックにする
-                if (mapList[y][x] == m_blockBedrockNum)
-                {
-                    // 分かりやすいようにとりあえず色を変える
-                    block.GetComponent<SpriteRenderer>().color = Color.gray;
-                    // 破壊不可能にする
-                    block.GetComponent<Block>().DontBroken = true;
-                }
-
-                // 核にする
-                if (mapList[y][x] == m_blockCoreNum)
-                {
-                    // 分かりやすいようにとりあえず色を変える
-                    block.GetComponent<SpriteRenderer>().color = Color.red;
-                    // ダンジョンスクリプトをつける
-                    block.AddComponent<Dungeon>();
-                }
 
                 //明るさの追加
                 if(m_isBrightness)

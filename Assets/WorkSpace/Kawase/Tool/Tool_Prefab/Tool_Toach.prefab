@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 214404663654884769}
   - component: {fileID: 1717172995422404258}
   - component: {fileID: 3160177795474188978}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Tool_Toach
-  m_TagString: Untagged
+  m_TagString: Tool
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -174,7 +174,7 @@ GameObject:
   - component: {fileID: 7117623889674087395}
   - component: {fileID: 5131432354983884679}
   - component: {fileID: 5104869285969595418}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ToachText
   m_TagString: Untagged
   m_Icon: {fileID: 0}

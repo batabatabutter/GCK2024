@@ -76,10 +76,15 @@ public class DungeonAttack : MonoBehaviour
     {
         int ratio = 1;
 
-        if (Vector2.Distance(core.transform.position, target.transform.position) < twiceAttackLength)
+        if(core != null) 
         {
-            ratio = 2;
+            if (Vector2.Distance(core.transform.position, target.transform.position) < twiceAttackLength)
+            {
+                ratio = 2;
+            }
         }
+
+
 
 
         attackCoolTime -= Time.deltaTime * ratio;
