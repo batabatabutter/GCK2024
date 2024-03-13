@@ -37,6 +37,8 @@ public class DungeonGenerator : MonoBehaviour
     [SerializeField] private int m_playerLength = 35;
     [Header("プレイヤー")]
     [SerializeField] private GameObject m_player;
+    [Header("プレイシーンマネージャー")]
+    [SerializeField] private PlaySceneManager m_playSceneManager;
 
 
     private int m_corePosX;
@@ -64,8 +66,13 @@ public class DungeonGenerator : MonoBehaviour
         m_playerPos.y > m_corePosY - m_playerLength
         );
 
-        //プレイヤーの生成
-        Instantiate<GameObject>(m_player, m_playerPos, Quaternion.identity);
+        //  プレイヤーの生成
+        GameObject pl = Instantiate<GameObject>(m_player, m_playerPos, Quaternion.identity);
+        //  プレイシーンマネージャーが無かったら格納しない
+        if (m_playSceneManager == null)
+            Debug.Log("Error:Playerの格納に失敗 PlaySceneManagerが見つかりません:DungeonManager");
+        else 
+            m_playSceneManager.SetPlayer(pl);
 
 
 
