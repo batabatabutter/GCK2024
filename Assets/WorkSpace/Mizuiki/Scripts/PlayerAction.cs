@@ -86,15 +86,19 @@ public class PlayerAction : MonoBehaviour
     }
 
 
-	Vector2 RoundHalfUp(Vector2 value)
+
+
+	// ツールを作成できるかチェック
+	//private bool CheckCreate()
+
+	// 四捨五入
+	private Vector2 RoundHalfUp(Vector2 value)
 	{
 		value.x = RoundHalfUp(value.x);
 		value.y = RoundHalfUp(value.y);
 
 		return value;
 	}
-
-	// 四捨五入
 	static float RoundHalfUp(float value)
 	{
 		// 小数点以下の取得

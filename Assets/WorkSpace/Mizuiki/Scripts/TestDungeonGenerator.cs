@@ -15,8 +15,8 @@ public class TestDungeonGenerator : MonoBehaviour
 	[Header("生成ブロック")]
 	[SerializeField] private GameObject m_block = null;
 
-	[Header("何の変哲もないブロック")]
-	[SerializeField] private string m_blockNormal = "1";
+	//[Header("何の変哲もないブロック")]
+	//[SerializeField] private string m_blockNormal = "1";
 	[Header("破壊不可能ブロック")]
 	[SerializeField] private string m_blockDontBroken = "2";
 	[Header("ダンジョンの核")]
