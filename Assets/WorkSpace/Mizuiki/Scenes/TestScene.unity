@@ -152,13 +152,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8beeff47756d2a345992583b10fca279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_dungeonPath: Assets/DungeonData/Test.csv
+  m_isBrightness: 0
+  m_dungeonPath: []
   m_dungeonSizeX: 10
   m_dungeonSizeY: 10
-  m_block: {fileID: 3457520386420079125, guid: cbe61a2527b59f44ea88ed42d8cd8019, type: 3}
-  m_blockNormal: 1
-  m_blockBedrock: 2
-  m_blockCore: 3
+  m_blockCore: {fileID: 0}
+  m_block:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  m_blockOdds: 
+  m_blockBedrockNum: 2
+  m_blockCoreNum: 3
+  m_playerLength: 35
+  m_player: {fileID: 1763385150}
 --- !u!4 &75050969
 Transform:
   m_ObjectHideFlags: 0
@@ -251,12 +258,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 125756895}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1763385159}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &662870470
 GameObject:
@@ -4907,6 +4914,7 @@ Transform:
   - {fileID: 1628027605}
   - {fileID: 742604574}
   - {fileID: 1524950900}
+  - {fileID: 125756897}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1763385160
@@ -5221,7 +5229,6 @@ SceneRoots:
   - {fileID: 75050969}
   - {fileID: 1177904971}
   - {fileID: 5501758514482417992}
-  - {fileID: 125756897}
   - {fileID: 2241462577702043014}
   - {fileID: 1095563885}
   - {fileID: 7317692424390598243}
