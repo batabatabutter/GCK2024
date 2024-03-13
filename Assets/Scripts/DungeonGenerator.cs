@@ -72,7 +72,10 @@ public class DungeonGenerator : MonoBehaviour
         if (m_playSceneManager == null)
             Debug.Log("Error:Player‚ÌŠi”[‚ÉŽ¸”s PlaySceneManager‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ:DungeonManager");
         else
+        {
             m_playSceneManager.SetPlayer(pl);
+            m_playSceneManager.AddCore(m_blockCore);
+        }
     }
 
 

@@ -54,24 +54,35 @@ public class DungeonAttack : MonoBehaviour
     [Header("“yèƒnƒCƒ‰ƒCƒg")]
     [SerializeField] GameObject bankHighlight;
 
+    [Header("core‚ÌUŒ‚ŠÔŠu‚ª‚Q”{‚É‚È‚é‹——£")]
+    [SerializeField] float twiceAttackLength = 20;
+
 
     float keepCoolTime;
 
     GameObject target;
-    GameObject core;
+    List<GameObject> core;
 
     // Start is called before the first frame update
     void Start()
     {
         target = SceneManager.GetPlayer();
-        core = SceneManager.GetPlayer();
+        core = SceneManager.GetCores();
         keepCoolTime = attackCoolTime;
     }
 
     // Update is called once per frame
     void Update()
     {
-        attackCoolTime -= Time.deltaTime;
+        int ratio = 1;
+
+        if (Vector2.Distance(core[0].transform.position, target.transform.position) < twiceAttackLength)
+        {
+            ratio = 2;
+        }
+
+
+        attackCoolTime -= Time.deltaTime * ratio;
         if (attackCoolTime < 0.0f)
         {
             if(isfall)
