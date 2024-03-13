@@ -53,6 +53,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChangeTool"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""804873ef-d72f-4982-b573-455b65ee323a"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -187,6 +196,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Put"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e411b145-62fd-47c8-abfc-25a236b1c41b"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeTool"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -198,6 +218,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_Put = m_Player.FindAction("Put", throwIfNotFound: true);
+        m_Player_ChangeTool = m_Player.FindAction("ChangeTool", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -262,6 +283,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Attack;
     private readonly InputAction m_Player_Put;
+    private readonly InputAction m_Player_ChangeTool;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
@@ -269,6 +291,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
         public InputAction @Put => m_Wrapper.m_Player_Put;
+        public InputAction @ChangeTool => m_Wrapper.m_Player_ChangeTool;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -287,6 +310,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Put.started += instance.OnPut;
             @Put.performed += instance.OnPut;
             @Put.canceled += instance.OnPut;
+            @ChangeTool.started += instance.OnChangeTool;
+            @ChangeTool.performed += instance.OnChangeTool;
+            @ChangeTool.canceled += instance.OnChangeTool;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -300,6 +326,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Put.started -= instance.OnPut;
             @Put.performed -= instance.OnPut;
             @Put.canceled -= instance.OnPut;
+            @ChangeTool.started -= instance.OnChangeTool;
+            @ChangeTool.performed -= instance.OnChangeTool;
+            @ChangeTool.canceled -= instance.OnChangeTool;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -322,5 +351,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnPut(InputAction.CallbackContext context);
+        void OnChangeTool(InputAction.CallbackContext context);
     }
 }
