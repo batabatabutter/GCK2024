@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 [System.Serializable]
 [CreateAssetMenu(fileName = "ToolData", menuName = "CreateTool")]
 public class ToolData : ScriptableObject
 {
+	[System.Serializable]
 	public enum ToolType
 	{
 		TOACH,      // èºñæ
@@ -31,9 +31,3 @@ public class ToolData : ScriptableObject
 
 }
 
-
-[CreateAssetMenu(fileName = "ToolDataBase", menuName = "CreateToolDataBase")]
-public class ToolDataBase : ScriptableObject
-{
-    public List<ToolData> tool;
-}

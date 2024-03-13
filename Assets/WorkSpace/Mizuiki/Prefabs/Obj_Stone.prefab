@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8923061598894499662}
   m_Layer: 3
   m_Name: Obj_Stone
-  m_TagString: Untagged
+  m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -147,3 +147,4 @@ MonoBehaviour:
   m_dontBroken: 0
   m_dropItems:
   - {fileID: 5596305664108361481, guid: da17de7a18f417a468be75cebbc0ee57, type: 3}
+  m_lightLevel: 0

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2078480155886360755}
   m_Layer: 3
   m_Name: Obj_Coal
-  m_TagString: Untagged
+  m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -147,3 +147,4 @@ MonoBehaviour:
   m_dontBroken: 0
   m_dropItems:
   - {fileID: 5605254278718640997, guid: bf9d9ee9ef48341449128b47692aafaa, type: 3}
+  m_lightLevel: 0

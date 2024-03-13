@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: bd685e50efbec76449a8b63327da61c4, type: 3}
   m_Name: ToolDataBase
   m_EditorClassIdentifier: Assembly-CSharp-Editor::ToolDataBase
   tool:
-  - {fileID: 11400000, guid: bd97cbf9e453acf4d8fefef89f29fc95, type: 2}
+  - {fileID: 11400000, guid: afed5e5373016584fb66eeb4614dca4c, type: 2}
   - {fileID: 11400000, guid: c7bdb39777dac3e478d1cdfe923d30b8, type: 2}

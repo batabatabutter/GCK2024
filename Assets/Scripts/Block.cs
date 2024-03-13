@@ -13,7 +13,7 @@ public class Block : MonoBehaviour
     [Header("ドロップするアイテム")]
     [SerializeField] private List<GameObject> m_dropItems = new List<GameObject>();
 
-    [Header("光源レベル")]
+    [Header("自分自身の光源レベル")]
     [SerializeField] private int m_lightLevel = 0;
 
 

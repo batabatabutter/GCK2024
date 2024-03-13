@@ -48,5 +48,12 @@ public class PlayerController : MonoBehaviour
 			m_playerAction.Put();
 		}
 
+		// ƒc[ƒ‹•ÏX
+		int scroll = (int)m_controls.Player.ChangeTool.ReadValue<float>() / 120;
+		if (scroll != 0)
+		{
+			m_playerAction.ChangeTool(scroll);
+		}
+
 	}
 }
