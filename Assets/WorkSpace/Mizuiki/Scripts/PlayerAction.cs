@@ -15,9 +15,12 @@ public class PlayerAction : MonoBehaviour
 	[Header("設置アイテム")]
 	[SerializeField] private GameObject[] m_putItems;
 
+	[Header("レイヤーマスク")]
+	[SerializeField] private LayerMask m_layerMask;
 
-    // Start is called before the first frame update
-    void Start()
+
+	// Start is called before the first frame update
+	void Start()
     {
         
     }
@@ -33,39 +36,36 @@ public class PlayerAction : MonoBehaviour
 
 		// プレイヤーの位置からマウスの位置へのベクトル
 		Vector2 playerToMouse = mousePos - playerPos;
+		// 距離を取得しておく
+		float length = playerToMouse.magnitude;
 		// ベクトル正規化
 		playerToMouse.Normalize();
 		// プレイヤーから採掘方向へのRayCast
-		RaycastHit2D rayCast = Physics2D.Raycast(playerPos, playerToMouse, m_itemSettingRange);
+		RaycastHit2D rayCast = Physics2D.Raycast(playerPos, playerToMouse, length, m_layerMask);
 
-		//mousePos.x = RoundHalfUp(rayCast.point.x);
-		//mousePos.y = RoundHalfUp(rayCast.point.y);
-
-		// 四捨五入する
-		mousePos.x = RoundHalfUp(mousePos.x);
-		mousePos.y = RoundHalfUp(mousePos.y);
+		// ブロックに当たった
+		if (rayCast)
+		{
+			// 埋まり防止で当たった面の法線方向に 0.1 加算する
+			mousePos = rayCast.point + (rayCast.normal * new Vector2(0.1f, 0.1f));
+		}
 
 		// プレイヤーとマウスカーソルの位置が設置範囲内
 		if (Vector2.Distance(playerPos, mousePos) < m_itemSettingRange)
 		{
 			// 四捨五入する
-			mousePos.x = RoundHalfUp(mousePos.x);
-			mousePos.y = RoundHalfUp(mousePos.y);
+			mousePos = RoundHalfUp(mousePos);
 
+			// ツールの設置位置をマウスカーソルの位置にする
 			m_cursorImage.transform.position = mousePos;
 		}
 		else
 		{
-			//// プレイヤーの位置からマウスの位置へのベクトル
-			//Vector2 playerToMouse = mousePos - playerPos;
-			//// ベクトル正規化
-			//playerToMouse.Normalize();
-
+			// 届く最大範囲に設定
 			mousePos = playerPos + (playerToMouse * m_itemSettingRange);
 
 			// 四捨五入する
-			mousePos.x = RoundHalfUp(mousePos.x);
-			mousePos.y = RoundHalfUp(mousePos.y);
+			mousePos = RoundHalfUp(mousePos);
 
 			// アイテムの設置位置
 			m_cursorImage.transform.position = mousePos;
@@ -73,9 +73,12 @@ public class PlayerAction : MonoBehaviour
 
 	}
 
-
+	// ツール設置
 	public void Put()
     {
+		// 選択されているアイテムが作成できるか
+		//if (!CheckCreate(作りたいアイテムの種類))
+
 		// アイテムを置く
 		GameObject tool = Instantiate(m_putItems[0]);
 		// 座標設定
@@ -83,20 +86,28 @@ public class PlayerAction : MonoBehaviour
     }
 
 
+	Vector2 RoundHalfUp(Vector2 value)
+	{
+		value.x = RoundHalfUp(value.x);
+		value.y = RoundHalfUp(value.y);
+
+		return value;
+	}
+
 	// 四捨五入
-	static float RoundHalfUp(float num)
+	static float RoundHalfUp(float value)
 	{
 		// 小数点以下の取得
-		float fraction = num - MathF.Floor(num);
+		float fraction = value - MathF.Floor(value);
 
 		// 小数点以下が0.5未満
 		if (fraction < 0.5f)
 		{
 			// 切り捨てる
-			return MathF.Floor(num);
+			return MathF.Floor(value);
 		}
 		// 切り上げる
-		return MathF.Floor(num) + 1.0f;
+		return MathF.Floor(value) + 1.0f;
 
 	}
 

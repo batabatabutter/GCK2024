@@ -13,6 +13,9 @@ public class Block : MonoBehaviour
     [Header("ドロップするアイテム")]
     [SerializeField] private List<GameObject> m_dropItems = new List<GameObject>();
 
+    [Header("光源レベル")]
+    [SerializeField] private int m_lightLevel = 0;
+
 
     // Start is called before the first frame update
     void Start()
@@ -82,11 +85,17 @@ public class Block : MonoBehaviour
 	}
 
 
-
+    // 破壊不可能か
 	public bool DontBroken
     {
         get { return m_dontBroken; }
         set { m_dontBroken = value; }
+    }
+
+    // 光源レベル
+    public int LightLevel
+    {
+        get { return m_lightLevel; }
     }
 
 }

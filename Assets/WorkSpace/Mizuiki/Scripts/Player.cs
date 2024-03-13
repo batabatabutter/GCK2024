@@ -28,4 +28,11 @@ public class Player : MonoBehaviour
         m_life -= damage;
     }
 
+
+
+
+    public int HitPoint
+    {
+        get { return m_life; }
+    }
 }
