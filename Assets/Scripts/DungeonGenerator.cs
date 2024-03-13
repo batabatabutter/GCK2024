@@ -47,8 +47,8 @@ public class DungeonGenerator : MonoBehaviour
     private Vector2 m_playerPos;
 
 
-    // Start is called before the first frame update
-    void Start()
+
+    private void Awake()
     {
         m_corePosX = Random.Range(0, m_dungeonSizeX * 10);
         m_corePosY = Random.Range(0, m_dungeonSizeY * 10);
@@ -56,11 +56,11 @@ public class DungeonGenerator : MonoBehaviour
         //プレイヤーとコアの位置が離れるまで繰り返す
         do
         {
-            m_playerPos = new Vector2(Random.Range(0,m_dungeonSizeX * 10), Random.Range(0, m_dungeonSizeY * 10));
+            m_playerPos = new Vector2(Random.Range(0, m_dungeonSizeX * 10), Random.Range(0, m_dungeonSizeY * 10));
 
-        } 
+        }
         while (
-        m_playerPos.x < m_corePosX + m_playerLength && 
+        m_playerPos.x < m_corePosX + m_playerLength &&
         m_playerPos.x > m_corePosX - m_playerLength &&
         m_playerPos.y < m_corePosY + m_playerLength &&
         m_playerPos.y > m_corePosY - m_playerLength
@@ -71,8 +71,15 @@ public class DungeonGenerator : MonoBehaviour
         //  プレイシーンマネージャーが無かったら格納しない
         if (m_playSceneManager == null)
             Debug.Log("Error:Playerの格納に失敗 PlaySceneManagerが見つかりません:DungeonManager");
-        else 
+        else
             m_playSceneManager.SetPlayer(pl);
+    }
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
 
 
 

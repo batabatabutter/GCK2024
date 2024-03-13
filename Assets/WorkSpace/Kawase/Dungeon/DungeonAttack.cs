@@ -22,8 +22,8 @@ public class DungeonAttack : MonoBehaviour
 
     [Header("--------------------------------------------")]
 
-    [Header("プレイヤー")]
-    [SerializeField] GameObject target;
+    [Header("シーンマネージャー")]
+    [SerializeField] PlaySceneManager SceneManager;
     [Header("--------------------------------------------")]
 
     [Header("落石")]
@@ -57,9 +57,14 @@ public class DungeonAttack : MonoBehaviour
 
     float keepCoolTime;
 
+    GameObject target;
+    GameObject core;
+
     // Start is called before the first frame update
     void Start()
     {
+        target = SceneManager.GetPlayer();
+        core = SceneManager.GetPlayer();
         keepCoolTime = attackCoolTime;
     }
 
