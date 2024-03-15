@@ -20,6 +20,10 @@ public class DungeonAttack : MonoBehaviour
     [SerializeField] bool isroll;
     [SerializeField] bool isbank;
 
+    [Header("攻撃間隔")]
+    [SerializeField] float attackCoolTime = 1.0f;
+
+
     [Header("--------------------------------------------")]
 
     [Header("シーンマネージャー")]
@@ -30,8 +34,6 @@ public class DungeonAttack : MonoBehaviour
     [SerializeField] GameObject rockfall;
     [Header("ハイライト")]
     [SerializeField] GameObject highlight;
-    [Header("攻撃間隔")]
-    [SerializeField] float attackCoolTime = 1.0f;
     [Header("落石の生成する高さ")]
     public float heightRock = 3.0f;
     [Header("--------------------------------------------")]
@@ -76,6 +78,7 @@ public class DungeonAttack : MonoBehaviour
     {
         int ratio = 1;
 
+        //coreとプレイヤーが近いとコウゲキが2倍
         if(core != null) 
         {
             if (Vector2.Distance(core.transform.position, target.transform.position) < twiceAttackLength)
@@ -86,17 +89,44 @@ public class DungeonAttack : MonoBehaviour
 
 
 
-
+        //クールタイム減少
         attackCoolTime -= Time.deltaTime * ratio;
+
         if (attackCoolTime < 0.0f)
         {
-            if(isfall)
-                FallrockAttack();
-            if(isroll)
-                RockRollingAttack();
-            if(isbank)
-                BankAttack();
+            //コウゲキしたかどうか
+            bool checkAttacked = false;
+            //無限ループよけ
+            int outNum = 100;
+            //コウゲキしなかった場合再抽選
+            while (!checkAttacked)
+            {
+                //マジックナンバーで行かして頂きまs
+                int r = Random.Range(0, 3);
 
+                if (isfall && r == 0)
+                {
+                    FallrockAttack();
+                    checkAttacked = true;
+                }
+
+                if (isroll && r == 1)
+                {
+                    RockRollingAttack();
+                    checkAttacked = true;
+                }
+                if (isbank && r == 2)
+                {
+                    BankAttack();
+                    checkAttacked = true;
+                }
+
+                outNum--;
+                //全てのコウゲキがoffだとここにはいるかな
+                if (outNum < 0)
+                    break;
+            }
+            //クールタイムリセット
             attackCoolTime = keepCoolTime;
         }
     }

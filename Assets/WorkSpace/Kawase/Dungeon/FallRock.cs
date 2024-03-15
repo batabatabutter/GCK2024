@@ -7,6 +7,8 @@ public class FallRock : MonoBehaviour
 {
     [Header("—‰º‚Ü‚Å‚ÌŠÔ")]
     public float fallTime = 3.0f;
+    [Header("UŒ‚—Í")]
+    public int damage = 1;
 
     Rigidbody2D rd;
 
@@ -62,7 +64,10 @@ public class FallRock : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            collision.GetComponent<Player>().AddDamage(damage);
+
             Destroy(gameObject);
+
         }
         if (collision.gameObject.GetComponent<Highlight>())
         {

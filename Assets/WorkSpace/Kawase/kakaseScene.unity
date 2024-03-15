@@ -758,10 +758,10 @@ MonoBehaviour:
   isfall: 0
   isroll: 0
   isbank: 0
+  attackCoolTime: 3
   SceneManager: {fileID: 0}
   rockfall: {fileID: 2940951798871330703, guid: 829d86242de0c674a8b178b0f249f289, type: 3}
   highlight: {fileID: 4708925638394852652, guid: 82994475c12be0f4da5df8587e7d4dec, type: 3}
-  attackCoolTime: 3
   heightRock: 3
   rollRock: {fileID: 796929451571866827, guid: e54c54e3e9cf6284b904d9e1c38277e3, type: 3}
   highlightArrow: {fileID: 5906353031345709085, guid: 1e3c7638253476640a9e522370a172fd, type: 3}
@@ -5441,6 +5441,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4963957752362924521, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
+      propertyPath: isbank
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4963957752362924521, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
+      propertyPath: isfall
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4963957752362924521, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
+      propertyPath: isroll
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1614570275442964, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
       propertyPath: m_Name
       value: PlaySceneManager
