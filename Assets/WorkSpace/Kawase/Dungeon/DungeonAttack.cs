@@ -97,7 +97,7 @@ public class DungeonAttack : MonoBehaviour
             //コウゲキしたかどうか
             bool checkAttacked = false;
             //無限ループよけ
-            int outNum = 100;
+            int outNum = 10;
             //コウゲキしなかった場合再抽選
             while (!checkAttacked)
             {
