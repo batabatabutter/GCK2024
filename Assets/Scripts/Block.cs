@@ -46,22 +46,6 @@ public class Block : MonoBehaviour
         }
     }
 
-
-	// ブロックが壊れた
-	private void BrokenBlock()
-    {
-        // 破壊不可能ブロックの場合は処理しない
-        if (m_dontBroken)
-            return;
-
-        // アイテムドロップ
-        DropItem();
-
-        // 自身を削除
-        Destroy(gameObject);
-
-    }
-
 	// アイテムドロップ
 	public virtual void DropItem(int count = 1)
 	{
@@ -85,7 +69,25 @@ public class Block : MonoBehaviour
 	}
 
 
-    // 破壊不可能か
+
+	// ブロックが壊れた
+	private void BrokenBlock()
+	{
+		// 破壊不可能ブロックの場合は処理しない
+		if (m_dontBroken)
+			return;
+
+		// アイテムドロップ
+		DropItem();
+
+		// 自身を削除
+		Destroy(gameObject);
+
+	}
+
+
+
+	// 破壊不可能か
 	public bool DontBroken
     {
         get { return m_dontBroken; }
