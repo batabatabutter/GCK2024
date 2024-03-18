@@ -48,10 +48,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e070e00901a175c42afbb0ce63b34263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_player: {fileID: 0}
+  m_playSceneManager: {fileID: 0}
   m_hpGauge: {fileID: 2931680946444245467, guid: 9798de4075a6565409e84d9034e9de34, type: 3}
   m_hpGaugeFrame: {fileID: 8665028369590500168, guid: c7f5a899ea4bcb04786ecc34a9301dbf, type: 3}
   m_hpOffset: {x: 10, y: 0}
   m_debug: 0
-  m_maxHP: 5
-  m_nowHP: 5
+  m_debugMaxHP: 5
+  m_debugNowHP: 5

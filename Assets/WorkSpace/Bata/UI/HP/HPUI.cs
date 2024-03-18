@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class HPUI : MonoBehaviour
 {
@@ -20,8 +22,8 @@ public class HPUI : MonoBehaviour
     //  デバッグ用
     [Header("デバッグ用")]
     public bool m_debug = false;
-    public int m_maxHP;
-    public int m_nowHP;
+    public int m_debugMaxHP;
+    public int m_debugNowHP;
 
     //  HP格納
     private List<GameObject> m_hpGaugeObject = new List<GameObject>();
@@ -42,7 +44,7 @@ public class HPUI : MonoBehaviour
 
         //  攻撃
         int val = 0;
-        if (m_debug) val = m_maxHP;
+        if (m_debug) val = m_debugMaxHP;
         else val = m_player.GetComponent<Player>().HitPoint;
 
         //  UI生成
@@ -69,32 +71,46 @@ public class HPUI : MonoBehaviour
         //  HP状態を参照しゲージ変化
         int hpVal = 0;
         int maxHpVal = 0;
-        if (m_debug)
+        //if (m_debug)
+        //{
+        //    hpVal = m_debugNowHP;
+        //    maxHpVal = m_debugMaxHP;
+        //}
+        //else
         {
-            hpVal = m_nowHP;
-            maxHpVal = m_maxHP;
+            hpVal = m_player.GetComponent<Player>().HitPoint;
+            maxHpVal = 5;
         }
-        else
+
+        //  UI破壊
+        foreach (var hpUI in m_hpGaugeObject)
         {
-            hpVal = m_player.GetHashCode();
-            maxHpVal = m_player.GetHashCode();
+            Destroy(hpUI);
         }
+        m_hpGaugeObject.Clear();
+
         //  UI変化
+        //  生成位置
+        Vector2 size = m_hpGaugeFrame.GetComponent<RectTransform>().sizeDelta;
+        Vector3 pos;
         for (int i = 0; i < maxHpVal; i++)
         {
             //  体力に応じてUI表示
-            if (i < hpVal) m_hpGaugeObject[i].SetActive(true);
-            else m_hpGaugeObject[i].SetActive(false);
+            //  座標
+            pos = new Vector3((size.x + m_hpOffset.x) * i, 0.0f) + transform.position;
+            //  UI生成
+            GameObject frame = Instantiate(m_hpGaugeFrame, pos, Quaternion.identity, transform);
+            //  HPがあれば色付き
+            if (i < hpVal) frame = Instantiate(m_hpGauge, pos, Quaternion.identity, frame.transform);
+            m_hpGaugeObject.Add(frame);
         }
         
         //  デバッグ状態
         if (m_debug)
         {
-            Debug.Log("HP:" + hpVal);
-
             //  体力増減
-            if (Input.GetKeyDown(KeyCode.Q)) m_nowHP = Mathf.Max(m_nowHP - 1, 0);
-            if (Input.GetKeyDown(KeyCode.W)) m_nowHP = Mathf.Min(m_nowHP + 1, m_maxHP);
+            if (Input.GetKeyDown(KeyCode.Q)) m_player.GetComponent<Player>().AddDamage(1);
+            if (Input.GetKeyDown(KeyCode.W)) m_player.GetComponent<Player>().AddDamage(-1);
         }
 
     }
