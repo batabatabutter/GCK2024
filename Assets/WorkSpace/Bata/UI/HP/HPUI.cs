@@ -43,7 +43,7 @@ public class HPUI : MonoBehaviour
         //  çUåÇ
         int val = 0;
         if (m_debug) val = m_maxHP;
-        else val = m_player.GetHashCode();
+        else val = m_player.GetComponent<Player>().HitPoint;
 
         //  UIê∂ê¨
         //  ê∂ê¨à íu
