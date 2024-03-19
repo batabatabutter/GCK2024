@@ -53,9 +53,6 @@ public class Bomb : MonoBehaviour
             // ƒŒƒCƒ„[‚ğ Block ˆÈŠO‚É‚·‚é
             gameObject.layer = 0;
 
-            // ”š”­ó‘Ô‚É‚·‚é
-            m_isExplosion = true;
-
         }
         // ”š”­Œã
         else if (m_isExplosion)
@@ -80,7 +77,9 @@ public class Bomb : MonoBehaviour
             block.AddMiningDamage(m_explosionPower);
         }
 
-		
+		// ”š”­ó‘Ô‚É‚·‚é
+		m_isExplosion = true;
+
 	}
 
 }
