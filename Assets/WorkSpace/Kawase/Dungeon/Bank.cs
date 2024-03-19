@@ -49,11 +49,13 @@ public class Bank : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Player")
+        if (collision.gameObject.tag == "Player" && !collision.isTrigger)
         {
             collision.GetComponent<Player>().AddDamage(damage);
 
             Destroy(gameObject);
         }
+
+
     }
 }

@@ -42,10 +42,12 @@ public class DungeonGenerator : MonoBehaviour
 
     private Vector2 m_playerPos;
 
-
+    GameObject parent;
 
     private void Awake()
     {
+        parent = new GameObject("Blocks");
+
         m_corePosX = Random.Range(0, m_dungeonSizeX * 10);
         m_corePosY = Random.Range(0, m_dungeonSizeY * 10);
 
@@ -65,8 +67,12 @@ public class DungeonGenerator : MonoBehaviour
         //  プレイヤーの生成
         GameObject pl = Instantiate<GameObject>(m_player, m_playerPos, Quaternion.identity);
 
+        pl.transform.parent = parent.transform;
+
         // coreの生成
         GameObject co = Instantiate<GameObject>(m_blockCore, new Vector3(m_corePosX,m_corePosY), Quaternion.identity);
+
+        co.transform.parent = parent.transform;
 
         // ブロックスクリプトをつける
         co.AddComponent<Block>();
@@ -90,11 +96,6 @@ public class DungeonGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-
-
-
-
         //１０＊１０のリスト管理用
         List<List<List<string>>> mapListManager = new List<List<List<string>>>();
 
@@ -153,16 +154,32 @@ public class DungeonGenerator : MonoBehaviour
             }
         }
 
+
+        GameObject betRock;
+
         //岩盤で囲う
-        for(int i = 0; i < m_dungeonSizeY * 10; i++)
+        for (int i = 0; i < m_dungeonSizeY * 10; i++)
         {
-            Instantiate<GameObject>(m_betRock, new Vector3(-1,i,0), Quaternion.identity);
-            Instantiate<GameObject>(m_betRock, new Vector3(m_dungeonSizeY * 10 , i,0), Quaternion.identity);
+            betRock = Instantiate<GameObject>(m_betRock, new Vector3(-1, i, 0), Quaternion.identity);
+
+            betRock.transform.parent = parent.transform;
+
+
+            betRock = Instantiate<GameObject>(m_betRock, new Vector3(m_dungeonSizeY * 10 , i,0), Quaternion.identity);
+
+            betRock.transform.parent = parent.transform;
+
+
+
         }
         for (int i = 0; i < m_dungeonSizeX * 10; i++)
         {
-            Instantiate<GameObject>(m_betRock, new Vector3(i, - 1, 0), Quaternion.identity);
-            Instantiate<GameObject>(m_betRock, new Vector3(i, m_dungeonSizeY * 10, 0), Quaternion.identity);
+            betRock = Instantiate<GameObject>(m_betRock, new Vector3(i, - 1, 0), Quaternion.identity);
+            betRock.transform.parent = parent.transform;
+
+            betRock = Instantiate<GameObject>(m_betRock, new Vector3(i, m_dungeonSizeY * 10, 0), Quaternion.identity);
+            betRock.transform.parent = parent.transform;
+
         }
 
     }
@@ -200,6 +217,8 @@ public class DungeonGenerator : MonoBehaviour
 
                 // ブロックの生成
                 GameObject block = Instantiate<GameObject>(m_block[LotteryBlock(m_blockOdds)], pos, Quaternion.identity);
+
+                block.transform.parent = parent.transform;
 
                 // ブロックスクリプトをつける
                 block.AddComponent<Block>();
