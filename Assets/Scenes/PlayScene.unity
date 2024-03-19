@@ -135,6 +135,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ItemUI
       objectReference: {fileID: 0}
+    - target: {fileID: 4981707714495211980, guid: 25661548151c3e245a0ab158221c3de3, type: 3}
+      propertyPath: m_playSceneManager
+      value: 
+      objectReference: {fileID: 2076153395}
     - target: {fileID: 5005554799936372285, guid: 25661548151c3e245a0ab158221c3de3, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -197,11 +201,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5005554799936372285, guid: 25661548151c3e245a0ab158221c3de3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 780
       objectReference: {fileID: 0}
     - target: {fileID: 5005554799936372285, guid: 25661548151c3e245a0ab158221c3de3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 480
       objectReference: {fileID: 0}
     - target: {fileID: 5005554799936372285, guid: 25661548151c3e245a0ab158221c3de3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
