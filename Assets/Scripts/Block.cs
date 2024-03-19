@@ -16,6 +16,9 @@ public class Block : MonoBehaviour
     [Header("自分自身の光源レベル")]
     [SerializeField] private int m_lightLevel = 0;
 
+    // ブロックが破壊されている
+    private bool m_isBroken = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -77,11 +80,16 @@ public class Block : MonoBehaviour
 		if (m_dontBroken)
 			return;
 
+        // すでに破壊されている
+        if (m_isBroken)
+            return;
+
 		// アイテムドロップ
 		DropItem();
 
 		// 自身を削除
 		Destroy(gameObject);
+        m_isBroken = true;
 
 	}
 

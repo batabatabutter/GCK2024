@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_itemType: 0
-  m_count: 0
+  m_count: 1
 --- !u!58 &3236082554846926467
 CircleCollider2D:
   m_ObjectHideFlags: 0
