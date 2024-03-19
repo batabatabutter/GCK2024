@@ -24,6 +24,12 @@ public class Item : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // リジッドボディがなければつける
+        if (GetComponent<Rigidbody2D>() == null)
+        {
+            Rigidbody2D rigidbody = gameObject.AddComponent<Rigidbody2D>();
+            rigidbody.isKinematic = true;
+        }
 
     }
 
@@ -54,23 +60,68 @@ public class Item : MonoBehaviour
     /// <returns>拾う数</returns>
     public int Picup(int count)
     {
-        // 全て拾える
-        if (m_count <= count)
+        // 拾う数
+		int picUpCount = m_count;
+
+		// 全て拾える
+		if (m_count <= count)
         {
             m_count = 0;
-            return m_count;
         }
         else
         {
             // 拾えるだけ拾う
             m_count -= count;
-            return count;
+            picUpCount = count;
         }
+
+        // 拾う数を返す
+        return picUpCount;
+    }
+
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+        // アイテムに当たった
+		if (collision.CompareTag("Item"))
+        {
+            MargeItem(collision.GetComponent<Item>());
+            return;
+        }
+
+        // プレイヤーに当たった
+        if (collision.CompareTag("Player"))
+        {
+
+            return;
+        }
+	}
+
+
+    // アイテムをくっつける
+    void MargeItem(Item item)
+    {
+        // アイテムスクリプトが存在しない
+        if (item == null)
+            return;
+
+        // アイテムの種類が違う
+        if (item.ItemType != m_itemType)
+            return;
+
+        // スタック数が 0 以下
+        if (m_count <= 0)
+            return;
+
+        // くっつける
+        m_count += item.Count;
+
+        // くっつけたアイテムを削除
+        item.Count = 0;
 
     }
 
 
-    public Type ItemType
+	public Type ItemType
     {
         get { return m_itemType; }
     }
@@ -78,5 +129,6 @@ public class Item : MonoBehaviour
     public int Count
     {
         get { return m_count; }
+        set { m_count = value; }
     }
 }

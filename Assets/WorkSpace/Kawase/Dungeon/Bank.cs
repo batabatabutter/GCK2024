@@ -8,6 +8,9 @@ public class Bank : MonoBehaviour
     [SerializeField] float attackTime = 3.0f;
     [Header("ÉRÉEÉQÉLå„è¡ñ≈Ç‹Ç≈ÇÃéûä‘")]
     [SerializeField] float destroyTime = 3.0f;
+    [Header("çUåÇóÕ")]
+    public int damage = 1;
+
 
     float y = 0;
 
@@ -46,9 +49,13 @@ public class Bank : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Player")
+        if (collision.gameObject.tag == "Player" && !collision.isTrigger)
         {
+            collision.GetComponent<Player>().AddDamage(damage);
+
             Destroy(gameObject);
         }
+
+
     }
 }

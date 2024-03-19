@@ -11,6 +11,8 @@ public class RollRock : MonoBehaviour
     [SerializeField] float destroyTime = 10.0f;
     [Header("ë¨ìxÅim/sÅj")]
     [SerializeField] float speed = 5.0f;
+    [Header("çUåÇóÕ")]
+    public int damage = 1;
 
     int rota;
 
@@ -81,10 +83,14 @@ public class RollRock : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Player")
+        if (collision.gameObject.tag == "Player" && !collision.isTrigger)
         {
+            collision.GetComponent<Player>().AddDamage(damage);
+
             Destroy(gameObject);
         }
+
+
     }
 
 

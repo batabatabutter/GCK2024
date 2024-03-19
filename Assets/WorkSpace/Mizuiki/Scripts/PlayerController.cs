@@ -37,15 +37,22 @@ public class PlayerController : MonoBehaviour
 		m_playerMove.MovePlayer(velocity);
 
 		// 採掘
-		if (m_controls.Player.Attack.IsPressed())
+		if (m_controls.Player.Attack.IsPressed())		// 押されてる間
 		{
 			m_playerMining.Mining();
 		}
 
 		// 設置
-		if (m_controls.Player.Put.IsPressed())
+		if (m_controls.Player.Put.WasPressedThisFrame())	// 押した瞬間
 		{
 			m_playerAction.Put();
+		}
+
+		// ツール変更
+		int scroll = (int)m_controls.Player.ChangeTool.ReadValue<float>() / 120;
+		if (scroll != 0)
+		{
+			m_playerAction.ChangeTool(scroll);
 		}
 
 	}

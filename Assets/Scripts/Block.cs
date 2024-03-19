@@ -13,6 +13,12 @@ public class Block : MonoBehaviour
     [Header("ドロップするアイテム")]
     [SerializeField] private List<GameObject> m_dropItems = new List<GameObject>();
 
+    [Header("自分自身の光源レベル")]
+    [SerializeField] private int m_lightLevel = 0;
+
+    // ブロックが破壊されている
+    private bool m_isBroken = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -43,22 +49,6 @@ public class Block : MonoBehaviour
         }
     }
 
-
-	// ブロックが壊れた
-	private void BrokenBlock()
-    {
-        // 破壊不可能ブロックの場合は処理しない
-        if (m_dontBroken)
-            return;
-
-        // アイテムドロップ
-        DropItem();
-
-        // 自身を削除
-        Destroy(gameObject);
-
-    }
-
 	// アイテムドロップ
 	public virtual void DropItem(int count = 1)
 	{
@@ -67,6 +57,9 @@ public class Block : MonoBehaviour
             // アイテムのゲームオブジェクトを生成
             GameObject obj = Instantiate(dropItem);
             obj.transform.position = transform.position;
+
+            // 明るさの概念を追加
+            obj.AddComponent<ChangeBrightness>();
 
             // アイテムがドロップしたときの処理
             if (obj.TryGetComponent(out Item item))
@@ -80,10 +73,39 @@ public class Block : MonoBehaviour
 
 
 
+	// ブロックが壊れた
+	private void BrokenBlock()
+	{
+		// 破壊不可能ブロックの場合は処理しない
+		if (m_dontBroken)
+			return;
+
+        // すでに破壊されている
+        if (m_isBroken)
+            return;
+
+		// アイテムドロップ
+		DropItem();
+
+		// 自身を削除
+		Destroy(gameObject);
+        m_isBroken = true;
+
+	}
+
+
+
+	// 破壊不可能か
 	public bool DontBroken
     {
         get { return m_dontBroken; }
         set { m_dontBroken = value; }
+    }
+
+    // 光源レベル
+    public int LightLevel
+    {
+        get { return m_lightLevel; }
     }
 
 }

@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1614570275442964
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4028424752848547877}
+  - component: {fileID: 3469568166959932924}
+  - component: {fileID: 792408576829412996}
+  - component: {fileID: -4963957752362924521}
+  m_Layer: 0
+  m_Name: PlaySceneManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4028424752848547877
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1614570275442964}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3469568166959932924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1614570275442964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73846488ec25410479abd5b18083eed4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &792408576829412996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1614570275442964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8beeff47756d2a345992583b10fca279, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_isBrightness: 0
+  m_dungeonPath:
+  - Assets/DungeonData/DungeonPattern_01.csv
+  - Assets/DungeonData/DungeonPattern_02.csv
+  - Assets/DungeonData/DungeonPattern_03.csv
+  - Assets/DungeonData/DungeonPattern_04.csv
+  - Assets/DungeonData/DungeonPattern_05.csv
+  m_dungeonSizeX: 5
+  m_dungeonSizeY: 5
+  m_blockCore: {fileID: 3457520386420079125, guid: cbe61a2527b59f44ea88ed42d8cd8019, type: 3}
+  m_betRock: {fileID: 8550780491684374141, guid: 955249822050a054fb32ac155f2febc2, type: 3}
+  m_block:
+  - {fileID: 5387801217646829125, guid: 6d22e030ce913cb43bd663bf0ba2de13, type: 3}
+  - {fileID: 2617319874051889144, guid: 55e213f193424d742bbfe4b9100b867e, type: 3}
+  m_blockOdds: 4b00000019000000
+  m_playerLength: 20
+  m_player: {fileID: 6945831396311541013, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
+  m_playSceneManager: {fileID: 3469568166959932924}
+--- !u!114 &-4963957752362924521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1614570275442964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 056d818782ba6374eb284482fdafcf01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isfall: 0
+  isroll: 0
+  isbank: 0
+  attackCoolTime: 3
+  SceneManager: {fileID: 3469568166959932924}
+  rockfall: {fileID: 2940951798871330703, guid: 829d86242de0c674a8b178b0f249f289, type: 3}
+  highlight: {fileID: 4708925638394852652, guid: 82994475c12be0f4da5df8587e7d4dec, type: 3}
+  heightRock: 3
+  rollRock: {fileID: 796929451571866827, guid: e54c54e3e9cf6284b904d9e1c38277e3, type: 3}
+  highlightArrow: {fileID: 5906353031345709085, guid: 1e3c7638253476640a9e522370a172fd, type: 3}
+  up: 5
+  right: 5
+  down: 5
+  left: 5
+  bank: {fileID: 6085554247375089227, guid: 1d29c80645233fb4c94bf95ca0e1b1f3, type: 3}
+  bankHighlight: {fileID: 1067109971471968558, guid: 29f861859c529b1498a780cee08eb5fb, type: 3}
+  twiceAttackLength: 20

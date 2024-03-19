@@ -7,6 +7,8 @@ public class FallRock : MonoBehaviour
 {
     [Header("óéâ∫Ç‹Ç≈ÇÃéûä‘")]
     public float fallTime = 3.0f;
+    [Header("çUåÇóÕ")]
+    public int damage = 1;
 
     Rigidbody2D rd;
 
@@ -54,14 +56,14 @@ public class FallRock : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-
-
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && !collision.isTrigger)
         {
+            collision.GetComponent<Player>().AddDamage(damage);
+
             Destroy(gameObject);
         }
         if (collision.gameObject.GetComponent<Highlight>())
