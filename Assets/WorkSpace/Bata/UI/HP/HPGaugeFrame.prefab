@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8354345348093031376}
   - component: {fileID: 6346469947896004026}
   m_Layer: 5
-  m_Name: HPGaugBack
+  m_Name: HPGaugeBack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
