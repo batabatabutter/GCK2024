@@ -74,7 +74,7 @@ public class Block : MonoBehaviour
 
 
 	// ブロックが壊れた
-	private void BrokenBlock()
+	public void BrokenBlock()
 	{
 		// 破壊不可能ブロックの場合は処理しない
 		if (m_dontBroken)

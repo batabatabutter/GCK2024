@@ -132,6 +132,10 @@ public class PlayerAction : MonoBehaviour
 		GameObject tool = Instantiate(m_putTools[m_toolType].tool);
 		// 座標設定
 		tool.transform.position = m_cursorImage.transform.position;
+
+		// 素材を消費する
+		m_playerItem.ConsumeMaterials(GetToolData(m_toolType));
+
     }
 
 	// ツール変更
@@ -158,19 +162,32 @@ public class PlayerAction : MonoBehaviour
 	}
 
 
-
-	// ツールを作成できるかチェック
-	private bool CheckCreate(int type)
+	// ツールのデータを取得
+	private ToolData GetToolData(int toolType)
 	{
 		// ツールの種類分ループ
 		for (int i = 0; i < m_data.tool.Count; i++)
 		{
-			// 作成ツールのコスト
-			if (m_data.tool[i].toolType == m_putTools[type].type)
+			// データベースのツールと設定されているツールが同じ
+			if (m_data.tool[i].toolType == m_putTools[toolType].type)
 			{
-				return CheckCreate(m_data.tool[i]);
+				return m_data.tool[i];
 			}
 		}
+
+		return null;
+	}
+
+	// ツールを作成できるかチェック
+	private bool CheckCreate(int type)
+	{
+		ToolData data = GetToolData(type);
+
+		if (data != null)
+		{
+			return CheckCreate(data);
+		}
+
 		// 選択ツールが存在しない
 		return false;
 	}

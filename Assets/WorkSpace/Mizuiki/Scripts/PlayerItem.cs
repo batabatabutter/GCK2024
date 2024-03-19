@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerItem : MonoBehaviour
 {
@@ -11,15 +12,15 @@ public class PlayerItem : MonoBehaviour
 
 	[Header("アイテムの検知範囲(半径)")]
 	[SerializeField] private float m_detectionRange = 3.0f;
-	[Header("アイテムの吸い込み速度(/s)")]
-	[SerializeField] private float m_suctionSpeed = 0.5f;
-	[Header("アイテムを拾いあげる範囲(半径)")]
-	[SerializeField] private float m_picupRange = 1.0f;
+	//[Header("アイテムの吸い込み速度(/s)")]
+	//[SerializeField] private float m_suctionSpeed = 0.5f;
+	//[Header("アイテムを拾いあげる範囲(半径)")]
+	//[SerializeField] private float m_picupRange = 1.0f;
 
 
 	[Header("デバッグ----------")]
 	[SerializeField] private bool m_debug = false;
-
+	[SerializeField] private Text m_text = null;
 
 	// Start is called before the first frame update
 	void Start()
@@ -48,18 +49,27 @@ public class PlayerItem : MonoBehaviour
 	// Update is called once per frame
 	void Update()
     {
-        
+        if (m_debug)
+		{
+			m_text.text = "";
+
+			for (Item.Type type = Item.Type.STONE; type < Item.Type.OVER; type++)
+			{
+				m_text.text += type.ToString() + " : " + m_items[type] + "\n";
+			}
+		}
     }
 
 
-	private void OnTriggerEnter2D(Collider2D collision)
+	// アイテムを見つけた
+	private void OnTriggerStay2D(Collider2D collision)
 	{
 		// タグがアイテム以外
 		if (!collision.CompareTag("Item"))
 			return;
 
 		// アイテムスクリプトの取得
-		if (!collision.TryGetComponent<Item>(out Item item))
+		if (!collision.TryGetComponent(out Item item))
 			return;
 
 		// アイテムの種類
@@ -69,31 +79,9 @@ public class PlayerItem : MonoBehaviour
 		if (!CheckAcquirable(itemType))
 			return;
 
-		// 距離
-		float distance = Vector3.Distance(transform.position, collision.transform.position);
+		// プレイヤーのトランスフォームを設定する
+		item.SetPlayerTransform(transform);
 
-		// 拾う
-		if (distance < m_picupRange)
-		{
-			// 拾えるだけ拾う
-			m_items[itemType] += item.Picup(m_maxCount - m_items[itemType]);
-			Debug.Log("picup");
-		}
-    }
-
-	private void OnTriggerStay2D(Collider2D collision)
-	{
-		// タグがアイテム以外
-		if (!collision.CompareTag("Item"))
-			return;
-
-		// アイテムからプレイヤーへのベクトル
-		Vector3 itemToPlayer = transform.position - collision.transform.position;
-		// 正規化
-		itemToPlayer.Normalize();
-
-		// プレイヤーに近づかせる
-		collision.transform.position = collision.transform.position + (itemToPlayer * m_suctionSpeed * Time.deltaTime);
 	}
 
 
@@ -107,6 +95,45 @@ public class PlayerItem : MonoBehaviour
 		}
 
 		return false;
+	}
+
+	/// <summary>
+	/// アイテムを拾う
+	/// </summary>
+	/// <param name="type">アイテムの種類</param>
+	/// <param name="count">アイテムの数</param>
+	/// <returns>拾った数</returns>
+	public int PicUp(Item.Type type, int count)
+	{
+		// 所持数が最大
+		if (m_items[type] >= m_maxCount)
+			return 0;
+
+		// 拾う数
+		int picCount = m_maxCount - m_items[type];
+
+		// 拾える数がアイテムのスタック数より大きい
+		if (picCount > count)
+		{
+			// アイテムのスタック分拾う
+			picCount = count;
+		}
+
+		// アイテムを拾う
+		m_items[type] += picCount;
+
+		// 拾った数を返す
+		return picCount;
+	}
+
+	// アイテムを消費する
+	public void ConsumeMaterials(ToolData data)
+	{
+		for (int i = 0; i < data.itemMaterials.Count; i++)
+		{
+			// [type] を [count] 消費する
+			m_items[data.itemMaterials[i].type] -= data.itemMaterials[i].count;
+		}
 	}
 
 	// アイテムの所持数取得
