@@ -45,7 +45,7 @@ public class HPUI : MonoBehaviour
         //  çUåÇ
         int val = 0;
         if (m_debug) val = m_debugMaxHP;
-        else val = m_player.GetComponent<Player>().HitPoint;
+        else val = m_player.GetComponent<Player>().MaxLife;
 
         //  UIê∂ê¨
         //  ê∂ê¨à íu
@@ -72,7 +72,7 @@ public class HPUI : MonoBehaviour
         int hpVal = 0;
         int maxHpVal = 0;
         hpVal = m_player.GetComponent<Player>().HitPoint;
-        maxHpVal = 5;
+        maxHpVal = m_player.GetComponent<Player>().MaxLife;
 
         //  UIïœâª
         //  ê∂ê¨à íu
