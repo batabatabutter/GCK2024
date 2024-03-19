@@ -71,23 +71,8 @@ public class HPUI : MonoBehaviour
         //  HP状態を参照しゲージ変化
         int hpVal = 0;
         int maxHpVal = 0;
-        //if (m_debug)
-        //{
-        //    hpVal = m_debugNowHP;
-        //    maxHpVal = m_debugMaxHP;
-        //}
-        //else
-        {
-            hpVal = m_player.GetComponent<Player>().HitPoint;
-            maxHpVal = 5;
-        }
-
-        //  UI破壊
-        foreach (var hpUI in m_hpGaugeObject)
-        {
-            Destroy(hpUI);
-        }
-        m_hpGaugeObject.Clear();
+        hpVal = m_player.GetComponent<Player>().HitPoint;
+        maxHpVal = 5;
 
         //  UI変化
         //  生成位置
@@ -95,14 +80,20 @@ public class HPUI : MonoBehaviour
         Vector3 pos;
         for (int i = 0; i < maxHpVal; i++)
         {
-            //  体力に応じてUI表示
-            //  座標
-            pos = new Vector3((size.x + m_hpOffset.x) * i, 0.0f) + transform.position;
-            //  UI生成
-            GameObject frame = Instantiate(m_hpGaugeFrame, pos, Quaternion.identity, transform);
+            //  最大HPよりUIが少なかったら生成
+            if (i >= m_hpGaugeObject.Count)
+            {
+                //  座標
+                pos = new Vector3((size.x + m_hpOffset.x) * i, 0.0f) + transform.position;
+                //  UI生成
+                GameObject frame = Instantiate(m_hpGaugeFrame, pos, Quaternion.identity, transform);
+                frame = Instantiate(m_hpGauge, pos, Quaternion.identity, frame.transform);
+                m_hpGaugeObject.Add(frame);
+            }
+
             //  HPがあれば色付き
-            if (i < hpVal) frame = Instantiate(m_hpGauge, pos, Quaternion.identity, frame.transform);
-            m_hpGaugeObject.Add(frame);
+            if (i < hpVal) m_hpGaugeObject[i].SetActive(true);
+            else m_hpGaugeObject[i].SetActive(false);
         }
         
         //  デバッグ状態
