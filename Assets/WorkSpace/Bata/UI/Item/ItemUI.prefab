@@ -48,3 +48,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4ec799cce434a242b3f80664494e2f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_playSceneManager: {fileID: 0}
+  m_itemGraph:
+  - {fileID: 21300000, guid: 575acc6a1207f2d4eb9d05164a5e2c74, type: 3}
+  - {fileID: 21300000, guid: 82a24dff19967a14e841caaf4e56c25b, type: 3}
+  m_itemFrame: {fileID: 2693671464973395065, guid: 775ce40a587776d42a96e2bf83247310, type: 3}
+  m_hpOffset: {x: 0, y: 10}
+  m_debug: 0
