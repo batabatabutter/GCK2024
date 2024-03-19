@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements.Experimental;
 
 public class Item : MonoBehaviour
 {
@@ -19,6 +20,16 @@ public class Item : MonoBehaviour
     [Header("スタック数")]
     [SerializeField] private int m_count;
 
+    [Header("プレイヤーが拾いあげるまでの時間")]
+    [SerializeField] private float m_picupTime = 1.0f;
+
+    // アイテムの元の位置
+    private Vector3 m_originalPos = Vector3.zero;
+    // プレイヤーのトランスフォーム
+    private Transform m_player = null;
+    // アイテムの移動時間
+    private float m_moveTime = 0.0f;
+
 
 
     // Start is called before the first frame update
@@ -31,6 +42,9 @@ public class Item : MonoBehaviour
             rigidbody.isKinematic = true;
         }
 
+        // 元の位置を設定する
+        m_originalPos = transform.position;
+
     }
 
     // Update is called once per frame
@@ -42,6 +56,21 @@ public class Item : MonoBehaviour
             Destroy(gameObject);
         }
         
+        // アイテムの移動
+        if (m_moveTime > 0.0f)
+        {
+            m_moveTime -= Time.deltaTime;
+
+            // プレイヤーのトランスフォームがある
+            if (m_player != null)
+            {
+                // 割合
+                float t = m_moveTime / m_picupTime;
+                // 座標の設定
+                transform.position = Vector3.Lerp(m_player.position, m_originalPos, t);
+            }
+        }
+
     }
 
     /// <summary>
@@ -79,18 +108,47 @@ public class Item : MonoBehaviour
         return picUpCount;
     }
 
+	// トランスフォームの設定
+	public void SetPlayerTransform(Transform player, bool overwrite = false)
+	{
+		// トランスフォーム上書き
+		if (overwrite)
+		{
+			m_player = player;
+
+			return;
+		}
+
+		// トランスフォームが設定されていない
+		if (m_player == null)
+		{
+			m_player = player;
+            m_moveTime = m_picupTime;
+		}
+
+	}
+
+
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-        // アイテムに当たった
+		// スタック数が 0 以下
+		if (m_count <= 0)
+			return;
+
+		// アイテムに当たった
 		if (collision.CompareTag("Item"))
         {
+            // アイテムをくっつける
             MargeItem(collision.GetComponent<Item>());
+
             return;
         }
 
         // プレイヤーに当たった
         if (collision.CompareTag("Player"))
         {
+            // 拾われる
+            PickedUp(collision.GetComponent<Player>());
 
             return;
         }
@@ -98,7 +156,7 @@ public class Item : MonoBehaviour
 
 
     // アイテムをくっつける
-    void MargeItem(Item item)
+    private void MargeItem(Item item)
     {
         // アイテムスクリプトが存在しない
         if (item == null)
@@ -108,10 +166,6 @@ public class Item : MonoBehaviour
         if (item.ItemType != m_itemType)
             return;
 
-        // スタック数が 0 以下
-        if (m_count <= 0)
-            return;
-
         // くっつける
         m_count += item.Count;
 
@@ -119,6 +173,25 @@ public class Item : MonoBehaviour
         item.Count = 0;
 
     }
+
+    // 拾われる
+    private void PickedUp(Player player)
+    {
+        // プレイヤースクリプトが存在しない
+        if (player == null)
+            return;
+
+        // 所持アイテムスクリプトの取得
+        if (player.transform.Find("Item").TryGetComponent(out PlayerItem playerItem))
+        {
+            // 拾った数が返ってくる
+            m_count -= playerItem.PicUp(m_itemType, m_count);
+        }
+
+        m_player = null;
+    }
+
+
 
 
 	public Type ItemType
