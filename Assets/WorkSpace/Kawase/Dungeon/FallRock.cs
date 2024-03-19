@@ -56,18 +56,28 @@ public class FallRock : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.tag == "Player")
+        {
+            collision.gameObject.GetComponent<Player>().AddDamage(damage);
 
+            Destroy(gameObject);
 
+        }
+        if (collision.gameObject.GetComponent<Highlight>())
+        {
+            Destroy(gameObject);
+            Destroy(collision.gameObject);
+
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && !collision.GetComponent<CircleCollider2D>().isTrigger)
         {
             collision.GetComponent<Player>().AddDamage(damage);
 
             Destroy(gameObject);
-
         }
         if (collision.gameObject.GetComponent<Highlight>())
         {
