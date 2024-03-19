@@ -66,7 +66,7 @@ public class ItemUI : MonoBehaviour
         {
             //  ƒAƒCƒeƒ€”İ’è
             m_itemObjects[i].GetComponent<ItemFrame>().SetNum(
-                m_player.GetComponent<PlayerItem>().Items[(Item.Type)i]);
+                m_player.transform.Find("Item").gameObject.GetComponent<PlayerItem>().Items[(Item.Type)i]);
         }
     }
 }
