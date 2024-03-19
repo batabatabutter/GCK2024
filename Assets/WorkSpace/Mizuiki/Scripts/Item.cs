@@ -54,19 +54,23 @@ public class Item : MonoBehaviour
     /// <returns>E‚¤”</returns>
     public int Picup(int count)
     {
-        // ‘S‚ÄE‚¦‚é
-        if (m_count <= count)
+        // E‚¤”
+		int picUpCount = m_count;
+
+		// ‘S‚ÄE‚¦‚é
+		if (m_count <= count)
         {
             m_count = 0;
-            return m_count;
         }
         else
         {
             // E‚¦‚é‚¾‚¯E‚¤
             m_count -= count;
-            return count;
+            picUpCount = count;
         }
 
+        // E‚¤”‚ğ•Ô‚·
+        return picUpCount;
     }
 
 

@@ -6,28 +6,58 @@ using UnityEngine.InputSystem;
 
 public class PlayerAction : MonoBehaviour
 {
-	[Header("アイテムの設置範囲(半径)")]
-	[SerializeField] private float m_itemSettingRange = 2.0f;
+	[System.Serializable]
+	public struct ToolContainer
+	{
+		public ToolData.ToolType type;
+		public GameObject tool;
+	}
+
+
+	[Header("ツールの設置範囲(半径)")]
+	[SerializeField] private float m_toolSettingRange = 2.0f;
 
     [Header("カーソル画像")]
     [SerializeField] private GameObject m_cursorImage = null;
 
-	[Header("設置アイテム")]
-	[SerializeField] private GameObject[] m_putItems;
-
 	[Header("レイヤーマスク")]
 	[SerializeField] private LayerMask m_layerMask;
+
+	[Header("設置ツール")]
+	[SerializeField] private ToolContainer[] m_putTools;
+
+	[Header("ツールのデータベース")]
+	[SerializeField] private ToolDataBase m_data;
+
+	[Header("アイテム")]
+	[SerializeField] private PlayerItem m_playerItem;
+
+	// ツール設置可能
+	private bool m_canPut = true;
+
+	// 設置ツール
+	private int m_toolType = 0;
 
 
 	// Start is called before the first frame update
 	void Start()
     {
-        
+		// アイテムがなければ取得
+        if (m_playerItem == null)
+		{
+			if (TryGetComponent(out PlayerItem item))
+			{
+				m_playerItem = item;
+			}
+		}
     }
 
     // Update is called once per frame
     void Update()
     {
+		// 設置可能な状態にしておく
+		m_canPut = true;
+
 		// プレイヤーの位置
 		Vector2 playerPos = transform.position;
 
@@ -46,12 +76,21 @@ public class PlayerAction : MonoBehaviour
 		// ブロックに当たった
 		if (rayCast)
 		{
-			// 埋まり防止で当たった面の法線方向に 0.1 加算する
-			mousePos = rayCast.point + (rayCast.normal * new Vector2(0.1f, 0.1f));
+			// Toolタグが付いている
+			if (rayCast.transform.CompareTag("Tool"))
+			{
+				// 設置できなくする
+				m_canPut = false;
+			}
+			else
+			{
+				// 埋まり防止で当たった面の法線方向に 0.1 加算する
+				mousePos = rayCast.point + (rayCast.normal * new Vector2(0.1f, 0.1f));
+			}
 		}
 
 		// プレイヤーとマウスカーソルの位置が設置範囲内
-		if (Vector2.Distance(playerPos, mousePos) < m_itemSettingRange)
+		if (Vector2.Distance(playerPos, mousePos) < m_toolSettingRange)
 		{
 			// 四捨五入する
 			mousePos = RoundHalfUp(mousePos);
@@ -62,7 +101,7 @@ public class PlayerAction : MonoBehaviour
 		else
 		{
 			// 届く最大範囲に設定
-			mousePos = playerPos + (playerToMouse * m_itemSettingRange);
+			mousePos = playerPos + (playerToMouse * m_toolSettingRange);
 
 			// 四捨五入する
 			mousePos = RoundHalfUp(mousePos);
@@ -76,20 +115,84 @@ public class PlayerAction : MonoBehaviour
 	// ツール設置
 	public void Put()
     {
-		// 選択されているアイテムが作成できるか
-		//if (!CheckCreate(作りたいアイテムの種類))
+		// アイテムが設置できない
+		if (!m_canPut)
+		{
+			return;
+		}
+
+		// 選択されているアイテムが作成できない
+		if (!CheckCreate(m_toolType))
+		{
+			Debug.Log("素材不足");
+			return;
+		}
 
 		// アイテムを置く
-		GameObject tool = Instantiate(m_putItems[0]);
+		GameObject tool = Instantiate(m_putTools[m_toolType].tool);
 		// 座標設定
 		tool.transform.position = m_cursorImage.transform.position;
     }
 
+	// ツール変更
+	public void ChangeTool(int val)
+	{
+		// 変更後の値
+		int change = m_toolType + val;
+
+		// 変更後が 0 未満
+		if (change < 0)
+		{
+			// 一番後ろのツールにする
+			change = (int)ToolData.ToolType.OVER - 1;
+		}
+		// 変更後が範囲外
+		else if (change >= (int)ToolData.ToolType.OVER)
+		{
+			change = 0;
+		}
+
+		// ツールを変更する
+		m_toolType = change;
+		Debug.Log(m_putTools[m_toolType].type);
+	}
 
 
 
 	// ツールを作成できるかチェック
-	//private bool CheckCreate()
+	private bool CheckCreate(int type)
+	{
+		// ツールの種類分ループ
+		for (int i = 0; i < m_data.tool.Count; i++)
+		{
+			// 作成ツールのコスト
+			if (m_data.tool[i].toolType == m_putTools[type].type)
+			{
+				return CheckCreate(m_data.tool[i]);
+			}
+		}
+		// 選択ツールが存在しない
+		return false;
+	}
+	private bool CheckCreate(ToolData data)
+	{
+		// 素材の種類分ループ
+		for (int i = 0; i < data.itemMaterials.Count; i++)
+		{
+			Item.Type type = data.itemMaterials[i].type;
+			int count = data.itemMaterials[i].count;
+
+			// 所持アイテム数が必要素材数未満
+			if (m_playerItem.Items[type] < count)
+			{
+				// 作成できない
+				return false;
+			}
+
+		}
+		// 必要素材数所持している
+		return true;
+	}
 
 	// 四捨五入
 	private Vector2 RoundHalfUp(Vector2 value)

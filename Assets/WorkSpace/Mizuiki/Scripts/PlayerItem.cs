@@ -17,6 +17,10 @@ public class PlayerItem : MonoBehaviour
 	[SerializeField] private float m_picupRange = 1.0f;
 
 
+	[Header("デバッグ----------")]
+	[SerializeField] private bool m_debug = false;
+
+
 	// Start is called before the first frame update
 	void Start()
     {
@@ -27,9 +31,17 @@ public class PlayerItem : MonoBehaviour
 		// トリガーに設定
 		col.isTrigger = true;
 
+		// 所持アイテム数の初期化
 		for (Item.Type type = Item.Type.STONE; type < Item.Type.OVER; type++)
 		{
 			m_items[type] = 0;
+
+			// デバッグがオンになっていたら所持数をカンストさせる
+			if (m_debug)
+			{
+				m_items[type] = m_maxCount;
+			}
+
 		}
 	}
 
