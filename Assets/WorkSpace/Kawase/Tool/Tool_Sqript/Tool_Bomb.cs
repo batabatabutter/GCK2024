@@ -22,28 +22,6 @@ public class Tool_Bomb : Tool
         float t = (Mathf.Sin(Time.time * 10) + 1) / 2;
 
         spriteRenderer.color = Color.Lerp(Color.black,Color.red,t);
-        if(transform.lossyScale.x >= 1.0f)
-        {
-            bombReadyTime -= Time.deltaTime;
-        }
-
-        if (bombReadyTime < 0)
-        {
-            //this.GetComponent<CircleCollider2D>().radius = bombRadius;
-
-            bombTime -= Time.deltaTime;
-
-            if (transform.localScale.x <= 1.5f)
-            {
-                transform.localScale = Vector3.one * bombRadius;
-
-            }
-        }
-
-        if(bombTime < 0)
-        {
-            Destroy(gameObject);
-        }
 
     }
 }
