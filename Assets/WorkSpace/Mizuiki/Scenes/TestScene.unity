@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &75050969
 Transform:
   m_ObjectHideFlags: 0
@@ -393,6 +393,10 @@ PrefabInstance:
     - target: {fileID: 5596305664108361481, guid: da17de7a18f417a468be75cebbc0ee57, type: 3}
       propertyPath: m_Name
       value: Material_Stone
+      objectReference: {fileID: 0}
+    - target: {fileID: 5596305664108361481, guid: da17de7a18f417a468be75cebbc0ee57, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4581,7 +4585,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3457520386420079125, guid: cbe61a2527b59f44ea88ed42d8cd8019, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4745089952434930699, guid: cbe61a2527b59f44ea88ed42d8cd8019, type: 3}
       propertyPath: m_dropItems.Array.size
