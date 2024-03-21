@@ -51,11 +51,16 @@ public class PlayerItem : MonoBehaviour
     {
         if (m_debug)
 		{
-			m_text.text = "";
-
-			for (Item.Type type = Item.Type.STONE; type < Item.Type.OVER; type++)
+			// テキストがある
+			if (m_text != null)
 			{
-				m_text.text += type.ToString() + " : " + m_items[type] + "\n";
+				m_text.text = "";
+
+				for (Item.Type type = Item.Type.STONE; type < Item.Type.OVER; type++)
+				{
+					m_text.text += type.ToString() + " : " + m_items[type] + "\n";
+				}
+
 			}
 		}
     }
