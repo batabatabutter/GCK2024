@@ -103,9 +103,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plantCooltime: 1
   spriteRenderer: {fileID: 9184046651458163047}
-  bombReadyTime: 3
-  bombTime: 1
-  bombRadius: 3
 --- !u!58 &-8463220972142929240
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -153,9 +150,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9474868ea8711d4b9b895789ee7b879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_explosionPower: 99999
-  m_explosionRange: 10
+  m_blockExplosionPower: 1000
+  m_playerExplosionDamage: 1
+  m_explosionRange: 3
   m_timeToExplosion: 3
+  m_damage: 1
 --- !u!114 &3463609656750972163
 MonoBehaviour:
   m_ObjectHideFlags: 0

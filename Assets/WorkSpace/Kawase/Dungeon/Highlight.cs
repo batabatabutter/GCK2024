@@ -12,6 +12,7 @@ public class Highlight : MonoBehaviour
 
     float fallTime;
 
+    CircleCollider2D circleCollider;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +25,9 @@ public class Highlight : MonoBehaviour
 
         fallTime = fallRock.fallTime;
 
+        circleCollider = GetComponent<CircleCollider2D>();
+
+        circleCollider.enabled = false;
     }
 
     // Update is called once per frame
@@ -34,8 +38,6 @@ public class Highlight : MonoBehaviour
         if(fallTime > 0)
         {
             scale += Time.deltaTime / 3;
-
-
         }
         else
         {
@@ -50,9 +52,16 @@ public class Highlight : MonoBehaviour
         GetComponent<SpriteRenderer>().color = new Color(1.0f,0.0f,0.0f,alpha);
 
 
-        if(alpha > 1.0f)
+        if(alpha > 1.1f)
         {
             Destroy(gameObject);
+        }
+
+
+        if (alpha > 0.8f && !circleCollider.enabled)
+        {
+            circleCollider.enabled = true;
+
         }
 
     }
