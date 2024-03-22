@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plantCooltime: 0
-  time: 0.5
+  time: 0.1
 --- !u!58 &1717172995422404258
 CircleCollider2D:
   m_ObjectHideFlags: 0
