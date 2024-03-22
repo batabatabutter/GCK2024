@@ -10,16 +10,10 @@ public class ChangeBrightness : MonoBehaviour
 {
     //とりあえず色があるもの
     SpriteRenderer spriteRenderer;
-    //松明までの距離
-    float toachLength;
     //明るさの最大値
     const int MAX_BRIGHTNESS = 7;
-
-    //松明格納List
-    List<GameObject> colList = new List<GameObject>();
     //LightList
     List<GameObject> lightList = new List<GameObject>();
-
 
     // Start is called before the first frame update
     void Start()
@@ -28,10 +22,7 @@ public class ChangeBrightness : MonoBehaviour
         //黒くする
         ChangeBlack();
 
-
         FlashLight();
-
-        
 
     }
 
@@ -46,27 +37,6 @@ public class ChangeBrightness : MonoBehaviour
             }
         }
 
-
-        for (int i = 0; i < colList.Count; i++)
-        {
-            if (colList[i] == null)
-            {
-
-                colList.RemoveAt(i);
-
-                if (colList.Count == 0 && lightList.Count == 0)
-                {
-                    ChangeBlack();
-
-                }
-                else
-                {
-                    ChangeColor();
-
-                }
-            }
-        }
-
         for (int i = 0; i < lightList.Count; i++)
         {
             if (lightList[i] == null)
@@ -74,7 +44,7 @@ public class ChangeBrightness : MonoBehaviour
 
                 lightList.RemoveAt(i);
 
-                if (colList.Count == 0 && lightList.Count == 0)
+                if (lightList.Count == 0)
                 {
                     ChangeBlack();
 
@@ -85,29 +55,17 @@ public class ChangeBrightness : MonoBehaviour
 
                 }
             }
-
-
         }
     }
 
-
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<Tool_Toach>())
-        {
-            //当たった松明の保存
-            colList.Add(collision.gameObject);
-            ChangeColor();
-
-        }
-
         if (GetComponent<Block>())
         {
-            if (collision.CompareTag("Block") && GetComponent<Block>().LightLevel < 1)
+            if ((collision.gameObject.layer == 3 || collision.CompareTag("Block") || collision.CompareTag("Item")) && GetComponent<Block>().LightLevel < 1)
             {
                 lightList.Add(collision.gameObject);
                 ChangeColor();
-
             }
         }
     }
@@ -115,6 +73,7 @@ public class ChangeBrightness : MonoBehaviour
 
     private void ChangeColor()
     {
+        //光源はこの処理をしない
         if (GetComponent<Block>())
         {
             if (GetComponent<Block>().LightLevel > 0)
@@ -122,75 +81,20 @@ public class ChangeBrightness : MonoBehaviour
                 return;
             }
         }
+
         //HSVのカラーの吐き出し用
         float h = 0.0f;
         float s = 0.0f;
-        float toachv = 0.0f;
-
-        //例外処理
-        if (colList.Count == 0 || !colList.Any() || colList[0] == null)
-        {
-            
-        }
-        else
-        {
-            //一番近い松明の距離
-            //松明から自身の距離(初期値として最初のやつ)
-            float nearToachLength = Vector3.Distance(colList[0].transform.position, transform.position);
-
-            //一番近い松明の算出
-            for (int i = 0; i < colList.Count; i++)
-            {
-                if (colList[i] == null)
-                {
-                    continue;
-                }
-                //より近いなら
-                if (nearToachLength > Vector3.Distance(colList[i].transform.position, this.transform.position))
-                {
-                    nearToachLength = Vector3.Distance(colList[i].transform.position, this.transform.position);
-                }
-            }
-
-
-            //なんでかわからんけど2回やんないとバグる？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？
-            for (int i = 0; i < 2; i++)
-            {
-
-                //松明との距離
-                toachLength = nearToachLength;
-                //小数点切り上げ
-                Mathf.Ceil(toachLength);
-
-                //rgbをhsvに変換
-                Color.RGBToHSV(spriteRenderer.color, out h, out s, out toachv);
-
-                //(vの明度が０～１００なので)１００を基準にした一メモリを算出
-                int rate = 100 / MAX_BRIGHTNESS;
-
-                //多分０．０～１．０の間なのかな？
-                toachv = (100 - rate * toachLength) * 0.01f;
-
-
-
-            }
-
-        }
-
-
-        float lightv = 0.0f;
+        float v = 0.0f;
 
 
         //例外処理
-        if ((lightList.Count == 0 || !lightList.Any() || lightList[0] == null))
+        if ((lightList.Count == 0 || !lightList.Any() || lightList[0] == null || gameObject == null))
         {
-
+            return;
         }
         else
         {
-
-
-
             List<float> lightListV = new List<float>();
 
             for (int i = 0; i < lightList.Count; i++)
@@ -207,25 +111,13 @@ public class ChangeBrightness : MonoBehaviour
                 //(vの明度が０～１００なので)１００を基準にした一メモリを算出
                 int rate = 100 / MAX_BRIGHTNESS;
                 //多分０．０～１．０の間なのかな？
-                lightv = (rate * lightListV.Max()) * 0.01f;
+                v = (rate * lightListV.Max()) * 0.01f;
+                //hsvをrgbに変換
+                spriteRenderer.color = Color.HSVToRGB(h, s, v);
 
             }
 
         }
-
-        if (lightv > toachv)
-        {
-            //hsvをrgbに変換
-            spriteRenderer.color = Color.HSVToRGB(h, s, lightv);
-            spriteRenderer.color = Color.HSVToRGB(h, s, lightv);
-        }
-        else
-        {
-            spriteRenderer.color = Color.HSVToRGB(h, s, toachv);
-            spriteRenderer.color = Color.HSVToRGB(h, s, toachv);
-
-        }
-
     }
 
     private void ChangeBlack()
@@ -281,7 +173,12 @@ public class ChangeBrightness : MonoBehaviour
     private IEnumerator AddCricleColToDelete()
     {
 
-        Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
+
+        Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
+        if (rb == null)
+        {
+            rb = gameObject.AddComponent<Rigidbody2D>();
+        }
 
         rb.isKinematic = true;
 
