@@ -29,6 +29,11 @@ public class Block : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // ©•ª©g‚ğ”j‰ó‚·‚é
+        if (m_isBroken)
+        {
+            Destroy(gameObject);
+        }
         
     }
 
