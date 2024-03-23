@@ -287,4 +287,11 @@ public class PlayerAction : MonoBehaviour
 		return false;
 	}
 
+
+
+	public ToolData.ToolType ToolType
+	{
+		get { return ToolType; }
+	}
+
 }
