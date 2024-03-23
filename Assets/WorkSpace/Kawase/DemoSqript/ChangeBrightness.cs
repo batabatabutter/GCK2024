@@ -62,7 +62,7 @@ public class ChangeBrightness : MonoBehaviour
     {
         if (GetComponent<Block>())
         {
-            if ((collision.gameObject.layer == 3 || collision.CompareTag("Block") || collision.CompareTag("Item")) && GetComponent<Block>().LightLevel < 1)
+            if ((collision.gameObject.layer == 3 || collision.CompareTag("Block")) && GetComponent<Block>().LightLevel < 1)
             {
                 lightList.Add(collision.gameObject);
                 ChangeColor();
@@ -99,13 +99,14 @@ public class ChangeBrightness : MonoBehaviour
 
             for (int i = 0; i < lightList.Count; i++)
             {
+                if (lightList[i] == null)
+                    continue;
+
                 float lightLength = Mathf.Ceil(Vector3.Distance(lightList[i].transform.position, this.transform.position));
 
                 lightListV.Add(lightList[i].GetComponent<Block>().LightLevel - lightLength);
             }
-
-
-            //なんでかわからんけど2回やんないとバグる？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？
+            //なんでかわからんけど2回やんないとバグる
             for (int i = 0; i < 2; i++)
             {
                 //(vの明度が０～１００なので)１００を基準にした一メモリを算出
