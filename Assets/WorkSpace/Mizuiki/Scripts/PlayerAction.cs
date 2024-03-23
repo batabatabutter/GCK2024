@@ -76,8 +76,6 @@ public class PlayerAction : MonoBehaviour
 		float length = playerToMouse.magnitude;
 		// ベクトル正規化
 		playerToMouse.Normalize();
-		// プレイヤーから採掘方向へのRayCast
-		RaycastHit2D[] rayCast = Physics2D.RaycastAll(playerPos, playerToMouse, length, m_layerMask);
 
 		// プレイヤーとマウスカーソルの位置が設置範囲内
 		if (Vector2.Distance(playerPos, mousePos) < m_toolSettingRange)
@@ -93,12 +91,17 @@ public class PlayerAction : MonoBehaviour
 			// 届く最大範囲に設定
 			mousePos = playerPos + (playerToMouse * m_toolSettingRange);
 
+			length = m_toolSettingRange;
+
 			//// 四捨五入する
 			//mousePos = RoundHalfUp(mousePos);
 
 			//// アイテムの設置位置
 			//m_cursorImage.transform.position = mousePos;
 		}
+
+		// プレイヤーから採掘方向へのRayCast
+		RaycastHit2D[] rayCast = Physics2D.RaycastAll(playerPos, playerToMouse, length, m_layerMask);
 
 		// ブロックからの押し返し
 		foreach (RaycastHit2D cast in rayCast)
