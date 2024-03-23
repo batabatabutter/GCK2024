@@ -173,12 +173,14 @@ public class ChangeBrightness : MonoBehaviour
 
     private IEnumerator AddCricleColToDelete()
     {
-
+        bool isDeleteRb = false;
 
         Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
+        //‚à‚µ‚È‚©‚Á‚½‚ç
         if (rb == null)
         {
             rb = gameObject.AddComponent<Rigidbody2D>();
+            isDeleteRb = true;
         }
 
         rb.isKinematic = true;
@@ -192,7 +194,10 @@ public class ChangeBrightness : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
 
         Destroy(circleCol);
-        Destroy(rb);
+        if(isDeleteRb)
+        {
+            Destroy(rb);
+        }
 
     }
 
