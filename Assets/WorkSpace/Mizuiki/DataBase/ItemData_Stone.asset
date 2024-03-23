@@ -9,12 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f32322d6a3befb942b18974efc8c4bbe, type: 3}
-  m_Name: ToolData_Toach
+  m_Script: {fileID: 11500000, guid: 10387625528c8cf4d99562735228409f, type: 3}
+  m_Name: ItemData_Stone
   m_EditorClassIdentifier: 
-  toolName: "\u677E\u660E"
-  toolType: 0
-  sprite: {fileID: 21300000, guid: 223de06691087c042840edf6164abf95, type: 3}
-  itemMaterials:
-  - type: 1
-    count: 2
+  itemName: "\u77F3"
+  type: 0
+  count: 0
+  sprite: {fileID: 21300000, guid: 575acc6a1207f2d4eb9d05164a5e2c74, type: 3}

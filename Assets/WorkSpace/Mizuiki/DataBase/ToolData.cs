@@ -18,7 +18,7 @@ public class ToolData : ScriptableObject
 	public ToolType toolType = ToolType.TOACH;   // 種類
 	public Sprite sprite = null;				 // 画像
 
-	public List<ItemData> itemMaterials = new List<ItemData>();
+	public List<Items> itemMaterials = new List<Items>();
 
 	//public List<Item.Type>	craftMaterialType  = new();		// 必要アイテム種
 	//public List<int>		craftMaterialCount = new();		// 必要アイテム数
