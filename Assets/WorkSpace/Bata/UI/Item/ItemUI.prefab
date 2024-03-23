@@ -52,6 +52,6 @@ MonoBehaviour:
   m_itemGraph:
   - {fileID: 21300000, guid: 575acc6a1207f2d4eb9d05164a5e2c74, type: 3}
   - {fileID: 21300000, guid: 82a24dff19967a14e841caaf4e56c25b, type: 3}
-  m_itemFrame: {fileID: 2693671464973395065, guid: 775ce40a587776d42a96e2bf83247310, type: 3}
-  m_hpOffset: {x: 0, y: 10}
+  m_itemFrame: {fileID: 2693671464973395065, guid: 2d384204ac6fa564c8f9b75dde03efb6, type: 3}
+  m_offset: {x: 0, y: 10}
   m_debug: 0
