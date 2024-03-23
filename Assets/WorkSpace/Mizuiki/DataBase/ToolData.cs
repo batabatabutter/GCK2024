@@ -14,9 +14,10 @@ public class ToolData : ScriptableObject
 		OVER
 	}
 
-	public string toolName = "";                 // –¼‘O
-	public ToolType toolType = ToolType.TOACH;   // í—Ş
-	public Sprite sprite = null;				 // ‰æ‘œ
+	public string toolName = "";                // –¼‘O
+	public ToolType toolType = ToolType.TOACH;  // í—Ş
+	public Sprite sprite = null;                // ‰æ‘œ
+	public float recastTime = 0.0f;				// Äİ’u‚Ü‚Å‚ÌŠÔ
 
 	public List<Items> itemMaterials = new List<Items>();
 

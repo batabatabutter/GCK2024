@@ -188,14 +188,13 @@ public class PlayerAction : MonoBehaviour
 
 		// クールタイム中なら設置できない
 		if (m_putTools[m_toolType].recastTime > 0.0f)
+		{
+			Debug.Log("クールタイム中");
 			return;
-
-		// ツールクラスを取得
-		if (!m_putTools[m_toolType].tool.TryGetComponent(out Tool t))
-			return;
+		}
 
 		// クールタイムの設定
-		m_putTools[m_toolType].recastTime = t.maxCoolTime;
+		m_putTools[m_toolType].recastTime = GetToolData(m_toolType).recastTime;
 
 		// アイテムを置く
 		GameObject tool = Instantiate(m_putTools[m_toolType].tool);
