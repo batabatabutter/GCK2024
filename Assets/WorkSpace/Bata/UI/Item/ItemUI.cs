@@ -18,7 +18,7 @@ public class ItemUI : MonoBehaviour
     [Header("アイテムUIのプレハブ")]
     [SerializeField] private List<Sprite> m_itemGraph;
     [SerializeField] private GameObject m_itemFrame;
-    [SerializeField] private Vector2 m_hpOffset;
+    [SerializeField] private Vector2 m_offset;
 
     //  HP格納
     private List<GameObject> m_itemObjects = new List<GameObject>();
@@ -32,7 +32,7 @@ public class ItemUI : MonoBehaviour
     {
         //  プレイシーンマネージャーが無かったら格納しない
         if (m_playSceneManager == null)
-            Debug.Log("Error:Playerの格納に失敗 PlaySceneManagerが見つかりません:DungeonManager");
+            Debug.Log("Error:Playerの格納に失敗 PlaySceneManagerが見つかりません:ItemUI");
         else
         {
             //  プレイヤー格納
@@ -48,7 +48,7 @@ public class ItemUI : MonoBehaviour
         for (int i = 0; i < (int)Item.Type.OVER; i++)
         {
             //  座標
-            pos = new Vector3(0.0f, -(size.y + m_hpOffset.y) * i) + transform.position;
+            pos = new Vector3(0.0f, -(size.y + m_offset.y) * i) + transform.position;
             //  UI生成
             GameObject frame = Instantiate(m_itemFrame, pos, Quaternion.identity, transform);
             //  画像設定

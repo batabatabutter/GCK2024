@@ -33,7 +33,7 @@ public class HPUI : MonoBehaviour
     {
         //  プレイシーンマネージャーが無かったら格納しない
         if (m_playSceneManager == null)
-            Debug.Log("Error:Playerの格納に失敗 PlaySceneManagerが見つかりません:DungeonManager");
+            Debug.Log("Error:Playerの格納に失敗 PlaySceneManagerが見つかりません:HPUI");
         else
         {
             //  プレイヤー格納
