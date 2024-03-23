@@ -6,18 +6,16 @@ using static UnityEditor.PlayerSettings;
 
 public class HPUI : MonoBehaviour
 {
-    //  シーンマネージャー
-    [Header("プレイシーンマネージャー")]
-    [SerializeField] private PlaySceneManager m_playSceneManager;
-
-    //  プレイヤー
-    private GameObject m_player;
-
     //  HPUIのプレハブ
     [Header("HPUIのプレハブ")]
     [SerializeField] private GameObject m_hpGauge;
     [SerializeField] private GameObject m_hpGaugeFrame;
     [SerializeField] private Vector2 m_hpOffset;
+
+    //  シーンマネージャー
+    private PlaySceneManager m_playSceneManager;
+    //  プレイヤー
+    private GameObject m_player;
 
     //  デバッグ用
     [Header("デバッグ用")]

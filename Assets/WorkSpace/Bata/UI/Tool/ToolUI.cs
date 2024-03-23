@@ -4,24 +4,22 @@ using UnityEngine;
 
 public class ToolUI : MonoBehaviour
 {
-    //  シーンマネージャー
-    [Header("プレイシーンマネージャー")]
-    [SerializeField] private PlaySceneManager m_playSceneManager;
-
-    //  プレイヤー
-    private GameObject m_player;
-
     //  ツールUIのプレハブ
     [Header("ツールUIのプレハブ")]
-    [SerializeField] private List<Sprite> m_toolGraph;
     [SerializeField] private GameObject m_toolFrame;
     [SerializeField] private Vector2 m_offset;
+
+    //  ツールデータベース
+    [Header("ツールのデータベース")]
+    [SerializeField] private ToolDataBase m_data;
 
     //  HP格納
     private List<GameObject> m_toolObjects = new List<GameObject>();
 
-    [Header("ツールのデータベース")]
-    [SerializeField] private ToolDataBase m_data;
+    //  シーンマネージャー
+    private PlaySceneManager m_playSceneManager;
+    //  プレイヤー
+    private GameObject m_player;
 
     //  デバッグ用
     [Header("デバッグ用")]
@@ -44,7 +42,7 @@ public class ToolUI : MonoBehaviour
             //  UI生成
             GameObject frame = Instantiate(m_toolFrame, pos, Quaternion.identity, transform);
             //  画像設定
-            frame.GetComponent<ToolFrame>().SetImage(m_toolGraph[i]);
+            frame.GetComponent<ToolFrame>().SetImage(m_data.tool[i].sprite);
 
             m_toolObjects.Add(frame);
         }
@@ -78,7 +76,7 @@ public class ToolUI : MonoBehaviour
         for (int i = 0; i < m_data.tool[toolType].itemMaterials.Count; i++)
         {
             //  アイテム
-            Item.Type type = m_data.tool[toolType].itemMaterials[i].type;
+            ItemData.Type type = m_data.tool[toolType].itemMaterials[i].type;
             int count = m_data.tool[toolType].itemMaterials[i].count;
 
             //  所持アイテム数から作成可能数を割り出す

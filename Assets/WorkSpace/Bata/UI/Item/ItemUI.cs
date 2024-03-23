@@ -7,13 +7,6 @@ using static UnityEditor.PlayerSettings;
 
 public class ItemUI : MonoBehaviour
 {
-    //  シーンマネージャー
-    [Header("プレイシーンマネージャー")]
-    [SerializeField] private PlaySceneManager m_playSceneManager;
-
-    //  プレイヤー
-    private GameObject m_player;
-
     //  アイテムUIのプレハブ
     [Header("アイテムUIのプレハブ")]
     [SerializeField] private List<Sprite> m_itemGraph;
@@ -22,6 +15,11 @@ public class ItemUI : MonoBehaviour
 
     //  HP格納
     private List<GameObject> m_itemObjects = new List<GameObject>();
+
+    //  シーンマネージャー
+    private PlaySceneManager m_playSceneManager;
+    //  プレイヤー
+    private GameObject m_player;
 
     //  デバッグ用
     [Header("デバッグ用")]
@@ -37,7 +35,7 @@ public class ItemUI : MonoBehaviour
         //  生成位置
         Vector2 size = m_itemFrame.GetComponent<RectTransform>().sizeDelta;
         Vector3 pos;
-        for (int i = 0; i < (int)Item.Type.OVER; i++)
+        for (int i = 0; i < (int)ItemData.Type.OVER; i++)
         {
             //  座標
             pos = new Vector3(0.0f, -(size.y + m_offset.y) * i) + transform.position;
@@ -54,11 +52,11 @@ public class ItemUI : MonoBehaviour
     void Update()
     {
         //  アイテム数更新
-        for(int i = 0; i < (int)Item.Type.OVER; i++) 
+        for(int i = 0; i < (int)ItemData.Type.OVER; i++) 
         {
             //  アイテム数設定
             m_itemObjects[i].GetComponent<ItemFrame>().SetNum(
-                m_player.transform.Find("Item").gameObject.GetComponent<PlayerItem>().Items[(Item.Type)i]);
+                m_player.transform.Find("Item").gameObject.GetComponent<PlayerItem>().Items[(ItemData.Type)i]);
         }
     }
 

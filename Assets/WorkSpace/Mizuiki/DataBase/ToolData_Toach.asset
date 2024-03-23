@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toolName: "\u677E\u660E"
   toolType: 0
+  sprite: {fileID: 21300000, guid: 223de06691087c042840edf6164abf95, type: 3}
   itemMaterials:
-  - type: 1
+  - name: 
+    type: 1
     count: 2
+    sprite: {fileID: 0}
