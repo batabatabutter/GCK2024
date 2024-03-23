@@ -6,10 +6,12 @@ using UnityEngine;
 public class PlaySceneManager : MonoBehaviour
 {
     //  UIキャンバス
-    [SerializeField] private GameObject m_uiCanvas;
+    [SerializeField] private GameObject m_uiObject;
 
     //  プレイヤー
     private GameObject m_player;
+    //  UIキャンバス
+    private GameObject m_uiCanvas;
     //  コア
     private GameObject m_core;
     private List<GameObject> m_cores;
@@ -18,8 +20,8 @@ public class PlaySceneManager : MonoBehaviour
     void Start()
     {
         //  UI生成
-        GameObject ui = Instantiate(m_uiCanvas);
-        ui.GetComponent<PlaySceneUICanvas>().SetPlayScenemManager(this);
+        m_uiCanvas = Instantiate(m_uiObject);
+        m_uiCanvas.GetComponent<PlaySceneUICanvas>().SetPlayScenemManager(this);
     }
 
     // Update is called once per frame

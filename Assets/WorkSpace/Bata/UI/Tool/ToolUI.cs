@@ -61,7 +61,6 @@ public class ToolUI : MonoBehaviour
         }
 
         //  ツール選択状態参照
-        var a = m_player.GetComponent<PlayerAction>().ToolType.GetType();
         m_toolObjects[(int)m_player.GetComponent<PlayerAction>().ToolType].
             GetComponent<ToolFrame>().SetIsSelected(true); 
     }
