@@ -15,8 +15,8 @@ public class ToolData : ScriptableObject
 	}
 
 	public string toolName = "";                 // –¼‘O
-	public ToolType toolType = ToolType.TOACH;     // Ží—Þ
-	public Sprite sprite = null;					// ‰æ‘œ
+	public ToolType toolType = ToolType.TOACH;   // Ží—Þ
+	public Sprite sprite = null;				 // ‰æ‘œ
 
 	public List<ItemData> itemMaterials = new List<ItemData>();
 
@@ -25,9 +25,10 @@ public class ToolData : ScriptableObject
 
 	public ToolData(ToolData tool)
 	{
-		this.toolName = tool.toolName;
-		this.toolType = tool.toolType;
-		this.itemMaterials = tool.itemMaterials;
+		toolName = tool.toolName;
+		toolType = tool.toolType;
+		sprite = tool.sprite;
+		itemMaterials = tool.itemMaterials;
 	}
 
 }

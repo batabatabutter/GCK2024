@@ -5,17 +5,8 @@ using UnityEngine.UIElements.Experimental;
 
 public class Item : MonoBehaviour
 {
-    [System.Serializable]
-    public enum Type
-    {
-        STONE,  // 岩
-        COAL,   // 石炭
-
-        OVER
-    }
-
     [Header("アイテムの種類")]
-    [SerializeField] private Type m_itemType;
+    [SerializeField] private ItemData.Type m_itemType;
 
     [Header("スタック数")]
     [SerializeField] private int m_count;
@@ -197,7 +188,7 @@ public class Item : MonoBehaviour
 
 
 
-	public Type ItemType
+	public ItemData.Type ItemType
     {
         get { return m_itemType; }
     }

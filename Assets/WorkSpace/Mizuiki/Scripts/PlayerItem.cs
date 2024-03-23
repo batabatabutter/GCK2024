@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PlayerItem : MonoBehaviour
 {
 	[Header("所持品")]
-	[SerializeField] private Dictionary<Item.Type, int> m_items = new();
+	[SerializeField] private Dictionary<ItemData.Type, int> m_items = new();
 	[Header("最大数")]
 	[SerializeField] private int m_maxCount = 99;
 
@@ -33,7 +33,7 @@ public class PlayerItem : MonoBehaviour
 		col.isTrigger = true;
 
 		// 所持アイテム数の初期化
-		for (Item.Type type = Item.Type.STONE; type < Item.Type.OVER; type++)
+		for (ItemData.Type type = ItemData.Type.STONE; type < ItemData.Type.OVER; type++)
 		{
 			m_items[type] = 0;
 
@@ -56,7 +56,7 @@ public class PlayerItem : MonoBehaviour
 			{
 				m_text.text = "";
 
-				for (Item.Type type = Item.Type.STONE; type < Item.Type.OVER; type++)
+				for (ItemData.Type type = ItemData.Type.STONE; type < ItemData.Type.OVER; type++)
 				{
 					m_text.text += type.ToString() + " : " + m_items[type] + "\n";
 				}
@@ -78,7 +78,7 @@ public class PlayerItem : MonoBehaviour
 			return;
 
 		// アイテムの種類
-		Item.Type itemType = item.ItemType;
+		ItemData.Type itemType = item.ItemType;
 
 		// 拾えない
 		if (!CheckAcquirable(itemType))
@@ -91,7 +91,7 @@ public class PlayerItem : MonoBehaviour
 
 
 	// 拾えるか確認
-	public bool CheckAcquirable(Item.Type itemType)
+	public bool CheckAcquirable(ItemData.Type itemType)
 	{
 		// 所持数が最大数に達していない
 		if (m_items[itemType] < m_maxCount)
@@ -108,7 +108,7 @@ public class PlayerItem : MonoBehaviour
 	/// <param name="type">アイテムの種類</param>
 	/// <param name="count">アイテムの数</param>
 	/// <returns>拾った数</returns>
-	public int PicUp(Item.Type type, int count)
+	public int PicUp(ItemData.Type type, int count)
 	{
 		// 所持数が最大
 		if (m_items[type] >= m_maxCount)
@@ -142,7 +142,7 @@ public class PlayerItem : MonoBehaviour
 	}
 
 	// アイテムの所持数取得
-	public int GetItemCount(Item.Type type)
+	public int GetItemCount(ItemData.Type type)
 	{
 		return m_items[type];
 	}
@@ -150,7 +150,7 @@ public class PlayerItem : MonoBehaviour
 
 
 
-	public Dictionary<Item.Type, int> Items
+	public Dictionary<ItemData.Type, int> Items
 	{
 		get { return m_items; }
 	}

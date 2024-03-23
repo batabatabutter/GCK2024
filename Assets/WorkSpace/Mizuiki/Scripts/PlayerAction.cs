@@ -266,7 +266,7 @@ public class PlayerAction : MonoBehaviour
 		// 素材の種類分ループ
 		for (int i = 0; i < data.itemMaterials.Count; i++)
 		{
-			Item.Type type = data.itemMaterials[i].type;
+			ItemData.Type type = data.itemMaterials[i].type;
 			int count = data.itemMaterials[i].count;
 
 			// 所持アイテム数が必要素材数未満
