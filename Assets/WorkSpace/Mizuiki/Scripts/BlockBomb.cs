@@ -82,7 +82,11 @@ public class BlockBomb : Block
         // 爆発に必要なブロックの生成
         if (m_detonateBlock)
         {
+            // 起爆ブロックの生成
             Instantiate(m_detonateBlock, transform.position, Quaternion.identity);
+
+            // 一回生成したら null にする
+            m_detonateBlock = null;
         }
 
         // 爆破可能

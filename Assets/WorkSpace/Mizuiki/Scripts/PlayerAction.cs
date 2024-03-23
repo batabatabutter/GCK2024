@@ -77,7 +77,7 @@ public class PlayerAction : MonoBehaviour
 		// ベクトル正規化
 		playerToMouse.Normalize();
 		// プレイヤーから採掘方向へのRayCast
-		RaycastHit2D rayCast = Physics2D.Raycast(playerPos, playerToMouse, length, m_layerMask);
+		RaycastHit2D[] rayCast = Physics2D.RaycastAll(playerPos, playerToMouse, length, m_layerMask);
 
 		// プレイヤーとマウスカーソルの位置が設置範囲内
 		if (Vector2.Distance(playerPos, mousePos) < m_toolSettingRange)
@@ -100,28 +100,47 @@ public class PlayerAction : MonoBehaviour
 			//m_cursorImage.transform.position = mousePos;
 		}
 
-		// ブロックに当たった
-		if (rayCast)
+		// ブロックからの押し返し
+		foreach (RaycastHit2D cast in rayCast)
 		{
-			// Toolタグが付いている
-			if (rayCast.transform.CompareTag("Tool"))
+			// ブロックに当たった
+			if (cast.transform)
 			{
-				// 同じグリッド
-				if (CheckSameGrid(mousePos, rayCast.transform.position))
+				// ブロックタグが付いている
+				if (cast.transform.CompareTag("Block"))
 				{
-					// 設置できなくする
-					m_canPut = false;
+					// 埋まり防止で当たった面の法線方向に 0.1 加算する
+					mousePos = cast.point + (cast.normal * new Vector2(0.1f, 0.1f));
+
+					break;
 				}
 			}
-			else
+		}
+		// ツールの重ね置き回避
+		foreach (RaycastHit2D cast in rayCast)
+		{
+			if (cast.transform)
 			{
-				// 埋まり防止で当たった面の法線方向に 0.1 加算する
-				mousePos = rayCast.point + (rayCast.normal * new Vector2(0.1f, 0.1f));
+				// Toolタグが付いている
+				if (cast.transform.CompareTag("Tool"))
+				{
+					// 同じグリッド
+					if (CheckSameGrid(mousePos, cast.transform.position))
+					{
+						// 設置できなくする
+						m_canPut = false;
+					}
+				}
 			}
 		}
 
 		// 四捨五入する
 		mousePos = RoundHalfUp(mousePos);
+
+		if (m_text)
+		{
+			m_text.text += mousePos.ToString();
+		}
 
 		// アイテムの設置位置
 		m_cursorImage.transform.position = mousePos;
