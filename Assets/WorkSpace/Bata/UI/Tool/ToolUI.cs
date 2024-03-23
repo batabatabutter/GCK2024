@@ -58,6 +58,22 @@ public class ToolUI : MonoBehaviour
             m_toolObjects[i].GetComponent<ToolFrame>().SetIsSelected(false);
             //  ツール作成可能数設定
             m_toolObjects[i].GetComponent<ToolFrame>().SetNum(GetToolUseNum(i));
+
+            //  クールタイムがあるなら0.0～1.0に補間
+            if (m_data.tool[i].recastTime > 0)
+            {
+                m_toolObjects[i].GetComponent<ToolFrame>()
+                    .GetRecastImage().fillAmount =
+                    m_player.GetComponent<PlayerAction>()
+                    .GetToolRecast((ToolData.ToolType)i) / 
+                    m_data.tool[i].recastTime;
+            }
+            else
+            {
+                m_toolObjects[i].GetComponent<ToolFrame>()
+                    .GetRecastImage().fillAmount = 0.0f;
+            }
+
         }
 
         //  ツール選択状態参照

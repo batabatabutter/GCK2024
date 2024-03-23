@@ -15,6 +15,8 @@ public class ToolFrame : MonoBehaviour
     [SerializeField] private Text m_num;
     //  使用可能数背景
     [SerializeField] private Image m_numBack;
+    //  リキャスト画像
+    [SerializeField] private Image m_recastImage;
 
     //  色
     [Header("色指定")]
@@ -67,5 +69,11 @@ public class ToolFrame : MonoBehaviour
         //  選ばれてるかでフレーム色変更
         if (flag) m_frameColor.color = m_isSelectedFrameColor;
         else m_frameColor.color = m_isNoneSelectedFrameColor;
+    }
+
+    //リキャストの画像
+    public Image GetRecastImage()
+    {
+        return m_recastImage;
     }
 }
