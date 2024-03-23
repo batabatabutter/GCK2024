@@ -13,7 +13,7 @@ public class ChangeBrightness : MonoBehaviour
     //明るさの最大値
     const int MAX_BRIGHTNESS = 7;
     //LightList
-    List<GameObject> lightList = new List<GameObject>();
+    List<GameObject> m_lightList = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
@@ -37,14 +37,14 @@ public class ChangeBrightness : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < lightList.Count; i++)
+        for (int i = 0; i < m_lightList.Count; i++)
         {
-            if (lightList[i] == null)
+            if (m_lightList[i] == null)
             {
 
-                lightList.RemoveAt(i);
+                m_lightList.RemoveAt(i);
 
-                if (lightList.Count == 0)
+                if (m_lightList.Count == 0)
                 {
                     ChangeBlack();
 
@@ -64,7 +64,7 @@ public class ChangeBrightness : MonoBehaviour
         {
             if ((collision.gameObject.layer == 3 || collision.CompareTag("Block")) && GetComponent<Block>().LightLevel < 1)
             {
-                lightList.Add(collision.gameObject);
+                m_lightList.Add(collision.gameObject);
                 ChangeColor();
             }
         }
@@ -89,7 +89,7 @@ public class ChangeBrightness : MonoBehaviour
 
 
         //例外処理
-        if ((lightList.Count == 0 || !lightList.Any() || lightList[0] == null || gameObject == null))
+        if ((m_lightList.Count == 0 || !m_lightList.Any() || m_lightList[0] == null || gameObject == null))
         {
             return;
         }
@@ -97,14 +97,14 @@ public class ChangeBrightness : MonoBehaviour
         {
             List<float> lightListV = new List<float>();
 
-            for (int i = 0; i < lightList.Count; i++)
+            for (int i = 0; i < m_lightList.Count; i++)
             {
-                if (lightList[i] == null)
+                if (m_lightList[i] == null)
                     continue;
 
-                float lightLength = Mathf.Ceil(Vector3.Distance(lightList[i].transform.position, this.transform.position));
+                float lightLength = Mathf.Ceil(Vector3.Distance(m_lightList[i].transform.position, this.transform.position));
 
-                lightListV.Add(lightList[i].GetComponent<Block>().LightLevel - lightLength);
+                lightListV.Add(m_lightList[i].GetComponent<Block>().LightLevel - lightLength);
             }
             //なんでかわからんけど2回やんないとバグる
             for (int i = 0; i < 2; i++)
