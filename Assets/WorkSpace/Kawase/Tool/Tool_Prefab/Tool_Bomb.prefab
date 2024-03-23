@@ -157,7 +157,7 @@ MonoBehaviour:
   m_blockExplosionPower: 1000
   m_playerExplosionDamage: 1
   m_explosionRange: 3
-  m_timeToExplosion: 100
+  m_timeToExplosion: 3
   m_damage: 1
   m_detonateBlock: {fileID: 0}
 --- !u!114 &3463609656750972163

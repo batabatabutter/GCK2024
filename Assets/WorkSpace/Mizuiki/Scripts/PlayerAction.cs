@@ -291,7 +291,7 @@ public class PlayerAction : MonoBehaviour
 
 	public ToolData.ToolType ToolType
 	{
-		get { return ToolType; }
+		get { return m_putTools[m_toolType].type; }
 	}
 
 }
