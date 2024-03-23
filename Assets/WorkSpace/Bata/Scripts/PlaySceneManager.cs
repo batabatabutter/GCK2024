@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class PlaySceneManager : MonoBehaviour
 {
+    //  UIキャンバス
+    [SerializeField] private GameObject m_uiCanvas;
+
     //  プレイヤー
     private GameObject m_player;
     //  コア
@@ -14,7 +17,9 @@ public class PlaySceneManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        //  UI生成
+        GameObject ui = Instantiate(m_uiCanvas);
+        ui.GetComponent<PlaySceneUICanvas>().SetPlayScenemManager(this);
     }
 
     // Update is called once per frame
