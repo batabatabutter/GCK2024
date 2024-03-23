@@ -9,9 +9,12 @@ public class ItemUI : MonoBehaviour
 {
     //  アイテムUIのプレハブ
     [Header("アイテムUIのプレハブ")]
-    [SerializeField] private List<Sprite> m_itemGraph;
     [SerializeField] private GameObject m_itemFrame;
     [SerializeField] private Vector2 m_offset;
+
+    //  アイテムデータベース
+    [Header("アイテムのデータベース")]
+    [SerializeField] private ItemDataBase m_data;
 
     //  HP格納
     private List<GameObject> m_itemObjects = new List<GameObject>();
@@ -42,7 +45,7 @@ public class ItemUI : MonoBehaviour
             //  UI生成
             GameObject frame = Instantiate(m_itemFrame, pos, Quaternion.identity, transform);
             //  画像設定
-            frame.GetComponent<ItemFrame>().SetImage(m_itemGraph[i]);
+            frame.GetComponent<ItemFrame>().SetImage(m_data.item[i].sprite);
 
             m_itemObjects.Add(frame);
         }
