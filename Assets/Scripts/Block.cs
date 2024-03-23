@@ -33,7 +33,7 @@ public class Block : MonoBehaviour
     }
 
     // 採掘ダメージ
-    public void AddMiningDamage(float power)
+    public virtual void AddMiningDamage(float power)
     {
         // 破壊不可能ブロックの場合は処理しない
         if (m_dontBroken)

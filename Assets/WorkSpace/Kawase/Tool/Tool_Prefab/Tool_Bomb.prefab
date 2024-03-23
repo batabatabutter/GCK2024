@@ -150,11 +150,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9474868ea8711d4b9b895789ee7b879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_blockEndurance: 100
+  m_dontBroken: 0
+  m_dropItems: []
+  m_lightLevel: 0
   m_blockExplosionPower: 1000
   m_playerExplosionDamage: 1
   m_explosionRange: 3
-  m_timeToExplosion: 3
+  m_timeToExplosion: 100
   m_damage: 1
+  m_detonateBlock: {fileID: 0}
 --- !u!114 &3463609656750972163
 MonoBehaviour:
   m_ObjectHideFlags: 0

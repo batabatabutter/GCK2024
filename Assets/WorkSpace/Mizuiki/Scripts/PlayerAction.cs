@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerAction : MonoBehaviour
 {
@@ -37,6 +38,11 @@ public class PlayerAction : MonoBehaviour
 
 	// 設置ツール
 	private int m_toolType = 0;
+
+
+	[Header("デバッグ---------------------------")]
+	[SerializeField] private bool m_debug = false;
+	[SerializeField] private Text m_text = null;
 
 
 	// Start is called before the first frame update
@@ -110,6 +116,16 @@ public class PlayerAction : MonoBehaviour
 			m_cursorImage.transform.position = mousePos;
 		}
 
+
+		// デバッグ
+		if (m_debug)
+		{
+			if (m_text != null)
+			{
+				m_text.text = m_putTools[m_toolType].type.ToString();
+			}
+		}
+
 	}
 
 	// ツール設置
@@ -118,6 +134,7 @@ public class PlayerAction : MonoBehaviour
 		// アイテムが設置できない
 		if (!m_canPut)
 		{
+			Debug.Log("すでにツールがある");
 			return;
 		}
 
@@ -132,6 +149,8 @@ public class PlayerAction : MonoBehaviour
 		GameObject tool = Instantiate(m_putTools[m_toolType].tool);
 		// 座標設定
 		tool.transform.position = m_cursorImage.transform.position;
+		// アクティブにする
+		tool.SetActive(true);
 
 		// 素材を消費する
 		m_playerItem.ConsumeMaterials(GetToolData(m_toolType));
@@ -158,7 +177,6 @@ public class PlayerAction : MonoBehaviour
 
 		// ツールを変更する
 		m_toolType = change;
-		Debug.Log(m_putTools[m_toolType].type);
 	}
 
 
