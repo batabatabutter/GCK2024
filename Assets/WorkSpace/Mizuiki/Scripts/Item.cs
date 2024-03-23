@@ -126,6 +126,9 @@ public class Item : MonoBehaviour
             m_moveTime = m_picupTime;
 		}
 
+        // Œ³‚ÌˆÊ’u‚ğİ’è
+        m_originalPos = transform.position;
+
 	}
 
 
