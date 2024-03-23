@@ -67,23 +67,32 @@ public class ToolUI : MonoBehaviour
             //  ツール数設定
             m_toolObjects[i].GetComponent<ToolFrame>().SetIsSelected(false);
             //  ツール作成可能数設定
-            m_toolObjects[i].GetComponent<ToolFrame>().SetNum(GetToolUseNum((ToolData.ToolType)i));
+            m_toolObjects[i].GetComponent<ToolFrame>().SetNum(GetToolUseNum(i));
         }
 
         //  ツール選択状態参照
-        m_toolObjects[0].GetComponent<ToolFrame>().SetIsSelected(true); 
+        var a = m_player.GetComponent<PlayerAction>().ToolType.GetType();
+        m_toolObjects[(int)m_player.GetComponent<PlayerAction>().ToolType].
+            GetComponent<ToolFrame>().SetIsSelected(true); 
     }
 
     //  ツール作成可能数取得
-    public int GetToolUseNum(ToolData.ToolType toolType)
+    public int GetToolUseNum(int toolType)
     {
         //  可能数
-        int num = 0;
+        int num = int.MaxValue;
 
         //  アイテム数取得
-        for (int i = 0; i < m_data.tool[(int)toolType].itemMaterials.Count; i++)
+        for (int i = 0; i < m_data.tool[toolType].itemMaterials.Count; i++)
         {
+            //  アイテム
+            Item.Type type = m_data.tool[toolType].itemMaterials[i].type;
+            int count = m_data.tool[toolType].itemMaterials[i].count;
 
+            //  所持アイテム数から作成可能数を割り出す
+            num = Mathf.Min(num,
+                m_player.transform.Find("Item").gameObject.
+                GetComponent<PlayerItem>().Items[type] / count);
         }
 
         return num;

@@ -53,6 +53,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 223de06691087c042840edf6164abf95, type: 3}
   - {fileID: 21300000, guid: c260df85054b5f645a25f5d51db198e1, type: 3}
   m_toolFrame: {fileID: 2693671464973395065, guid: 775ce40a587776d42a96e2bf83247310, type: 3}
-  m_offset: {x: 15, y: 0}
+  m_offset: {x: 25, y: 0}
   m_data: {fileID: 11400000, guid: afce66780e8e60b4da8ff5a866b73c33, type: 2}
   m_debug: 0
