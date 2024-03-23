@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 5623893786300365697}
   - component: {fileID: 9184046651458163047}
   - component: {fileID: 1930340685074365387}
-  - component: {fileID: -8463220972142929240}
   - component: {fileID: -3104692767430798832}
   - component: {fileID: 3463609656750972163}
+  - component: {fileID: 7930838379485859346}
   m_Layer: 3
   m_Name: Tool_Bomb
   m_TagString: Tool
@@ -103,8 +103,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plantCooltime: 1
   spriteRenderer: {fileID: 9184046651458163047}
---- !u!58 &-8463220972142929240
-CircleCollider2D:
+--- !u!114 &-3104692767430798832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2452471199604090867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9474868ea8711d4b9b895789ee7b879, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_blockEndurance: 100
+  m_dontBroken: 0
+  m_dropItems: []
+  m_lightLevel: 0
+  m_blockExplosionPower: 1000
+  m_playerExplosionDamage: 1
+  m_explosionRange: 3
+  m_timeToExplosion: 3
+  m_damage: 1
+  m_detonateBlock: {fileID: 2201125515662036576, guid: 41fb87af326b1aa4088fb371add4c842, type: 3}
+--- !u!114 &3463609656750972163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2452471199604090867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3d3f5708370ee349be01e664da7bc42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_blockEndurance: 100
+  m_dontBroken: 0
+  m_dropItems:
+  - {fileID: 5596305664108361481, guid: da17de7a18f417a468be75cebbc0ee57, type: 3}
+  - {fileID: 5596305664108361481, guid: da17de7a18f417a468be75cebbc0ee57, type: 3}
+  - {fileID: 5605254278718640997, guid: bf9d9ee9ef48341449128b47692aafaa, type: 3}
+  - {fileID: 5605254278718640997, guid: bf9d9ee9ef48341449128b47692aafaa, type: 3}
+  - {fileID: 5605254278718640997, guid: bf9d9ee9ef48341449128b47692aafaa, type: 3}
+  m_lightLevel: 0
+--- !u!61 &7930838379485859346
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -136,51 +179,18 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.4
---- !u!114 &-3104692767430798832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2452471199604090867}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9474868ea8711d4b9b895789ee7b879, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_blockEndurance: 100
-  m_dontBroken: 0
-  m_dropItems: []
-  m_lightLevel: 0
-  m_blockExplosionPower: 1000
-  m_playerExplosionDamage: 1
-  m_explosionRange: 3
-  m_timeToExplosion: 3
-  m_damage: 1
-  m_detonateBlock: {fileID: 0}
---- !u!114 &3463609656750972163
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2452471199604090867}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3d3f5708370ee349be01e664da7bc42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_blockEndurance: 100
-  m_dontBroken: 0
-  m_dropItems:
-  - {fileID: 5596305664108361481, guid: da17de7a18f417a468be75cebbc0ee57, type: 3}
-  - {fileID: 5596305664108361481, guid: da17de7a18f417a468be75cebbc0ee57, type: 3}
-  - {fileID: 5605254278718640997, guid: bf9d9ee9ef48341449128b47692aafaa, type: 3}
-  - {fileID: 5605254278718640997, guid: bf9d9ee9ef48341449128b47692aafaa, type: 3}
-  - {fileID: 5605254278718640997, guid: bf9d9ee9ef48341449128b47692aafaa, type: 3}
-  m_lightLevel: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &8084002861189746189
 GameObject:
   m_ObjectHideFlags: 0
