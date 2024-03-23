@@ -79,14 +79,39 @@ public class PlayerAction : MonoBehaviour
 		// プレイヤーから採掘方向へのRayCast
 		RaycastHit2D rayCast = Physics2D.Raycast(playerPos, playerToMouse, length, m_layerMask);
 
+		// プレイヤーとマウスカーソルの位置が設置範囲内
+		if (Vector2.Distance(playerPos, mousePos) < m_toolSettingRange)
+		{
+			//// 四捨五入する
+			//mousePos = RoundHalfUp(mousePos);
+
+			//// ツールの設置位置をマウスカーソルの位置にする
+			//m_cursorImage.transform.position = mousePos;
+		}
+		else
+		{
+			// 届く最大範囲に設定
+			mousePos = playerPos + (playerToMouse * m_toolSettingRange);
+
+			//// 四捨五入する
+			//mousePos = RoundHalfUp(mousePos);
+
+			//// アイテムの設置位置
+			//m_cursorImage.transform.position = mousePos;
+		}
+
 		// ブロックに当たった
 		if (rayCast)
 		{
 			// Toolタグが付いている
 			if (rayCast.transform.CompareTag("Tool"))
 			{
-				// 設置できなくする
-				m_canPut = false;
+				// 同じグリッド
+				if (CheckSameGrid(mousePos, rayCast.transform.position))
+				{
+					// 設置できなくする
+					m_canPut = false;
+				}
 			}
 			else
 			{
@@ -95,27 +120,11 @@ public class PlayerAction : MonoBehaviour
 			}
 		}
 
-		// プレイヤーとマウスカーソルの位置が設置範囲内
-		if (Vector2.Distance(playerPos, mousePos) < m_toolSettingRange)
-		{
-			// 四捨五入する
-			mousePos = RoundHalfUp(mousePos);
+		// 四捨五入する
+		mousePos = RoundHalfUp(mousePos);
 
-			// ツールの設置位置をマウスカーソルの位置にする
-			m_cursorImage.transform.position = mousePos;
-		}
-		else
-		{
-			// 届く最大範囲に設定
-			mousePos = playerPos + (playerToMouse * m_toolSettingRange);
-
-			// 四捨五入する
-			mousePos = RoundHalfUp(mousePos);
-
-			// アイテムの設置位置
-			m_cursorImage.transform.position = mousePos;
-		}
-
+		// アイテムの設置位置
+		m_cursorImage.transform.position = mousePos;
 
 		// デバッグ
 		if (m_debug)
@@ -237,6 +246,14 @@ public class PlayerAction : MonoBehaviour
 
 		return value;
 	}
+	private Vector2Int RoundHalfUpInt(Vector2 value)
+	{
+		Vector2Int val = new();
+		val.x = (int)RoundHalfUp(value.x);
+		val.y = (int)RoundHalfUp(value.y);
+
+		return val;
+	}
 	static float RoundHalfUp(float value)
 	{
 		// 小数点以下の取得
@@ -251,6 +268,23 @@ public class PlayerAction : MonoBehaviour
 		// 切り上げる
 		return MathF.Floor(value) + 1.0f;
 
+	}
+
+	// 同じグリッドにある
+	private bool CheckSameGrid(Vector2 pos1, Vector2 pos2)
+	{
+		// 四捨五入した値を取得(int)
+		Vector2Int p1 = RoundHalfUpInt(pos1);
+		Vector2Int p2 = RoundHalfUpInt(pos2);
+
+		// 同じグリッド
+		if (p1 == p2)
+		{
+			return true;
+		}
+
+		// 違う
+		return false;
 	}
 
 }
