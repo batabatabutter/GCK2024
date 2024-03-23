@@ -31,16 +31,8 @@ public class HPUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //  プレイシーンマネージャーが無かったら格納しない
-        if (m_playSceneManager == null)
-            Debug.Log("Error:Playerの格納に失敗 PlaySceneManagerが見つかりません:HPUI");
-        else
-        {
-            //  プレイヤー格納
-            m_player = m_playSceneManager.GetPlayer();
-        }
-        //  プレイヤーが見つからなかったらデバッグ状態に
-        if (m_player == null) m_debug = true;
+        //  プレイシーンマネージャー設定
+        SetPlaySceneManager(GetComponentInParent<PlaySceneUICanvas>().GetPlaySceneManager());
 
         //  攻撃
         int val = 0;
@@ -104,5 +96,22 @@ public class HPUI : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.W)) m_player.GetComponent<Player>().AddDamage(-1);
         }
 
+    }
+
+    //  プレイシーン設定
+    public void SetPlaySceneManager(PlaySceneManager playSceneManager)
+    {
+        m_playSceneManager = playSceneManager;
+
+        //  プレイシーンマネージャーが無かったら格納しない
+        if (m_playSceneManager == null)
+            Debug.Log("Error:Playerの格納に失敗 PlaySceneManagerが見つかりません:ToolUI");
+        else
+        {
+            //  プレイヤー格納
+            m_player = m_playSceneManager.GetPlayer();
+        }
+        //  プレイヤーが見つからなかったらデバッグ状態に
+        if (m_player == null) m_debug = true;
     }
 }
