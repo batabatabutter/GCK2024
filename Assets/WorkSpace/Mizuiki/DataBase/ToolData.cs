@@ -16,6 +16,7 @@ public class ToolData : ScriptableObject
 
 	public string toolName = "";                 // –¼‘O
 	public ToolType toolType = ToolType.TOACH;     // Ží—Þ
+	public Sprite sprite = null;					// ‰æ‘œ
 
 	public List<ItemData> itemMaterials = new List<ItemData>();
 

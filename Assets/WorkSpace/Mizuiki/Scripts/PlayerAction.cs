@@ -10,8 +10,9 @@ public class PlayerAction : MonoBehaviour
 	[System.Serializable]
 	public struct ToolContainer
 	{
-		public ToolData.ToolType type;
-		public GameObject tool;
+		public ToolData.ToolType type;		// ツールの情報
+		public GameObject tool;				// インスタンスするツールの実体
+		public float recastTime;			// リキャスト時間
 	}
 
 
@@ -61,6 +62,15 @@ public class PlayerAction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		// ツールの更新
+		for (int i = 0; i < m_putTools.Length; i++)
+		{
+			if (m_putTools[i].recastTime > 0.0f)
+			{
+				m_putTools[i].recastTime -= Time.deltaTime;
+			}
+		}
+
 		// 設置可能な状態にしておく
 		m_canPut = true;
 
@@ -176,6 +186,17 @@ public class PlayerAction : MonoBehaviour
 			return;
 		}
 
+		// クールタイム中なら設置できない
+		if (m_putTools[m_toolType].recastTime > 0.0f)
+			return;
+
+		// ツールクラスを取得
+		if (!m_putTools[m_toolType].tool.TryGetComponent(out Tool t))
+			return;
+
+		// クールタイムの設定
+		m_putTools[m_toolType].recastTime = t.maxCoolTime;
+
 		// アイテムを置く
 		GameObject tool = Instantiate(m_putTools[m_toolType].tool);
 		// 座標設定
@@ -270,9 +291,11 @@ public class PlayerAction : MonoBehaviour
 	}
 	private Vector2Int RoundHalfUpInt(Vector2 value)
 	{
-		Vector2Int val = new();
-		val.x = (int)RoundHalfUp(value.x);
-		val.y = (int)RoundHalfUp(value.y);
+		Vector2Int val = new()
+		{
+			x = (int)RoundHalfUp(value.x),
+			y = (int)RoundHalfUp(value.y)
+		};
 
 		return val;
 	}
