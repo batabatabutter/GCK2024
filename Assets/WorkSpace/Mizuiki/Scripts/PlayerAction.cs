@@ -337,5 +337,8 @@ public class PlayerAction : MonoBehaviour
 	{
 		get { return m_putTools[m_toolType].type; }
 	}
-
+    public float GetToolRecast(ToolData.ToolType type)
+    {
+        return m_putTools[(int)type].recastTime;
+    }
 }
