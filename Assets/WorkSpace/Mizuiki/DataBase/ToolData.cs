@@ -10,25 +10,33 @@ public class ToolData : ScriptableObject
 	{
 		TOACH,      // 松明
 		BOMB,       // 爆弾
+		ARMOR,		// アーマー
+		UPGRADE,	// 採掘アップグレード
 
 		OVER
 	}
 
-	public string toolName = "";                // 名前
-	public ToolType toolType = ToolType.TOACH;  // 種類
-	public Sprite sprite = null;                // 画像
-	public float recastTime = 0.0f;				// 再設置までの時間
+	[Header("ツール名")]
+	public string toolName = "";
+	[Header("ツールの種類")]
+	public ToolType type = ToolType.TOACH;
+	[Header("ツールのアイコン画像")]
+	public Sprite sprite = null;
+	[Header("リキャスト時間")]
+	public float recastTime = 0.0f;
+	[Header("設置する場合はプレハブ")]
+	public GameObject objectPrefab = null;
 
+	[Header("ツール作成に必要な素材")]
 	public List<Items> itemMaterials = new List<Items>();
-
-	//public List<Item.Type>	craftMaterialType  = new();		// 必要アイテム種
-	//public List<int>		craftMaterialCount = new();		// 必要アイテム数
 
 	public ToolData(ToolData tool)
 	{
 		toolName = tool.toolName;
-		toolType = tool.toolType;
+		type = tool.type;
 		sprite = tool.sprite;
+		recastTime = tool.recastTime;
+		objectPrefab = tool.objectPrefab;
 		itemMaterials = tool.itemMaterials;
 	}
 

@@ -8,6 +8,9 @@ public class PlayerMining : MonoBehaviour
     [Header("採掘範囲(半径)")]
     [SerializeField] private float m_miningRange = 2.0f;
 
+    [Header("レイヤーマスク")]
+    [SerializeField] private LayerMask m_layerMask;
+
     [Header("採掘力")]
     [SerializeField] private float m_miningPower = 1.0f;
 
@@ -20,8 +23,9 @@ public class PlayerMining : MonoBehaviour
     [Header("クリティカルダメージ(%)")]
     [SerializeField] private float m_criticalDamageRate = 2.0f;
 
-    [Header("レイヤーマスク")]
-    [SerializeField] private LayerMask m_layerMask;
+    // アップグレードの値
+    private int m_upgrade = 0;
+
 
     [Header("デバッグ表示")]
     [SerializeField] private GameObject m_debugMiningRange;

@@ -13,9 +13,12 @@ public class ItemData : ScriptableObject
 		OVER
 	}
 
-	public string itemName;     // 名前
-	public Type type;       // 種類
-	public Sprite sprite;   // 画像
+	[Header("アイテム名")]
+	public string itemName;
+	[Header("アイテムの種類")]
+	public Type type;
+	[Header("アイテムの画像")]
+	public Sprite sprite;
 
 	public ItemData(ItemData item)
 	{

@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: ToolData_Toach
   m_EditorClassIdentifier: 
   toolName: "\u677E\u660E"
-  toolType: 0
+  type: 0
   sprite: {fileID: 21300000, guid: 223de06691087c042840edf6164abf95, type: 3}
+  recastTime: 0
+  objectPrefab: {fileID: 1605569564547797263, guid: 5cd6e11a21e8d74498a673fc06be8e44, type: 3}
   itemMaterials:
   - type: 1
     count: 2
