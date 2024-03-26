@@ -17,6 +17,7 @@ MonoBehaviour:
   sprite: {fileID: 0}
   recastTime: 20
   objectPrefab: {fileID: 0}
+  tool: {fileID: 4032199088857547970, guid: 986d3b93e511950439be3bdac02579a8, type: 3}
   itemMaterials:
   - type: 0
     count: 20

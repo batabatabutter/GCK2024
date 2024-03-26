@@ -1,30 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerMining : MonoBehaviour
 {
-    [Header("採掘範囲(半径)")]
-    [SerializeField] private float m_miningRange = 2.0f;
-
     [Header("レイヤーマスク")]
     [SerializeField] private LayerMask m_layerMask;
 
+    [Header("採掘範囲(半径)")]
+    [SerializeField] private float m_miningRange = 2.0f;
+    [Header("採掘範囲倍率")]
+    [SerializeField] private float m_miningRangeRate = 1.0f;
+
     [Header("採掘力")]
     [SerializeField] private float m_miningPower = 1.0f;
+    [Header("採掘力倍率")]
+    [SerializeField] private float m_miningPowerRate = 1.0f;
 
     [Header("採掘速度(/s)")]
     [SerializeField] private float m_miningSpeed = 1.0f;
     private float m_miningCoolTime = 0.0f;
+    [Header("採掘速度倍率")]
+    [SerializeField] private float m_miningSpeedRate = 1.0f;
 
     [Header("クリティカル率(%)")]
     [SerializeField] private float m_criticalRate = 0.0f;
     [Header("クリティカルダメージ(%)")]
     [SerializeField] private float m_criticalDamageRate = 2.0f;
 
-    // アップグレードの値
-    private int m_upgrade = 0;
+    // 採掘回数
+    private int m_miningCount = 0;
 
 
     [Header("デバッグ表示")]
@@ -59,7 +66,7 @@ public class PlayerMining : MonoBehaviour
         playerToMouse.Normalize();
 
         // プレイヤーから採掘方向へのRayCast
-        RaycastHit2D rayCast = Physics2D.Raycast(playerPos, playerToMouse, m_miningRange, m_layerMask);
+        RaycastHit2D rayCast = Physics2D.Raycast(playerPos, playerToMouse, m_miningRange * m_miningRangeRate, m_layerMask);
         // 当たったものがあれば当たった位置が採掘ポイント
         if (rayCast)
         {
@@ -69,7 +76,7 @@ public class PlayerMining : MonoBehaviour
         else
         {
             // 採掘ポイント
-            m_debugMiningPoint.transform.position = playerPos + (playerToMouse * m_miningRange);
+            m_debugMiningPoint.transform.position = playerPos + (playerToMouse * m_miningRange * m_miningRangeRate);
         }
 
 
@@ -95,7 +102,7 @@ public class PlayerMining : MonoBehaviour
 		playerToMouse.Normalize();
 
         // プレイヤーから採掘方向へのRayCast
-        RaycastHit2D rayCast = Physics2D.Raycast(playerPos, playerToMouse, m_miningRange, m_layerMask);
+        RaycastHit2D rayCast = Physics2D.Raycast(playerPos, playerToMouse, m_miningRange * m_miningRangeRate, m_layerMask);
 		// 当たったものがあれば採掘
 		if (rayCast)
 		{
@@ -104,12 +111,16 @@ public class PlayerMining : MonoBehaviour
             {
                 // 採掘ダメージ加算
                 block.AddMiningDamage(GetPower());
+
+                // 採掘回数加算
+                m_miningCount++;
+
             }
             //Debug.Log("MINING");
 		}
 
         // クールタイム設定
-        m_miningCoolTime = 1.0f / m_miningSpeed;
+        m_miningCoolTime = 1.0f / (m_miningSpeed * m_miningSpeedRate);
 
 	}
 
@@ -119,7 +130,7 @@ public class PlayerMining : MonoBehaviour
     private float GetPower()
     {
         // 採掘力
-        float power = m_miningPower;
+        float power = m_miningPower * m_miningPowerRate;
 
         // 0 ~ 100%
         float rand = Random.Range(0, 100);
@@ -135,5 +146,19 @@ public class PlayerMining : MonoBehaviour
         return power;
     }
 
+
+    // 採掘速度の倍率
+    public float MiningSpeedRate
+    {
+        get { return m_miningSpeedRate; }
+        set { m_miningSpeedRate = value; }
+    }
+
+    // 採掘回数
+    public int MiningCount
+    {
+        get { return m_miningCount; }
+        set { m_miningCount = value; }
+    }
 
 }

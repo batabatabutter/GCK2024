@@ -7,8 +7,9 @@ public class PlayerTool : MonoBehaviour
 	public class ToolContainer
 	{
 		public ToolData.ToolType type;      // ツールの情報
-		public bool m_isRecast;				// リキャスト中
-		public float recastTime;            // リキャスト時間
+		public bool available	= true;		// 使用可能
+		public bool isRecast	= false;	// リキャスト中
+		public float recastTime = 0.0f;     // リキャスト時間
 	}
 
 	[Header("ツールのデータベース")]
@@ -20,10 +21,17 @@ public class PlayerTool : MonoBehaviour
 	[Header("設置ツール")]
 	[SerializeField] private Dictionary<ToolData.ToolType, ToolContainer> m_tools = new();
 
+	// ツール更新用の空のオブジェクト
+	//private GameObject m_toolObject = null;
+	private Dictionary<ToolData.ToolType, Tool> m_toolScripts = new();
+
 
 	// Start is called before the first frame update
 	void Start()
     {
+		// ツール更新用のオブジェクト作成
+		//m_toolObject = new GameObject("Tools");
+
 		// アイテムがなければ取得
 		if (m_playerItem == null)
 		{
@@ -37,6 +45,12 @@ public class PlayerTool : MonoBehaviour
 		for (ToolData.ToolType type = ToolData.ToolType.TOACH; type < ToolData.ToolType.OVER; type++)
 		{
 			m_tools[type] = new ToolContainer();
+
+			// ツール更新用
+			if (m_dataBase.tool[(int)type].tool)
+			{
+				m_toolScripts[type] = Instantiate(m_dataBase.tool[(int)type].tool, transform);
+			}
 		}
     }
 
@@ -47,7 +61,7 @@ public class PlayerTool : MonoBehaviour
 		for (ToolData.ToolType type = ToolData.ToolType.TOACH; type < ToolData.ToolType.OVER; type++)
 		{
 			// リキャスト中
-			if (m_tools[type].m_isRecast)
+			if (m_tools[type].isRecast)
 			{
 				// 時間経過
 				m_tools[type].recastTime -= Time.deltaTime;
@@ -56,7 +70,9 @@ public class PlayerTool : MonoBehaviour
 			if (m_tools[type].recastTime <= 0.0f)
 			{
 				// リキャストのフラグをオフにする
-				m_tools[type].m_isRecast = false;
+				m_tools[type].isRecast = false;
+				// 使用可能にする
+				m_tools[type].available = true;
 			}
 		}
 
@@ -68,20 +84,33 @@ public class PlayerTool : MonoBehaviour
 	public bool Available(ToolData.ToolType type)
 	{
 		// リキャスト中
-		if(m_tools[type].m_isRecast)
+		if(m_tools[type].available)
 		{
-			// 使用不可能
-			return false;
+			// 使用可能
+			return true;
 		}
-		// 使用可能
-		return true;
+		// 使用不可能
+		return false;
 	}
 
 	// ツールを使用する
 	public void UseTool(ToolData.ToolType type, Vector3 position)
 	{
+		// 呼び出す関数が登録されている
+		if (m_dataBase.tool[(int)type].tool)
+		{
+			// ツール使用の処理を呼び出す
+			m_toolScripts[type].UseTool(gameObject);
+
+			// リキャスト時間の設定
+			m_tools[type].recastTime = m_dataBase.tool[(int)type].recastTime;
+
+			// 使用不可能にする
+			m_tools[type].available = false;
+
+		}
 		// 設置ツール
-		if (m_dataBase.tool[(int)type].objectPrefab)
+		else if (m_dataBase.tool[(int)type].objectPrefab)
 		{
 			// アイテムを置く
 			GameObject tool = Instantiate(m_dataBase.tool[(int)type].objectPrefab, position, Quaternion.identity);
@@ -89,7 +118,7 @@ public class PlayerTool : MonoBehaviour
 			tool.SetActive(true);
 			// リキャスト時間の設定
 			m_tools[type].recastTime = m_dataBase.tool[(int)type].recastTime;
-			m_tools[type].m_isRecast = true;
+			m_tools[type].isRecast = true;
 		}
 
 		// 素材を消費する
@@ -132,10 +161,16 @@ public class PlayerTool : MonoBehaviour
 
 
 
-	// ツールのリキャスト時間
+	// ツールのリキャスト時間の取得
 	public float RecastTime(ToolData.ToolType type)
 	{
 		return m_tools[type].recastTime;
+	}
+
+	// ツールのリキャスト状態の設定
+	public void SetRecast(bool recast, ToolData.ToolType type)
+	{
+		m_tools[type].isRecast = recast;
 	}
 
 }

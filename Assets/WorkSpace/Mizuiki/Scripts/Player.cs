@@ -53,7 +53,7 @@ public class Player : MonoBehaviour
         get { return m_maxLife; }
     }
     // アーマーの枚数
-    public int ARMOR
+    public int Armor
     {
         get { return m_armor; }
         set { m_armor = value; }

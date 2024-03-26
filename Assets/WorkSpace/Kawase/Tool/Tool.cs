@@ -30,4 +30,10 @@ public class Tool : MonoBehaviour
     {
     }
 
+    // ツールを使用する
+    public virtual void UseTool(GameObject obj)
+    {
+        Debug.Log("ツール使用");
+    }
+
 }

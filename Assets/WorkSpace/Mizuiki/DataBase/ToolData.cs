@@ -26,6 +26,8 @@ public class ToolData : ScriptableObject
 	public float recastTime = 0.0f;
 	[Header("設置する場合はプレハブ")]
 	public GameObject objectPrefab = null;
+	[Header("使用時の関数を呼び出すツール")]
+	public Tool tool;
 
 	[Header("ツール作成に必要な素材")]
 	public List<Items> itemMaterials = new List<Items>();
