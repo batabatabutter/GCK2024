@@ -13,7 +13,7 @@ public class ChangeBrightness : MonoBehaviour
     //ñæÇÈÇ≥ÇÃç≈ëÂíl
     const int MAX_BRIGHTNESS = 7;
     //LightList
-    List<GameObject> m_lightList = new List<GameObject>();
+    public List<GameObject> m_lightList = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
@@ -56,6 +56,9 @@ public class ChangeBrightness : MonoBehaviour
                 }
             }
         }
+
+        ChangeColor();
+
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -68,6 +71,15 @@ public class ChangeBrightness : MonoBehaviour
                 ChangeColor();
             }
         }
+        else if(GetComponent<ChangeBrightness>() && (collision.gameObject.layer == 3 || collision.CompareTag("Block")))
+        {
+            m_lightList.Add(collision.gameObject);
+            ChangeColor();
+
+        }
+
+
+
     }
 
 
