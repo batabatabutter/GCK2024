@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toolName: "\u30A2\u30FC\u30DE\u30FC"
   type: 0
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 85c7156f05802ca43bef718cad39014a, type: 3}
   recastTime: 30
   objectPrefab: {fileID: 0}
   tool: {fileID: 3006796946561196304, guid: 800d19f6dcb7cd347b8160a728647903, type: 3}
