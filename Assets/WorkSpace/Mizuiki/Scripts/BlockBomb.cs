@@ -142,11 +142,12 @@ public class BlockBomb : Block
 	}
 
     // ダメージを受けた
-    public override void AddMiningDamage(float power)
+    public override bool AddMiningDamage(float power)
     {
         // 起爆
         Detonate();
 
+        return true;
     }
 
 }

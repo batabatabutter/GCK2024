@@ -26,7 +26,7 @@ public class ToolUpgrade : Tool
             return;
 
         // ƒc[ƒ‹g—pŒã‚©‚ç‚ÌÌŒ@‰ñ”
-        int count = m_mining.MiningCount - m_useMiningCount;
+        int count = m_mining.BrokenCount - m_useMiningCount;
 
         // ‹­‰»’l•ªÌŒ@‚µ‚½
         if (count >= m_upgradeValue)
@@ -55,7 +55,7 @@ public class ToolUpgrade : Tool
             m_mining = mining;
 
             // Œ»İ‚ÌÌŒ@‰ñ”‚ğæ“¾
-            m_useMiningCount = mining.MiningCount;
+            m_useMiningCount = mining.BrokenCount;
 
             // ÌŒ@‘¬“x‚Ì”{—¦‚ğİ’è
             m_mining.MiningSpeedRate = m_upgradeAmount;

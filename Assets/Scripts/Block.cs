@@ -16,6 +16,10 @@ public class Block : MonoBehaviour
     [Header("自分自身の光源レベル")]
     [SerializeField] private int m_lightLevel = 0;
 
+    [Header("マップ表示用のオブジェクト")]
+    [SerializeField] private GameObject m_mapObject = null;
+    [SerializeField] Color m_blockColor = Color.white;
+
     // ブロックが破壊されている
     private bool m_isBroken = false;
 
@@ -23,6 +27,10 @@ public class Block : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // マップオブジェクトの生成
+        GameObject mapObj = Instantiate(m_mapObject, transform);
+        // 色の設定
+        mapObj.GetComponent<SpriteRenderer>().color = m_blockColor;
         
     }
 
@@ -37,12 +45,16 @@ public class Block : MonoBehaviour
         
     }
 
-    // 採掘ダメージ
-    public virtual void AddMiningDamage(float power)
+	/// <summary>
+	/// 採掘ダメージ
+	/// </summary>
+	/// <param name="power"></param>
+	/// <returns></returns>
+	public virtual bool AddMiningDamage(float power)
     {
         // 破壊不可能ブロックの場合は処理しない
         if (m_dontBroken)
-            return;
+            return false;
 
         // 採掘ダメージ加算
         m_blockEndurance -= power;
@@ -50,8 +62,10 @@ public class Block : MonoBehaviour
         // 耐久が0になった
         if (m_blockEndurance <= 0.0f)
         {
-            BrokenBlock();
+            return BrokenBlock();
         }
+
+        return false;
     }
 
 	// アイテムドロップ
@@ -78,16 +92,19 @@ public class Block : MonoBehaviour
 
 
 
-	// ブロックが壊れた
-	public void BrokenBlock()
+	/// <summary>
+	/// ブロックを破壊
+	/// </summary>
+	/// <returns>ブロックが壊れた</returns>
+	public bool BrokenBlock()
 	{
 		// 破壊不可能ブロックの場合は処理しない
 		if (m_dontBroken)
-			return;
+			return false;
 
         // すでに破壊されている
         if (m_isBroken)
-            return;
+            return false;
 
 		// アイテムドロップ
 		DropItem();
@@ -96,6 +113,7 @@ public class Block : MonoBehaviour
 		Destroy(gameObject);
         m_isBroken = true;
 
+        return true;
 	}
 
 

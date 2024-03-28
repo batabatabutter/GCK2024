@@ -32,6 +32,8 @@ public class PlayerMining : MonoBehaviour
 
     // ÌŒ@‰ñ”
     private int m_miningCount = 0;
+    // ƒuƒƒbƒN‚Ì”j‰ó”
+    private int m_brokenCount = 0;
 
 
     [Header("ƒfƒoƒbƒO•\¦")]
@@ -110,7 +112,11 @@ public class PlayerMining : MonoBehaviour
             if (rayCast.transform.TryGetComponent(out Block block))
             {
                 // ÌŒ@ƒ_ƒ[ƒW‰ÁZ
-                block.AddMiningDamage(GetPower());
+                if (block.AddMiningDamage(GetPower()))
+                {
+                    // ”j‰ó‰ñ”‰ÁZ
+                    m_brokenCount++;
+                }
 
                 // ÌŒ@‰ñ”‰ÁZ
                 m_miningCount++;
@@ -159,6 +165,12 @@ public class PlayerMining : MonoBehaviour
     {
         get { return m_miningCount; }
         set { m_miningCount = value; }
+    }
+
+    // ”j‰ó”
+    public int BrokenCount
+    {
+        get { return m_brokenCount; }
     }
 
 }
