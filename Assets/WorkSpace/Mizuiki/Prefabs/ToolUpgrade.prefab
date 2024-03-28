@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68eefbd3aac9bd3489c4f851d45c4b6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_upgradeValue: 20
+  m_upgradeValue: 60
   m_upgradeAmount: 2

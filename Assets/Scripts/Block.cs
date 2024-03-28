@@ -18,7 +18,8 @@ public class Block : MonoBehaviour
 
     [Header("マップ表示用のオブジェクト")]
     [SerializeField] private GameObject m_mapObject = null;
-    [SerializeField] Color m_blockColor = Color.white;
+    [SerializeField] private Color m_blockColor = Color.white;
+    [SerializeField] private int m_order = 0;
 
     // ブロックが破壊されている
     private bool m_isBroken = false;
@@ -33,6 +34,7 @@ public class Block : MonoBehaviour
             GameObject mapObj = Instantiate(m_mapObject, transform);
             // 色の設定
             mapObj.GetComponent<SpriteRenderer>().color = m_blockColor;
+            mapObj.GetComponent<SpriteRenderer>().sortingOrder = m_order;
             mapObj.GetComponent<MapObject>().BlockColor = m_blockColor;
             // スプライトの設定
             mapObj.GetComponent<MapObject>().ParentSprite = gameObject.GetComponent<SpriteRenderer>();

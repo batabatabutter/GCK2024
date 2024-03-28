@@ -149,3 +149,4 @@ MonoBehaviour:
   m_lightLevel: 0
   m_mapObject: {fileID: 1862195980944505719, guid: 6626405694a3a3e4191b6cfe03fe79e8, type: 3}
   m_blockColor: {r: 0.517, g: 0.3238402, b: 0.117359005, a: 1}
+  m_order: 2
