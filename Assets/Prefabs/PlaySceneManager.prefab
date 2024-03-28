@@ -78,6 +78,7 @@ MonoBehaviour:
   m_playerLength: 20
   m_player: {fileID: 6945831396311541013, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
   m_playSceneManager: {fileID: 3469568166959932924}
+  m_ground: {fileID: 6018421707374535805, guid: c39488e997ce861448ac80594ec8975c, type: 3}
 --- !u!114 &-4963957752362924521
 MonoBehaviour:
   m_ObjectHideFlags: 0
