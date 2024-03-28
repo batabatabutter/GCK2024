@@ -49,6 +49,7 @@ public class DungeonGenerator : MonoBehaviour
 
     private void Awake()
     {
+
         parent = new GameObject("Blocks");
 
         m_corePosX = Random.Range(0, m_dungeonSizeX * 10);
@@ -178,15 +179,11 @@ public class DungeonGenerator : MonoBehaviour
 
         }
 
-    }
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        for(int y = 0; y < m_dungeonSizeY * 10; ++y)
+        //’n–Ê‚Ì¶¬
+        for (int y = 0; y < m_dungeonSizeY * 10; ++y)
         {
-            for(int x = 0;x < m_dungeonSizeX * 10; ++x)
+            for (int x = 0; x < m_dungeonSizeX * 10; ++x)
             {
                 // ¶¬À•W
                 Vector3 pos = new(x, y, 0.0f);
@@ -198,6 +195,14 @@ public class DungeonGenerator : MonoBehaviour
 
             }
         }
+
+    }
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
     }
 
     // Update is called once per frame
