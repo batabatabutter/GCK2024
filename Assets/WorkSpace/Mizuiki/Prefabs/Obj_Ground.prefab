@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6841600883943898201}
   - component: {fileID: 1177589818946404616}
   - component: {fileID: 5668319801934073067}
-  - component: {fileID: 5075732777367063382}
   - component: {fileID: 1169762517071602359}
+  - component: {fileID: 5075732777367063382}
   m_Layer: 0
   m_Name: Obj_Ground
   m_TagString: Untagged
@@ -105,6 +105,19 @@ MonoBehaviour:
   m_lightLevel: 0
   m_mapObject: {fileID: 1862195980944505719, guid: 6626405694a3a3e4191b6cfe03fe79e8, type: 3}
   m_blockColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &1169762517071602359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6018421707374535805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e93158efe0c78643bc2d7ad92ce54d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_lightList: []
 --- !u!61 &5075732777367063382
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -150,16 +163,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1169762517071602359
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6018421707374535805}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e93158efe0c78643bc2d7ad92ce54d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_lightList: []
