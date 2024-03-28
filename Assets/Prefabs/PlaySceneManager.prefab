@@ -69,7 +69,7 @@ MonoBehaviour:
   - Assets/DungeonData/DungeonPattern_05.csv
   m_dungeonSizeX: 5
   m_dungeonSizeY: 5
-  m_blockCore: {fileID: 3457520386420079125, guid: cbe61a2527b59f44ea88ed42d8cd8019, type: 3}
+  m_blockCore: {fileID: 4565198709969196584, guid: 39d265f821b12d5418f29e714696adc7, type: 3}
   m_betRock: {fileID: 8550780491684374141, guid: 955249822050a054fb32ac155f2febc2, type: 3}
   m_block:
   - {fileID: 5387801217646829125, guid: 6d22e030ce913cb43bd663bf0ba2de13, type: 3}
