@@ -87,6 +87,11 @@ public class HPUI : MonoBehaviour
                 m_hpGaugeObject.Add(frame);
             }
 
+            //  アーマー分は表示しないように
+            if (i >= maxHpVal + armorVal)
+                m_hpGaugeObject[i].transform.parent.gameObject.SetActive(false);
+            else m_hpGaugeObject[i].transform.parent.gameObject.SetActive(true);
+
             //  HPがあれば色付き
             if (i < hpVal) m_hpGaugeObject[i].GetComponent<RawImage>().color = m_hpColor;
             else if(i >= maxHpVal && i < maxHpVal + armorVal) m_hpGaugeObject[i].GetComponent<RawImage>().color = m_armorColor;
