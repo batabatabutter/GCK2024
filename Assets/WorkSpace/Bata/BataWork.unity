@@ -203,10 +203,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlaySceneManager
       objectReference: {fileID: 0}
-    - target: {fileID: 792408576829412996, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
-      propertyPath: m_isBrightness
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4028424752848547877, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
