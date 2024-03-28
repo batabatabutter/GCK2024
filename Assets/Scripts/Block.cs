@@ -27,11 +27,16 @@ public class Block : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // マップオブジェクトの生成
-        GameObject mapObj = Instantiate(m_mapObject, transform);
-        // 色の設定
-        mapObj.GetComponent<SpriteRenderer>().color = m_blockColor;
-        
+        if (m_mapObject)
+        {
+            // マップオブジェクトの生成
+            GameObject mapObj = Instantiate(m_mapObject, transform);
+            // 色の設定
+            mapObj.GetComponent<SpriteRenderer>().color = m_blockColor;
+            mapObj.GetComponent<MapObject>().BlockColor = m_blockColor;
+            // スプライトの設定
+            mapObj.GetComponent<MapObject>().ParentSprite = gameObject.GetComponent<SpriteRenderer>();
+        }
     }
 
     // Update is called once per frame
