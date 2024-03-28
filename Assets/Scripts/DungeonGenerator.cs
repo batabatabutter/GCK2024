@@ -36,6 +36,9 @@ public class DungeonGenerator : MonoBehaviour
     [Header("プレイシーンマネージャー")]
     [SerializeField] private PlaySceneManager m_playSceneManager;
 
+    [Header("地面背景")]
+    [SerializeField] private GameObject m_ground;
+
 
     private int m_corePosX;
     private int m_corePosY;
@@ -181,7 +184,20 @@ public class DungeonGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        for(int y = 0; y < m_dungeonSizeY * 10; ++y)
+        {
+            for(int x = 0;x < m_dungeonSizeX * 10; ++x)
+            {
+                // 生成座標
+                Vector3 pos = new(x, y, 0.0f);
 
+                // ブロックの生成
+                GameObject block = Instantiate<GameObject>(m_ground, pos, Quaternion.identity);
+
+                block.transform.parent = parent.transform;
+
+            }
+        }
     }
 
     // Update is called once per frame
