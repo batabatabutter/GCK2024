@@ -95,7 +95,7 @@ public class BlockBomb : Block
 
 
 	// 爆破ダメージを与える
-	private void OnTriggerStay2D(Collider2D collision)
+	private void OnTriggerEnter2D(Collider2D collision)
 	{
         // 爆破不可能
         if (!m_canExplosion)
