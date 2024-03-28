@@ -161,11 +161,19 @@ public class DungeonGenerator : MonoBehaviour
 
             betRock.transform.parent = parent.transform;
 
+            //–¾‚é‚³‚Ì’Ç‰Á
+            if (m_isBrightness)
+                betRock.AddComponent<ChangeBrightness>();
+
+
 
             betRock = Instantiate<GameObject>(m_betRock, new Vector3(m_dungeonSizeY * 10, i, 0), Quaternion.identity);
 
             betRock.transform.parent = parent.transform;
 
+            //–¾‚é‚³‚Ì’Ç‰Á
+            if (m_isBrightness)
+                betRock.AddComponent<ChangeBrightness>();
 
 
         }
@@ -174,8 +182,18 @@ public class DungeonGenerator : MonoBehaviour
             betRock = Instantiate<GameObject>(m_betRock, new Vector3(i, -1, 0), Quaternion.identity);
             betRock.transform.parent = parent.transform;
 
+            //–¾‚é‚³‚Ì’Ç‰Á
+            if (m_isBrightness)
+                betRock.AddComponent<ChangeBrightness>();
+
+
             betRock = Instantiate<GameObject>(m_betRock, new Vector3(i, m_dungeonSizeY * 10, 0), Quaternion.identity);
             betRock.transform.parent = parent.transform;
+
+            //–¾‚é‚³‚Ì’Ç‰Á
+            if (m_isBrightness)
+                betRock.AddComponent<ChangeBrightness>();
+
 
         }
 
