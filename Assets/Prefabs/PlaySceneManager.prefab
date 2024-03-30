@@ -95,16 +95,19 @@ MonoBehaviour:
   isroll: 0
   isbank: 0
   attackCoolTime: 3
+  twiceAttackLength: 20
   SceneManager: {fileID: 3469568166959932924}
   rockfall: {fileID: 2940951798871330703, guid: 829d86242de0c674a8b178b0f249f289, type: 3}
   highlight: {fileID: 4708925638394852652, guid: 82994475c12be0f4da5df8587e7d4dec, type: 3}
   heightRock: 3
+  fallTime: 4
   rollRock: {fileID: 796929451571866827, guid: e54c54e3e9cf6284b904d9e1c38277e3, type: 3}
   highlightArrow: {fileID: 5906353031345709085, guid: 1e3c7638253476640a9e522370a172fd, type: 3}
   up: 5
   right: 5
   down: 5
   left: 5
+  rollTime: 7
   bank: {fileID: 6085554247375089227, guid: 1d29c80645233fb4c94bf95ca0e1b1f3, type: 3}
   bankHighlight: {fileID: 1067109971471968558, guid: 29f861859c529b1498a780cee08eb5fb, type: 3}
-  twiceAttackLength: 20
+  bankTime: 4
