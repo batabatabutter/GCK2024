@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using static UnityEngine.UI.Image;
 
@@ -11,7 +12,7 @@ public class DungeonGenerator : MonoBehaviour
 
 
     [Header("生成するダンジョンのパス")]
-    [SerializeField] private List<string> m_dungeonPath;
+    [SerializeField] private List<TextAsset> m_dungeonPath;
 
 	[Header("ダンジョンのサイズ(10*10で１サイズ)")]
     [SerializeField] private int m_dungeonSizeX;
@@ -99,9 +100,9 @@ public class DungeonGenerator : MonoBehaviour
         for (int i = 0; i < m_dungeonPath.Count; i++)
         {
             // ファイルがなければマップ読み込みの処理をしない
-            if (!File.Exists(m_dungeonPath[i]))
+            if (m_dungeonPath[i] == null)
             {
-                Debug.Log(m_dungeonPath[i]);
+                Debug.Log("CSV file is not assigned");
                 return;
 
             }
@@ -109,33 +110,57 @@ public class DungeonGenerator : MonoBehaviour
             // マップのリスト
             List<List<string>> mapList = new List<List<string>>();
 
-            // ファイル読み込み
-            StreamReader streamReader = new StreamReader(m_dungeonPath[i]);
-
-            // 改行区切りで読み出す
-            foreach (string line in streamReader.ReadToEnd().Split("\n"))
+            // ファイルの内容を1行ずつ処理
+            string[] lines = m_dungeonPath[i].text.Split('\n');
+            foreach (string line in lines)
             {
-                // 行が存在しなければループを抜ける
-                if (line == "")
-                    break;
+                string[] values = line.Split(',');
 
-                string lin = line.Remove(line.Length - 1);
+                // 各行のデータを格納するリスト
+                List<string> rowData = new List<string>();
 
-                List<string> list = new List<string>();
-
-                // カンマ区切りで読み出す
-                foreach (string line2 in lin.Split(","))
+                // 各列の値を処理する
+                foreach (string value in values)
                 {
-                    list.Add(line2);
+                    // データをリストに追加
+                    rowData.Add(value);
                 }
 
-                mapList.Add(list);
+                // 行のデータをCSVデータに追加
+                mapList.Add(rowData);
             }
+
+            {
+                //// ファイル読み込み
+                //StreamReader streamReader = new StreamReader(m_dungeonPath[i].text);
+
+                //// 改行区切りで読み出す
+                //foreach (string line in streamReader.ReadToEnd().Split("\n"))
+                //{
+                //    // 行が存在しなければループを抜ける
+                //    if (line == "")
+                //        break;
+
+                //    string lin = line.Remove(line.Length - 1);
+
+                //    List<string> list = new List<string>();
+
+                //    // カンマ区切りで読み出す
+                //    foreach (string line2 in lin.Split(","))
+                //    {
+                //        list.Add(line2);
+                //    }
+
+                //    mapList.Add(list);
+                //}
+            }
+
+
             //３次元に入れる
             mapListManager.Add(mapList);
 
             // ファイルを閉じる
-            streamReader.Close();
+            //streamReader.Close();
 
         }
 
