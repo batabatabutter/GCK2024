@@ -126,7 +126,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BackGroundColor: {r: 0.3207547, g: 0.3207547, b: 0.3207547, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -183,7 +183,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6163492376843781196
 Transform:
   m_ObjectHideFlags: 0
@@ -874,5 +874,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_maxCount: 99
   m_detectionRange: 5
-  m_debug: 1
+  m_debug: 0
   m_text: {fileID: 0}
