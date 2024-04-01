@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static Unity.Collections.AllocatorManager;
 
 public class PlayerMining : MonoBehaviour
 {
@@ -104,36 +105,69 @@ public class PlayerMining : MonoBehaviour
 		playerToMouse.Normalize();
 
         // プレイヤーから採掘方向へのRayCast
-        RaycastHit2D rayCast = Physics2D.Raycast(playerPos, playerToMouse, m_miningRange * m_miningRangeRate, m_layerMask);
-		// 当たったものがあれば採掘
-		if (rayCast)
-		{
-            // [Block] の取得を試みる
-            if (rayCast.transform.TryGetComponent(out Block block))
+        RaycastHit2D[] rayCasts = Physics2D.RaycastAll(playerPos, playerToMouse, m_miningRange * m_miningRangeRate, m_layerMask);
+        foreach (RaycastHit2D rayCast in rayCasts)
+        {
+            // タグが Block
+            if (rayCast.transform.CompareTag("Block"))
             {
-                // 採掘ダメージ加算
-                if (block.AddMiningDamage(GetPower()))
+                // ブロックにダメージを与える
+                if (CauseDamageToBlock(rayCast.transform))
                 {
-                    // 破壊回数加算
-                    m_brokenCount++;
+                    // 一番手前のブロックにダメージを与えた
+                    break;
                 }
 
-                // 採掘回数加算
-                m_miningCount++;
-
+                continue;
             }
-            //Debug.Log("MINING");
+
+            // タグが Tool
+            if (rayCast.transform.CompareTag("Tool"))
+            {
+                // マウスカーソルと同じグリッド
+                if (MyFunction.CheckSameGrid(rayCast.point, mousePos))
+				{
+                    CauseDamageToBlock(rayCast.transform);
+                    break;
+				}
+
+			}
 		}
 
-        // クールタイム設定
-        m_miningCoolTime = 1.0f / (m_miningSpeed * m_miningSpeedRate);
+		// クールタイム設定
+		m_miningCoolTime = 1.0f / (m_miningSpeed * m_miningSpeedRate);
 
 	}
 
 
 
-    // 採掘力算出
-    private float GetPower()
+    // ブロックにダメージを与える
+    private bool CauseDamageToBlock(Transform transform)
+    {
+		// [Block] の取得を試みる
+		if (transform.TryGetComponent(out Block block))
+		{
+			// 採掘ダメージ加算
+			if (block.AddMiningDamage(GetPower()))
+			{
+				// 破壊回数加算
+				m_brokenCount++;
+			}
+
+			// 採掘回数加算
+			m_miningCount++;
+
+			// ブロックに当たったらダメージ処理を抜ける
+			return true;
+
+		}
+
+        return false;
+	}
+
+
+	// 採掘力算出
+	private float GetPower()
     {
         // 採掘力
         float power = m_miningPower * m_miningPowerRate;

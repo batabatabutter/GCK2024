@@ -116,7 +116,7 @@ public class PlayerAction : MonoBehaviour
 				if (cast.transform.CompareTag("Tool"))
 				{
 					// 同じグリッド
-					if (CheckSameGrid(mousePos, cast.transform.position))
+					if (MyFunction.CheckSameGrid(mousePos, cast.transform.position))
 					{
 						// 設置できなくする
 						m_canPut = false;
@@ -126,7 +126,7 @@ public class PlayerAction : MonoBehaviour
 		}
 
 		// 四捨五入する
-		mousePos = RoundHalfUp(mousePos);
+		mousePos = MyFunction.RoundHalfUp(mousePos);
 
 		// アイテムの設置位置
 		m_cursorImage.transform.position = mousePos;
@@ -195,56 +195,6 @@ public class PlayerAction : MonoBehaviour
 
 
 
-	// 四捨五入
-	private Vector2 RoundHalfUp(Vector2 value)
-	{
-		value.x = RoundHalfUp(value.x);
-		value.y = RoundHalfUp(value.y);
-
-		return value;
-	}
-	private Vector2Int RoundHalfUpInt(Vector2 value)
-	{
-		Vector2Int val = new()
-		{
-			x = (int)RoundHalfUp(value.x),
-			y = (int)RoundHalfUp(value.y)
-		};
-
-		return val;
-	}
-	static float RoundHalfUp(float value)
-	{
-		// 小数点以下の取得
-		float fraction = value - MathF.Floor(value);
-
-		// 小数点以下が0.5未満
-		if (fraction < 0.5f)
-		{
-			// 切り捨てる
-			return MathF.Floor(value);
-		}
-		// 切り上げる
-		return MathF.Floor(value) + 1.0f;
-
-	}
-
-	// 同じグリッドにある
-	private bool CheckSameGrid(Vector2 pos1, Vector2 pos2)
-	{
-		// 四捨五入した値を取得(int)
-		Vector2Int p1 = RoundHalfUpInt(pos1);
-		Vector2Int p2 = RoundHalfUpInt(pos2);
-
-		// 同じグリッド
-		if (p1 == p2)
-		{
-			return true;
-		}
-
-		// 違う
-		return false;
-	}
 
 
 	// 選択ツールの取得
