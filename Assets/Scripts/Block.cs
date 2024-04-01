@@ -18,6 +18,7 @@ public class Block : MonoBehaviour
 
     [Header("マップ表示用のオブジェクト")]
     [SerializeField] private GameObject m_mapObject = null;
+    [SerializeField] private GameObject m_mapBlind = null;
     [SerializeField] private Color m_blockColor = Color.white;
     [SerializeField] private int m_order = 0;
 
@@ -38,6 +39,11 @@ public class Block : MonoBehaviour
             mapObj.GetComponent<MapObject>().BlockColor = m_blockColor;
             // スプライトの設定
             mapObj.GetComponent<MapObject>().ParentSprite = gameObject.GetComponent<SpriteRenderer>();
+        }
+        if (m_mapBlind)
+        {
+            // マップの目隠し生成
+            Instantiate(m_mapBlind, transform);
         }
     }
 

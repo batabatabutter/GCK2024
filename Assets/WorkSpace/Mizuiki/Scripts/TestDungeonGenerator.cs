@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class TestDungeonGenerator : MonoBehaviour
 {
-	[Header("生成するダンジョンのパス")]
-	[SerializeField] private string m_dungeonPath = "Assets/DungeonData/Dungeon.csv";
+	[Header("生成するダンジョンのデータ")]
+	[SerializeField] private Object m_dungeonData = null;
 
 	[Header("ダンジョンのサイズ")]
 	[SerializeField] private int m_dungeonSizeX;
@@ -35,17 +35,17 @@ public class TestDungeonGenerator : MonoBehaviour
 		}
 
 		// ファイルがなければマップ読み込みの処理をしない
-		if (!File.Exists(m_dungeonPath))
+		if (!m_dungeonData)
 			return;
 
 		// マップのリスト
 		List<List<string>> mapList = new List<List<string>>();
 
-		// ファイル読み込み
-		StreamReader streamReader = new StreamReader(m_dungeonPath);
+		//// ファイル読み込み
+		//StreamReader streamReader = new StreamReader(m_dungeonData.ToString());
 
 		// 改行区切りで読み出す
-		foreach (string line in streamReader.ReadToEnd().Split("\n"))
+		foreach (string line in /*streamReader.ReadToEnd()*/m_dungeonData.ToString().Split("\n"))
 		{
 			// 行が存在しなければループを抜ける
 			if (line == "")
@@ -64,8 +64,8 @@ public class TestDungeonGenerator : MonoBehaviour
 			mapList.Add(list);
 		}
 
-		// ファイルを閉じる
-		streamReader.Close();
+		//// ファイルを閉じる
+		//streamReader.Close();
 
 		// 読みだしたデータをもとにダンジョン生成をする
 		for (int y = 0; y < mapList.Count; y++)

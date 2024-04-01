@@ -149,5 +149,6 @@ MonoBehaviour:
   - {fileID: 5605254278718640997, guid: bf9d9ee9ef48341449128b47692aafaa, type: 3}
   m_lightLevel: 0
   m_mapObject: {fileID: 1862195980944505719, guid: 6626405694a3a3e4191b6cfe03fe79e8, type: 3}
+  m_mapBlind: {fileID: 1862195980944505719, guid: c1924fe14703f584b922f18489774354, type: 3}
   m_blockColor: {r: 0, g: 0, b: 0, a: 1}
   m_order: 2
