@@ -62,11 +62,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_isBrightness: 0
   m_dungeonPath:
-  - Assets/DungeonData/DungeonPattern_01.csv
-  - Assets/DungeonData/DungeonPattern_02.csv
-  - Assets/DungeonData/DungeonPattern_03.csv
-  - Assets/DungeonData/DungeonPattern_04.csv
-  - Assets/DungeonData/DungeonPattern_05.csv
+  - {fileID: 4900000, guid: 0e35215235d219d46be3f40a33eaba2e, type: 3}
+  - {fileID: 4900000, guid: 6961f29b4be0e05478a47f0aea956a73, type: 3}
+  - {fileID: 4900000, guid: 7fb8f74acffc03c429d0e84c487b5514, type: 3}
+  - {fileID: 4900000, guid: 78d705811d53abd438c636ee509bd43c, type: 3}
+  - {fileID: 4900000, guid: b013fb72dc7745e4c9dff799a6d1917f, type: 3}
   m_dungeonSizeX: 5
   m_dungeonSizeY: 5
   m_blockCore: {fileID: 4565198709969196584, guid: 39d265f821b12d5418f29e714696adc7, type: 3}
