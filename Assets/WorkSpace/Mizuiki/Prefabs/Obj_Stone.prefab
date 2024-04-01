@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 30f59e5d696b882468e4815d0da38cc8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 12153932601e8cc4b86662554fe983fa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -148,3 +148,6 @@ MonoBehaviour:
   m_dropItems:
   - {fileID: 5596305664108361481, guid: da17de7a18f417a468be75cebbc0ee57, type: 3}
   m_lightLevel: 0
+  m_mapObject: {fileID: 1862195980944505719, guid: 6626405694a3a3e4191b6cfe03fe79e8, type: 3}
+  m_blockColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_order: 2

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 using static UnityEngine.UI.Image;
 
 public class DungeonGenerator : MonoBehaviour
@@ -36,6 +35,9 @@ public class DungeonGenerator : MonoBehaviour
     [Header("プレイシーンマネージャー")]
     [SerializeField] private PlaySceneManager m_playSceneManager;
 
+    [Header("地面背景")]
+    [SerializeField] private GameObject m_ground;
+
 
     private int m_corePosX;
     private int m_corePosY;
@@ -46,6 +48,7 @@ public class DungeonGenerator : MonoBehaviour
 
     private void Awake()
     {
+
         parent = new GameObject("Blocks");
 
         m_corePosX = Random.Range(0, m_dungeonSizeX * 10);
@@ -67,15 +70,13 @@ public class DungeonGenerator : MonoBehaviour
         //  プレイヤーの生成
         GameObject pl = Instantiate<GameObject>(m_player, m_playerPos, Quaternion.identity);
 
-        pl.transform.parent = parent.transform;
-
         // coreの生成
         GameObject co = Instantiate<GameObject>(m_blockCore, new Vector3(m_corePosX,m_corePosY), Quaternion.identity);
 
         co.transform.parent = parent.transform;
 
         // ブロックスクリプトをつける
-        co.AddComponent<Block>();
+        //co.AddComponent<Block>();
 
         //明るさの追加
         if (m_isBrightness)
@@ -90,12 +91,7 @@ public class DungeonGenerator : MonoBehaviour
             m_playSceneManager.SetPlayer(pl);
             m_playSceneManager.SetCore(co);
         }
-    }
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
         //１０＊１０のリスト管理用
         List<List<List<string>>> mapListManager = new List<List<List<string>>>();
 
@@ -144,9 +140,9 @@ public class DungeonGenerator : MonoBehaviour
         }
 
         //ブロック生成
-        for (int y = 0; y < m_dungeonSizeY;y++)
+        for (int y = 0; y < m_dungeonSizeY; y++)
         {
-            for(int x = 0; x < m_dungeonSizeX;x++)
+            for (int x = 0; x < m_dungeonSizeX; x++)
             {
                 int random = Random.Range(0, m_dungeonPath.Count);
                 Make10_10Block(mapListManager[random], x * 10, y * 10);
@@ -164,23 +160,65 @@ public class DungeonGenerator : MonoBehaviour
 
             betRock.transform.parent = parent.transform;
 
+            //明るさの追加
+            if (m_isBrightness)
+                betRock.AddComponent<ChangeBrightness>();
 
-            betRock = Instantiate<GameObject>(m_betRock, new Vector3(m_dungeonSizeY * 10 , i,0), Quaternion.identity);
+
+
+            betRock = Instantiate<GameObject>(m_betRock, new Vector3(m_dungeonSizeY * 10, i, 0), Quaternion.identity);
 
             betRock.transform.parent = parent.transform;
 
+            //明るさの追加
+            if (m_isBrightness)
+                betRock.AddComponent<ChangeBrightness>();
 
 
         }
         for (int i = 0; i < m_dungeonSizeX * 10; i++)
         {
-            betRock = Instantiate<GameObject>(m_betRock, new Vector3(i, - 1, 0), Quaternion.identity);
+            betRock = Instantiate<GameObject>(m_betRock, new Vector3(i, -1, 0), Quaternion.identity);
             betRock.transform.parent = parent.transform;
+
+            //明るさの追加
+            if (m_isBrightness)
+                betRock.AddComponent<ChangeBrightness>();
+
 
             betRock = Instantiate<GameObject>(m_betRock, new Vector3(i, m_dungeonSizeY * 10, 0), Quaternion.identity);
             betRock.transform.parent = parent.transform;
 
+            //明るさの追加
+            if (m_isBrightness)
+                betRock.AddComponent<ChangeBrightness>();
+
+
         }
+
+
+        //地面の生成
+        for (int y = 0; y < m_dungeonSizeY * 10; ++y)
+        {
+            for (int x = 0; x < m_dungeonSizeX * 10; ++x)
+            {
+                // 生成座標
+                Vector3 pos = new(x, y, 0.0f);
+
+                // ブロックの生成
+                GameObject block = Instantiate<GameObject>(m_ground, pos, Quaternion.identity);
+
+                block.transform.parent = parent.transform;
+
+            }
+        }
+
+    }
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
 
     }
 
@@ -221,7 +259,7 @@ public class DungeonGenerator : MonoBehaviour
                 block.transform.parent = parent.transform;
 
                 // ブロックスクリプトをつける
-                block.AddComponent<Block>();
+                //block.AddComponent<Block>();
 
                 //明るさの追加
                 if(m_isBrightness)

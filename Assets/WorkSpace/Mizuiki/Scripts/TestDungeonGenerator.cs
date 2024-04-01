@@ -14,13 +14,15 @@ public class TestDungeonGenerator : MonoBehaviour
 
 	[Header("生成ブロック")]
 	[SerializeField] private GameObject m_block = null;
+	[SerializeField] private GameObject m_blockBedrock = null;
+	[SerializeField] private GameObject m_blockCore = null;
 
-	//[Header("何の変哲もないブロック")]
-	//[SerializeField] private string m_blockNormal = "1";
+	[Header("何の変哲もないブロック")]
+	[SerializeField] private string m_blockNameNormal = "1";
 	[Header("破壊不可能ブロック")]
-	[SerializeField] private string m_blockDontBroken = "2";
+	[SerializeField] private string m_blockNameBedrock = "2";
 	[Header("ダンジョンの核")]
-	[SerializeField] private string m_blockCore = "3";
+	[SerializeField] private string m_blockNameCore = "3";
 
 	[SerializeField] GameObject m_player = null;
 
@@ -29,7 +31,7 @@ public class TestDungeonGenerator : MonoBehaviour
 	{
 		if (m_player != null)
 		{
-			Instantiate<GameObject>(m_player);
+			Instantiate(m_player);
 		}
 
 		// ファイルがなければマップ読み込みの処理をしない
@@ -78,28 +80,28 @@ public class TestDungeonGenerator : MonoBehaviour
 				Vector3 pos = new(x, y, 0.0f);
 
 				// ブロックの生成
-				GameObject block = Instantiate<GameObject>(m_block, pos, Quaternion.identity);
-				// ブロックスクリプトをつける
-				block.AddComponent<Block>();
+				GameObject block = null;
 
+				// 普通のブロック
+				if (mapList[y][x] == m_blockNameNormal)
+				{
+					block = Instantiate(m_block, pos, Quaternion.identity);
+				}
 				// 破壊不可能ブロックにする
-				if (mapList[y][x] == m_blockDontBroken)
+				else if (mapList[y][x] == m_blockNameBedrock)
 				{
-					// 分かりやすいようにとりあえず色を変える
-					block.GetComponent<SpriteRenderer>().color = Color.gray;
-					// 破壊不可能にする
-					block.GetComponent<Block>().DontBroken = true;
+					// 岩盤ブロック生成
+					block = Instantiate(m_blockBedrock, pos, Quaternion.identity);
 				}
-
 				// 核にする
-				if (mapList[y][x] == m_blockCore)
+				else if (mapList[y][x] == m_blockNameCore)
 				{
-					// 分かりやすいようにとりあえず色を変える
-					block.GetComponent<SpriteRenderer>().color = Color.red;
-					// ダンジョンスクリプトをつける
-					block.AddComponent<Dungeon>();
+					// 核ブロック生成
+					block = Instantiate(m_blockCore, pos, Quaternion.identity);
 				}
 
+				// 松明対応
+				block.AddComponent<ChangeBrightness>();
 
 			}
 		}

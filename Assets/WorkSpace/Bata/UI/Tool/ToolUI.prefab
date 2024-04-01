@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6693273767639068651}
+  - component: {fileID: 8260624181944715640}
   m_Layer: 5
   m_Name: ToolUI
   m_TagString: Untagged
@@ -35,3 +36,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8260624181944715640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6319506107420767649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21eb7b485325d904692afc30a94c4524, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_playSceneManager: {fileID: 0}
+  m_toolGraph:
+  - {fileID: 21300000, guid: 223de06691087c042840edf6164abf95, type: 3}
+  - {fileID: 21300000, guid: c260df85054b5f645a25f5d51db198e1, type: 3}
+  m_toolFrame: {fileID: 2693671464973395065, guid: 775ce40a587776d42a96e2bf83247310, type: 3}
+  m_offset: {x: 25, y: 0}
+  m_data: {fileID: 11400000, guid: afce66780e8e60b4da8ff5a866b73c33, type: 2}
+  m_debug: 0

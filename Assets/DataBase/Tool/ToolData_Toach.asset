@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f32322d6a3befb942b18974efc8c4bbe, type: 3}
+  m_Name: ToolData_Toach
+  m_EditorClassIdentifier: 
+  toolName: "\u677E\u660E"
+  type: 0
+  sprite: {fileID: 21300000, guid: 223de06691087c042840edf6164abf95, type: 3}
+  recastTime: 0
+  objectPrefab: {fileID: 1605569564547797263, guid: 5cd6e11a21e8d74498a673fc06be8e44, type: 3}
+  tool: {fileID: 0}
+  itemMaterials:
+  - type: 1
+    count: 2

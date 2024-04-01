@@ -9,12 +9,17 @@ public class FallRock : MonoBehaviour
     public float fallTime = 3.0f;
     [Header("çUåÇóÕ")]
     public int damage = 1;
+    [Header("ínñ Ç…Ç¬Ç¢ÇΩå„ÇÃó]âC")]
+    [SerializeField] float extraTime = 0.5f;
+
 
     Rigidbody2D rd;
 
     float scale = 0.0f;
 
     float keepX;
+
+    bool ishitPlayer = false;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +31,8 @@ public class FallRock : MonoBehaviour
         transform.localScale = Vector3.zero;
 
         keepX = transform.transform.position.x;
+
+        ishitPlayer = false;
     }
 
     // Update is called once per frame
@@ -51,27 +58,38 @@ public class FallRock : MonoBehaviour
             transform.position = new Vector3(keepX + (Mathf.Sin(Time.time * 20) / 4), transform.position.y, transform.position.z);
         }
 
-    }
+
+        if(ishitPlayer)
+        {
+            extraTime -= Time.deltaTime;
+        }
 
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
+        if(extraTime < 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player" && !collision.isTrigger)
+        if (collision.gameObject.GetComponent<Highlight>())
+        {
+            ishitPlayer = true;
+
+            rd.AddForce(new Vector3(0.0f, 10.0f, 0.0f), ForceMode2D.Impulse);
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player" && ishitPlayer && !collision.isTrigger)
         {
             collision.GetComponent<Player>().AddDamage(damage);
 
             Destroy(gameObject);
         }
-        if (collision.gameObject.GetComponent<Highlight>())
-        {
-            Destroy(gameObject);
-            Destroy(collision.gameObject);
 
-        }
     }
 
 

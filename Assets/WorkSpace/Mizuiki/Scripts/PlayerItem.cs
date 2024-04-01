@@ -1,25 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerItem : MonoBehaviour
 {
 	[Header("所持品")]
-	[SerializeField] private Dictionary<Item.Type, int> m_items = new();
+	[SerializeField] private Dictionary<ItemData.Type, int> m_items = new();
 	[Header("最大数")]
 	[SerializeField] private int m_maxCount = 99;
 
 	[Header("アイテムの検知範囲(半径)")]
 	[SerializeField] private float m_detectionRange = 3.0f;
-	[Header("アイテムの吸い込み速度(/s)")]
-	[SerializeField] private float m_suctionSpeed = 0.5f;
-	[Header("アイテムを拾いあげる範囲(半径)")]
-	[SerializeField] private float m_picupRange = 1.0f;
+	//[Header("アイテムの吸い込み速度(/s)")]
+	//[SerializeField] private float m_suctionSpeed = 0.5f;
+	//[Header("アイテムを拾いあげる範囲(半径)")]
+	//[SerializeField] private float m_picupRange = 1.0f;
 
 
 	[Header("デバッグ----------")]
 	[SerializeField] private bool m_debug = false;
-
+	[SerializeField] private Text m_text = null;
 
 	// Start is called before the first frame update
 	void Start()
@@ -32,7 +33,7 @@ public class PlayerItem : MonoBehaviour
 		col.isTrigger = true;
 
 		// 所持アイテム数の初期化
-		for (Item.Type type = Item.Type.STONE; type < Item.Type.OVER; type++)
+		for (ItemData.Type type = ItemData.Type.STONE; type < ItemData.Type.OVER; type++)
 		{
 			m_items[type] = 0;
 
@@ -48,57 +49,49 @@ public class PlayerItem : MonoBehaviour
 	// Update is called once per frame
 	void Update()
     {
-        
-    }
-
-
-	private void OnTriggerEnter2D(Collider2D collision)
-	{
-		// タグがアイテム以外
-		if (!collision.CompareTag("Item"))
-			return;
-
-		// アイテムスクリプトの取得
-		if (!collision.TryGetComponent<Item>(out Item item))
-			return;
-
-		// アイテムの種類
-		Item.Type itemType = item.ItemType;
-
-		// 拾えない
-		if (!CheckAcquirable(itemType))
-			return;
-
-		// 距離
-		float distance = Vector3.Distance(transform.position, collision.transform.position);
-
-		// 拾う
-		if (distance < m_picupRange)
+        if (m_debug)
 		{
-			// 拾えるだけ拾う
-			m_items[itemType] += item.Picup(m_maxCount - m_items[itemType]);
-			Debug.Log("picup");
+			// テキストがある
+			if (m_text != null)
+			{
+				m_text.text = "";
+
+				for (ItemData.Type type = ItemData.Type.STONE; type < ItemData.Type.OVER; type++)
+				{
+					m_text.text += type.ToString() + " : " + m_items[type] + "\n";
+				}
+
+			}
 		}
     }
 
+
+	// アイテムを見つけた
 	private void OnTriggerStay2D(Collider2D collision)
 	{
 		// タグがアイテム以外
 		if (!collision.CompareTag("Item"))
 			return;
 
-		// アイテムからプレイヤーへのベクトル
-		Vector3 itemToPlayer = transform.position - collision.transform.position;
-		// 正規化
-		itemToPlayer.Normalize();
+		// アイテムスクリプトの取得
+		if (!collision.TryGetComponent(out Item item))
+			return;
 
-		// プレイヤーに近づかせる
-		collision.transform.position = collision.transform.position + (itemToPlayer * m_suctionSpeed * Time.deltaTime);
+		// アイテムの種類
+		ItemData.Type itemType = item.ItemType;
+
+		// 拾えない
+		if (!CheckAcquirable(itemType))
+			return;
+
+		// プレイヤーのトランスフォームを設定する
+		item.SetPlayerTransform(transform);
+
 	}
 
 
 	// 拾えるか確認
-	public bool CheckAcquirable(Item.Type itemType)
+	public bool CheckAcquirable(ItemData.Type itemType)
 	{
 		// 所持数が最大数に達していない
 		if (m_items[itemType] < m_maxCount)
@@ -109,8 +102,47 @@ public class PlayerItem : MonoBehaviour
 		return false;
 	}
 
+	/// <summary>
+	/// アイテムを拾う
+	/// </summary>
+	/// <param name="type">アイテムの種類</param>
+	/// <param name="count">アイテムの数</param>
+	/// <returns>拾った数</returns>
+	public int PicUp(ItemData.Type type, int count)
+	{
+		// 所持数が最大
+		if (m_items[type] >= m_maxCount)
+			return 0;
+
+		// 拾う数
+		int picCount = m_maxCount - m_items[type];
+
+		// 拾える数がアイテムのスタック数より大きい
+		if (picCount > count)
+		{
+			// アイテムのスタック分拾う
+			picCount = count;
+		}
+
+		// アイテムを拾う
+		m_items[type] += picCount;
+
+		// 拾った数を返す
+		return picCount;
+	}
+
+	// アイテムを消費する
+	public void ConsumeMaterials(ToolData data)
+	{
+		for (int i = 0; i < data.itemMaterials.Count; i++)
+		{
+			// [type] を [count] 消費する
+			m_items[data.itemMaterials[i].type] -= data.itemMaterials[i].count;
+		}
+	}
+
 	// アイテムの所持数取得
-	public int GetItemCount(Item.Type type)
+	public int GetItemCount(ItemData.Type type)
 	{
 		return m_items[type];
 	}
@@ -118,7 +150,7 @@ public class PlayerItem : MonoBehaviour
 
 
 
-	public Dictionary<Item.Type, int> Items
+	public Dictionary<ItemData.Type, int> Items
 	{
 		get { return m_items; }
 	}
