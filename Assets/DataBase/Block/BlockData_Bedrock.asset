@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockName: "\u5CA9\u76E4"
   type: 1
+  prefab: {fileID: 8550780491684374141, guid: 955249822050a054fb32ac155f2febc2, type: 3}
   sprite: {fileID: 0}
-  prefab: {fileID: 0}
   color: {r: 0.48900002, g: 0.24450001, b: 0, a: 1}
   order: 0
   mapIcon: {fileID: 0}

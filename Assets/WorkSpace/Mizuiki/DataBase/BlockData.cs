@@ -20,10 +20,10 @@ public class BlockData : ScriptableObject
 	public string blockName = "";
 	[Header("ブロックの種類")]
 	public ToolType type = ToolType.OVER;
-	[Header("ブロックの画像")]
-	public Sprite sprite = null;
 	[Header("ブロックのプレハブ")]
 	public GameObject prefab = null;
+	[Header("ブロックの画像")]
+	public Sprite sprite = null;
 
 	[Header("---マップ---")]
 
