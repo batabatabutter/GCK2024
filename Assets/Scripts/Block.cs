@@ -16,12 +16,6 @@ public class Block : MonoBehaviour
     [Header("自分自身の光源レベル")]
     [SerializeField] private int m_lightLevel = 0;
 
-    [Header("マップ表示用のオブジェクト")]
-    [SerializeField] private GameObject m_mapObject = null;
-    [SerializeField] private GameObject m_mapBlind = null;
-    [SerializeField] private Color m_blockColor = Color.white;
-    [SerializeField] private int m_order = 0;
-
     // ブロックが破壊されている
     private bool m_isBroken = false;
 
@@ -29,22 +23,6 @@ public class Block : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (m_mapObject)
-        {
-            // マップオブジェクトの生成
-            GameObject mapObj = Instantiate(m_mapObject, transform);
-            // 色の設定
-            mapObj.GetComponent<SpriteRenderer>().color = m_blockColor;
-            mapObj.GetComponent<SpriteRenderer>().sortingOrder = m_order;
-            mapObj.GetComponent<MapObject>().BlockColor = m_blockColor;
-            // スプライトの設定
-            mapObj.GetComponent<MapObject>().ParentSprite = gameObject.GetComponent<SpriteRenderer>();
-        }
-        if (m_mapBlind)
-        {
-            // マップの目隠し生成
-            Instantiate(m_mapBlind, transform);
-        }
     }
 
     // Update is called once per frame
