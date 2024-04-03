@@ -32,7 +32,8 @@ public class BlockGenerator : MonoBehaviour
     /// <param name="type">生成するブロックの種類</param>
     /// <param name="position">生成する座標</param>
     /// <param name="parent">親</param>
-    public void GenerateBlock(BlockData.ToolType type, Vector2 position, Transform parent = null)
+    /// <param name="isBrightness">明るさをつけるかどうか</param>
+    public GameObject GenerateBlock(BlockData.ToolType type, Vector2 position, Transform parent = null, bool isBrightness = false)
     {
         // ブロックのデータ取得
         BlockData data = m_blockDataBase.block[(int)type];
@@ -51,6 +52,13 @@ public class BlockGenerator : MonoBehaviour
             block = Instantiate(data.prefab, position, Quaternion.identity);
         }
 
+        //明るさの追加
+        if(isBrightness)
+        {
+            block.AddComponent<ChangeBrightness>();
+        }
+
+
         if (m_mapObject)
         {
             // マップオブジェクトの生成
@@ -61,7 +69,7 @@ public class BlockGenerator : MonoBehaviour
             // 表示順の設定
             mapObj.GetComponent<SpriteRenderer>().sortingOrder = data.order;
             // スプライトの設定
-            mapObj.GetComponent<MapObject>().ParentSprite = gameObject.GetComponent<SpriteRenderer>();
+            mapObj.GetComponent<MapObject>().ParentSprite = block.gameObject.GetComponent<SpriteRenderer>();
 
         }
 		if (m_mapBlind)
@@ -70,5 +78,7 @@ public class BlockGenerator : MonoBehaviour
 			//Instantiate(m_mapBlind, block.transform);
 		}
 
+
+        return block;
 	}
 }

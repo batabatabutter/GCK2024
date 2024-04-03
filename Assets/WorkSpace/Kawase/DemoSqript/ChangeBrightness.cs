@@ -49,7 +49,7 @@ public class ChangeBrightness : MonoBehaviour
                 RemoveLightList(i);
             }
             //—£‚ê‚½‚çÁ‚·
-            else if (Vector3.Distance(m_lightList[i].gameObject.transform.position,gameObject.transform.position) > MAX_BRIGHTNESS)
+            else if (Vector3.Distance(m_lightList[i].gameObject.transform.position,gameObject.transform.position) > m_lightList[i].GetComponent<Block>().LightLevel)
             {
                 RemoveLightList(i);
             }
@@ -120,6 +120,8 @@ public class ChangeBrightness : MonoBehaviour
                 float lightLength = Mathf.Ceil(Vector3.Distance(m_lightList[i].transform.position, this.transform.position));
 
                 lightListV.Add(m_lightList[i].GetComponent<Block>().LightLevel - lightLength);
+
+
             }
             //‚È‚ñ‚Å‚©‚í‚©‚ç‚ñ‚¯‚Ç2‰ñ‚â‚ñ‚È‚¢‚ÆƒoƒO‚é
             for (int i = 0; i < 2; i++)
@@ -133,6 +135,11 @@ public class ChangeBrightness : MonoBehaviour
 
             }
 
+
+            if (GetComponent<Block>())
+            {
+                GetComponent<Block>().ReceiveLightLevel = (int)lightListV.Max();
+            }
         }
     }
 

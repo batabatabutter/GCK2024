@@ -150,8 +150,6 @@ public class DungeonAttack : MonoBehaviour
             }
             //クールタイムリセット
             attackCoolTime = m_keepCoolTime + attackAddTime;
-
-            Debug.Log(attackAddTime);
         }
     }
 

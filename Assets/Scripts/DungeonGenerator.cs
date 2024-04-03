@@ -10,24 +10,24 @@ public class DungeonGenerator : MonoBehaviour
     [Header("明るさをつける(デバッグ)")]
     [SerializeField] private bool m_isBrightness;
 
-
-    [Header("生成するダンジョンのパス")]
+    [Header("生成するダンジョンのCSVファイル")]
     [SerializeField] private List<TextAsset> m_dungeonPath;
 
 	[Header("ダンジョンのサイズ(10*10で１サイズ)")]
     [SerializeField] private int m_dungeonSizeX;
     [SerializeField] private int m_dungeonSizeY;
 
-    [Header("核ブロック")]
-    [SerializeField] private　GameObject m_blockCore;
-    [Header("岩盤ブロック")]
-    [SerializeField] private GameObject m_betRock;
+    [System.Serializable]
+    public class BlockOdds
+    {
+        [Header("種類")]
+        public BlockData.ToolType type;       // 種類
+        [Header("確率")]
+        public int odds;       // 確率
+    }
 
-    [Header("生成ブロック")]
-    [SerializeField] private List<GameObject> m_block = null;
-    [Header("生成ブロックの確率％（０～１００）（上のと同じ順番ね）")]
-    [SerializeField] private List<int> m_blockOdds = null;
-
+    [SerializeField]
+    List<BlockOdds> m_blockOddsList;
 
     [Header("核からプレイヤーの出現しない距離")]
     [SerializeField] private int m_playerLength = 35;
@@ -45,12 +45,17 @@ public class DungeonGenerator : MonoBehaviour
 
     private Vector2 m_playerPos;
 
-    GameObject parent;
+    private GameObject m_parent;
+
+    private BlockGenerator m_blockGenerator;
+
+
 
     private void Awake()
     {
+        m_blockGenerator = GetComponent<BlockGenerator>();
 
-        parent = new GameObject("Blocks");
+        m_parent = new GameObject("Blocks");
 
         m_corePosX = Random.Range(0, m_dungeonSizeX * 10);
         m_corePosY = Random.Range(0, m_dungeonSizeY * 10);
@@ -71,17 +76,16 @@ public class DungeonGenerator : MonoBehaviour
         //  プレイヤーの生成
         GameObject pl = Instantiate<GameObject>(m_player, m_playerPos, Quaternion.identity);
 
+
+
         // coreの生成
-        GameObject co = Instantiate<GameObject>(m_blockCore, new Vector3(m_corePosX,m_corePosY), Quaternion.identity);
+        GameObject co = m_blockGenerator.GenerateBlock(BlockData.ToolType.CORE, new Vector3(m_corePosX, m_corePosY), m_parent.transform, m_isBrightness);
 
-        co.transform.parent = parent.transform;
-
-        // ブロックスクリプトをつける
-        //co.AddComponent<Block>();
-
+        //GameObject co = Instantiate<GameObject>(m_blockCore, new Vector3(m_corePosX,m_corePosY), Quaternion.identity);
+        //co.transform.parent = m_parent.transform;
         //明るさの追加
-        if (m_isBrightness)
-            co.AddComponent<ChangeBrightness>();
+        //if (m_isBrightness)
+        //    co.AddComponent<ChangeBrightness>();
 
 
         //  プレイシーンマネージャーが無かったら格納しない
@@ -175,52 +179,17 @@ public class DungeonGenerator : MonoBehaviour
             }
         }
 
-
-        GameObject betRock;
-
         //岩盤で囲う
         for (int i = 0; i < m_dungeonSizeY * 10; i++)
         {
-            betRock = Instantiate<GameObject>(m_betRock, new Vector3(-1, i, 0), Quaternion.identity);
-
-            betRock.transform.parent = parent.transform;
-
-            //明るさの追加
-            if (m_isBrightness)
-                betRock.AddComponent<ChangeBrightness>();
-
-
-
-            betRock = Instantiate<GameObject>(m_betRock, new Vector3(m_dungeonSizeY * 10, i, 0), Quaternion.identity);
-
-            betRock.transform.parent = parent.transform;
-
-            //明るさの追加
-            if (m_isBrightness)
-                betRock.AddComponent<ChangeBrightness>();
-
-
+            m_blockGenerator.GenerateBlock(BlockData.ToolType.BEDROCK, new Vector3(-1, i, 0), m_parent.transform, m_isBrightness);
+            m_blockGenerator.GenerateBlock(BlockData.ToolType.BEDROCK, new Vector3(m_dungeonSizeY * 10, i, 0), m_parent.transform, m_isBrightness);
         }
         for (int i = 0; i < m_dungeonSizeX * 10; i++)
         {
-            betRock = Instantiate<GameObject>(m_betRock, new Vector3(i, -1, 0), Quaternion.identity);
-            betRock.transform.parent = parent.transform;
-
-            //明るさの追加
-            if (m_isBrightness)
-                betRock.AddComponent<ChangeBrightness>();
-
-
-            betRock = Instantiate<GameObject>(m_betRock, new Vector3(i, m_dungeonSizeY * 10, 0), Quaternion.identity);
-            betRock.transform.parent = parent.transform;
-
-            //明るさの追加
-            if (m_isBrightness)
-                betRock.AddComponent<ChangeBrightness>();
-
-
+            m_blockGenerator.GenerateBlock(BlockData.ToolType.BEDROCK, new Vector3(i, -1, 0), m_parent.transform, m_isBrightness);
+            m_blockGenerator.GenerateBlock(BlockData.ToolType.BEDROCK, new Vector3(i, m_dungeonSizeY * 10, 0), m_parent.transform, m_isBrightness);
         }
-
 
         //地面の生成
         for (int y = 0; y < m_dungeonSizeY * 10; ++y)
@@ -233,7 +202,7 @@ public class DungeonGenerator : MonoBehaviour
                 // ブロックの生成
                 GameObject block = Instantiate<GameObject>(m_ground, pos, Quaternion.identity);
 
-                block.transform.parent = parent.transform;
+                block.transform.parent = m_parent.transform;
 
             }
         }
@@ -260,6 +229,7 @@ public class DungeonGenerator : MonoBehaviour
         {
             for (int x = 0; x < mapList[y].Count; x++)
             {
+                //プレイヤー
                 if((int)m_playerPos.x == x + originX && (int)m_playerPos.y == y + originY)
                 {
                     continue;
@@ -268,7 +238,6 @@ public class DungeonGenerator : MonoBehaviour
                 //コアを生成
                 if(m_corePosX == x + originX && m_corePosY == y + originY)
                 {
-
                     continue;
                 }
                 // 0 の場合は何も生成しない
@@ -279,43 +248,32 @@ public class DungeonGenerator : MonoBehaviour
                 Vector3 pos = new(originX + x,originY + y, 0.0f);
 
                 // ブロックの生成
-                GameObject block = Instantiate<GameObject>(m_block[LotteryBlock(m_blockOdds)], pos, Quaternion.identity);
-
-                block.transform.parent = parent.transform;
-
-                // ブロックスクリプトをつける
-                //block.AddComponent<Block>();
-
-                //明るさの追加
-                if(m_isBrightness)
-                    block.AddComponent<ChangeBrightness>();
+                m_blockGenerator.GenerateBlock(m_blockOddsList[LotteryBlock()].type, pos, m_parent.transform, m_isBrightness);
             }
         }
     }
 
 
-    int LotteryBlock(List<int> blockOddsList)
+    int LotteryBlock()
     {
         //確率の抽選
         List<int> oddsList = new List<int>();
 
         int allOdds = 0;
 
-        for (int i = 0; i < blockOddsList.Count; i++)
+        //ブロックの種類の数
+        for (int i = 0; i < m_blockOddsList.Count; i++)
         {
-            for (int j = 0; j < blockOddsList[i]; j++)
+            //ブロックの確率
+            for (int j = 0; j < m_blockOddsList[i].odds; j++)
             {
                 oddsList.Add(i);
             }
-            allOdds += blockOddsList[i];
+            //ブロックの確率を加算
+            allOdds += m_blockOddsList[i].odds;
         }
-
+        //抽選
         return oddsList[Random.Range(0,allOdds)];
     }
 
-    private void MakeCore()
-    {
-
-
-    }
 }

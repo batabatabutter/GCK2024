@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9102e5fe6745808438d597f5ef891521, type: 3}
   m_Name: BlockData_Core
   m_EditorClassIdentifier: 
-  blockName: 
+  blockName: "\u30B3\u30A2"
   type: 0
   prefab: {fileID: 4565198709969196584, guid: 39d265f821b12d5418f29e714696adc7, type: 3}
   sprite: {fileID: 0}

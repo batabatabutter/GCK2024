@@ -177,6 +177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_lightList: []
+  m_lightPositionList: []
 --- !u!50 &-2136216210276133737
 Rigidbody2D:
   serializedVersion: 4

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3469568166959932924}
   - component: {fileID: 792408576829412996}
   - component: {fileID: -4963957752362924521}
+  - component: {fileID: 1500174390285807772}
   m_Layer: 0
   m_Name: PlaySceneManager
   m_TagString: Untagged
@@ -111,3 +112,18 @@ MonoBehaviour:
   bank: {fileID: 6085554247375089227, guid: 1d29c80645233fb4c94bf95ca0e1b1f3, type: 3}
   bankHighlight: {fileID: 1067109971471968558, guid: 29f861859c529b1498a780cee08eb5fb, type: 3}
   bankTime: 4
+--- !u!114 &1500174390285807772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1614570275442964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5067d1a84e7c8a4cb2246f9f7dfc60b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_blockDataBase: {fileID: 11400000, guid: c2edababa67c99348a73038833ee0dbc, type: 2}
+  m_mapObject: {fileID: 1862195980944505719, guid: 6626405694a3a3e4191b6cfe03fe79e8, type: 3}
+  m_mapBlind: {fileID: 1862195980944505719, guid: c1924fe14703f584b922f18489774354, type: 3}
