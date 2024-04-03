@@ -35,7 +35,7 @@ public class ToolUI : MonoBehaviour
         //  生成位置
         Vector2 size = m_toolFrame.GetComponent<RectTransform>().sizeDelta;
         Vector3 pos;
-        for (int i = 0; i < (int)ToolData.ToolType.OVER; i++)
+        for (int i = 0; i < m_data.tool.Count; i++)
         {
             //  座標
             pos = new Vector3((size.x + m_offset.x)* i, 0.0f) + transform.position;
@@ -52,7 +52,7 @@ public class ToolUI : MonoBehaviour
     void Update()
     {
         //  ツール更新
-        for (int i = 0; i < (int)ToolData.ToolType.OVER; i++)
+        for (int i = 0; i < m_data.tool.Count; i++)
         {
             //  ツール数設定
             m_toolObjects[i].GetComponent<ToolFrame>().SetIsSelected(false);
