@@ -20,14 +20,21 @@ public class PlayerAction : MonoBehaviour
 	[Header("松明")]
 	[SerializeField] private ToolData m_toachData = null;
 
-	[Header("ツール")]
-	[SerializeField] private PlayerTool m_playerTool;
+	[Header("ツールスクリプト")]
+	[SerializeField] private PlayerTool m_playerTool = null;
+	[Header("アップグレードスクリプト")]
+	[SerializeField] private PlayerUpgrade m_playerUpgrade = null;
+
+	// レアツールを選択
+	private bool m_rare = false;
 
 	// ツール設置可能
 	private bool m_canPut = true;
 
-	// 設置ツール
+	// 選択ツール
 	private ToolData.ToolType m_toolType = 0;
+	// 選択レアツール
+	private ToolData.ToolType m_toolTypeRare = ToolData.ToolType.RARE + 1;
 
 
 	[Header("デバッグ---------------------------")]
@@ -41,10 +48,13 @@ public class PlayerAction : MonoBehaviour
 		// ツールがなければ取得
 		if (m_playerTool == null)
 		{
-			if (TryGetComponent(out PlayerTool tool))
-			{
-				m_playerTool = tool;
-			}
+			m_playerTool = GetComponent<PlayerTool>();
+		}
+
+		// アップグレードがなければ取得
+		if (m_playerUpgrade == null)
+		{
+			m_playerUpgrade = GetComponent<PlayerUpgrade>();
 		}
 
     }
@@ -129,7 +139,14 @@ public class PlayerAction : MonoBehaviour
 		{
 			if (m_text != null)
 			{
-				m_text.text = m_toolType.ToString();
+				if (m_rare)
+				{
+					m_text.text = m_toolTypeRare.ToString();
+				}
+				else
+				{
+					m_text.text = m_toolType.ToString();
+				}
 			}
 		}
 
@@ -157,11 +174,29 @@ public class PlayerAction : MonoBehaviour
 
     }
 
+	// 強化
+	public void Upgrade()
+	{
+		m_playerUpgrade.Upgrade();
+	}
+
 	// ツールの使用
 	public void UseTool()
 	{
+		if (m_rare)
+		{
+			UseTool(m_toolTypeRare);
+		}
+		else
+		{
+			UseTool(m_toolType);
+		}
+
+	}
+	public void UseTool(ToolData.ToolType type)
+	{
 		// 選択されているツールの分類
-		m_playerTool.GetCategory(m_toolType);
+		m_playerTool.GetCategory(type);
 
 		// アイテムが設置できない
 		if (!m_canPut)
@@ -171,47 +206,79 @@ public class PlayerAction : MonoBehaviour
 		}
 
 		// 選択されているアイテムが作成できない
-		if (!m_playerTool.CheckCreate(m_toolType))
+		if (!m_playerTool.CheckCreate(type))
 		{
 			Debug.Log("素材不足");
 			return;
 		}
 
 		// クールタイム中なら設置できない
-		if (!m_playerTool.Available(m_toolType))
+		if (!m_playerTool.Available(type))
 		{
 			Debug.Log("クールタイム中");
 			return;
 		}
 
 		// ツールを使用する
-		m_playerTool.UseTool(m_toolType, m_cursorImage.transform.position);
+		m_playerTool.UseTool(type, m_cursorImage.transform.position);
 
 	}
 
 	// ツール変更
 	public void ChangeTool(int val)
 	{
-		// 変更後の値
-		ToolData.ToolType change = m_toolType - val;
+		// RAREを取得
+		ToolData.ToolType rare = ToolData.ToolType.RARE;
+		// OVERを取得
+		ToolData.ToolType over = ToolData.ToolType.OVER;
 
-		// 変更後が 0 未満
-		if (change < 0)
+		if (m_rare)
 		{
-			// 一番後ろのツールにする
-			change = ToolData.ToolType.OVER - 1;
+			// 変更後の値
+			ToolData.ToolType change = m_toolTypeRare - val;
+
+			// 変更後が RARE 以下
+			if (change <= rare)
+			{
+				// 一番後ろのツールにする
+				change = over - 1;
+			}
+			// 変更後が範囲外
+			else if (change >= over)
+			{
+				change = rare + 1;
+			}
+
+			m_toolTypeRare = change;
 		}
-		// 変更後が範囲外
-		else if (change >= ToolData.ToolType.OVER)
+		else
 		{
-			change = 0;
+			// 変更後の値
+			ToolData.ToolType change = m_toolType - val;
+
+			// 変更後が 0 未満
+			if (change < 0)
+			{
+				// 一番後ろのツールにする
+				change = rare - 1;
+			}
+			// 変更後が範囲外
+			else if (change >= rare)
+			{
+				change = 0;
+			}
+
+			// ツールを変更する
+			m_toolType = change;
 		}
 
-		// ツールを変更する
-		m_toolType = change;
 	}
 
-
+	// ツールの切り替え
+	public void SwitchTool()
+	{
+		m_rare = !m_rare;
+	}
 
 
 

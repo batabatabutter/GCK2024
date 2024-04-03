@@ -9,13 +9,22 @@ public class ToolData : ScriptableObject
 	[System.Serializable]
 	public enum ToolType
 	{
-		//TOACH,      // 松明
-		//UPGRADE,	// 採掘アップグレード
 		BOMB,       // 爆弾
-		ARMOR,		// アーマー
+		ARMOR,      // アーマー
+
+		RARE,		// ここからレアツール
+
+		RANGE_DESTROYER,		// 範囲破壊つるはし
+		SHIELD,					// シールド
+		SACRED_FLAME,			// 聖火
+
+		HAMMER,					// ハンマー
+		DRILL,					// ドリル
+		LIMIT_TOTEM,			// 制限のトーテム
 
 		OVER
 	}
+
 	// ツールの分類
 	[System.Serializable]
 	public enum ToolCategory

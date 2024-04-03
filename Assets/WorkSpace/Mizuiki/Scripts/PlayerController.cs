@@ -13,9 +13,6 @@ public class PlayerController : MonoBehaviour
 	[Header("プレイヤーの設置スクリプト")]
 	[SerializeField] private PlayerAction m_playerAction = null;
 
-	[Header("プレイヤーの強化スクリプト")]
-	[SerializeField] private PlayerUpgrade m_playerUpgrade = null;
-
 	// 入力
 	private Controls m_controls = null;
 
@@ -54,7 +51,7 @@ public class PlayerController : MonoBehaviour
 		// 強化
 		if (m_controls.Player.Upgrade.WasPerformedThisFrame())
 		{
-			m_playerUpgrade.Upgrade();
+			m_playerAction.Upgrade();
 		}
 
 		// ツール使用
@@ -68,6 +65,12 @@ public class PlayerController : MonoBehaviour
 		if (scroll != 0)
 		{
 			m_playerAction.ChangeTool(scroll);
+		}
+
+		// ツールのレア、ノーマル切り替え
+		if (m_controls.Player.SwitchTool.WasPerformedThisFrame())
+		{
+			m_playerAction.SwitchTool();
 		}
 
 	}

@@ -6,7 +6,7 @@ public class PlayerTool : MonoBehaviour
 {
 	public class ToolContainer
 	{
-		//public ToolData data	= null;      // ツールの情報
+		public ToolData data = null;		// ツールの情報
 		public bool available	= true;		// 使用可能
 		public bool isRecast	= false;	// リキャスト中
 		public float recastTime = 0.0f;     // リキャスト時間
@@ -21,8 +21,7 @@ public class PlayerTool : MonoBehaviour
 	[Header("設置ツール")]
 	[SerializeField] private Dictionary<ToolData.ToolType, ToolContainer> m_tools = new();
 
-	// ツール更新用の空のオブジェクト
-	//private GameObject m_toolObject = null;
+	// ツール更新用のオブジェクト
 	private Dictionary<ToolData.ToolType, Tool> m_toolScripts = new();
 
 
@@ -39,17 +38,21 @@ public class PlayerTool : MonoBehaviour
 		}
 
 		// ツールの作成
-		for (ToolData.ToolType type = 0; type < ToolData.ToolType.OVER; type++)
+		//for (ToolData.ToolType type = 0; type < ToolData.ToolType.OVER; type++)
+		foreach (ToolData data in m_dataBase.tool)
 		{
+			// ツールの種類
+			ToolData.ToolType type = data.type;
+
 			// 新たなツールの作成
 			m_tools[type] = new ToolContainer();
-			//// データベースの情報を取得
-			//m_tools[type].data = m_dataBase.tool[(int)type];
+			// データベースの情報を取得
+			m_tools[type].data = data;
 
 			// ツール更新用
-			if (m_dataBase.tool[(int)type].tool)
+			if (data.tool)
 			{
-				m_toolScripts[type] = Instantiate(m_dataBase.tool[(int)type].tool, transform);
+				m_toolScripts[type] = Instantiate(data.tool, transform);
 			}
 		}
     }
@@ -58,8 +61,12 @@ public class PlayerTool : MonoBehaviour
     void Update()
     {
 		// ツールの更新
-		for (ToolData.ToolType type = 0; type < ToolData.ToolType.OVER; type++)
+		//for (ToolData.ToolType type = 0; type < ToolData.ToolType.OVER; type++)
+		foreach(ToolContainer tool in m_tools.Values)
 		{
+			// ツールの種類取得
+			ToolData.ToolType type = tool.data.type;
+
 			// リキャスト中
 			if (m_tools[type].isRecast)
 			{
@@ -96,31 +103,34 @@ public class PlayerTool : MonoBehaviour
 	// ツールを使用する
 	public void UseTool(ToolData.ToolType type, Vector3 position)
 	{
+		// ツールのデータ取得
+		ToolData data = m_tools[type].data;
+
 		// 呼び出す関数が登録されている
-		if (m_dataBase.tool[(int)type].tool)
+		if (data.tool)
 		{
 			// ツール使用の処理を呼び出す
 			m_toolScripts[type].UseTool(gameObject);
 
 			// リキャスト時間の設定
-			m_tools[type].recastTime = m_dataBase.tool[(int)type].recastTime;
+			m_tools[type].recastTime = data.recastTime;
 
 			// 使用不可能にする
 			m_tools[type].available = false;
 
 		}
 		// 設置ツール
-		else if (m_dataBase.tool[(int)type].objectPrefab)
+		else if (data.objectPrefab)
 		{
 			// ツールの設置
-			Put(m_dataBase.tool[(int)type], position);
+			Put(data, position);
 			// リキャスト時間の設定
-			m_tools[type].recastTime = m_dataBase.tool[(int)type].recastTime;
+			m_tools[type].recastTime = data.recastTime;
 			m_tools[type].isRecast = true;
 		}
 
 		// 素材を消費する
-		m_playerItem.ConsumeMaterials(m_dataBase.tool[(int)type]);
+		m_playerItem.ConsumeMaterials(data);
 
 	}
 
