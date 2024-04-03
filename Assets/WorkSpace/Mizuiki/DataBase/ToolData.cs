@@ -9,6 +9,7 @@ public class ToolData : ScriptableObject
 	[System.Serializable]
 	public enum ToolType
 	{
+		TOACH,		// 松明
 		BOMB,       // 爆弾
 		ARMOR,      // アーマー
 
