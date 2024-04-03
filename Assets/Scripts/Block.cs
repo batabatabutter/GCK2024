@@ -13,8 +13,13 @@ public class Block : MonoBehaviour
     [Header("ドロップするアイテム")]
     [SerializeField] private List<GameObject> m_dropItems = new List<GameObject>();
 
-    [Header("自分自身の光源レベル")]
+    [Header("自分自身の発する光源レベル")]
     [SerializeField] private int m_lightLevel = 0;
+    [Header("受けている光源レベル")]
+    [SerializeField] private int m_receiveLightLevel = 0;
+
+    [Header("スプライトレンダー")]
+    [SerializeField] private SpriteRenderer m_spriteRenderer;
 
     // ブロックが破壊されている
     private bool m_isBroken = false;
@@ -23,6 +28,12 @@ public class Block : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // スプライトレンダーがなければ取得
+        if (!m_spriteRenderer)
+        {
+            m_spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+
     }
 
     // Update is called once per frame
@@ -34,6 +45,15 @@ public class Block : MonoBehaviour
             Destroy(gameObject);
         }
         
+        // 受けている明るさレベルに応じて色を設定
+        if (m_receiveLightLevel > 0)
+        {
+            // 透明度
+            float alpha = m_receiveLightLevel / 7.0f * 100.0f;
+            // 色を設定
+            m_spriteRenderer.color = new Color(1.0f, 1.0f, 1.0f, alpha);
+        }
+
     }
 
 	/// <summary>
@@ -116,10 +136,17 @@ public class Block : MonoBehaviour
         set { m_dontBroken = value; }
     }
 
-    // 光源レベル
+    // 自身の持つ光源レベル
     public int LightLevel
     {
         get { return m_lightLevel; }
+    }
+
+    // 受けている明るさ
+    public int ReceiveLightLevel
+    {
+        get { return m_receiveLightLevel; }
+        set { m_receiveLightLevel = value; }
     }
 
 }
