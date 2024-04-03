@@ -13,7 +13,5 @@ MonoBehaviour:
   m_Name: ToolDataBase
   m_EditorClassIdentifier: Assembly-CSharp-Editor::ToolDataBase
   tool:
-  - {fileID: 11400000, guid: afed5e5373016584fb66eeb4614dca4c, type: 2}
   - {fileID: 11400000, guid: c7bdb39777dac3e478d1cdfe923d30b8, type: 2}
   - {fileID: 11400000, guid: 79b9fb67727083a43bc06005cd99d832, type: 2}
-  - {fileID: 11400000, guid: 9a26fa4b6190079449fe5b09a31288df, type: 2}

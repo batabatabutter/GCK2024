@@ -17,6 +17,9 @@ public class PlayerAction : MonoBehaviour
 	[Header("レイヤーマスク")]
 	[SerializeField] private LayerMask m_layerMask;
 
+	[Header("松明")]
+	[SerializeField] private ToolData m_toachData = null;
+
 	[Header("ツール")]
 	[SerializeField] private PlayerTool m_playerTool;
 
@@ -24,7 +27,7 @@ public class PlayerAction : MonoBehaviour
 	private bool m_canPut = true;
 
 	// 設置ツール
-	private ToolData.ToolType m_toolType = ToolData.ToolType.TOACH;
+	private ToolData.ToolType m_toolType = 0;
 
 
 	[Header("デバッグ---------------------------")]
@@ -94,34 +97,24 @@ public class PlayerAction : MonoBehaviour
 		// ブロックからの押し返し
 		foreach (RaycastHit2D cast in rayCast)
 		{
-			// ブロックに当たった
-			if (cast.transform)
+			// ブロックタグが付いている
+			if (cast.transform.CompareTag("Block"))
 			{
-				// ブロックタグが付いている
-				if (cast.transform.CompareTag("Block"))
-				{
-					// 埋まり防止で当たった面の法線方向に 0.1 加算する
-					mousePos = cast.point + (cast.normal * new Vector2(0.1f, 0.1f));
+				// 埋まり防止で当たった面の法線方向に 0.1 加算する
+				mousePos = cast.point + (cast.normal * new Vector2(0.1f, 0.1f));
 
-					break;
-				}
+				break;
 			}
 		}
 		// ツールの重ね置き回避
 		foreach (RaycastHit2D cast in rayCast)
 		{
-			if (cast.transform)
+			// Toolタグが付いていて、同じグリッド
+			if (cast.transform.CompareTag("Tool") &&
+				MyFunction.CheckSameGrid(mousePos, cast.transform.position))
 			{
-				// Toolタグが付いている
-				if (cast.transform.CompareTag("Tool"))
-				{
-					// 同じグリッド
-					if (MyFunction.CheckSameGrid(mousePos, cast.transform.position))
-					{
-						// 設置できなくする
-						m_canPut = false;
-					}
-				}
+				// 設置できなくする
+				m_canPut = false;
 			}
 		}
 
@@ -142,9 +135,34 @@ public class PlayerAction : MonoBehaviour
 
 	}
 
-	// ツール設置
-	public void Put()
+	// 松明設置
+	public void PutToach()
     {
+		// 松明が設置できない
+		if (!m_canPut)
+		{
+			Debug.Log("設置できない");
+			return;
+		}
+
+		// 松明が作成できない
+		if (!m_playerTool.CheckCreate(m_toachData))
+		{
+			Debug.Log("素材不足");
+			return;
+		}
+
+		// 松明を置く
+		m_playerTool.Put(m_toachData, m_cursorImage.transform.position, true);
+
+    }
+
+	// ツールの使用
+	public void UseTool()
+	{
+		// 選択されているツールの分類
+		m_playerTool.GetCategory(m_toolType);
+
 		// アイテムが設置できない
 		if (!m_canPut)
 		{
@@ -169,7 +187,7 @@ public class PlayerAction : MonoBehaviour
 		// ツールを使用する
 		m_playerTool.UseTool(m_toolType, m_cursorImage.transform.position);
 
-    }
+	}
 
 	// ツール変更
 	public void ChangeTool(int val)

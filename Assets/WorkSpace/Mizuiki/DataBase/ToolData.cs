@@ -5,21 +5,33 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ToolData", menuName = "CreateTool")]
 public class ToolData : ScriptableObject
 {
+	// ツールの種類
 	[System.Serializable]
 	public enum ToolType
 	{
-		TOACH,      // 松明
+		//TOACH,      // 松明
+		//UPGRADE,	// 採掘アップグレード
 		BOMB,       // 爆弾
 		ARMOR,		// アーマー
-		UPGRADE,	// 採掘アップグレード
 
 		OVER
+	}
+	// ツールの分類
+	[System.Serializable]
+	public enum ToolCategory
+	{
+		PUT,		// 設置型
+		SUPPORT,	// 適応型
+
+		OVER,
 	}
 
 	[Header("ツール名")]
 	public string toolName = "";
 	[Header("ツールの種類")]
-	public ToolType type = ToolType.TOACH;
+	public ToolType type = ToolType.BOMB;
+	[Header("ツールの分類")]
+	public ToolCategory category = ToolCategory.SUPPORT;
 	[Header("ツールのアイコン画像")]
 	public Sprite sprite = null;
 	[Header("リキャスト時間")]

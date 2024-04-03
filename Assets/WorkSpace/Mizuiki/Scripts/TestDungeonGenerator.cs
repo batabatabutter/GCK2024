@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TestDungeonGenerator : MonoBehaviour
@@ -29,44 +30,29 @@ public class TestDungeonGenerator : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
+		// プレイヤーが設定されていれば生成
 		if (m_player != null)
 		{
 			Instantiate(m_player);
 		}
 
-		// ファイルがなければマップ読み込みの処理をしない
-		if (!m_dungeonData)
-			return;
+		// SCV読み込み
+		GenerateSCV();
 
-		// マップのリスト
-		List<List<string>> mapList = new List<List<string>>();
+		// ダンジョンらしいダンジョン生成
+		//GenerateRoom();
 
-		//// ファイル読み込み
-		//StreamReader streamReader = new StreamReader(m_dungeonData.ToString());
+	}
 
-		// 改行区切りで読み出す
-		foreach (string line in /*streamReader.ReadToEnd()*/m_dungeonData.ToString().Split("\n"))
-		{
-			// 行が存在しなければループを抜ける
-			if (line == "")
-				break;
+	// Update is called once per frame
+	void Update()
+	{
 
-			string lin = line.Remove(line.Length - 1);
+	}
 
-			List<string> list = new List<string>();
-
-			// カンマ区切りで読み出す
-			foreach (string line2 in lin.Split(","))
-			{
-				list.Add(line2);
-			}
-
-			mapList.Add(list);
-		}
-
-		//// ファイルを閉じる
-		//streamReader.Close();
-
+	// ダンジョンの生成
+	private void Generate(List<List<string>> mapList)
+	{
 		// 読みだしたデータをもとにダンジョン生成をする
 		for (int y = 0; y < mapList.Count; y++)
 		{
@@ -106,12 +92,76 @@ public class TestDungeonGenerator : MonoBehaviour
 			}
 		}
 
-
 	}
 
-	// Update is called once per frame
-	void Update()
+	// CSV読み込みの生成
+	private void GenerateSCV()
 	{
+		// ファイルがなければマップ読み込みの処理をしない
+		if (!m_dungeonData)
+			return;
+
+		// マップのリスト
+		List<List<string>> mapList = new ();
+
+		// 改行区切りで読み出す
+		foreach (string line in m_dungeonData.ToString().Split("\n"))
+		{
+			// 行が存在しなければループを抜ける
+			if (line == "")
+				break;
+
+			string lin = line.Remove(line.Length - 1);
+
+			List<string> list = new ();
+
+			// カンマ区切りで読み出す
+			foreach (string line2 in lin.Split(","))
+			{
+				list.Add(line2);
+			}
+
+			mapList.Add(list);
+		}
+
+		// マップの生成
+		Generate(mapList);
 
 	}
+
+
+	struct Room
+	{
+		int topLeftX;   // 左上座標X
+		int topLeftY;   // 左上座標Y
+		int width;		// 幅
+		int height;		// 高さ
+
+	}
+
+	// 部屋分けダンジョン生成
+	private void GenerateRoom()
+	{
+		// マップ
+		List<List<string>> mapList = new ();
+
+		// マップの初期化
+		for (int y = 0; y < m_dungeonSizeY; y++)
+		{
+			mapList.Add(new List<string>());
+
+			for (int x = 0; x < m_dungeonSizeX; x++)
+			{
+				// 通常ブロックで埋める
+				mapList[y].Add(m_blockNameNormal);
+			}
+		}
+
+		// 部屋の生成数(5 ~ 10)
+		int generateRoomCount = Random.Range(5, 10);
+
+
+
+	}
+
 }

@@ -6,7 +6,7 @@ public class PlayerTool : MonoBehaviour
 {
 	public class ToolContainer
 	{
-		public ToolData.ToolType type;      // ツールの情報
+		//public ToolData data	= null;      // ツールの情報
 		public bool available	= true;		// 使用可能
 		public bool isRecast	= false;	// リキャスト中
 		public float recastTime = 0.0f;     // リキャスト時間
@@ -29,9 +29,6 @@ public class PlayerTool : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
-		// ツール更新用のオブジェクト作成
-		//m_toolObject = new GameObject("Tools");
-
 		// アイテムがなければ取得
 		if (m_playerItem == null)
 		{
@@ -42,9 +39,12 @@ public class PlayerTool : MonoBehaviour
 		}
 
 		// ツールの作成
-		for (ToolData.ToolType type = ToolData.ToolType.TOACH; type < ToolData.ToolType.OVER; type++)
+		for (ToolData.ToolType type = 0; type < ToolData.ToolType.OVER; type++)
 		{
+			// 新たなツールの作成
 			m_tools[type] = new ToolContainer();
+			//// データベースの情報を取得
+			//m_tools[type].data = m_dataBase.tool[(int)type];
 
 			// ツール更新用
 			if (m_dataBase.tool[(int)type].tool)
@@ -58,7 +58,7 @@ public class PlayerTool : MonoBehaviour
     void Update()
     {
 		// ツールの更新
-		for (ToolData.ToolType type = ToolData.ToolType.TOACH; type < ToolData.ToolType.OVER; type++)
+		for (ToolData.ToolType type = 0; type < ToolData.ToolType.OVER; type++)
 		{
 			// リキャスト中
 			if (m_tools[type].isRecast)
@@ -112,10 +112,8 @@ public class PlayerTool : MonoBehaviour
 		// 設置ツール
 		else if (m_dataBase.tool[(int)type].objectPrefab)
 		{
-			// アイテムを置く
-			GameObject tool = Instantiate(m_dataBase.tool[(int)type].objectPrefab, position, Quaternion.identity);
-			// アクティブにする(念のため)
-			tool.SetActive(true);
+			// ツールの設置
+			Put(m_dataBase.tool[(int)type], position);
 			// リキャスト時間の設定
 			m_tools[type].recastTime = m_dataBase.tool[(int)type].recastTime;
 			m_tools[type].isRecast = true;
@@ -123,6 +121,26 @@ public class PlayerTool : MonoBehaviour
 
 		// 素材を消費する
 		m_playerItem.ConsumeMaterials(m_dataBase.tool[(int)type]);
+
+	}
+
+	// 設置する
+	public void Put(ToolData data, Vector3 position, bool con = false)
+	{
+		// プレハブが設定されていなければ返す
+		if (!data.objectPrefab)
+			return;
+
+		// アイテムを置く
+		GameObject tool = Instantiate(data.objectPrefab, position, Quaternion.identity);
+		// アクティブにする(念のため)
+		tool.SetActive(true);
+
+		// 素材を消費する
+		if (con)
+		{
+			m_playerItem.ConsumeMaterials(data);
+		}
 
 	}
 
@@ -139,13 +157,15 @@ public class PlayerTool : MonoBehaviour
 		// 選択ツールが存在しない
 		return false;
 	}
-	private bool CheckCreate(ToolData data)
+	public bool CheckCreate(ToolData data, int value = 1)
 	{
 		// 素材の種類分ループ
 		for (int i = 0; i < data.itemMaterials.Count; i++)
 		{
+			// アイテムの種類
 			ItemData.Type type = data.itemMaterials[i].type;
-			int count = data.itemMaterials[i].count;
+			// 必要数
+			int count = data.itemMaterials[i].count * value;
 
 			// 所持アイテム数が必要素材数未満
 			if (m_playerItem.Items[type] < count)
@@ -159,12 +179,23 @@ public class PlayerTool : MonoBehaviour
 		return true;
 	}
 
+	// 素材の消費
+	public void ConsumeMaterials(ToolData data, int value = 1)
+	{
+		m_playerItem.ConsumeMaterials(data, value);
+	}
 
 
 	// ツールのリキャスト時間の取得
 	public float RecastTime(ToolData.ToolType type)
 	{
 		return m_tools[type].recastTime;
+	}
+
+	// ツールの分類を取得
+	public ToolData.ToolCategory GetCategory(ToolData.ToolType type)
+	{
+		return m_dataBase.tool[(int)type].category;//m_tools[type].data.category;
 	}
 
 	// ツールのリキャスト状態の設定

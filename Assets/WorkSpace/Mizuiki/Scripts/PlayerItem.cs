@@ -132,12 +132,12 @@ public class PlayerItem : MonoBehaviour
 	}
 
 	// ƒAƒCƒeƒ€‚ğÁ”ï‚·‚é
-	public void ConsumeMaterials(ToolData data)
+	public void ConsumeMaterials(ToolData data, int value = 1)
 	{
 		for (int i = 0; i < data.itemMaterials.Count; i++)
 		{
 			// [type] ‚ğ [count] Á”ï‚·‚é
-			m_items[data.itemMaterials[i].type] -= data.itemMaterials[i].count;
+			m_items[data.itemMaterials[i].type] -= data.itemMaterials[i].count * value;
 		}
 	}
 

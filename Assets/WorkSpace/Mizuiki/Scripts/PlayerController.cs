@@ -5,13 +5,16 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("プレイヤーの移動スクリプト")]
-    [SerializeField] private PlayerMove m_playerMove;
+    [SerializeField] private PlayerMove m_playerMove = null;
 
     [Header("プレイヤーの採掘スクリプト")]
-    [SerializeField] private PlayerMining m_playerMining;
+    [SerializeField] private PlayerMining m_playerMining = null;
 
 	[Header("プレイヤーの設置スクリプト")]
-	[SerializeField] private PlayerAction m_playerAction;
+	[SerializeField] private PlayerAction m_playerAction = null;
+
+	[Header("プレイヤーの強化スクリプト")]
+	[SerializeField] private PlayerUpgrade m_playerUpgrade = null;
 
 	// 入力
 	private Controls m_controls = null;
@@ -43,9 +46,21 @@ public class PlayerController : MonoBehaviour
 		}
 
 		// 設置
-		if (m_controls.Player.Put.WasPressedThisFrame())	// 押した瞬間
+		if (m_controls.Player.Toach.WasPressedThisFrame())	// 押した瞬間
 		{
-			m_playerAction.Put();
+			m_playerAction.PutToach();
+		}
+
+		// 強化
+		if (m_controls.Player.Upgrade.WasPerformedThisFrame())
+		{
+			m_playerUpgrade.Upgrade();
+		}
+
+		// ツール使用
+		if (m_controls.Player.Tool.WasPressedThisFrame())
+		{
+			m_playerAction.UseTool();
 		}
 
 		// ツール変更

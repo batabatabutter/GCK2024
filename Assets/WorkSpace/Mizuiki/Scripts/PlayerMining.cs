@@ -187,11 +187,31 @@ public class PlayerMining : MonoBehaviour
     }
 
 
+    // ÌŒ@‘¬“x
+    public float MiningSpeed
+    {
+        get { return m_miningSpeed; }
+        set { m_miningSpeed = value; }
+    }
     // ÌŒ@‘¬“x‚Ì”{—¦
     public float MiningSpeedRate
     {
         get { return m_miningSpeedRate; }
         set { m_miningSpeedRate = value; }
+    }
+
+    // ÌŒ@—Í
+    public float MiningPower
+    {
+        get { return m_miningPower; }
+        set { m_miningPower = value; }
+    }
+
+    // ƒNƒŠƒeƒBƒJƒ‹—¦
+    public float CriticalRate
+    {
+        get { return m_criticalRate; }
+        set { m_criticalRate = value; }
     }
 
     // ÌŒ@‰ñ”
