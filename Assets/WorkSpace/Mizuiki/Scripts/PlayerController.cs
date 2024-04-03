@@ -42,22 +42,17 @@ public class PlayerController : MonoBehaviour
 			m_playerMining.Mining();
 		}
 
-		// 設置
-		if (m_controls.Player.Toach.WasPressedThisFrame())	// 押した瞬間
+		// ツール使用
+		if (m_controls.Player.Tool.WasPressedThisFrame())	// 押した瞬間
 		{
-			m_playerAction.PutToach();
+			m_playerAction.UseTool();
 		}
+
 
 		// 強化
 		if (m_controls.Player.Upgrade.WasPerformedThisFrame())
 		{
 			m_playerAction.Upgrade();
-		}
-
-		// ツール使用
-		if (m_controls.Player.Tool.WasPressedThisFrame())
-		{
-			m_playerAction.UseTool();
 		}
 
 		// ツール変更

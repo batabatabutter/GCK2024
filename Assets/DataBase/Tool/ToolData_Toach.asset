@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ToolData_Toach
   m_EditorClassIdentifier: 
   toolName: "\u677E\u660E"
-  type: 9
+  type: 0
   category: 0
   sprite: {fileID: 21300000, guid: 223de06691087c042840edf6164abf95, type: 3}
   recastTime: 0

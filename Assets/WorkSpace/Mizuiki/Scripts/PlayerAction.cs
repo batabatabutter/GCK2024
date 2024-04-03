@@ -17,9 +17,6 @@ public class PlayerAction : MonoBehaviour
 	[Header("レイヤーマスク")]
 	[SerializeField] private LayerMask m_layerMask;
 
-	[Header("松明")]
-	[SerializeField] private ToolData m_toachData = null;
-
 	[Header("ツールスクリプト")]
 	[SerializeField] private PlayerTool m_playerTool = null;
 	[Header("アップグレードスクリプト")]
@@ -152,28 +149,6 @@ public class PlayerAction : MonoBehaviour
 
 	}
 
-	// 松明設置
-	public void PutToach()
-    {
-		// 松明が設置できない
-		if (!m_canPut)
-		{
-			Debug.Log("設置できない");
-			return;
-		}
-
-		// 松明が作成できない
-		if (!m_playerTool.CheckCreate(m_toachData))
-		{
-			Debug.Log("素材不足");
-			return;
-		}
-
-		// 松明を置く
-		m_playerTool.Put(m_toachData, m_cursorImage.transform.position, true);
-
-    }
-
 	// 強化
 	public void Upgrade()
 	{
@@ -202,20 +177,6 @@ public class PlayerAction : MonoBehaviour
 		if (!m_canPut)
 		{
 			Debug.Log("すでにツールがある");
-			return;
-		}
-
-		// 選択されているアイテムが作成できない
-		if (!m_playerTool.CheckCreate(type))
-		{
-			Debug.Log("素材不足");
-			return;
-		}
-
-		// クールタイム中なら設置できない
-		if (!m_playerTool.Available(type))
-		{
-			Debug.Log("クールタイム中");
 			return;
 		}
 

@@ -24,18 +24,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Toach",
-                    "type": "Button",
-                    "id": "4aac10fa-5e3a-4c12-a326-292c69be764e",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Tool",
                     "type": "Button",
-                    "id": "f9ba48c2-4723-4391-a333-21da6b50c0d7",
+                    "id": "4aac10fa-5e3a-4c12-a326-292c69be764e",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -198,7 +189,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Toach",
+                    "action": "Tool",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -215,19 +206,8 @@
                 },
                 {
                     "name": "",
-                    "id": "41794a2a-8e3d-4d99-9357-d4e1ad198224",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Tool",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "8a23a5a0-980e-4624-8a43-86ea8b51c82d",
-                    "path": "<Keyboard>/f",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -238,7 +218,7 @@
                 {
                     "name": "",
                     "id": "89e11904-bb71-4df7-99c2-a70a5a18835e",
-                    "path": "<Keyboard>/space",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

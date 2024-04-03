@@ -46,18 +46,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Toach"",
-                    ""type"": ""Button"",
-                    ""id"": ""4aac10fa-5e3a-4c12-a326-292c69be764e"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Tool"",
                     ""type"": ""Button"",
-                    ""id"": ""f9ba48c2-4723-4391-a333-21da6b50c0d7"",
+                    ""id"": ""4aac10fa-5e3a-4c12-a326-292c69be764e"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -220,7 +211,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Toach"",
+                    ""action"": ""Tool"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -237,19 +228,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""41794a2a-8e3d-4d99-9357-d4e1ad198224"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Tool"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""8a23a5a0-980e-4624-8a43-86ea8b51c82d"",
-                    ""path"": ""<Keyboard>/f"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -260,7 +240,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""89e11904-bb71-4df7-99c2-a70a5a18835e"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -277,7 +257,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
-        m_Player_Toach = m_Player.FindAction("Toach", throwIfNotFound: true);
         m_Player_Tool = m_Player.FindAction("Tool", throwIfNotFound: true);
         m_Player_Upgrade = m_Player.FindAction("Upgrade", throwIfNotFound: true);
         m_Player_ChangeTool = m_Player.FindAction("ChangeTool", throwIfNotFound: true);
@@ -345,7 +324,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Attack;
-    private readonly InputAction m_Player_Toach;
     private readonly InputAction m_Player_Tool;
     private readonly InputAction m_Player_Upgrade;
     private readonly InputAction m_Player_ChangeTool;
@@ -356,7 +334,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public PlayerActions(@Controls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
-        public InputAction @Toach => m_Wrapper.m_Player_Toach;
         public InputAction @Tool => m_Wrapper.m_Player_Tool;
         public InputAction @Upgrade => m_Wrapper.m_Player_Upgrade;
         public InputAction @ChangeTool => m_Wrapper.m_Player_ChangeTool;
@@ -376,9 +353,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Attack.started += instance.OnAttack;
             @Attack.performed += instance.OnAttack;
             @Attack.canceled += instance.OnAttack;
-            @Toach.started += instance.OnToach;
-            @Toach.performed += instance.OnToach;
-            @Toach.canceled += instance.OnToach;
             @Tool.started += instance.OnTool;
             @Tool.performed += instance.OnTool;
             @Tool.canceled += instance.OnTool;
@@ -401,9 +375,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Attack.started -= instance.OnAttack;
             @Attack.performed -= instance.OnAttack;
             @Attack.canceled -= instance.OnAttack;
-            @Toach.started -= instance.OnToach;
-            @Toach.performed -= instance.OnToach;
-            @Toach.canceled -= instance.OnToach;
             @Tool.started -= instance.OnTool;
             @Tool.performed -= instance.OnTool;
             @Tool.canceled -= instance.OnTool;
@@ -437,7 +408,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
-        void OnToach(InputAction.CallbackContext context);
         void OnTool(InputAction.CallbackContext context);
         void OnUpgrade(InputAction.CallbackContext context);
         void OnChangeTool(InputAction.CallbackContext context);

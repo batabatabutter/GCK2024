@@ -103,30 +103,41 @@ public class PlayerTool : MonoBehaviour
 	// ツールを使用する
 	public void UseTool(ToolData.ToolType type, Vector3 position)
 	{
+		// 選択されているアイテムが作成できない
+		if (!CheckCreate(type))
+		{
+			Debug.Log("素材不足");
+			return;
+		}
+
+		// クールタイム中なら設置できない
+		if (!Available(type))
+		{
+			Debug.Log("クールタイム中");
+			return;
+		}
+
 		// ツールのデータ取得
 		ToolData data = m_tools[type].data;
 
-		// 呼び出す関数が登録されている
-		if (data.tool)
+		switch (data.category)
 		{
-			// ツール使用の処理を呼び出す
-			m_toolScripts[type].UseTool(gameObject);
+			case ToolData.ToolCategory.PUT:			// 設置型
+				// ツールの設置
+				Put(data, position);
+				// リキャスト時間の設定
+				m_tools[type].recastTime = data.recastTime;
+				m_tools[type].isRecast = true;
+				break;
 
-			// リキャスト時間の設定
-			m_tools[type].recastTime = data.recastTime;
-
-			// 使用不可能にする
-			m_tools[type].available = false;
-
-		}
-		// 設置ツール
-		else if (data.objectPrefab)
-		{
-			// ツールの設置
-			Put(data, position);
-			// リキャスト時間の設定
-			m_tools[type].recastTime = data.recastTime;
-			m_tools[type].isRecast = true;
+			case ToolData.ToolCategory.SUPPORT:		// 適応型
+				// ツール使用の処理を呼び出す
+				m_toolScripts[type].UseTool(gameObject);
+				// リキャスト時間の設定
+				m_tools[type].recastTime = data.recastTime;
+				// 使用不可能にする
+				m_tools[type].available = false;
+				break;
 		}
 
 		// 素材を消費する
