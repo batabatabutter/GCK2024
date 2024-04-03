@@ -12,8 +12,10 @@ public class ChangeBrightness : MonoBehaviour
     SpriteRenderer spriteRenderer;
     //明るさの最大値
     const int MAX_BRIGHTNESS = 7;
+
     //LightList
     public List<GameObject> m_lightList = new List<GameObject>();
+    public List<Vector3> m_lightPositionList = new List<Vector3>();
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +23,7 @@ public class ChangeBrightness : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         //黒くする
         ChangeBlack();
-
+        //光源は光る
         FlashLight();
 
     }
@@ -29,6 +31,7 @@ public class ChangeBrightness : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //光源の処理をしない
         if(GetComponent<Block>())
         {
             if (GetComponent<Block>().LightLevel > 0)
@@ -37,51 +40,51 @@ public class ChangeBrightness : MonoBehaviour
             }
         }
 
+        //ライトリストの管理
         for (int i = 0; i < m_lightList.Count; i++)
         {
+            //無くなったら消す
             if (m_lightList[i] == null)
             {
-
-                m_lightList.RemoveAt(i);
-
-                if (m_lightList.Count == 0)
-                {
-                    ChangeBlack();
-
-                }
-                else
-                {
-                    ChangeColor();
-
-                }
+                RemoveLightList(i);
+            }
+            //離れたら消す
+            else if (Vector3.Distance(m_lightList[i].gameObject.transform.position,gameObject.transform.position) > MAX_BRIGHTNESS)
+            {
+                RemoveLightList(i);
             }
         }
 
+        //色の変更
         ChangeColor();
 
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+        //もし自身がブロックで
         if (GetComponent<Block>())
         {
+            //ツール（松明）か光源ブロック　で　自身が光源じゃない
             if ((collision.gameObject.layer == 3 || collision.CompareTag("Block")) && GetComponent<Block>().LightLevel < 1)
             {
-                m_lightList.Add(collision.gameObject);
-                ChangeColor();
+                //新規光源なら追加する
+                if (!CheckForObjectInList(collision.gameObject))
+                {
+                    AddLightList(collision.gameObject);
+                }
             }
         }
-        else if(GetComponent<ChangeBrightness>() && (collision.gameObject.layer == 3 || collision.CompareTag("Block")))
+        //自身がブロックじゃない時
+        else if ((collision.gameObject.layer == 3 || collision.CompareTag("Block")))
         {
-            m_lightList.Add(collision.gameObject);
-            ChangeColor();
-
+            //新規光源なら追加する
+            if (!CheckForObjectInList(collision.gameObject))
+            {
+                AddLightList(collision.gameObject);
+            }
         }
-
-
-
     }
-
 
     private void ChangeColor()
     {
@@ -185,32 +188,52 @@ public class ChangeBrightness : MonoBehaviour
 
     private IEnumerator AddCricleColToDelete()
     {
-        bool isDeleteRb = false;
-
         Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
         //もしなかったら
         if (rb == null)
         {
             rb = gameObject.AddComponent<Rigidbody2D>();
-            isDeleteRb = true;
+            rb.isKinematic = true;
+
         }
-
-        rb.isKinematic = true;
-
-
+        //円のコライダー
         CircleCollider2D circleCol = gameObject.AddComponent<CircleCollider2D>();
 
+        //明るさレベルで大きさ指定
         circleCol.radius = GetComponent<Block>().LightLevel;
         circleCol.isTrigger = true;
 
         yield return new WaitForSeconds(0.1f);
 
-        Destroy(circleCol);
-        if(isDeleteRb)
-        {
-            Destroy(rb);
-        }
+        //Destroy(circleCol);
 
     }
 
+
+    bool CheckForObjectInList(GameObject obj)
+    {
+        // リスト内の各オブジェクトをチェック
+        foreach (GameObject item in m_lightList)
+        {
+            // 同じオブジェクトが見つかった場合はtrueを返す
+            if (item == obj)
+            {
+                return true;
+            }
+        }
+        // 同じオブジェクトが見つからなかった場合はfalseを返す
+        return false;
+    }
+
+
+    private void AddLightList(GameObject lightObj)
+    {
+        m_lightList.Add(lightObj);
+        m_lightPositionList.Add(lightObj.transform.position);
+    }
+    private void RemoveLightList(int num)
+    {
+        m_lightList.RemoveAt(num);
+        m_lightPositionList.RemoveAt(num);
+    }
 }
