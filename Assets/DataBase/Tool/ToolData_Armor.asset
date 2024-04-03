@@ -21,4 +21,4 @@ MonoBehaviour:
   tool: {fileID: 3006796946561196304, guid: 800d19f6dcb7cd347b8160a728647903, type: 3}
   itemMaterials:
   - type: 0
-    count: 30
+    count: 20
