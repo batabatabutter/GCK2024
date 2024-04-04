@@ -21,7 +21,7 @@ public class DungeonGenerator : MonoBehaviour
     public class BlockOdds
     {
         [Header("種類")]
-        public BlockData.ToolType type;       // 種類
+        public BlockData.BlockType type;       // 種類
         [Header("確率")]
         public int odds;       // 確率
     }
@@ -86,7 +86,7 @@ public class DungeonGenerator : MonoBehaviour
         GameObject pl = Instantiate<GameObject>(m_player, m_playerPos, Quaternion.identity);
 
         // coreの生成
-        GameObject co = m_blockGenerator.GenerateBlock(BlockData.ToolType.CORE, new Vector3(m_corePosX, m_corePosY), m_parent.transform, m_isBrightness);
+        GameObject co = m_blockGenerator.GenerateBlock(BlockData.BlockType.CORE, new Vector3(m_corePosX, m_corePosY), null, m_isBrightness);
 
 
         //  プレイシーンマネージャーが無かったら格納しない
@@ -160,13 +160,13 @@ public class DungeonGenerator : MonoBehaviour
         //岩盤で囲う
         for (int i = 0; i < (int)dungeonSize.y * 10; i++)
         {
-            m_blockGenerator.GenerateBlock(BlockData.ToolType.BEDROCK, new Vector3(-1, i, 0), m_parent.transform, m_isBrightness);
-            m_blockGenerator.GenerateBlock(BlockData.ToolType.BEDROCK, new Vector3((int)dungeonSize.y * 10, i, 0), m_parent.transform, m_isBrightness);
+            m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(-1, i, 0), m_parent.transform, m_isBrightness);
+            m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3((int)dungeonSize.y * 10, i, 0), m_parent.transform, m_isBrightness);
         }
         for (int i = 0; i < (int)dungeonSize.x * 10; i++)
         {
-            m_blockGenerator.GenerateBlock(BlockData.ToolType.BEDROCK, new Vector3(i, -1, 0), m_parent.transform, m_isBrightness);
-            m_blockGenerator.GenerateBlock(BlockData.ToolType.BEDROCK, new Vector3(i, (int)dungeonSize.y * 10, 0), m_parent.transform, m_isBrightness);
+            m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(i, -1, 0), m_parent.transform, m_isBrightness);
+            m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(i, (int)dungeonSize.y * 10, 0), m_parent.transform, m_isBrightness);
         }
 
         //地面の生成

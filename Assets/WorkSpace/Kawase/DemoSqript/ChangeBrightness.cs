@@ -55,8 +55,15 @@ public class ChangeBrightness : MonoBehaviour
             }
         }
 
-        //色の変更
-        ChangeColor();
+        if(m_lightList.Any())
+        {
+            //色の変更
+            ChangeColor();
+        }
+        else
+        {
+            ChangeBlack();
+        }
 
     }
 
