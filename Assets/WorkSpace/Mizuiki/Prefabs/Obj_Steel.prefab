@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 684906394, guid: 98e5d978a6f899a4b97d1c3e727d10a5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9f02b6159e17e14409a066b0dcc3ea2d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -145,17 +145,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_blockEndurance: 300
   m_dontBroken: 0
-  m_dropItems:
-  - type: 0
-    count: 1
-    rate: 1
-  - type: 2
-    count: 1
-    rate: 1
-  - type: 2
-    count: 1
-    rate: 0.5
-  m_itemDataBase: {fileID: 0}
   m_lightLevel: 0
   m_receiveLightLevel: 0
   m_spriteRenderer: {fileID: 0}
+  m_blockData: {fileID: 0}
+  m_itemDataBase: {fileID: 0}
