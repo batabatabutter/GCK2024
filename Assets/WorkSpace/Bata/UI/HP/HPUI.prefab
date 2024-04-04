@@ -50,9 +50,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_hpGauge: {fileID: 2931680946444245467, guid: 9798de4075a6565409e84d9034e9de34, type: 3}
   m_hpGaugeFrame: {fileID: 8665028369590500168, guid: c7f5a899ea4bcb04786ecc34a9301dbf, type: 3}
+  m_armorGauge: {fileID: 2931680946444245467, guid: 9d847986ca4a5f04e8f8fb0cfec24f73, type: 3}
   m_hpOffset: {x: 10, y: 0}
+  m_armorOutlineWidth: {x: 10, y: 10}
   m_hpColor: {r: 1, g: 0, b: 0.7566967, a: 1}
-  m_armorColor: {r: 0.36037737, g: 0.51176083, b: 1, a: 1}
+  m_emptyColor: {r: 0, g: 0, b: 0, a: 0}
   m_debug: 0
   m_debugMaxHP: 5
   m_debugNowHP: 5
