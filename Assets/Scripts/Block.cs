@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Block : MonoBehaviour
@@ -46,6 +47,9 @@ public class Block : MonoBehaviour
         {
             m_spriteRenderer = GetComponent<SpriteRenderer>();
         }
+
+        // アセットからアイテムのデータベースを取得する
+        m_itemDataBase = AssetDatabase.LoadAssetAtPath<ItemDataBase>("Assets/DataBase/Item/ItemDataBase.asset");
 
     }
 

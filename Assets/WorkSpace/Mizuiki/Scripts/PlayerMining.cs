@@ -125,7 +125,7 @@ public class PlayerMining : MonoBehaviour
             if (rayCast.transform.CompareTag("Tool"))
             {
                 // マウスカーソルと同じグリッド
-                if (MyFunction.CheckSameGrid(rayCast.point, mousePos))
+                if (MyFunction.CheckSameGrid(rayCast.transform.position, mousePos))
 				{
                     CauseDamageToBlock(rayCast.transform);
                     break;
