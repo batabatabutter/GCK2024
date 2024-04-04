@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class BlockGenerator : MonoBehaviour
@@ -17,11 +16,7 @@ public class BlockGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // ブロックのデータベースがなければアセット参照
-        if (m_blockDataBase == null)
-        {
-            m_blockDataBase = AssetDatabase.LoadAssetAtPath<BlockDataBase>("Assets/DataBase/Block/BlockDataBase.asset");
-        }
+
     }
 
     // Update is called once per frame
@@ -38,10 +33,10 @@ public class BlockGenerator : MonoBehaviour
     /// <param name="position">生成する座標</param>
     /// <param name="parent">親</param>
     /// <param name="isBrightness">明るさをつけるかどうか</param>
-    public GameObject GenerateBlock(BlockData.BlockType type, Vector2 position, Transform parent = null, bool isBrightness = false)
+    public GameObject GenerateBlock(BlockData.ToolType type, Vector2 position, Transform parent = null, bool isBrightness = false)
     {
         // ブロックのデータ取得
-        BlockData data = MyFunction.GetBlockData(m_blockDataBase, type);
+        BlockData data = m_blockDataBase.block[(int)type];
 
         // 生成したブロックを設定する用
         GameObject block = null;
@@ -56,15 +51,6 @@ public class BlockGenerator : MonoBehaviour
             // 指定座標に生成
             block = Instantiate(data.prefab, position, Quaternion.identity);
         }
-
-        // ブロックの画像設定
-        if (block.TryGetComponent(out SpriteRenderer sprite))
-        {
-            if (data.sprite)
-            {
-				sprite.sprite = data.sprite;
-			}
-		}
 
         //明るさの追加
         if(isBrightness)

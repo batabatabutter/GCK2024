@@ -57,7 +57,6 @@ public class MyFunction
 		return false;
 	}
 
-	// アイテムデータ取得
 	static public ItemData GetItemData(ItemDataBase dataBase, ItemData.Type type)
 	{
 		foreach(ItemData data in dataBase.item)
@@ -67,30 +66,7 @@ public class MyFunction
 				return data;
 			}
 		}
-		// データが見つからなかった
+
 		return null;
 	}
-
-	// ブロックデータ取得
-	static public BlockData GetBlockData(BlockDataBase dataBase, BlockData.BlockType type)
-	{
-		// 誕生石シリーズ
-		if (type > BlockData.BlockType.BIRTHDAY_BLOCK)
-		{
-			// 元となるデータ取得
-			BlockData block = GetBlockData(dataBase, BlockData.BlockType.BIRTHDAY_BLOCK);
-			block.type = type;
-		}
-
-		foreach(BlockData data in dataBase.block)
-		{
-			if (data.type == type)
-			{
-				return data;
-			}
-		}
-		// データが見つからなかった
-		return null;
-	}
-
 }

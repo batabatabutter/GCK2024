@@ -21,7 +21,7 @@ public class DungeonGenerator : MonoBehaviour
     public class BlockOdds
     {
         [Header("éÌóﬁ")]
-        public BlockData.BlockType type;       // éÌóﬁ
+        public BlockData.ToolType type;       // éÌóﬁ
         [Header("ämó¶")]
         public int odds;       // ämó¶
     }
@@ -79,7 +79,7 @@ public class DungeonGenerator : MonoBehaviour
 
 
         // coreÇÃê∂ê¨
-        GameObject co = m_blockGenerator.GenerateBlock(BlockData.BlockType.CORE, new Vector3(m_corePosX, m_corePosY), m_parent.transform, m_isBrightness);
+        GameObject co = m_blockGenerator.GenerateBlock(BlockData.ToolType.CORE, new Vector3(m_corePosX, m_corePosY), m_parent.transform, m_isBrightness);
 
         //GameObject co = Instantiate<GameObject>(m_blockCore, new Vector3(m_corePosX,m_corePosY), Quaternion.identity);
         //co.transform.parent = m_parent.transform;
@@ -182,13 +182,13 @@ public class DungeonGenerator : MonoBehaviour
         //ä‚î’Ç≈àÕÇ§
         for (int i = 0; i < m_dungeonSizeY * 10; i++)
         {
-            m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(-1, i, 0), m_parent.transform, m_isBrightness);
-            m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(m_dungeonSizeY * 10, i, 0), m_parent.transform, m_isBrightness);
+            m_blockGenerator.GenerateBlock(BlockData.ToolType.BEDROCK, new Vector3(-1, i, 0), m_parent.transform, m_isBrightness);
+            m_blockGenerator.GenerateBlock(BlockData.ToolType.BEDROCK, new Vector3(m_dungeonSizeY * 10, i, 0), m_parent.transform, m_isBrightness);
         }
         for (int i = 0; i < m_dungeonSizeX * 10; i++)
         {
-            m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(i, -1, 0), m_parent.transform, m_isBrightness);
-            m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(i, m_dungeonSizeY * 10, 0), m_parent.transform, m_isBrightness);
+            m_blockGenerator.GenerateBlock(BlockData.ToolType.BEDROCK, new Vector3(i, -1, 0), m_parent.transform, m_isBrightness);
+            m_blockGenerator.GenerateBlock(BlockData.ToolType.BEDROCK, new Vector3(i, m_dungeonSizeY * 10, 0), m_parent.transform, m_isBrightness);
         }
 
         //ínñ ÇÃê∂ê¨
