@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2521088389183302289}
   - component: {fileID: 4032199088857547970}
   m_Layer: 0
-  m_Name: ToolUpgrade
+  m_Name: Tool_Upgrade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

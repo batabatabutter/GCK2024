@@ -56,4 +56,17 @@ public class MyFunction
 		// ˆá‚¤
 		return false;
 	}
+
+	static public ItemData GetItemData(ItemDataBase dataBase, ItemData.Type type)
+	{
+		foreach(ItemData data in dataBase.item)
+		{
+			if (data.type == type)
+			{
+				return data;
+			}
+		}
+
+		return null;
+	}
 }
