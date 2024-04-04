@@ -9,5 +9,5 @@ public class BlockDataBase : ScriptableObject
 	public List<BlockData> block;
 
 	[Header("TypeŠm”F—p")]
-	public BlockData.ToolType type;
+	public BlockData.BlockType type;
 }

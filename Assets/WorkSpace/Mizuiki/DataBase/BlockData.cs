@@ -6,12 +6,29 @@ using UnityEngine;
 public class BlockData : ScriptableObject
 {
 	[System.Serializable]
-	public enum ToolType
+	public enum BlockType
 	{
 		CORE,		// コア
 		BEDROCK,	// 岩盤
 		STONE,		// 石
 		COAL,		// 石炭
+		STEEL,		// 鉄
+		TIN,		// 錫
+		LEAD,       // 鉛
+
+		BIRTHDAY_BLOCK = 200,		// ここから誕生石シリーズ
+		BIR_GARNET,			// ガーネット
+		BIR_AMETHYST,       // アメジスト
+		BIR_AQUAMARINE,     // アクアマリン
+		BIR_DIAMOND,        // ダイヤモンド
+		BIR_EMERALD,        // エメラルド
+		BIR_PEARL,          // パール
+		BIR_RUBY,           // ルビー
+		BIR_PERIDOT,        // ペリドット
+		BIR_SAPPHIRE,       // サファイア
+		BIR_OPAL,           // オパール
+		BIR_TOPAZ,          // トパーズ
+		BIR_TURQUOISE,      // ターコイズ
 
 		OVER
 	}
@@ -19,7 +36,7 @@ public class BlockData : ScriptableObject
 	[Header("ブロック名")]
 	public string blockName = "";
 	[Header("ブロックの種類")]
-	public ToolType type = ToolType.OVER;
+	public BlockType type = BlockType.OVER;
 	[Header("ブロックのプレハブ")]
 	public GameObject prefab = null;
 	[Header("ブロックの画像")]

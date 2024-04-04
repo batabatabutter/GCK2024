@@ -13,23 +13,50 @@ public class TestDungeonGenerator : MonoBehaviour
 	[SerializeField] private int m_dungeonSizeX;
 	[SerializeField] private int m_dungeonSizeY;
 
-	[Header("生成ブロック")]
-	[SerializeField] private GameObject m_block = null;
-	[SerializeField] private GameObject m_blockBedrock = null;
-	[SerializeField] private GameObject m_blockCore = null;
+	[System.Serializable]
+	struct MapBlock
+	{
+		public string mapName;
+		public BlockData.BlockType blockType;
+	}
 
-	[Header("何の変哲もないブロック")]
-	[SerializeField] private string m_blockNameNormal = "1";
-	[Header("破壊不可能ブロック")]
-	[SerializeField] private string m_blockNameBedrock = "2";
-	[Header("ダンジョンの核")]
-	[SerializeField] private string m_blockNameCore = "3";
+	//[Header("生成ブロック")]
+	//[SerializeField] private GameObject m_block = null;
+	//[SerializeField] private GameObject m_blockBedrock = null;
+	//[SerializeField] private GameObject m_blockCore = null;
+
+	[Header("ブロックの名前と種類")]
+	[SerializeField] private MapBlock[] m_setBlocks;
+	private Dictionary<string, BlockData.BlockType> m_blocks = new();
+
+	[Header("ブロックジェネレータ")]
+	[SerializeField] private BlockGenerator m_blockGenerator;
+
+	//[Header("何の変哲もないブロック")]
+	//[SerializeField] private string m_blockNameNormal = "1";
+	//[Header("破壊不可能ブロック")]
+	//[SerializeField] private string m_blockNameBedrock = "2";
+	//[Header("ダンジョンの核")]
+	//[SerializeField] private string m_blockNameCore = "3";
 
 	[SerializeField] GameObject m_player = null;
 
 	// Start is called before the first frame update
 	void Start()
 	{
+		// ブロックの初期設定
+		for (int i = 0; i < m_setBlocks.Length; i++)
+		{
+			MapBlock mapBlock = m_setBlocks[i];
+
+			// 上書き防止
+			if (m_blocks.ContainsKey(mapBlock.mapName))
+				continue;
+
+			// キーと値を設定
+			m_blocks[mapBlock.mapName] = mapBlock.blockType;
+		}
+
 		// プレイヤーが設定されていれば生成
 		if (m_player != null)
 		{
@@ -58,36 +85,17 @@ public class TestDungeonGenerator : MonoBehaviour
 		{
 			for (int x = 0; x < mapList[y].Count; x++)
 			{
-				// 0 の場合は何も生成しない
-				if (mapList[y][x] == "0" || mapList[y][x] == "")
+				string name = mapList[y][x];
+
+				// ブロックに含まれていない場合は何も生成しない
+				if (!m_blocks.ContainsKey(name))
 					continue;
 
 				// 生成座標
 				Vector3 pos = new(x, y, 0.0f);
 
 				// ブロックの生成
-				GameObject block = null;
-
-				// 普通のブロック
-				if (mapList[y][x] == m_blockNameNormal)
-				{
-					block = Instantiate(m_block, pos, Quaternion.identity);
-				}
-				// 破壊不可能ブロックにする
-				else if (mapList[y][x] == m_blockNameBedrock)
-				{
-					// 岩盤ブロック生成
-					block = Instantiate(m_blockBedrock, pos, Quaternion.identity);
-				}
-				// 核にする
-				else if (mapList[y][x] == m_blockNameCore)
-				{
-					// 核ブロック生成
-					block = Instantiate(m_blockCore, pos, Quaternion.identity);
-				}
-
-				// 松明対応
-				block.AddComponent<ChangeBrightness>();
+				GameObject block = m_blockGenerator.GenerateBlock(m_blocks[name], pos);
 
 			}
 		}
@@ -153,7 +161,7 @@ public class TestDungeonGenerator : MonoBehaviour
 			for (int x = 0; x < m_dungeonSizeX; x++)
 			{
 				// 通常ブロックで埋める
-				mapList[y].Add(m_blockNameNormal);
+				mapList[y].Add("1");
 			}
 		}
 
