@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -71,7 +72,10 @@ public class PlayerTool : MonoBehaviour
 			// サポートツール更新用
 			if (toolData.category == ToolData.ToolCategory.SUPPORT)
 			{
-				m_toolScripts[type] = Instantiate(toolData.prefab.GetComponent<Tool>(), transform);
+				if (toolData.prefab)
+				{
+					m_toolScripts[type] = Instantiate(toolData.prefab.GetComponent<Tool>(), transform);
+				}
 			}
 		}
     }
@@ -137,72 +141,77 @@ public class PlayerTool : MonoBehaviour
 	// ツール変更
 	public void ChangeTool(int val)
 	{
+		// RAREを取得
+		ToolData.ToolType rare = ToolData.ToolType.RARE;
+
 		// ツールの種類のリスト取得
-		List<ToolData.ToolType> typeList = new List<ToolData.ToolType>(m_tools.Keys);
+		List<ToolData.ToolType> typeList = new(m_tools.Keys);
+
 		// レアツール
 		if (m_rare)
 		{
+			// RARE 以下の値を削除
+			typeList.RemoveAll(type => type <= rare);
+
+			// 要素数が 0 なら処理しない
+			if (typeList.Count == 0)
+				return;
+
+			// 現在選択中のツールのインデックス
+			int index = typeList.IndexOf(m_toolTypeRare);
+
+			// 変更後の値
+			int change = index - val;
+
+			// 変更後が 0 未満
+			if (change < 0)
+			{
+				// 先頭からはみ出した分
+				change += typeList.Count;
+			}
+			// 変更後が範囲外
+			else if (change >= typeList.Count)
+			{
+				change -= typeList.Count;
+			}
+
+			// 変更後の値を設定
+			m_toolTypeRare = typeList[change];
 
 		}
 		// 通常ツール
 		else
 		{
+			// RARE 以上の値を削除
+			typeList.RemoveAll(type => type >= rare);
+
+			// 要素数が 0 なら処理しない
+			if (typeList.Count == 0)
+				return;
+
 			// 現在選択中のツールのインデックス
 			int index = typeList.IndexOf(m_toolType);
 
-
-		}
-
-		// RAREを取得
-		ToolData.ToolType rare = ToolData.ToolType.RARE;
-		// OVERを取得
-		ToolData.ToolType over = ToolData.ToolType.OVER;
-
-
-		if (m_rare)
-		{
 			// 変更後の値
-			ToolData.ToolType change = m_toolTypeRare - val;
-
-			// 変更後が RARE 以下
-			if (change <= rare)
-			{
-				// 一番後ろのツールにする
-				change = over - 1;
-			}
-			// 変更後が範囲外
-			else if (change >= over)
-			{
-				change = rare + 1;
-			}
-
-			m_toolTypeRare = change;
-		}
-		else
-		{
-			// 変更後の値
-			ToolData.ToolType change = m_toolType - val;
+			int change = index + val;
 
 			// 変更後が 0 未満
 			if (change < 0)
 			{
-				// 一番後ろのツールにする
-				change = rare - 1;
+				// 先頭からはみ出した分
+				change += typeList.Count;
+
 			}
 			// 変更後が範囲外
-			else if (change >= rare)
+			else if (change >= typeList.Count)
 			{
-				change = 0;
+				// 末尾からはみ出した分
+				change -= typeList.Count;
 			}
 
-			// ツールを変更する
-			m_toolType = change;
+			// 変更後の値を設定
+			m_toolType = typeList[change];
 		}
-
-	}
-	// 通常ツールの変更
-	private void ChangeNormal(int val)
-	{
 
 	}
 
