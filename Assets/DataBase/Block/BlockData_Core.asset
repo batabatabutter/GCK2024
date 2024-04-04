@@ -14,8 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockName: "\u30B3\u30A2"
   type: 0
+  endurance: 300
+  dontBroken: 0
+  lightLevel: 7
   prefab: {fileID: 4565198709969196584, guid: 39d265f821b12d5418f29e714696adc7, type: 3}
   sprite: {fileID: 0}
+  dropItem: []
   color: {r: 1, g: 0, b: 0, a: 1}
   order: 0
   mapIcon: {fileID: 0}

@@ -12,6 +12,9 @@ public class BlockData : ScriptableObject
 		BEDROCK,	// 岩盤
 		STONE,		// 石
 		COAL,       // 石炭
+		STEEL,		// 鉄
+		TIN,		// 錫
+		LEAD,		// 鉛
 
 		BIRTHDAY_BLOCK = 200,	// ここから誕生石シリーズ
 		BIR_GARNET,			// ガーネット
@@ -30,14 +33,34 @@ public class BlockData : ScriptableObject
 		OVER
 	}
 
+	[System.Serializable]
+	public struct DropItems
+	{
+		[Header("アイテムの種類")]
+		public ItemData.Type type;
+		[Header("ドロップ数"), Min(0)]
+		public int count;
+		[Header("ドロップ率"), Range(0f, 1f)]
+		public float rate;
+	}
+
 	[Header("ブロック名")]
 	public string blockName = "";
 	[Header("ブロックの種類")]
 	public BlockType type = BlockType.OVER;
+	[Header("ブロックの耐久力")]
+	public float endurance = 100.0f;
+	[Header("破壊可能")]
+	public bool dontBroken = false;
+	[Header("光源レベル")]
+	public int lightLevel = 0;
 	[Header("ブロックのプレハブ")]
 	public GameObject prefab = null;
 	[Header("ブロックの画像")]
 	public Sprite sprite = null;
+
+	[Header("ドロップアイテム")]
+	public DropItems[] dropItem;
 
 	[Header("---マップ---")]
 

@@ -11,29 +11,19 @@ public class Block : MonoBehaviour
     [Header("破壊不可")]
     [SerializeField] private bool m_dontBroken = false;
 
-    [System.Serializable]
-    struct DropItems
-    {
-        [Header("アイテムの種類")]
-        public ItemData.Type type;
-        [Header("ドロップ数"), Min(0)]
-        public int count;
-        [Header("ドロップ率"), Range(0f, 1f)]
-        public float rate;
-    }
-
-    [Header("ドロップするアイテム")]
-    [SerializeField] private DropItems[] m_dropItems = null;
-    [Header("アイテムのデータベース")]
-    [SerializeField] private ItemDataBase m_itemDataBase = null;
-
     [Header("自分自身の発する光源レベル")]
     [SerializeField] private int m_lightLevel = 0;
     [Header("受けている光源レベル")]
     [SerializeField] private int m_receiveLightLevel = 0;
-
     [Header("スプライトレンダー")]
     [SerializeField] private SpriteRenderer m_spriteRenderer;
+
+    [Header("ブロックの情報")]
+    [SerializeField] private BlockData m_blockData = null;
+
+    [Header("アイテムのデータベース")]
+    [SerializeField] private ItemDataBase m_itemDataBase = null;
+
 
     // ブロックが破壊されている
     private bool m_isBroken = false;
@@ -99,7 +89,7 @@ public class Block : MonoBehaviour
 	// アイテムドロップ
 	public virtual void DropItem()
 	{
-        foreach (DropItems dropItem in m_dropItems)
+        foreach (BlockData.DropItems dropItem in m_blockData.dropItem)
         {
             // 0 ~ 1乱数取得
             float random = Random.value;
@@ -164,9 +154,14 @@ public class Block : MonoBehaviour
 	}
 
 
+    // 耐久力
+    public float Endurance
+    {
+        set { m_blockEndurance = value; }
+    }
 
-	// 破壊不可能か
-	public bool DontBroken
+    // 破壊不可能か
+    public bool DontBroken
     {
         get { return m_dontBroken; }
         set { m_dontBroken = value; }
@@ -176,6 +171,7 @@ public class Block : MonoBehaviour
     public int LightLevel
     {
         get { return m_lightLevel; }
+        set { m_lightLevel = value; }
     }
 
     // 受けている明るさ
@@ -183,6 +179,12 @@ public class Block : MonoBehaviour
     {
         get { return m_receiveLightLevel; }
         set { m_receiveLightLevel = value; }
+    }
+
+    // ブロックデータ
+    public BlockData BlockData
+    {
+        set { m_blockData = value; }
     }
 
 }
