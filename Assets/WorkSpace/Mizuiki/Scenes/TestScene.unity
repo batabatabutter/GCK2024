@@ -223,12 +223,7 @@ MonoBehaviour:
   - {fileID: 0}
   m_dungeonSizeX: 5
   m_dungeonSizeY: 5
-  m_blockCore: {fileID: 3457520386420079125, guid: cbe61a2527b59f44ea88ed42d8cd8019, type: 3}
-  m_betRock: {fileID: 8550780491684374141, guid: 955249822050a054fb32ac155f2febc2, type: 3}
-  m_block:
-  - {fileID: 5387801217646829125, guid: 6d22e030ce913cb43bd663bf0ba2de13, type: 3}
-  - {fileID: 2617319874051889144, guid: 55e213f193424d742bbfe4b9100b867e, type: 3}
-  m_blockOdds: 4b00000019000000
+  m_blockOddsList: []
   m_playerLength: 0
   m_player: {fileID: 6945831396311541013, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
   m_playSceneManager: {fileID: 0}
@@ -3237,6 +3232,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 75050969}
     m_Modifications:
+    - target: {fileID: 410641304151498657, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 1837239485}
+    - target: {fileID: 410641304151498657, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
+      propertyPath: m_debug
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1547900350974240465, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
       propertyPath: m_text
       value: 

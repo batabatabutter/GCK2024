@@ -52,20 +52,26 @@ public class PlayerTool : MonoBehaviour
 		}
 
 		// ツールの作成
-		foreach (ToolData data in m_dataBase.tool)
+		foreach (ToolData toolData in m_dataBase.tool)
 		{
 			// ツールの種類
-			ToolData.ToolType type = data.type;
+			ToolData.ToolType type = toolData.type;
+
+			// 上書き防止
+			if (m_tools.ContainsKey(type))
+				continue;
 
 			// 新たなツールの作成
-			m_tools[type] = new ToolContainer();
-			// データベースの情報を取得
-			m_tools[type].data = data;
-
-			// ツール更新用
-			if (data.prefab)
+			m_tools[type] = new()
 			{
-				m_toolScripts[type] = Instantiate(data.prefab.GetComponent<Tool>(), transform);
+				// データベースの情報を設定
+				data = toolData
+			};
+
+			// サポートツール更新用
+			if (toolData.category == ToolData.ToolCategory.SUPPORT)
+			{
+				m_toolScripts[type] = Instantiate(toolData.prefab.GetComponent<Tool>(), transform);
 			}
 		}
     }
@@ -131,10 +137,27 @@ public class PlayerTool : MonoBehaviour
 	// ツール変更
 	public void ChangeTool(int val)
 	{
+		// ツールの種類のリスト取得
+		List<ToolData.ToolType> typeList = new List<ToolData.ToolType>(m_tools.Keys);
+		// レアツール
+		if (m_rare)
+		{
+
+		}
+		// 通常ツール
+		else
+		{
+			// 現在選択中のツールのインデックス
+			int index = typeList.IndexOf(m_toolType);
+
+
+		}
+
 		// RAREを取得
 		ToolData.ToolType rare = ToolData.ToolType.RARE;
 		// OVERを取得
 		ToolData.ToolType over = ToolData.ToolType.OVER;
+
 
 		if (m_rare)
 		{
@@ -175,6 +198,11 @@ public class PlayerTool : MonoBehaviour
 			// ツールを変更する
 			m_toolType = change;
 		}
+
+	}
+	// 通常ツールの変更
+	private void ChangeNormal(int val)
+	{
 
 	}
 
@@ -271,9 +299,11 @@ public class PlayerTool : MonoBehaviour
 	// ツールを作成できるかチェック
 	public bool CheckCreate(ToolData.ToolType type)
 	{
-		ToolData data = m_dataBase.tool[(int)type];
+		// ツールのデータ取得
+		ToolData data = m_tools[type].data;
 
-		if (data != null)
+		// データがあれば作成可能かチェック
+		if (data)
 		{
 			return CheckCreate(data);
 		}
@@ -288,6 +318,14 @@ public class PlayerTool : MonoBehaviour
 		{
 			// アイテムの種類
 			ItemData.Type type = data.itemMaterials[i].type;
+
+			// アイテムが存在しない
+			if (!m_playerItem.Items.ContainsKey(type))
+			{
+				Debug.Log("アイテムが存在しない");
+				return false;
+			}
+
 			// 必要数
 			int count = data.itemMaterials[i].count * value;
 

@@ -134,8 +134,18 @@ public class PlayerItem : MonoBehaviour
 	{
 		for (int i = 0; i < data.itemMaterials.Count; i++)
 		{
+			// アイテムの種類取得
+			ItemData.Type type = data.itemMaterials[i].type;
+
+			// アイテムが存在しない
+			if (!m_items.ContainsKey(type))
+			{
+				Debug.Log(type + "が存在しない");
+				return;
+			}
+
 			// [type] を [count] 消費する
-			m_items[data.itemMaterials[i].type] -= data.itemMaterials[i].count * value;
+			m_items[type] -= data.itemMaterials[i].count * value;
 		}
 	}
 

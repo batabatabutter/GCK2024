@@ -9,19 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f32322d6a3befb942b18974efc8c4bbe, type: 3}
-  m_Name: ToolData_Shield
+  m_Script: {fileID: 11500000, guid: 10387625528c8cf4d99562735228409f, type: 3}
+  m_Name: ItemData_Tin
   m_EditorClassIdentifier: 
-  toolName: "\u30B7\u30FC\u30EB\u30C9"
-  type: 103
-  category: 0
+  itemName: "\u932B"
+  type: 3
   sprite: {fileID: 0}
-  recastTime: 10
-  prefab: {fileID: 0}
-  itemMaterials:
-  - type: 210
-    count: 1
-  - type: 0
-    count: 5
-  - type: 2
-    count: 2
+  prefab: {fileID: 3463832332005368329, guid: f5cfcee0633651a4d8105fc02df88bfe, type: 3}
