@@ -14,14 +14,18 @@ public class BlockGenerator : MonoBehaviour
     [SerializeField] private GameObject m_mapBlind = null;
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        // ブロックデータベースがなければ取得する
+	private void Awake()
+	{
+		// ブロックデータベースがなければ取得する
 		if (m_blockDataBase == null)
 		{
 			m_blockDataBase = AssetDatabase.LoadAssetAtPath<BlockDataBase>("Assets/DataBase/Block/BlockDataBase.asset");
 		}
+	}
+
+	// Start is called before the first frame update
+	void Start()
+    {
 	}
 
     // Update is called once per frame
@@ -43,8 +47,12 @@ public class BlockGenerator : MonoBehaviour
 		// ブロックのデータ取得
 		BlockData data = MyFunction.GetBlockData(m_blockDataBase, type);
 
+        // データがない
+        if (data == null)
+            return null;
+
 		// 生成したブロックを設定する用
-		GameObject obj = null;
+		GameObject obj;
 
         // プレハブが設定されていない場合はアセット参照でブロックを持ってくる
         if (!data.prefab)
@@ -76,10 +84,10 @@ public class BlockGenerator : MonoBehaviour
             block.LightLevel = data.lightLevel;
         }
 
-        // 画像の設定
-		if (obj.TryGetComponent(out SpriteRenderer sprite))
+		// 画像の設定
+		if (data.sprite)
 		{
-			if (data.sprite)
+			if (obj.TryGetComponent(out SpriteRenderer sprite))
 			{
 				sprite.sprite = data.sprite;
 			}

@@ -174,7 +174,7 @@ MonoBehaviour:
   m_dungeonSizeY: 0
   m_setBlocks:
   - mapName: 1
-    blockType: 4
+    blockType: 207
   - mapName: 2
     blockType: 1
   - mapName: 3

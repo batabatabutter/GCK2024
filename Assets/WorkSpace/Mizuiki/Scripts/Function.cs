@@ -74,14 +74,6 @@ public class MyFunction
 	// ブロックデータの取得
 	static public BlockData GetBlockData(BlockDataBase dataBase, BlockData.BlockType type)
 	{
-		// 誕生石シリーズ
-		if (type > BlockData.BlockType.BIRTHDAY_BLOCK)
-		{
-			// 誕生石を生成する
-			BlockData block = GetBlockData(dataBase, BlockData.BlockType.BIRTHDAY_BLOCK);
-			block.type = type;
-		}
-
 		foreach (BlockData data in dataBase.block)
 		{
 			if (data.type == type)

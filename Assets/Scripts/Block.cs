@@ -101,6 +101,10 @@ public class Block : MonoBehaviour
             // アイテムのデータを取得
             ItemData data = MyFunction.GetItemData(m_itemDataBase, dropItem.type);
 
+            // データがない場合はドロップしない
+            if (data == null)
+                continue;
+
 			// アイテムのゲームオブジェクトを生成
 			GameObject obj = Instantiate(data.prefab, transform.position, Quaternion.identity);
 

@@ -164,13 +164,13 @@ public class PlayerTool : MonoBehaviour
 			int change = index - val;
 
 			// 変更後が 0 未満
-			if (change < 0)
+			while (change < 0)
 			{
 				// 先頭からはみ出した分
 				change += typeList.Count;
 			}
 			// 変更後が範囲外
-			else if (change >= typeList.Count)
+			while (change >= typeList.Count)
 			{
 				change -= typeList.Count;
 			}
@@ -196,14 +196,14 @@ public class PlayerTool : MonoBehaviour
 			int change = index + val;
 
 			// 変更後が 0 未満
-			if (change < 0)
+			while (change < 0)
 			{
 				// 先頭からはみ出した分
 				change += typeList.Count;
 
 			}
 			// 変更後が範囲外
-			else if (change >= typeList.Count)
+			while (change >= typeList.Count)
 			{
 				// 末尾からはみ出した分
 				change -= typeList.Count;
