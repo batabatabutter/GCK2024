@@ -143,6 +143,10 @@ PrefabInstance:
       propertyPath: isroll
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -4963957752362924521, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
+      propertyPath: m_dungeonDataBase
+      value: 
+      objectReference: {fileID: 11400000, guid: 0bf61c7eff449f24d9512881d58682a1, type: 2}
     - target: {fileID: 1614570275442964, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
       propertyPath: m_Name
       value: PlaySceneManager
@@ -151,10 +155,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 792408576829412996, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
-      propertyPath: m_player
-      value: 
-      objectReference: {fileID: 5961566755285817898, guid: 96225a9f5722a1a418689cce6e0964ea, type: 3}
     - target: {fileID: 792408576829412996, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
       propertyPath: m_isBrightness
       value: 1
