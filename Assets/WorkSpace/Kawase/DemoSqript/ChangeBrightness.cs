@@ -48,8 +48,8 @@ public class ChangeBrightness : MonoBehaviour
             {
                 RemoveLightList(i);
             }
-            //離れたら消す
-            else if (Mathf.Abs(Vector3.Distance(m_lightList[i].gameObject.transform.position, gameObject.transform.position)) > m_lightList[i].GetComponent<CircleCollider2D>().radius + 3)
+            //離れたら消す(3は適当に大きめにしたdeleteLength的な)
+            else if (Mathf.Abs(Vector3.Distance(m_lightList[i].gameObject.transform.position, gameObject.transform.position)) > m_lightList[i].GetComponent<Block>().LightLevel + 3)
             {
                 RemoveLightList(i);
             }
@@ -65,8 +65,8 @@ public class ChangeBrightness : MonoBehaviour
         //もし自身がブロックで
         if (GetComponent<Block>())
         {
-            //ツール（松明）か光源ブロック　で　自身が光源じゃない
-            if ((collision.gameObject.layer == 3 || collision.CompareTag("Block")) && GetComponent<Block>().LightLevel < 1)
+            //ツール（松明）かブロック　で　自身が光源じゃない　かつ　光源レベルが０より大きい
+            if ((collision.gameObject.layer == 3 || collision.CompareTag("Block")) && GetComponent<Block>().LightLevel < 1 && collision.gameObject.GetComponent<Block>().LightLevel > 0)
             {
                 //新規光源なら追加する
                 if (!CheckForObjectInList(collision.gameObject))
@@ -76,7 +76,7 @@ public class ChangeBrightness : MonoBehaviour
             }
         }
         //自身がブロックじゃない時
-        else if ((collision.gameObject.layer == 3 || collision.CompareTag("Block")))
+        else if ((collision.gameObject.layer == 3 || collision.CompareTag("Block")) && collision.GetComponent<ChangeBrightness>())
         {
             //新規光源なら追加する
             if (!CheckForObjectInList(collision.gameObject))
@@ -210,7 +210,7 @@ public class ChangeBrightness : MonoBehaviour
         circleCol.radius = GetComponent<Block>().LightLevel;
         circleCol.isTrigger = true;
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.0f);
 
         //Destroy(circleCol);
 
