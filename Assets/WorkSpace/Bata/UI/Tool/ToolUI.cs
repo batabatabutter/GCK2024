@@ -41,6 +41,30 @@ public class ToolUI : MonoBehaviour
         //  生成位置
         Vector2 size = m_toolFrame.GetComponent<RectTransform>().sizeDelta;
         Vector3 pos;
+
+        //  中心の番号
+        int centerNum = m_graphToolNum / 2;
+
+        float totalWidth = 0.0f;
+
+        //  スライダー式
+        for (int i = 0; i < m_graphToolNum; i++)
+        {
+            //  座標
+            pos = new Vector3(totalWidth, 0.0f) + transform.position;
+            //  UI生成
+            GameObject frame = Instantiate(m_toolFrame, pos, Quaternion.identity, transform);
+
+            //  大きさカウント
+            if (i != centerNum)
+                totalWidth += m_toolFrame.GetComponent<RectTransform>().sizeDelta.x * m_graphScaleDeg + m_offset.x;
+            else
+                totalWidth += m_toolFrame.GetComponent<RectTransform>().sizeDelta.x + m_offset.x;
+
+            //  追加
+            m_toolObjects.Add(frame);
+        }
+
         //for (int i = 0; i < m_data.tool.Count; i++)
         //{
         //    //  座標
@@ -62,16 +86,6 @@ public class ToolUI : MonoBehaviour
 
         //    m_toolObjects.Add(frame);
         //}
-        //  スライダー式
-        for (int i = 0; i < m_graphToolNum; i++)
-        {
-            //  座標
-            pos = new Vector3((size.x + m_offset.x) * i, 0.0f) + transform.position;
-            //  UI生成
-            GameObject frame = Instantiate(m_toolFrame, pos, Quaternion.identity, transform);
-
-            m_toolObjects.Add(frame);
-        }
 
     }
 
@@ -110,10 +124,10 @@ public class ToolUI : MonoBehaviour
         for (int i = 0; i < m_toolObjects.Count; i++)
         {
             //  対応ツール
-            int thisToolID = playerToolNum + (i - centerNum);
+            int thisToolID = playerToolNum - (centerNum - i);
             //  オーバーしてたら修正
-            if (thisToolID < 0) thisToolID = m_data.tool.Count - 1;
-            else if (thisToolID >= m_data.tool.Count) thisToolID = 0;
+            if (thisToolID < 0) thisToolID = m_data.tool.Count + thisToolID;
+            else if (thisToolID >= m_data.tool.Count) thisToolID = thisToolID - m_data.tool.Count;
             //  タイプに変換
             ToolData.ToolType thisToolType = (ToolData.ToolType)thisToolID;
 
@@ -141,6 +155,8 @@ public class ToolUI : MonoBehaviour
                 m_toolObjects[i].GetComponent<ToolFrame>()
                     .GetRecastImage().fillAmount = 0.0f;
             }
+
+            thisToolID++;
 
         }
 
