@@ -41,38 +41,100 @@ public class ToolUI : MonoBehaviour
         //  生成位置
         Vector2 size = m_toolFrame.GetComponent<RectTransform>().sizeDelta;
         Vector3 pos;
-        for (int i = 0; i < m_data.tool.Count; i++)
+        //for (int i = 0; i < m_data.tool.Count; i++)
+        //{
+        //    //  座標
+        //    pos = new Vector3((size.x + m_offset.x)* i, 0.0f) + transform.position;
+        //    //  UI生成
+        //    GameObject frame = Instantiate(m_toolFrame, pos, Quaternion.identity, transform);
+        //    //  画像設定
+        //    frame.GetComponent<ToolFrame>().SetImage(m_data.tool[i].sprite);
+
+        //    m_toolObjects.Add(frame);
+        //}        //for (int i = 0; i < m_data.tool.Count; i++)
+        //{
+        //    //  座標
+        //    pos = new Vector3((size.x + m_offset.x)* i, 0.0f) + transform.position;
+        //    //  UI生成
+        //    GameObject frame = Instantiate(m_toolFrame, pos, Quaternion.identity, transform);
+        //    //  画像設定
+        //    frame.GetComponent<ToolFrame>().SetImage(m_data.tool[i].sprite);
+
+        //    m_toolObjects.Add(frame);
+        //}
+        //  スライダー式
+        for (int i = 0; i < m_graphToolNum; i++)
         {
             //  座標
-            pos = new Vector3((size.x + m_offset.x)* i, 0.0f) + transform.position;
+            pos = new Vector3((size.x + m_offset.x) * i, 0.0f) + transform.position;
             //  UI生成
             GameObject frame = Instantiate(m_toolFrame, pos, Quaternion.identity, transform);
-            //  画像設定
-            frame.GetComponent<ToolFrame>().SetImage(m_data.tool[i].sprite);
 
             m_toolObjects.Add(frame);
         }
+
     }
 
     // Update is called once per frame
     void Update()
     {
         //  ツール更新
+        //for (int i = 0; i < m_toolObjects.Count; i++)
+        //{
+        //    //  ツール数設定
+        //    m_toolObjects[i].GetComponent<ToolFrame>().SetIsSelected(false);
+        //    //  ツール作成可能数設定
+        //    m_toolObjects[i].GetComponent<ToolFrame>().SetNum(GetToolUseNum(i));
+
+        //    //  クールタイムがあるなら0.0～1.0に補間
+        //    if (m_data.tool[i].recastTime > 0)
+        //    {
+        //        m_toolObjects[i].GetComponent<ToolFrame>()
+        //            .GetRecastImage().fillAmount =
+        //            m_player.GetComponent<PlayerAction>()
+        //            .GetToolRecast((ToolData.ToolType)i) / 
+        //            m_data.tool[i].recastTime;
+        //    }
+        //    else
+        //    {
+        //        m_toolObjects[i].GetComponent<ToolFrame>()
+        //            .GetRecastImage().fillAmount = 0.0f;
+        //    }
+        //}
+        //  スライダー式
+        //  ツールの数
+        int toolNum = m_data.tool.Count;
+        int playerToolNum = (int)m_player.GetComponent<PlayerTool>().ToolType;
+        int centerNum = m_toolObjects.Count / 2;
+
         for (int i = 0; i < m_toolObjects.Count; i++)
         {
+            //  対応ツール
+            int thisToolID = playerToolNum + (i - centerNum);
+            //  オーバーしてたら修正
+            if (thisToolID < 0) thisToolID = m_data.tool.Count - 1;
+            else if (thisToolID >= m_data.tool.Count) thisToolID = 0;
+            //  タイプに変換
+            ToolData.ToolType thisToolType = (ToolData.ToolType)thisToolID;
+
+            //  大きさ変更
+            m_toolObjects[i].transform.localScale = Vector3.one * m_graphScaleDeg;
+
             //  ツール数設定
             m_toolObjects[i].GetComponent<ToolFrame>().SetIsSelected(false);
+            //  ツール画像設定
+            m_toolObjects[i].GetComponent<ToolFrame>().SetImage(m_data.tool[thisToolID].sprite);
             //  ツール作成可能数設定
-            m_toolObjects[i].GetComponent<ToolFrame>().SetNum(GetToolUseNum(i));
+            m_toolObjects[i].GetComponent<ToolFrame>().SetNum(GetToolUseNum(thisToolID));
 
             //  クールタイムがあるなら0.0～1.0に補間
-            if (m_data.tool[i].recastTime > 0)
+            if (m_data.tool[thisToolID].recastTime > 0)
             {
                 m_toolObjects[i].GetComponent<ToolFrame>()
                     .GetRecastImage().fillAmount =
                     m_player.GetComponent<PlayerAction>()
-                    .GetToolRecast((ToolData.ToolType)i) / 
-                    m_data.tool[i].recastTime;
+                    .GetToolRecast(thisToolType) /
+                    m_data.tool[thisToolID].recastTime;
             }
             else
             {
@@ -83,10 +145,12 @@ public class ToolUI : MonoBehaviour
         }
 
         //  ツール選択状態参照
-        if ((int)m_player.GetComponent<PlayerAction>().ToolType >= 0 &&
-            (int)m_player.GetComponent<PlayerAction>().ToolType < m_toolObjects.Count)
-            m_toolObjects[(int)m_player.GetComponent<PlayerAction>().ToolType].
-                GetComponent<ToolFrame>().SetIsSelected(true);
+        //if ((int)m_player.GetComponent<PlayerAction>().ToolType >= 0 &&
+        //    (int)m_player.GetComponent<PlayerAction>().ToolType < m_toolObjects.Count)
+        //    m_toolObjects[(int)m_player.GetComponent<PlayerAction>().ToolType].
+        //        GetComponent<ToolFrame>().SetIsSelected(true);
+        m_toolObjects[centerNum].GetComponent<ToolFrame>().SetIsSelected(true);
+        m_toolObjects[centerNum].transform.localScale = Vector3.one;
     }
 
     //  ツール作成可能数取得
