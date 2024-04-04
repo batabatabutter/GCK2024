@@ -152,7 +152,7 @@ MonoBehaviour:
   - type: 1
     count: 1
     rate: 0.5
-  m_itemDataBase: {fileID: 0}
+  m_itemDataBase: {fileID: 11400000, guid: c534141616c2bbc4ba996d4d9f120330, type: 2}
   m_lightLevel: 0
   m_receiveLightLevel: 0
   m_spriteRenderer: {fileID: 0}

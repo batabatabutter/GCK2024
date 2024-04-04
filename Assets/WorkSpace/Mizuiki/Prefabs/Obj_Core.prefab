@@ -146,8 +146,7 @@ MonoBehaviour:
   m_blockEndurance: 300
   m_dontBroken: 0
   m_dropItems: []
+  m_itemDataBase: {fileID: 11400000, guid: c534141616c2bbc4ba996d4d9f120330, type: 2}
   m_lightLevel: 7
-  m_mapObject: {fileID: 1862195980944505719, guid: 6626405694a3a3e4191b6cfe03fe79e8, type: 3}
-  m_mapBlind: {fileID: 1862195980944505719, guid: c1924fe14703f584b922f18489774354, type: 3}
-  m_blockColor: {r: 1, g: 0, b: 0, a: 1}
-  m_order: 2
+  m_receiveLightLevel: 0
+  m_spriteRenderer: {fileID: 0}

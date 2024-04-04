@@ -73,7 +73,7 @@ public class HPUI : MonoBehaviour
         //  生成位置
         Vector2 size = m_hpGaugeFrame.GetComponent<RectTransform>().sizeDelta;
         Vector3 pos;
-        for (int i = 0; i < Mathf.Max(maxHpVal + armorVal, m_hpGaugeObject.Count); i++)
+        for (int i = 0; i < maxHpVal; i++)
         {
             //  最大HPとアーマーよりUIが少なかったら生成
             if (i >= m_hpGaugeObject.Count)
@@ -86,18 +86,22 @@ public class HPUI : MonoBehaviour
                 m_hpGaugeObject.Add(frame);
             }
 
-            //  アーマー分は表示しないように
-            if (i >= maxHpVal + armorVal)
-                m_hpGaugeObject[i].transform.parent.gameObject.SetActive(false);
-            else m_hpGaugeObject[i].transform.parent.gameObject.SetActive(true);
+            ////  アーマー分は表示しないように
+            //if (i >= maxHpVal + armorVal)
+            //    m_hpGaugeObject[i].transform.parent.gameObject.SetActive(false);
+            //else m_hpGaugeObject[i].transform.parent.gameObject.SetActive(true);
 
             //  HPがあれば色付き
             if (i < hpVal) m_hpGaugeObject[i].GetComponent<RawImage>().color = m_hpColor;
-            else if(i >= maxHpVal && i < maxHpVal + armorVal) m_hpGaugeObject[i].GetComponent<RawImage>().color = m_armorColor;
+            //else if(i >= maxHpVal && i < maxHpVal + armorVal) m_hpGaugeObject[i].GetComponent<RawImage>().color = m_armorColor;
             else m_hpGaugeObject[i].GetComponent<RawImage>().color = m_emptyColor;
         }
 
         //  アーマー
+        if(armorVal > 0)
+        {
+
+        }
 
         //  デバッグ状態
         if (m_debug)

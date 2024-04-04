@@ -103,7 +103,10 @@ MonoBehaviour:
   m_blockEndurance: 100
   m_dontBroken: 0
   m_dropItems: []
+  m_itemDataBase: {fileID: 11400000, guid: c534141616c2bbc4ba996d4d9f120330, type: 2}
   m_lightLevel: 0
+  m_receiveLightLevel: 0
+  m_spriteRenderer: {fileID: 0}
 --- !u!114 &1169762517071602359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,6 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_lightList: []
+  m_lightPositionList: []
 --- !u!61 &5075732777367063382
 BoxCollider2D:
   m_ObjectHideFlags: 0
