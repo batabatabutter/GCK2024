@@ -22,21 +22,8 @@ public class PlayerAction : MonoBehaviour
 	[Header("アップグレードスクリプト")]
 	[SerializeField] private PlayerUpgrade m_playerUpgrade = null;
 
-	// レアツールを選択
-	private bool m_rare = false;
-
 	// ツール設置可能
 	private bool m_canPut = true;
-
-	// 選択ツール
-	private ToolData.ToolType m_toolType = 0;
-	// 選択レアツール
-	private ToolData.ToolType m_toolTypeRare = ToolData.ToolType.RARE + 1;
-
-
-	[Header("デバッグ---------------------------")]
-	[SerializeField] private bool m_debug = false;
-	[SerializeField] private Text m_text = null;
 
 
 	// Start is called before the first frame update
@@ -131,22 +118,6 @@ public class PlayerAction : MonoBehaviour
 		// アイテムの設置位置
 		m_cursorImage.transform.position = mousePos;
 
-		// デバッグ
-		if (m_debug)
-		{
-			if (m_text != null)
-			{
-				if (m_rare)
-				{
-					m_text.text = m_toolTypeRare.ToString();
-				}
-				else
-				{
-					m_text.text = m_toolType.ToString();
-				}
-			}
-		}
-
 	}
 
 	// 強化
@@ -158,21 +129,6 @@ public class PlayerAction : MonoBehaviour
 	// ツールの使用
 	public void UseTool()
 	{
-		if (m_rare)
-		{
-			UseTool(m_toolTypeRare);
-		}
-		else
-		{
-			UseTool(m_toolType);
-		}
-
-	}
-	public void UseTool(ToolData.ToolType type)
-	{
-		// 選択されているツールの分類
-		m_playerTool.GetCategory(type);
-
 		// アイテムが設置できない
 		if (!m_canPut)
 		{
@@ -180,65 +136,23 @@ public class PlayerAction : MonoBehaviour
 			return;
 		}
 
-		// ツールを使用する
-		m_playerTool.UseTool(type, m_cursorImage.transform.position);
+		// ツールの使用
+		m_playerTool.UseTool(m_cursorImage.transform.position);
 
 	}
 
 	// ツール変更
 	public void ChangeTool(int val)
 	{
-		// RAREを取得
-		ToolData.ToolType rare = ToolData.ToolType.RARE;
-		// OVERを取得
-		ToolData.ToolType over = ToolData.ToolType.OVER;
-
-		if (m_rare)
-		{
-			// 変更後の値
-			ToolData.ToolType change = m_toolTypeRare - val;
-
-			// 変更後が RARE 以下
-			if (change <= rare)
-			{
-				// 一番後ろのツールにする
-				change = over - 1;
-			}
-			// 変更後が範囲外
-			else if (change >= over)
-			{
-				change = rare + 1;
-			}
-
-			m_toolTypeRare = change;
-		}
-		else
-		{
-			// 変更後の値
-			ToolData.ToolType change = m_toolType - val;
-
-			// 変更後が 0 未満
-			if (change < 0)
-			{
-				// 一番後ろのツールにする
-				change = rare - 1;
-			}
-			// 変更後が範囲外
-			else if (change >= rare)
-			{
-				change = 0;
-			}
-
-			// ツールを変更する
-			m_toolType = change;
-		}
+		m_playerTool.ChangeTool(val);
 
 	}
 
 	// ツールの切り替え
 	public void SwitchTool()
 	{
-		m_rare = !m_rare;
+		m_playerTool.SwitchTool();
+
 	}
 
 
@@ -246,7 +160,7 @@ public class PlayerAction : MonoBehaviour
 	// 選択ツールの取得
 	public ToolData.ToolType ToolType
 	{
-		get { return m_toolType; }
+		get { return m_playerTool.ToolType; }
 	}
     public float GetToolRecast(ToolData.ToolType type)
     {

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 240992390899366991}
   - component: {fileID: 3006796946561196304}
   m_Layer: 0
-  m_Name: ToolArmor
+  m_Name: Tool_Armor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

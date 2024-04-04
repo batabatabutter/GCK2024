@@ -10,8 +10,21 @@ public class Block : MonoBehaviour
     [Header("破壊不可")]
     [SerializeField] private bool m_dontBroken = false;
 
+    [System.Serializable]
+    struct DropItems
+    {
+        [Header("アイテムの種類")]
+        public ItemData.Type type;
+        [Header("ドロップ数"), Min(0)]
+        public int count;
+        [Header("ドロップ率"), Range(0f, 1f)]
+        public float rate;
+    }
+
     [Header("ドロップするアイテム")]
-    [SerializeField] private List<GameObject> m_dropItems = new List<GameObject>();
+    [SerializeField] private DropItems[] m_dropItems = null;
+    [Header("アイテムのデータベース")]
+    [SerializeField] private ItemDataBase m_itemDataBase = null;
 
     [Header("自分自身の発する光源レベル")]
     [SerializeField] private int m_lightLevel = 0;
@@ -80,25 +93,44 @@ public class Block : MonoBehaviour
     }
 
 	// アイテムドロップ
-	public virtual void DropItem(int count = 1)
+	public virtual void DropItem()
 	{
-        foreach (GameObject dropItem in m_dropItems)
+        foreach (DropItems dropItem in m_dropItems)
         {
-            // アイテムのゲームオブジェクトを生成
-            GameObject obj = Instantiate(dropItem);
-            obj.transform.position = transform.position;
+            // 0 ~ 1乱数取得
+            float random = Random.value;
+
+            // 乱数がドロップ確率より大きい
+            if (dropItem.rate < random)
+                continue;
+
+            // アイテムのデータを取得
+            ItemData data = MyFunction.GetItemData(m_itemDataBase, dropItem.type);
+
+			// アイテムのゲームオブジェクトを生成
+			GameObject obj = Instantiate(data.prefab, transform.position, Quaternion.identity);
 
             // 明るさの概念を追加
             obj.AddComponent<ChangeBrightness>();
 
+            // 名前を変える
+            obj.name = "Material_" + dropItem.type.ToString();
+
             // アイテムがドロップしたときの処理
             if (obj.TryGetComponent(out Item item))
             {
-                item.Drop(count);
+                // 種類の設定
+                item.ItemType = dropItem.type;
+                // ドロップ数の設定
+                item.Drop(dropItem.count);
             }
 
+            // 画像を設定
+            if (obj.TryGetComponent(out SpriteRenderer sprite))
+            {
+                sprite.sprite = data.sprite;
+            }
         }
-
 	}
 
 
