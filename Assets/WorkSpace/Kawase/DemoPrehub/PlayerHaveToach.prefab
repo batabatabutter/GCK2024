@@ -533,7 +533,6 @@ MonoBehaviour:
   m_layerMask:
     serializedVersion: 2
     m_Bits: 8
-  m_toachData: {fileID: 11400000, guid: afed5e5373016584fb66eeb4614dca4c, type: 2}
   m_playerTool: {fileID: 8199061183955363295}
   m_playerUpgrade: {fileID: 0}
   m_debug: 0
@@ -932,7 +931,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -4123004847560017424, guid: 5cd6e11a21e8d74498a673fc06be8e44, type: 3}
       propertyPath: m_lightLevel
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1605569564547797263, guid: 5cd6e11a21e8d74498a673fc06be8e44, type: 3}
       propertyPath: m_Name

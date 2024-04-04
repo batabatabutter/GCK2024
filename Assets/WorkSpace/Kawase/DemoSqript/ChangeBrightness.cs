@@ -49,7 +49,7 @@ public class ChangeBrightness : MonoBehaviour
                 RemoveLightList(i);
             }
             //—£‚ê‚½‚çÁ‚·
-            else if (Vector3.Distance(m_lightList[i].gameObject.transform.position,gameObject.transform.position) > m_lightList[i].GetComponent<Block>().LightLevel)
+            else if (Mathf.Abs(Vector3.Distance(m_lightList[i].gameObject.transform.position, gameObject.transform.position)) > m_lightList[i].GetComponent<CircleCollider2D>().radius + 3)
             {
                 RemoveLightList(i);
             }
