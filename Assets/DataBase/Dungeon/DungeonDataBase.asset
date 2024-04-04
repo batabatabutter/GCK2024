@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33350c4bb30749c47ae5cec6624bddf3, type: 3}
   m_Name: DungeonDataBase
   m_EditorClassIdentifier: 
-  dungeonCSV: []
+  dungeonDatas:
+  - {fileID: 11400000, guid: 69c8c3a09511b1044ad6fd27a7170a2a, type: 2}

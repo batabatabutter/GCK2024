@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using static UnityEngine.UI.Image;
@@ -10,12 +11,11 @@ public class DungeonGenerator : MonoBehaviour
     [Header("明るさをつける(デバッグ)")]
     [SerializeField] private bool m_isBrightness;
 
-    [Header("生成するダンジョンのCSVファイル")]
-    [SerializeField] private List<TextAsset> m_dungeonPath;
+    [Header("ステージ(0～)")]
+    [SerializeField] private int m_stageNum;
 
-	[Header("ダンジョンのサイズ(10*10で１サイズ)")]
-    [SerializeField] private int m_dungeonSizeX;
-    [SerializeField] private int m_dungeonSizeY;
+    [Header("ダンジョンデータベース")]
+    [SerializeField] private DungeonDataBase m_dungeonDataBase;
 
     [System.Serializable]
     public class BlockOdds
@@ -25,9 +25,6 @@ public class DungeonGenerator : MonoBehaviour
         [Header("確率")]
         public int odds;       // 確率
     }
-
-    [SerializeField]
-    List<BlockOdds> m_blockOddsList;
 
     [Header("核からプレイヤーの出現しない距離")]
     [SerializeField] private int m_playerLength = 35;
@@ -39,14 +36,15 @@ public class DungeonGenerator : MonoBehaviour
     [Header("地面背景")]
     [SerializeField] private GameObject m_ground;
 
-
+    //コアの位置
     private int m_corePosX;
     private int m_corePosY;
-
+    //プレイヤーの位置
     private Vector2 m_playerPos;
-
+    //ブロックの親
     private GameObject m_parent;
 
+    //ブロック生成スクリプト
     private BlockGenerator m_blockGenerator;
 
 
@@ -57,13 +55,24 @@ public class DungeonGenerator : MonoBehaviour
 
         m_parent = new GameObject("Blocks");
 
-        m_corePosX = Random.Range(0, m_dungeonSizeX * 10);
-        m_corePosY = Random.Range(0, m_dungeonSizeY * 10);
+        Vector2 dungeonSize = m_dungeonDataBase.dungeonDatas[m_stageNum].dungeonSize;
+
+        m_corePosX = Random.Range(0, (int)dungeonSize.x * 10);
+        m_corePosY = Random.Range(0, (int)dungeonSize.y * 10);
+
+        int roop_error = 0;
 
         //プレイヤーとコアの位置が離れるまで繰り返す
         do
         {
-            m_playerPos = new Vector2(Random.Range(0, m_dungeonSizeX * 10), Random.Range(0, m_dungeonSizeY * 10));
+            m_playerPos = new Vector2(Random.Range(0, (int)dungeonSize.x * 10), Random.Range(0, (int)dungeonSize.y * 10));
+
+            if (roop_error > 100)
+            {
+                Debug.Log("コアとプレイヤーが近すぎます。間隔を見直してください");
+                break;
+            }
+            roop_error++;
 
         }
         while (
@@ -76,16 +85,8 @@ public class DungeonGenerator : MonoBehaviour
         //  プレイヤーの生成
         GameObject pl = Instantiate<GameObject>(m_player, m_playerPos, Quaternion.identity);
 
-
-
         // coreの生成
         GameObject co = m_blockGenerator.GenerateBlock(BlockData.ToolType.CORE, new Vector3(m_corePosX, m_corePosY), m_parent.transform, m_isBrightness);
-
-        //GameObject co = Instantiate<GameObject>(m_blockCore, new Vector3(m_corePosX,m_corePosY), Quaternion.identity);
-        //co.transform.parent = m_parent.transform;
-        //明るさの追加
-        //if (m_isBrightness)
-        //    co.AddComponent<ChangeBrightness>();
 
 
         //  プレイシーンマネージャーが無かったら格納しない
@@ -100,11 +101,13 @@ public class DungeonGenerator : MonoBehaviour
         //１０＊１０のリスト管理用
         List<List<List<string>>> mapListManager = new List<List<List<string>>>();
 
+        //データベースからリストの取得
+        List<TextAsset> dungeonCSV = m_dungeonDataBase.dungeonDatas[m_stageNum].dungeonCSV;
 
-        for (int i = 0; i < m_dungeonPath.Count; i++)
+        for (int i = 0; i < dungeonCSV.Count; i++)
         {
             // ファイルがなければマップ読み込みの処理をしない
-            if (m_dungeonPath[i] == null)
+            if (dungeonCSV[i] == null)
             {
                 Debug.Log("CSV file is not assigned");
                 return;
@@ -115,7 +118,7 @@ public class DungeonGenerator : MonoBehaviour
             List<List<string>> mapList = new List<List<string>>();
 
             // ファイルの内容を1行ずつ処理
-            string[] lines = m_dungeonPath[i].text.Split('\n');
+            string[] lines = dungeonCSV[i].text.Split('\n');
             foreach (string line in lines)
             {
                 string[] values = line.Split(',');
@@ -134,31 +137,6 @@ public class DungeonGenerator : MonoBehaviour
                 mapList.Add(rowData);
             }
 
-            {
-                //// ファイル読み込み
-                //StreamReader streamReader = new StreamReader(m_dungeonPath[i].text);
-
-                //// 改行区切りで読み出す
-                //foreach (string line in streamReader.ReadToEnd().Split("\n"))
-                //{
-                //    // 行が存在しなければループを抜ける
-                //    if (line == "")
-                //        break;
-
-                //    string lin = line.Remove(line.Length - 1);
-
-                //    List<string> list = new List<string>();
-
-                //    // カンマ区切りで読み出す
-                //    foreach (string line2 in lin.Split(","))
-                //    {
-                //        list.Add(line2);
-                //    }
-
-                //    mapList.Add(list);
-                //}
-            }
-
 
             //３次元に入れる
             mapListManager.Add(mapList);
@@ -169,32 +147,32 @@ public class DungeonGenerator : MonoBehaviour
         }
 
         //ブロック生成
-        for (int y = 0; y < m_dungeonSizeY; y++)
+        for (int y = 0; y < (int)dungeonSize.y; y++)
         {
-            for (int x = 0; x < m_dungeonSizeX; x++)
+            for (int x = 0; x < (int)dungeonSize.x; x++)
             {
-                int random = Random.Range(0, m_dungeonPath.Count);
+                int random = Random.Range(0, dungeonCSV.Count);
                 Make10_10Block(mapListManager[random], x * 10, y * 10);
 
             }
         }
 
         //岩盤で囲う
-        for (int i = 0; i < m_dungeonSizeY * 10; i++)
+        for (int i = 0; i < (int)dungeonSize.y * 10; i++)
         {
             m_blockGenerator.GenerateBlock(BlockData.ToolType.BEDROCK, new Vector3(-1, i, 0), m_parent.transform, m_isBrightness);
-            m_blockGenerator.GenerateBlock(BlockData.ToolType.BEDROCK, new Vector3(m_dungeonSizeY * 10, i, 0), m_parent.transform, m_isBrightness);
+            m_blockGenerator.GenerateBlock(BlockData.ToolType.BEDROCK, new Vector3((int)dungeonSize.y * 10, i, 0), m_parent.transform, m_isBrightness);
         }
-        for (int i = 0; i < m_dungeonSizeX * 10; i++)
+        for (int i = 0; i < (int)dungeonSize.x * 10; i++)
         {
             m_blockGenerator.GenerateBlock(BlockData.ToolType.BEDROCK, new Vector3(i, -1, 0), m_parent.transform, m_isBrightness);
-            m_blockGenerator.GenerateBlock(BlockData.ToolType.BEDROCK, new Vector3(i, m_dungeonSizeY * 10, 0), m_parent.transform, m_isBrightness);
+            m_blockGenerator.GenerateBlock(BlockData.ToolType.BEDROCK, new Vector3(i, (int)dungeonSize.y * 10, 0), m_parent.transform, m_isBrightness);
         }
 
         //地面の生成
-        for (int y = 0; y < m_dungeonSizeY * 10; ++y)
+        for (int y = 0; y < (int)dungeonSize.y * 10; ++y)
         {
-            for (int x = 0; x < m_dungeonSizeX * 10; ++x)
+            for (int x = 0; x < (int)dungeonSize.x * 10; ++x)
             {
                 // 生成座標
                 Vector3 pos = new(x, y, 0.0f);
@@ -207,18 +185,6 @@ public class DungeonGenerator : MonoBehaviour
             }
         }
 
-    }
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 
 
@@ -248,7 +214,13 @@ public class DungeonGenerator : MonoBehaviour
                 Vector3 pos = new(originX + x,originY + y, 0.0f);
 
                 // ブロックの生成
-                m_blockGenerator.GenerateBlock(m_blockOddsList[LotteryBlock()].type, pos, m_parent.transform, m_isBrightness);
+                m_blockGenerator.GenerateBlock(
+                    m_dungeonDataBase.dungeonDatas[m_stageNum].dungeonOdds
+                    [LotteryBlock()].type, 
+                    pos, 
+                    m_parent.transform,
+                    m_isBrightness
+                    );
             }
         }
     }
@@ -259,21 +231,30 @@ public class DungeonGenerator : MonoBehaviour
         //確率の抽選
         List<int> oddsList = new List<int>();
 
+        //全ての確率合算
         int allOdds = 0;
 
+        List<BlockOdds> blockOddsList = m_dungeonDataBase.dungeonDatas[m_stageNum].dungeonOdds;
+
+
         //ブロックの種類の数
-        for (int i = 0; i < m_blockOddsList.Count; i++)
+        for (int i = 0; i < blockOddsList.Count; i++)
         {
             //ブロックの確率
-            for (int j = 0; j < m_blockOddsList[i].odds; j++)
+            for (int j = 0; j < blockOddsList[i].odds; j++)
             {
                 oddsList.Add(i);
             }
             //ブロックの確率を加算
-            allOdds += m_blockOddsList[i].odds;
+            allOdds += blockOddsList[i].odds;
         }
         //抽選
         return oddsList[Random.Range(0,allOdds)];
     }
 
+
+    public int GetStageNum()
+    {
+        return m_stageNum;
+    }
 }
