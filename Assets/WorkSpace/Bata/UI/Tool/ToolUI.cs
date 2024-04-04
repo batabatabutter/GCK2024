@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class ToolUI : MonoBehaviour
 {
@@ -12,6 +13,11 @@ public class ToolUI : MonoBehaviour
     //  ツールデータベース
     [Header("ツールのデータベース")]
     [SerializeField] private ToolDataBase m_data;
+
+    //  UI表示ツール数
+    [Header("UIに必要な数")]
+    [SerializeField] private int m_graphToolNum;
+    [SerializeField, Range(0.0f, 1.0f)] private float m_graphScaleDeg;
 
     //  HP格納
     private List<GameObject> m_toolObjects = new List<GameObject>();
@@ -35,7 +41,7 @@ public class ToolUI : MonoBehaviour
         //  生成位置
         Vector2 size = m_toolFrame.GetComponent<RectTransform>().sizeDelta;
         Vector3 pos;
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < m_data.tool.Count; i++)
         {
             //  座標
             pos = new Vector3((size.x + m_offset.x)* i, 0.0f) + transform.position;
@@ -52,7 +58,7 @@ public class ToolUI : MonoBehaviour
     void Update()
     {
         //  ツール更新
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < m_toolObjects.Count; i++)
         {
             //  ツール数設定
             m_toolObjects[i].GetComponent<ToolFrame>().SetIsSelected(false);
@@ -77,8 +83,10 @@ public class ToolUI : MonoBehaviour
         }
 
         //  ツール選択状態参照
-        m_toolObjects[(int)m_player.GetComponent<PlayerAction>().ToolType].
-            GetComponent<ToolFrame>().SetIsSelected(true); 
+        if ((int)m_player.GetComponent<PlayerAction>().ToolType >= 0 &&
+            (int)m_player.GetComponent<PlayerAction>().ToolType < m_toolObjects.Count)
+            m_toolObjects[(int)m_player.GetComponent<PlayerAction>().ToolType].
+                GetComponent<ToolFrame>().SetIsSelected(true);
     }
 
     //  ツール作成可能数取得
