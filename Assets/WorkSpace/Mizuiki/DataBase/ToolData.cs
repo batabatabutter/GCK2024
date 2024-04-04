@@ -9,19 +9,27 @@ public class ToolData : ScriptableObject
 	[System.Serializable]
 	public enum ToolType
 	{
-		TOACH,		// 松明
-		BOMB,       // 爆弾
-		ARMOR,      // アーマー
+		TOACH	= 0,	// 松明
+		BOMB,			// 爆弾
+		ARMOR,			// アーマー
 
-		RARE,		// ここからレアツール
+		RARE	= 100,		// ここからレアツール
 
+		HOLY_TOACH,				// 聖火
 		RANGE_DESTROYER,		// 範囲破壊つるはし
 		SHIELD,					// シールド
-		SACRED_FLAME,			// 聖火
+
+		DRILL,					// ドリル
+		DENGEROUS_BOMB,         // 危険爆弾
+		HEAVY_ARMOR,			// 重鎧
+
+		HEALING_TOACH,			// 癒しの松明
+		DOUBLE_PICAXE,			// 倍増つるはし
+		LIMIT_TOTEM,			// 制限のトーテム
 
 		HAMMER,					// ハンマー
-		DRILL,					// ドリル
-		LIMIT_TOTEM,			// 制限のトーテム
+		MINING_BOMB,			// 採掘爆弾
+		HEALING_AURA,			// 癒しのオーラ
 
 		OVER
 	}
@@ -46,10 +54,8 @@ public class ToolData : ScriptableObject
 	public Sprite sprite = null;
 	[Header("リキャスト時間")]
 	public float recastTime = 0.0f;
-	[Header("設置する場合はプレハブ")]
-	public GameObject objectPrefab = null;
-	[Header("使用時の関数を呼び出すツール")]
-	public Tool tool;
+	[Header("ツールのプレハブ")]
+	public GameObject prefab = null;
 
 	[Header("ツール作成に必要な素材")]
 	public List<Items> itemMaterials = new List<Items>();
@@ -60,7 +66,7 @@ public class ToolData : ScriptableObject
 		type = tool.type;
 		sprite = tool.sprite;
 		recastTime = tool.recastTime;
-		objectPrefab = tool.objectPrefab;
+		prefab = tool.prefab;
 		itemMaterials = tool.itemMaterials;
 	}
 

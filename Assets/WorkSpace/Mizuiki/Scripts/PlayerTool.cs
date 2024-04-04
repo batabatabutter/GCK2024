@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerTool : MonoBehaviour
 {
@@ -18,11 +19,24 @@ public class PlayerTool : MonoBehaviour
 	[Header("アイテム")]
 	[SerializeField] private PlayerItem m_playerItem;
 
-	[Header("設置ツール")]
+	[Header("ツール")]
 	[SerializeField] private Dictionary<ToolData.ToolType, ToolContainer> m_tools = new();
 
 	// ツール更新用のオブジェクト
 	private Dictionary<ToolData.ToolType, Tool> m_toolScripts = new();
+
+	// レアツールを選択
+	private bool m_rare = false;
+
+	// 選択ツール
+	private ToolData.ToolType m_toolType = 0;
+	// 選択レアツール
+	private ToolData.ToolType m_toolTypeRare = ToolData.ToolType.RARE + 1;
+
+	[Header("デバッグ---------------------------")]
+	[SerializeField] private bool m_debug = false;
+	[SerializeField] private Text m_text = null;
+
 
 
 	// Start is called before the first frame update
@@ -38,7 +52,6 @@ public class PlayerTool : MonoBehaviour
 		}
 
 		// ツールの作成
-		//for (ToolData.ToolType type = 0; type < ToolData.ToolType.OVER; type++)
 		foreach (ToolData data in m_dataBase.tool)
 		{
 			// ツールの種類
@@ -50,9 +63,9 @@ public class PlayerTool : MonoBehaviour
 			m_tools[type].data = data;
 
 			// ツール更新用
-			if (data.tool)
+			if (data.prefab)
 			{
-				m_toolScripts[type] = Instantiate(data.tool, transform);
+				m_toolScripts[type] = Instantiate(data.prefab.GetComponent<Tool>(), transform);
 			}
 		}
     }
@@ -61,7 +74,6 @@ public class PlayerTool : MonoBehaviour
     void Update()
     {
 		// ツールの更新
-		//for (ToolData.ToolType type = 0; type < ToolData.ToolType.OVER; type++)
 		foreach(ToolContainer tool in m_tools.Values)
 		{
 			// ツールの種類取得
@@ -83,6 +95,22 @@ public class PlayerTool : MonoBehaviour
 			}
 		}
 
+		// デバッグ
+		if (m_debug)
+		{
+			if (m_text != null)
+			{
+				if (m_rare)
+				{
+					m_text.text = m_toolTypeRare.ToString();
+				}
+				else
+				{
+					m_text.text = m_toolType.ToString();
+				}
+			}
+		}
+
 
 	}
 
@@ -100,9 +128,84 @@ public class PlayerTool : MonoBehaviour
 		return false;
 	}
 
+	// ツール変更
+	public void ChangeTool(int val)
+	{
+		// RAREを取得
+		ToolData.ToolType rare = ToolData.ToolType.RARE;
+		// OVERを取得
+		ToolData.ToolType over = ToolData.ToolType.OVER;
+
+		if (m_rare)
+		{
+			// 変更後の値
+			ToolData.ToolType change = m_toolTypeRare - val;
+
+			// 変更後が RARE 以下
+			if (change <= rare)
+			{
+				// 一番後ろのツールにする
+				change = over - 1;
+			}
+			// 変更後が範囲外
+			else if (change >= over)
+			{
+				change = rare + 1;
+			}
+
+			m_toolTypeRare = change;
+		}
+		else
+		{
+			// 変更後の値
+			ToolData.ToolType change = m_toolType - val;
+
+			// 変更後が 0 未満
+			if (change < 0)
+			{
+				// 一番後ろのツールにする
+				change = rare - 1;
+			}
+			// 変更後が範囲外
+			else if (change >= rare)
+			{
+				change = 0;
+			}
+
+			// ツールを変更する
+			m_toolType = change;
+		}
+
+	}
+
+	// ツール切り替え
+	public void SwitchTool()
+	{
+		m_rare = !m_rare;
+
+	}
+
 	// ツールを使用する
+	public void UseTool(Vector3 position)
+	{
+		if (m_rare)
+		{
+			UseTool(m_toolTypeRare, position);
+		}
+		else
+		{
+			UseTool(m_toolType, position);
+		}
+	}
 	public void UseTool(ToolData.ToolType type, Vector3 position)
 	{
+		// ツールが存在しない
+		if (!m_tools.ContainsKey(type))
+		{
+            Debug.Log("ツールが存在しないよ");
+			return;
+		}
+
 		// 選択されているアイテムが作成できない
 		if (!CheckCreate(type))
 		{
@@ -119,7 +222,7 @@ public class PlayerTool : MonoBehaviour
 
 		// ツールのデータ取得
 		ToolData data = m_tools[type].data;
-
+		// ツールの分類
 		switch (data.category)
 		{
 			case ToolData.ToolCategory.PUT:			// 設置型
@@ -149,11 +252,11 @@ public class PlayerTool : MonoBehaviour
 	public void Put(ToolData data, Vector3 position, bool con = false)
 	{
 		// プレハブが設定されていなければ返す
-		if (!data.objectPrefab)
+		if (!data.prefab)
 			return;
 
 		// アイテムを置く
-		GameObject tool = Instantiate(data.objectPrefab, position, Quaternion.identity);
+		GameObject tool = Instantiate(data.prefab, position, Quaternion.identity);
 		// アクティブにする(念のため)
 		tool.SetActive(true);
 
@@ -206,6 +309,16 @@ public class PlayerTool : MonoBehaviour
 		m_playerItem.ConsumeMaterials(data, value);
 	}
 
+
+	// 選択ツール取得
+	public ToolData.ToolType ToolType
+	{
+		get { return m_toolType; }
+	}
+	public ToolData.ToolType ToolTypeRare
+	{
+		get { return m_toolTypeRare; }
+	}
 
 	// ツールのリキャスト時間の取得
 	public float RecastTime(ToolData.ToolType type)

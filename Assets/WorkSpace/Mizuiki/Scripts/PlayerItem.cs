@@ -12,11 +12,9 @@ public class PlayerItem : MonoBehaviour
 
 	[Header("アイテムの検知範囲(半径)")]
 	[SerializeField] private float m_detectionRange = 3.0f;
-	//[Header("アイテムの吸い込み速度(/s)")]
-	//[SerializeField] private float m_suctionSpeed = 0.5f;
-	//[Header("アイテムを拾いあげる範囲(半径)")]
-	//[SerializeField] private float m_picupRange = 1.0f;
 
+	[Header("アイテムのデータベース")]
+	[SerializeField] private ItemDataBase m_itemDataBase = null;
 
 	[Header("デバッグ----------")]
 	[SerializeField] private bool m_debug = false;
@@ -33,14 +31,14 @@ public class PlayerItem : MonoBehaviour
 		col.isTrigger = true;
 
 		// 所持アイテム数の初期化
-		for (ItemData.Type type = ItemData.Type.STONE; type < ItemData.Type.OVER; type++)
+		foreach(ItemData itemData in m_itemDataBase.item)
 		{
-			m_items[type] = 0;
+			m_items[itemData.type] = 0;
 
 			// デバッグがオンになっていたら所持数をカンストさせる
 			if (m_debug)
 			{
-				m_items[type] = m_maxCount;
+				m_items[itemData.type] = m_maxCount;
 			}
 
 		}
@@ -56,9 +54,9 @@ public class PlayerItem : MonoBehaviour
 			{
 				m_text.text = "";
 
-				for (ItemData.Type type = ItemData.Type.STONE; type < ItemData.Type.OVER; type++)
+				foreach(KeyValuePair<ItemData.Type, int> item in m_items)
 				{
-					m_text.text += type.ToString() + " : " + m_items[type] + "\n";
+					m_text.text += item.Key.ToString() + " : " + item.Value.ToString() + "\n";
 				}
 
 			}

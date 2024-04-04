@@ -191,6 +191,7 @@ public class Item : MonoBehaviour
 	public ItemData.Type ItemType
     {
         get { return m_itemType; }
+        set { m_itemType = value; }
     }
 
     public int Count

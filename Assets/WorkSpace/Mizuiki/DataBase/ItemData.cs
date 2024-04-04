@@ -7,10 +7,26 @@ public class ItemData : ScriptableObject
 	[System.Serializable]
 	public enum Type
 	{
-		STONE,  // 岩
-		COAL,   // 石炭
+		STONE	= 0,	// 岩
+		COAL,			// 石炭
+		STEEL,			// 鉄
+		TIN,			// 錫
+		LEAD,			// 鉛
 
-		OVER
+		BIR_GARNET	= 200,	// ガーネット
+		BIR_AMETHYST,		// アメジスト
+		BIR_AQUAMARINE,		// アクアマリン
+		BIR_DIAMOND,		// ダイヤモンド
+		BIR_EMERALD,		// エメラルド
+		BIR_PEARL,			// パール
+		BIR_RUBY,			// ルビー
+		BIR_PERIDOT,		// ペリドット
+		BIR_SAPPHIRE,		// サファイア
+		BIR_OPAL,			// オパール
+		BIR_TOPAZ,			// トパーズ
+		BIR_TURQUOISE,		// ターコイズ
+
+		OVER,
 	}
 
 	[Header("アイテム名")]
@@ -19,6 +35,8 @@ public class ItemData : ScriptableObject
 	public Type type;
 	[Header("アイテムの画像")]
 	public Sprite sprite;
+	[Header("アイテムのプレハブ")]
+	public GameObject prefab = null;
 
 	public ItemData(ItemData item)
 	{
