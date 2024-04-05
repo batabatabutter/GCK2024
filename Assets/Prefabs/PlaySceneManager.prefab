@@ -49,6 +49,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_playUIObj: {fileID: 5394606227380255477, guid: f7396e1fb1f12ee4ab40900fe337c574, type: 3}
   m_resultUIObj: {fileID: 1747404755759647418, guid: d1e56d12ecc105b4fa70903103fa961e, type: 3}
+  m_stageNumScriptableObj: {fileID: 11400000, guid: 0ddb2feb839c39a4b8711c3b2833423a, type: 2}
+  m_debugFlag: 0
+  m_debugStageNum: 0
 --- !u!114 &792408576829412996
 MonoBehaviour:
   m_ObjectHideFlags: 0
