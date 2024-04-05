@@ -20,9 +20,9 @@ MonoBehaviour:
   - {fileID: 4900000, guid: b013fb72dc7745e4c9dff799a6d1917f, type: 3}
   dungeonSize: {x: 1, y: 1}
   dungeonOdds:
-  - type: 2
+  - type: 0
     odds: 66
-  - type: 3
+  - type: 1
     odds: 33
   dungeonAttackPattern: 
   dungeonAttackCoolTime: 6

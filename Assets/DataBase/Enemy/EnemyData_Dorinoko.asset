@@ -13,5 +13,11 @@ MonoBehaviour:
   m_Name: EnemyData_Dorinoko
   m_EditorClassIdentifier: 
   hp: 0
-  coolTime: 0
-  dropItems: []
+  coolTime: 3.5
+  dropItems:
+  - type: 0
+    count: 3
+    rate: 1
+  - type: 1
+    count: 3
+    rate: 1

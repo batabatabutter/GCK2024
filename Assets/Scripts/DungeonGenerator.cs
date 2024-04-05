@@ -11,8 +11,8 @@ public class DungeonGenerator : MonoBehaviour
     [Header("明るさをつける(デバッグ)")]
     [SerializeField] private bool m_isBrightness;
 
-    [Header("ステージ(0～)")]
-    [SerializeField] private int m_stageNum;
+    //"ステージ(0～)
+    private int m_stageNum;
 
     [Header("ダンジョンデータベース")]
     [SerializeField] private DungeonDataBase m_dungeonDataBase;

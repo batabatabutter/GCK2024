@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// enemy‚ğe‚É‚µ‚½h‚èŒ^‚Ì“G
+/// </summary>
 public class EnemyDwell : Enemy
 {
     [SerializeField] GameObject m_dwellBlock;

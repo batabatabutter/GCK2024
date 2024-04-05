@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// 一番親
+/// </summary>
 public class Enemy : MonoBehaviour
 {
     [Header("敵データベース")]
