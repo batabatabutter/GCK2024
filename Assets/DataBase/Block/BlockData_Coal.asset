@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: BlockData_Coal
   m_EditorClassIdentifier: 
   blockName: "\u77F3\u70AD"
-  type: 3
+  type: 1
   endurance: 150
   dontBroken: 0
   lightLevel: 0
-  prefab: {fileID: 2617319874051889144, guid: 55e213f193424d742bbfe4b9100b867e, type: 3}
+  prefab: {fileID: 3457520386420079125, guid: cbe61a2527b59f44ea88ed42d8cd8019, type: 3}
   sprite: {fileID: 21300000, guid: 2b65ed7ccb9ba124c9275bf7f1a1e758, type: 3}
   dropItem:
   - type: 1

@@ -13,6 +13,12 @@ public class TestDungeonGenerator : MonoBehaviour
 	[SerializeField] private int m_dungeonSizeX;
 	[SerializeField] private int m_dungeonSizeY;
 
+	[Header("ライト")]
+	[SerializeField] private bool m_light = false;
+
+	[Header("ダンジョンの入れ物")]
+	[SerializeField] private GameObject m_dungeonContainer = null;
+
 	[System.Serializable]
 	struct MapBlock
 	{
@@ -27,6 +33,7 @@ public class TestDungeonGenerator : MonoBehaviour
 	[Header("ブロックジェネレータ")]
 	[SerializeField] private BlockGenerator m_blockGenerator;
 
+	[Header("プレイヤー")]
 	[SerializeField] GameObject m_player = null;
 
 
@@ -84,7 +91,7 @@ public class TestDungeonGenerator : MonoBehaviour
 				Vector3 pos = new(x, y, 0.0f);
 
 				// ブロックの生成
-				GameObject block = m_blockGenerator.GenerateBlock(m_blocks[name], pos);
+				GameObject block = m_blockGenerator.GenerateBlock(m_blocks[name], pos, m_dungeonContainer.transform, m_light);
 
 			}
 		}

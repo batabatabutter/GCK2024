@@ -17,7 +17,7 @@ MonoBehaviour:
   category: 0
   sprite: {fileID: 0}
   recastTime: 10
-  prefab: {fileID: 0}
+  prefab: {fileID: 4572307573630695042, guid: e9c55156c1c323349a36b0d9d4277f9a, type: 3}
   itemMaterials:
   - type: 206
     count: 1

@@ -9,6 +9,7 @@ public class PlayerTool : MonoBehaviour
 	public class ToolContainer
 	{
 		public ToolData data = null;		// ツールの情報
+		public bool create		= true;		// 作成可能
 		public bool available	= true;		// 使用可能
 		public bool isRecast	= false;	// リキャスト中
 		public float recastTime = 0.0f;     // リキャスト時間
@@ -357,32 +358,37 @@ public class PlayerTool : MonoBehaviour
 	}
 
 
-	// 選択ツール取得
-	public ToolData.ToolType ToolType
+	// ツールの分類を取得
+	public ToolData.ToolCategory GetCategory(ToolData.ToolType type)
 	{
-		get { return m_toolType; }
+		return m_tools[type].data.category;
 	}
-	public ToolData.ToolType ToolTypeRare
+	// ツールの作成可否を取得
+	public bool GetCreate(ToolData.ToolType type)
 	{
-		get { return m_toolTypeRare; }
+		return m_tools[type].create;
 	}
-
 	// ツールのリキャスト時間の取得
 	public float RecastTime(ToolData.ToolType type)
 	{
 		return m_tools[type].recastTime;
 	}
 
-	// ツールの分類を取得
-	public ToolData.ToolCategory GetCategory(ToolData.ToolType type)
-	{
-		return m_dataBase.tool[(int)type].category;//m_tools[type].data.category;
-	}
-
 	// ツールのリキャスト状態の設定
 	public void SetRecast(bool recast, ToolData.ToolType type)
 	{
 		m_tools[type].isRecast = recast;
+	}
+
+	// 選択ツール
+	public ToolData.ToolType ToolType
+	{
+		get { return m_toolType; }
+	}
+	// 選択レアツール
+	public ToolData.ToolType ToolTypeRare
+	{
+		get { return m_toolTypeRare; }
 	}
 
 }

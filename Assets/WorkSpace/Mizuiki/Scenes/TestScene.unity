@@ -172,13 +172,15 @@ MonoBehaviour:
   m_dungeonData: {fileID: 4900000, guid: 43fce2a9671a62744ae85b889cb50413, type: 3}
   m_dungeonSizeX: 0
   m_dungeonSizeY: 0
+  m_light: 0
+  m_dungeonContainer: {fileID: 0}
   m_setBlocks:
   - mapName: 1
-    blockType: 2
-  - mapName: 2
-    blockType: 1
-  - mapName: 3
     blockType: 0
+  - mapName: 2
+    blockType: 102
+  - mapName: 3
+    blockType: 101
   m_blockGenerator: {fileID: 75050971}
   m_player: {fileID: 0}
 --- !u!114 &75050971
@@ -4875,10 +4877,6 @@ PrefabInstance:
     - target: {fileID: 7437164427373383340, guid: 565ea1613a295a746acd0e483db3e630, type: 3}
       propertyPath: m_Name
       value: MinMapImage
-      objectReference: {fileID: 0}
-    - target: {fileID: 7437164427373383340, guid: 565ea1613a295a746acd0e483db3e630, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9102e5fe6745808438d597f5ef891521, type: 3}
-  m_Name: BlockData_Bedrock
+  m_Name: BlockData_Dengerous
   m_EditorClassIdentifier: 
-  blockName: "\u5CA9\u76E4"
-  type: 102
-  endurance: 10000
-  dontBroken: 1
-  lightLevel: 0
-  prefab: {fileID: 3457520386420079125, guid: cbe61a2527b59f44ea88ed42d8cd8019, type: 3}
+  blockName: 
+  type: 103
+  endurance: 100
+  dontBroken: 0
+  lightLevel: 3
+  prefab: {fileID: 4572307573630695042, guid: 99a4ca81b58213f45bbdc5fdaf454c0a, type: 3}
   sprite: {fileID: 0}
   dropItem: []
-  color: {r: 0.48900002, g: 0.24450001, b: 0, a: 1}
+  color: {r: 0, g: 0, b: 0, a: 0}
   order: 0
   mapIcon: {fileID: 0}
