@@ -71,9 +71,6 @@ public class BlockGenerator : MonoBehaviour
             obj = Instantiate(data.prefab, position, Quaternion.identity);
         }
 
-        // 名前の設定
-        obj.name = "Block_" + data.type.ToString();
-
         // データの設定
         if (obj.TryGetComponent(out Block block))
         {

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class BlockBomb : Block
@@ -53,13 +52,6 @@ public class BlockBomb : Block
             // 重力は存在しない
             rigidbody.isKinematic = true;
         }
-
-        // 爆破用ブロックがなければアセット参照で取得する
-        if (m_detonateBlock == null)
-        {
-            m_detonateBlock = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Bomb_Block.prefab");
-        }
-
     }
 
     // Update is called once per frame

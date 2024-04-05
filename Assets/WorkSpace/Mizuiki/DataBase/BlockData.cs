@@ -8,16 +8,13 @@ public class BlockData : ScriptableObject
 	[System.Serializable]
 	public enum BlockType
 	{
-		STONE = 0,	// 石
+		CORE,		// コア
+		BEDROCK,	// 岩盤
+		STONE,		// 石
 		COAL,       // 石炭
 		STEEL,		// 鉄
 		TIN,		// 錫
 		LEAD,		// 鉛
-
-		SPECIAL = 100,		// ここから特殊ブロック
-		CORE,				// コア
-		BEDROCK,			// 岩盤
-		DENGEROUS,			// 危険物
 
 		BIRTHDAY_BLOCK = 200,	// ここから誕生石シリーズ
 		BIR_GARNET,			// ガーネット

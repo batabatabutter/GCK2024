@@ -35,8 +35,6 @@ public class PlayerMining : MonoBehaviour
     private int m_miningCount = 0;
     // ブロックの破壊数
     private int m_brokenCount = 0;
-    // 与えたダメージ
-    private float m_takenDamage = 0.0f;
 
 
     [Header("デバッグ表示")]
@@ -116,9 +114,6 @@ public class PlayerMining : MonoBehaviour
                 // ブロックにダメージを与える
                 if (CauseDamageToBlock(rayCast.transform))
                 {
-                    // 与ダメージに加算
-                    m_takenDamage += m_miningPower;
-
                     // 一番手前のブロックにダメージを与えた
                     break;
                 }
@@ -132,7 +127,6 @@ public class PlayerMining : MonoBehaviour
                 // マウスカーソルと同じグリッド
                 if (MyFunction.CheckSameGrid(rayCast.transform.position, mousePos))
 				{
-                    // ツールにダメージを与える
                     CauseDamageToBlock(rayCast.transform);
                     break;
 				}
@@ -147,12 +141,8 @@ public class PlayerMining : MonoBehaviour
 
 
 
-	/// <summary>
-	/// ブロックにダメージを与える
-	/// </summary>
-	/// <param name="transform">ダメージを与えるブロック</param>
-	/// <returns>ダメージが通ったか</returns>
-	private bool CauseDamageToBlock(Transform transform)
+    // ブロックにダメージを与える
+    private bool CauseDamageToBlock(Transform transform)
     {
 		// [Block] の取得を試みる
 		if (transform.TryGetComponent(out Block block))
