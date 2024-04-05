@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class BlockBomb : Block
 {
+    [System.Serializable]
+    public enum BombState
+    {
+        STAY,       // 待機
+        DETONATE,   // 起爆
+        EXPLOSION,  // 爆破
+        DESTROY,    // 破壊
+
+        OVER,
+    }
+
     [Header("ブロックへの爆破ダメージ")]
     [SerializeField] private float m_blockExplosionPower = 1.0f;
     [Header("プレイヤーへの爆破ダメージ")]
@@ -18,13 +29,17 @@ public class BlockBomb : Block
     [Header("破壊の方式(ダメージ方式/確定破壊)")]
     [SerializeField] private bool m_damage = true;
 
+    [Header("爆破状態")]
+    [SerializeField] private BombState m_state = BombState.STAY;
+    //[SerializeField] private bool m_detonate = false;
+
     [Header("爆発させる用のブロック")]
     [SerializeField] private GameObject m_detonateBlock = null;
 
-    // 爆破可能か
-    private bool m_canExplosion = false;
-    // 爆発しているか
-    private bool m_isExplosion = false;
+    //// 爆破可能か
+    //private bool m_canExplosion = false;
+    //// 爆発しているか
+    //private bool m_isExplosion = false;
 
 
     // Start is called before the first frame update
@@ -42,23 +57,59 @@ public class BlockBomb : Block
     // Update is called once per frame
     void Update()
     {
-        // 爆発後
-        if (m_isExplosion)
+        // 爆破状態
+        switch (m_state)
         {
-            // 自分自身を破壊する
-            Destroy(gameObject);
-        }
-        // カウントダウン
-        else if (m_timeToExplosion > 0.0f)
-        {
-            m_timeToExplosion -= Time.deltaTime;
-        }
-		// 時間が0以下 で爆発前
-		else if (!m_isExplosion)
-        {
-            // 起爆
-            Detonate();
+            case BombState.STAY:    // 待機中
 
+                break;
+
+            case BombState.DETONATE:    // 起爆後
+                // カウントダウン
+                m_timeToExplosion -= Time.deltaTime;
+                // 時間経過で爆破状態に遷移
+                if (m_timeToExplosion < 0)
+                {
+                    m_state = BombState.EXPLOSION;
+                }
+
+                break;
+
+            case BombState.EXPLOSION:   // 爆破
+				// 爆発に必要なブロックの生成
+				if (m_detonateBlock)
+				{
+					// 起爆ブロックの生成
+					Instantiate(m_detonateBlock, transform.position, Quaternion.identity);
+
+					// 一回生成したら null にする
+					m_detonateBlock = null;
+				}
+                else
+                {
+                    break;
+                }
+
+                // BoxCollider2D を削除
+				Destroy(GetComponent<BoxCollider2D>());
+
+				// CircleCollider をつける
+				CircleCollider2D circle = gameObject.AddComponent<CircleCollider2D>();
+				// 爆破範囲の設定
+				circle.radius = m_explosionRange;
+				// トリガーにする
+				circle.isTrigger = true;
+
+				// レイヤーを Block 以外にする
+				gameObject.layer = 0;
+
+				break;
+
+            case BombState.DESTROY:     // 破壊
+				// 自分自身を破壊する
+				Destroy(gameObject);
+
+				break;
         }
 
     }
@@ -66,39 +117,17 @@ public class BlockBomb : Block
     // 起爆する
     public void Detonate()
     {
-		// BoxCollider2D を削除
-		Destroy(GetComponent<BoxCollider2D>());
+        // 爆破状態にする
+        m_state = BombState.DETONATE;
 
-		// CircleCollider をつける
-		CircleCollider2D circle = gameObject.AddComponent<CircleCollider2D>();
-		// 爆破範囲の設定
-		circle.radius = m_explosionRange;
-		// トリガーにする
-		circle.isTrigger = true;
-
-		// レイヤーを Block 以外にする
-		gameObject.layer = 0;
-
-        // 爆発に必要なブロックの生成
-        if (m_detonateBlock)
-        {
-            // 起爆ブロックの生成
-            Instantiate(m_detonateBlock, transform.position, Quaternion.identity);
-
-            // 一回生成したら null にする
-            m_detonateBlock = null;
-        }
-
-        // 爆破可能
-		m_canExplosion = true;
     }
 
 
 	// 爆破ダメージを与える
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-        // 爆破不可能
-        if (!m_canExplosion)
+        // 爆破状態ではない
+        if (m_state < BombState.EXPLOSION)
             return;
 
         // タグかレイヤーがブロック
@@ -119,14 +148,11 @@ public class BlockBomb : Block
                 }
             }
 
-            // 爆発状態にする
-            m_isExplosion = true;
-
-            return;
+            // 破壊状態にする
+            m_state = BombState.DESTROY;
         }
-
         // タグがプレイヤー
-        if (collision.CompareTag("Player"))
+        else if (collision.CompareTag("Player"))
         {
             // プレイヤースクリプト取得
             if (collision.TryGetComponent(out Player player))
@@ -134,10 +160,9 @@ public class BlockBomb : Block
                 player.AddDamage(m_playerExplosionDamage);
             }
 
-            // 爆発状態にする
-            m_isExplosion = true;
-
-        }
+			// 破壊状態にする
+			m_state = BombState.DESTROY;
+		}
 
 	}
 

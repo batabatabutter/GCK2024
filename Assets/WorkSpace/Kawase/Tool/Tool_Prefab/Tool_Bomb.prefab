@@ -115,13 +115,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_blockEndurance: 1
   m_dontBroken: 0
-  m_dropItems: []
   m_lightLevel: 0
+  m_receiveLightLevel: 0
+  m_spriteRenderer: {fileID: 0}
+  m_blockData: {fileID: 0}
+  m_itemDataBase: {fileID: 0}
   m_blockExplosionPower: 1000
   m_playerExplosionDamage: 1
   m_explosionRange: 3
   m_timeToExplosion: 3
   m_damage: 1
+  m_state: 1
   m_detonateBlock: {fileID: 2201125515662036576, guid: 41fb87af326b1aa4088fb371add4c842, type: 3}
 --- !u!61 &7930838379485859346
 BoxCollider2D:
