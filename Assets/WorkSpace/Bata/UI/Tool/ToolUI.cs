@@ -155,9 +155,6 @@ public class ToolUI : MonoBehaviour
                 m_toolObjects[i].GetComponent<ToolFrame>()
                     .GetRecastImage().fillAmount = 0.0f;
             }
-
-            thisToolID++;
-
         }
 
         //  ツール選択状態参照

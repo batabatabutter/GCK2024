@@ -160,10 +160,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_blockEndurance: 1
   m_dontBroken: 0
-  m_dropItems:
-  - {fileID: 5605254278718640997, guid: bf9d9ee9ef48341449128b47692aafaa, type: 3}
-  - {fileID: 5605254278718640997, guid: bf9d9ee9ef48341449128b47692aafaa, type: 3}
   m_lightLevel: 7
+  m_receiveLightLevel: 0
+  m_spriteRenderer: {fileID: 0}
+  m_blockData: {fileID: 11400000, guid: 00e3684f0604bf64aa179aef4a038f52, type: 2}
+  m_itemDataBase: {fileID: 11400000, guid: c534141616c2bbc4ba996d4d9f120330, type: 2}
 --- !u!114 &1210805633099039521
 MonoBehaviour:
   m_ObjectHideFlags: 0

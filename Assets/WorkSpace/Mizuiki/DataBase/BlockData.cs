@@ -16,6 +16,9 @@ public class BlockData : ScriptableObject
 		TIN,		// 錫
 		LEAD,		// 鉛
 
+		TOACH,		// 松明
+		BOMB,		// 爆弾
+
 		BIRTHDAY_BLOCK = 200,	// ここから誕生石シリーズ
 		BIR_GARNET,			// ガーネット
 		BIR_AMETHYST,       // アメジスト
