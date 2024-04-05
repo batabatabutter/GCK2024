@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6b8fc460f885c438a933dce6da20c1, type: 3}
+  m_Name: DungeonData_demo
+  m_EditorClassIdentifier: 
+  dungeonCSV:
+  - {fileID: 4900000, guid: 0e35215235d219d46be3f40a33eaba2e, type: 3}
+  - {fileID: 4900000, guid: 6961f29b4be0e05478a47f0aea956a73, type: 3}
+  - {fileID: 4900000, guid: 7fb8f74acffc03c429d0e84c487b5514, type: 3}
+  - {fileID: 4900000, guid: 78d705811d53abd438c636ee509bd43c, type: 3}
+  - {fileID: 4900000, guid: b013fb72dc7745e4c9dff799a6d1917f, type: 3}
+  dungeonSize: {x: 1, y: 1}
+  dungeonOdds:
+  - type: 2
+    odds: 66
+  - type: 3
+    odds: 33
+  dungeonAttackPattern: 
+  dungeonAttackCoolTime: 6
+  enemy: []
+  enemySpawnTime: 0
