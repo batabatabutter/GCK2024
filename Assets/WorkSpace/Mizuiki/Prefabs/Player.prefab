@@ -496,14 +496,27 @@ MonoBehaviour:
   m_layerMask:
     serializedVersion: 2
     m_Bits: 8
-  m_miningRange: 2
-  m_miningRangeRate: 1
-  m_miningPower: 50
-  m_miningPowerRate: 1
-  m_miningSpeed: 4
-  m_miningSpeedRate: 1
-  m_criticalRate: 0
-  m_criticalDamageRate: 2
+  m_miningValueBase:
+    range: 3
+    power: 50
+    speed: 2
+    critical: 0
+    criticalDamage: 2
+    itemDrop: 1
+  m_miningValueRate:
+    range: 1
+    power: 1
+    speed: 1
+    critical: 1
+    criticalDamage: 1
+    itemDrop: 1
+  m_miningValueBoost:
+    range: 1
+    power: 1
+    speed: 1
+    critical: 1
+    criticalDamage: 1
+    itemDrop: 1
   m_debugMiningRange: {fileID: 2893017820186787880}
   m_debugMiningPoint: {fileID: 4010198376372952305}
 --- !u!114 &1547900350974240465
@@ -525,8 +538,6 @@ MonoBehaviour:
     m_Bits: 8
   m_playerTool: {fileID: 410641304151498657}
   m_playerUpgrade: {fileID: 0}
-  m_debug: 0
-  m_text: {fileID: 0}
 --- !u!114 &-2061430852416345224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -560,6 +571,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_dataBase: {fileID: 11400000, guid: afce66780e8e60b4da8ff5a866b73c33, type: 2}
   m_playerItem: {fileID: 6054228071190134199}
+  m_debug: 0
+  m_text: {fileID: 0}
 --- !u!114 &589769455237743653
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: BlockData_Bedrock
   m_EditorClassIdentifier: 
   blockName: "\u5CA9\u76E4"
-  type: 1
+  type: 102
   endurance: 10000
   dontBroken: 1
   lightLevel: 0
-  prefab: {fileID: 8550780491684374141, guid: 955249822050a054fb32ac155f2febc2, type: 3}
+  prefab: {fileID: 3457520386420079125, guid: cbe61a2527b59f44ea88ed42d8cd8019, type: 3}
   sprite: {fileID: 0}
   dropItem: []
   color: {r: 0.48900002, g: 0.24450001, b: 0, a: 1}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlockData_Ruby
   m_EditorClassIdentifier: 
   blockName: "\u30EB\u30D3\u30FC"
-  type: 206
+  type: 207
   endurance: 1000
   dontBroken: 0
   lightLevel: 0

@@ -174,11 +174,11 @@ MonoBehaviour:
   m_dungeonSizeY: 0
   m_setBlocks:
   - mapName: 1
-    blockType: 2
-  - mapName: 2
-    blockType: 1
-  - mapName: 3
     blockType: 0
+  - mapName: 2
+    blockType: 102
+  - mapName: 3
+    blockType: 101
   m_blockGenerator: {fileID: 75050971}
   m_player: {fileID: 0}
 --- !u!114 &75050971
