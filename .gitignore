@@ -72,3 +72,6 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+Assets/WorkSpace/Bata/MyLib.meta
+Assets/WorkSpace/Bata/MyLib/LabelAttribute.cs
+Assets/WorkSpace/Bata/MyLib/LabelAttribute.cs.meta
