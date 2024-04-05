@@ -68,7 +68,7 @@ public class Block : MonoBehaviour
 	/// </summary>
 	/// <param name="power"></param>
 	/// <returns></returns>
-	public virtual bool AddMiningDamage(float power)
+	public virtual bool AddMiningDamage(float power, int dropCount = 1)
     {
         // 破壊不可能ブロックの場合は処理しない
         if (m_dontBroken)
@@ -80,14 +80,14 @@ public class Block : MonoBehaviour
         // 耐久が0になった
         if (m_blockEndurance <= 0.0f)
         {
-            return BrokenBlock();
+            return BrokenBlock(dropCount);
         }
 
         return false;
     }
 
 	// アイテムドロップ
-	public virtual void DropItem()
+	public virtual void DropItem(int dropCount = 1)
 	{
         foreach (BlockData.DropItems dropItem in m_blockData.dropItem)
         {
@@ -120,7 +120,7 @@ public class Block : MonoBehaviour
                 // 種類の設定
                 item.ItemType = dropItem.type;
                 // ドロップ数の設定
-                item.Drop(dropItem.count);
+                item.Drop(dropItem.count * dropCount);
             }
 
             // 画像を設定
@@ -137,7 +137,7 @@ public class Block : MonoBehaviour
 	/// ブロックを破壊
 	/// </summary>
 	/// <returns>ブロックが壊れた</returns>
-	public bool BrokenBlock()
+	public bool BrokenBlock(int dropCount = 1)
 	{
 		// 破壊不可能ブロックの場合は処理しない
 		if (m_dontBroken)
@@ -148,7 +148,7 @@ public class Block : MonoBehaviour
             return false;
 
 		// アイテムドロップ
-		DropItem();
+		DropItem(dropCount);
 
 		// 自身を削除
 		Destroy(gameObject);

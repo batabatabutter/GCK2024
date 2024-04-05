@@ -62,12 +62,15 @@ public class PlayerUpgrade : MonoBehaviour
         // アップグレード
         m_upgradeRank += value;
 
-        // 採掘速度強化
-        m_playerMining.MiningSpeed += m_upgradeSpeed * value;
-        // 採掘力強化
-        m_playerMining.MiningPower += m_upgradePower * value;
-        // クリティカル率教科
-        m_playerMining.CriticalRate += m_upgradeCritical * value;
+        PlayerMining.MiningValue val = new()
+        {
+            power = m_upgradePower,
+            speed = m_upgradeSpeed,
+            critical = m_upgradeCritical
+        };
+
+        // 強化
+        m_playerMining.MiningValueBase = m_playerMining.MiningValueBase + val;
 
         // 素材の消費
         m_playerTool.ConsumeMaterials(m_upgradeData, value);
