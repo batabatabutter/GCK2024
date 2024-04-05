@@ -40,6 +40,18 @@ public class Player : MonoBehaviour
         m_life -= damage;
     }
 
+    // 回復
+    public void Healing(int val)
+    {
+        // 体力加算
+        m_life += val;
+
+        // 最大ライフを超えた
+        if (m_life > m_maxLife)
+        {
+            m_life = m_maxLife;
+        }
+    }
 
 
     // ライフ
