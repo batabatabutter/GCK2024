@@ -18,6 +18,10 @@ public class PlaySceneManager : MonoBehaviour
     [SerializeField] private GameObject m_playUIObj;
     [SerializeField] private GameObject m_resultUIObj;
 
+    //  ステージ番号を取得
+    [Header("ステージ番号取得用オブジェクト")]
+    [SerializeField] private StageNumScriptableObject m_stageNumScriptableObj;
+
     //  プレイヤー
     private GameObject m_player;
     //  UIキャンバス
@@ -40,8 +44,9 @@ public class PlaySceneManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        //  デバッグ
+        //  ステージ番号設定
         if (m_debugFlag) m_stageNum = m_debugStageNum;
+        else m_stageNum = m_stageNumScriptableObj.stageNum;
 
         //  ステージ作成
         GetComponent<DungeonGenerator>().SetStageNum(m_stageNum);

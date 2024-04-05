@@ -55,15 +55,10 @@ public class ChangeBrightness : MonoBehaviour
             }
         }
 
-        if(m_lightList.Any())
-        {
-            //色の変更
-            ChangeColor();
-        }
-        else
-        {
-            ChangeBlack();
-        }
+        //色の変更
+        ChangeColor();
+
+        
 
     }
 
@@ -113,6 +108,7 @@ public class ChangeBrightness : MonoBehaviour
         //例外処理
         if ((m_lightList.Count == 0 || !m_lightList.Any() || m_lightList[0] == null || gameObject == null))
         {
+            ChangeBlack();
             return;
         }
         else
