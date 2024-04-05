@@ -14,6 +14,7 @@ public class PlaySceneManager : MonoBehaviour
     }
 
     //  UIキャンバス
+    [Header("UIキャンバス")]
     [SerializeField] private GameObject m_playUIObj;
     [SerializeField] private GameObject m_resultUIObj;
 
@@ -25,13 +26,27 @@ public class PlaySceneManager : MonoBehaviour
     //  コア
     private GameObject m_core;
     private List<GameObject> m_cores;
-
     //  ゲーム状態
     private GameState m_gameState = GameState.Play;
 
+    //  ステージ番号
+    private int m_stageNum = 0;
+
+    //  デバッグ用
+    [Header("デバッグ用")]
+    [SerializeField] private bool m_debugFlag;
+    [SerializeField] private int m_debugStageNum;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        //  デバッグ
+        if (m_debugFlag) m_stageNum = m_debugStageNum;
+
+        //  ステージ作成
+        GetComponent<DungeonGenerator>().SetStageNum(m_stageNum);
+        GetComponent<DungeonGenerator>().CreateStage();
+
         //  UI生成
         m_playUI = Instantiate(m_playUIObj);
         m_playUI.GetComponent<PlaySceneUICanvas>().SetPlayScenemManager(this);

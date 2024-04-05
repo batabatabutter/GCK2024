@@ -52,9 +52,14 @@ public class DungeonGenerator : MonoBehaviour
     private void Awake()
     {
         m_blockGenerator = GetComponent<BlockGenerator>();
-
         m_parent = new GameObject("Blocks");
+    }
 
+    /// <summary>
+    /// ステージ作成
+    /// </summary>
+    public void CreateStage()
+    {
         Vector2 dungeonSize = m_dungeonDataBase.dungeonDatas[m_stageNum].dungeonSize;
 
         m_corePosX = Random.Range(0, (int)dungeonSize.x * 10);
@@ -184,11 +189,10 @@ public class DungeonGenerator : MonoBehaviour
 
             }
         }
-
     }
 
 
-    void Make10_10Block(List<List<string>> mapList,int originX, int originY)
+    void Make10_10Block(List<List<string>> mapList, int originX, int originY)
     {
         // 読みだしたデータをもとにダンジョン生成をする
         for (int y = 0; y < mapList.Count; y++)
@@ -196,13 +200,13 @@ public class DungeonGenerator : MonoBehaviour
             for (int x = 0; x < mapList[y].Count; x++)
             {
                 //プレイヤー
-                if((int)m_playerPos.x == x + originX && (int)m_playerPos.y == y + originY)
+                if ((int)m_playerPos.x == x + originX && (int)m_playerPos.y == y + originY)
                 {
                     continue;
                 }
 
                 //コアを生成
-                if(m_corePosX == x + originX && m_corePosY == y + originY)
+                if (m_corePosX == x + originX && m_corePosY == y + originY)
                 {
                     continue;
                 }
@@ -211,13 +215,13 @@ public class DungeonGenerator : MonoBehaviour
                     continue;
 
                 // 生成座標
-                Vector3 pos = new(originX + x,originY + y, 0.0f);
+                Vector3 pos = new(originX + x, originY + y, 0.0f);
 
                 // ブロックの生成
                 m_blockGenerator.GenerateBlock(
                     m_dungeonDataBase.dungeonDatas[m_stageNum].dungeonOdds
-                    [LotteryBlock()].type, 
-                    pos, 
+                    [LotteryBlock()].type,
+                    pos,
                     m_parent.transform,
                     m_isBrightness
                     );
@@ -249,12 +253,29 @@ public class DungeonGenerator : MonoBehaviour
             allOdds += blockOddsList[i].odds;
         }
         //抽選
-        return oddsList[Random.Range(0,allOdds)];
+        return oddsList[Random.Range(0, allOdds)];
     }
 
 
     public int GetStageNum()
     {
         return m_stageNum;
+    }
+
+    //  ステージ番号設定
+    public bool SetStageNum(int num)
+    {
+        //  ステージ番号が範囲外だったらエラー
+        if (num < 0 || num >= m_dungeonDataBase.dungeonDatas.Count)
+        {
+            Debug.Log("ステージが存在しない番号です。num = " + num);
+            m_stageNum = int.MaxValue;
+            return false;
+        }
+        else
+        {
+            m_stageNum = num;
+            return true;
+        }
     }
 }
