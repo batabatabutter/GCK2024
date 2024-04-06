@@ -20,7 +20,7 @@ public class DungeonData : ScriptableObject
     public float dungeonAttackCoolTime;
 
     [Header("“G")]
-    public Object[] enemy;
+    public List<Enemy.Type> enemy;
 
     [Header("“G‚ÌoŒ»•p“x")]
     public float enemySpawnTime;

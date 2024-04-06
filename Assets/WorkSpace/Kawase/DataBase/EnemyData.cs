@@ -5,6 +5,11 @@ using UnityEngine;
 
 public class EnemyData : ScriptableObject
 {
+    //プレハブ
+    public GameObject prefab;
+    //系統
+    public Enemy.System system;
+
     //今は使わない
     [Header("HP")]
     public int hp;
@@ -14,6 +19,5 @@ public class EnemyData : ScriptableObject
 
     //[Header("ドロップアイテム")]
     public List<BlockData.DropItems> dropItems;
-
 
 }

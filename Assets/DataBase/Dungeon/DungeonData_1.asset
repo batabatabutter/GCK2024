@@ -26,5 +26,5 @@ MonoBehaviour:
     odds: 33
   dungeonAttackPattern: 000000000100000002000000
   dungeonAttackCoolTime: 6
-  enemy: []
-  enemySpawnTime: 0
+  enemy: 00000000
+  enemySpawnTime: 5

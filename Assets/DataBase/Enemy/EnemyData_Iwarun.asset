@@ -10,16 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5ddf80b55ae6ae4e8ba1b8ad937c557, type: 3}
-  m_Name: EnemyData_Dorinoko
+  m_Name: EnemyData_Iwarun
   m_EditorClassIdentifier: 
-  prefab: {fileID: 8114848540570077531, guid: 2cbeba174a58ff840a6811d0859cff64, type: 3}
-  system: 0
+  prefab: {fileID: 5906353031345709085, guid: 1e3c7638253476640a9e522370a172fd, type: 3}
   hp: 0
-  coolTime: 3.5
+  coolTime: 5.5
   dropItems:
   - type: 0
-    count: 3
-    rate: 1
-  - type: 1
-    count: 3
+    count: 8
     rate: 1

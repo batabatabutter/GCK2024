@@ -2,15 +2,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
-/// 一番親
+/// 一番親アダムイブ
 /// </summary>
 public class Enemy : MonoBehaviour
 {
+    //種類
+    public enum Type
+    {
+        Dorinoko,
+        Iwarun,
+        Hotarun,
+
+        OverID
+    }
+    //系統
+    public enum System
+    {
+        Dwell,
+
+
+        OverID
+    }
+
     [Header("敵データベース")]
     [SerializeField] EnemyData m_enemyData;
 
     [Header("アイテムのデータベース")]
     [SerializeField] private ItemDataBase m_itemDataBase = null;
+
+    //プレイヤー
+    private GameObject m_player = null;
+
+    public GameObject Player
+    {
+        get
+        {
+            return m_player;
+        }
+        set
+        {
+            m_player = value;
+        }
+    }
 
 
     //攻撃間隔
@@ -101,5 +134,15 @@ public class Enemy : MonoBehaviour
         }
 
 
+    }
+
+
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            m_player = collision.gameObject;
+
+        }
     }
 }

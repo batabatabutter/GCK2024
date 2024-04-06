@@ -36,6 +36,12 @@ public class PlaySceneManager : MonoBehaviour
     //  ステージ番号
     private int m_stageNum = 0;
 
+    // ゲッター
+    public int StageNum
+    {
+        get { return m_stageNum; }
+    }
+
     //  デバッグ用
     [Header("デバッグ用")]
     [SerializeField] private bool m_debugFlag;

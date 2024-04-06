@@ -6,7 +6,7 @@ using UnityEngine;
 /// </summary>
 public class EnemyDwell : Enemy
 {
-    [SerializeField] GameObject m_dwellBlock;
+    GameObject m_dwellBlock;
     // プロパティ
     public GameObject DwellBlock
     {
