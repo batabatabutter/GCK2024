@@ -7,7 +7,7 @@ public class ToolMining : Tool
 	[Header("ツールの種類")]
 	[SerializeField] private ToolData.ToolType m_toolType = ToolData.ToolType.DRILL;
 
-	[Header("強化する値")]
+	[Header("強化する値(n倍)")]
 	[SerializeField] private PlayerMining.MiningValue m_boost = new();
 
 	[Header("採掘力の n 倍で効果が切れる")]
