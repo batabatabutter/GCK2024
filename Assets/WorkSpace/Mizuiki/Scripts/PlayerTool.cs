@@ -366,6 +366,11 @@ public class PlayerTool : MonoBehaviour
 	{
 		get { return m_toolTypeRare; }
 	}
+	// レアツールかどうか
+	public bool IsRareTool
+	{
+		get { return m_rare; }
+	}
 
 	// ツールのリキャスト時間の取得
 	public float RecastTime(ToolData.ToolType type)
