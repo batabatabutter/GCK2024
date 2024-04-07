@@ -20,11 +20,13 @@ MonoBehaviour:
   - {fileID: 4900000, guid: b013fb72dc7745e4c9dff799a6d1917f, type: 3}
   dungeonSize: {x: 5, y: 5}
   dungeonOdds:
-  - type: 2
+  - type: 0
     odds: 66
-  - type: 3
+  - type: 1
     odds: 33
+  - type: 207
+    odds: 1
   dungeonAttackPattern: 000000000100000002000000
   dungeonAttackCoolTime: 6
   enemy: 00000000
-  enemySpawnTime: 5
+  enemySpawnTime: 15
