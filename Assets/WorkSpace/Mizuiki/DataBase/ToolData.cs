@@ -13,6 +13,8 @@ public class ToolData : ScriptableObject
 		BOMB,			// 爆弾
 		ARMOR,			// アーマー
 
+		NORMAL_NUM,		//	現在のツール数
+
 		RARE	= 100,		// ここからレアツール
 
 		HOLY_TOACH,				// 聖火

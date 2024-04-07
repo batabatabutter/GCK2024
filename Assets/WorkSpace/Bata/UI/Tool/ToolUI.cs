@@ -116,18 +116,33 @@ public class ToolUI : MonoBehaviour
         //    }
         //}
         //  スライダー式
+        //  レアフラグ
+        bool isRare = m_player.GetComponent<PlayerTool>().IsRareTool;
         //  ツールの数
-        int toolNum = m_data.tool.Count;
         int playerToolNum = (int)m_player.GetComponent<PlayerTool>().ToolType;
         int centerNum = m_toolObjects.Count / 2;
+
+        //  ID
+        int minID = 0;
+        int maxID = 0;
+        //if (isRare)
+        //{
+        //    minID = (int)ToolData.ToolType.RARE + 1;
+        //    maxID = (int)ToolData.ToolType.OVER;
+        //}
+        //else
+        {
+            minID = 0;
+            maxID = (int)ToolData.ToolType.NORMAL_NUM;
+        }
 
         for (int i = 0; i < m_toolObjects.Count; i++)
         {
             //  対応ツール
             int thisToolID = playerToolNum - (centerNum - i);
             //  オーバーしてたら修正
-            if (thisToolID < 0) thisToolID = m_data.tool.Count + thisToolID;
-            else if (thisToolID >= m_data.tool.Count) thisToolID = thisToolID - m_data.tool.Count;
+            if (thisToolID < minID) thisToolID = maxID + thisToolID;
+            else if (thisToolID >= maxID) thisToolID = thisToolID - maxID;
             //  タイプに変換
             ToolData.ToolType thisToolType = (ToolData.ToolType)thisToolID;
 
