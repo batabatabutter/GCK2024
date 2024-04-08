@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class MapObject : MonoBehaviour
 {
-    // ブロックの色
-    private Color m_blockColor = Color.white;
+    [Header("ブロックの色")]
+    [SerializeField] private Color m_blockColor = Color.white;
 
-    // 親のスプライト
-    private SpriteRenderer m_parentSprite;
+    [Header("親のスプライト")]
+    [SerializeField] private SpriteRenderer m_parentSprite;
     // 自身のスプライト
     private SpriteRenderer m_ownSprite;
 

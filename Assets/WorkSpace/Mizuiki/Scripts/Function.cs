@@ -13,6 +13,14 @@ public class MyFunction
 
 		return value;
 	}
+	static public Vector3 RoundHalfUp(Vector3 value)
+	{
+		value.x = RoundHalfUp(value.x);
+		value.y = RoundHalfUp(value.y);
+		value.z = RoundHalfUp(value.z);
+
+		return value;
+	}
 	static public float RoundHalfUp(float value)
 	{
 		// ¬”“_ˆÈ‰º‚Ìæ“¾
