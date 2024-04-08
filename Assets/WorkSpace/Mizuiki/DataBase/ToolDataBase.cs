@@ -15,15 +15,12 @@ public class ToolDataBase : ScriptableObject
 
     [Header("Type確認用")]
     public ToolData.ToolType type;
+    [CustomEnum(typeof(ToolData.ToolType))] public string type2;
+    public ToolData.ToolType type2e => SerializeUtil.Restore<ToolData.ToolType>(type2.ToString());
 
     //  データ起動時
     private void OnEnable()
     {
         toolDic = SerializableKeyPairCustomEnum<ToolData.ToolType, ToolData>.ConvertToDictionaly(toolData);
-
-        foreach (var pair in toolDic)
-        {
-            Debug.Log("ToolData:" + pair.Key);
-        }
     }
 }

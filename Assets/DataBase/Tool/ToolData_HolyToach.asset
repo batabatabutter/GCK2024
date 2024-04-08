@@ -15,11 +15,11 @@ MonoBehaviour:
   toolName: "\u8056\u706B"
   type: 101
   category: 0
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 82ace541707732f4a835d1cd59d9f6af, type: 3}
   recastTime: 10
   prefab: {fileID: 0}
   itemMaterials:
-  - type: 210
+  - type: 207
     count: 1
   - type: 1
     count: 2

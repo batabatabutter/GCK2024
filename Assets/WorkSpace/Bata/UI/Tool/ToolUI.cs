@@ -71,12 +71,8 @@ public class ToolUI : MonoBehaviour
         //  レアフラグ
         bool isRare = m_player.GetComponent<PlayerTool>().IsRareTool;
         //  ツールの数
-        ToolData.ToolType playerToolType = m_player.GetComponent<PlayerTool>().ToolType;
-        int playerToolNum = (int)playerToolType;
+        ToolData.ToolType playerToolType;
         int centerNum = m_toolObjects.Count / 2;
-
-        //  デバッグ
-        if (m_debug) Debug.Log("現在のツール:" + playerToolType);
 
         //  ID
         int minID = 0;
@@ -85,6 +81,8 @@ public class ToolUI : MonoBehaviour
         {
             minID = (int)ToolData.ToolType.RARE + 1;
             maxID = m_toolDataBase.toolData.Count - (int)ToolData.ToolType.RARE;
+            //playerToolType = m_player.GetComponent<PlayerTool>().ToolTypeRare;
+            playerToolType = m_player.GetComponent<PlayerTool>().ToolType;
         }
         else
         {
@@ -96,7 +94,14 @@ public class ToolUI : MonoBehaviour
 
                 maxID++;
             }
+            playerToolType = m_player.GetComponent<PlayerTool>().ToolType;
         }
+
+        //  ツールを番号に変換
+        int playerToolNum = (int)playerToolType;
+
+        //  デバッグ
+        if (m_debug) Debug.Log("現在のツール:" + playerToolType);
 
         for (int i = 0; i < m_toolObjects.Count; i++)
         {
