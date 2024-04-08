@@ -453,6 +453,7 @@ MonoBehaviour:
   m_life: 5
   m_maxLife: 5
   m_armor: 0
+  m_invincibleTime: 1
 --- !u!114 &2763225802546617854
 MonoBehaviour:
   m_ObjectHideFlags: 0

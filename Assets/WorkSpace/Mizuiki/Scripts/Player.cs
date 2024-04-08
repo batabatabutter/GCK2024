@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -21,7 +22,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/WorkSpace/Kawase/Tool/Tool_Prefab/Tool_Toach.prefab"), transform);
     }
 
     // Update is called once per frame
