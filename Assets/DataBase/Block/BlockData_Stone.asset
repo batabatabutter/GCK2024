@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlockData_Stone
   m_EditorClassIdentifier: 
   blockName: "\u77F3"
-  type: 0
+  typeStr: 0:STONE
   endurance: 100
   dontBroken: 0
   lightLevel: 0

@@ -162,7 +162,7 @@ public class ToolUI : MonoBehaviour
         for (int i = 0; i < m_toolDataBase.tool[toolType].itemMaterials.Count; i++)
         {
             //  アイテム
-            ItemData.Type type = m_toolDataBase.tool[toolType].itemMaterials[i].type;
+            ItemData.ItemType type = m_toolDataBase.tool[toolType].itemMaterials[i].type;
             int count = m_toolDataBase.tool[toolType].itemMaterials[i].count;
 
             //  所持アイテム数から作成可能数を割り出す
@@ -183,7 +183,7 @@ public class ToolUI : MonoBehaviour
         for (int i = 0; i < m_toolDataBase.toolDic[toolType].itemMaterials.Count; i++)
         {
             //  アイテム
-            ItemData.Type type = m_toolDataBase.toolDic[toolType].itemMaterials[i].type;
+            ItemData.ItemType type = m_toolDataBase.toolDic[toolType].itemMaterials[i].type;
             int count = m_toolDataBase.toolDic[toolType].itemMaterials[i].count;
 
             //  所持アイテム数から作成可能数を割り出す

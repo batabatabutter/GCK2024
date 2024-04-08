@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ToolData_DoublePicaxe
   m_EditorClassIdentifier: 
   toolName: "\u500D\u5897\u3064\u308B\u306F\u3057"
-  type: 108
+  typeStr: 109:DOUBLE_PICAXE
   category: 1
   sprite: {fileID: 0}
   recastTime: 10

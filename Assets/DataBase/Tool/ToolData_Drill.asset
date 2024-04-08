@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ToolData_Drill
   m_EditorClassIdentifier: 
   toolName: "\u30C9\u30EA\u30EB"
-  type: 104
+  typeStr: 105:DRILL
   category: 1
   sprite: {fileID: 0}
   recastTime: 10

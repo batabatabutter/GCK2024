@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: T_BlockData_Bomb
   m_EditorClassIdentifier: 
   blockName: "\u7206\u5F3E"
-  type: 8
+  typeStr: 1001:BOMB
   endurance: 1
   dontBroken: 0
   lightLevel: 0

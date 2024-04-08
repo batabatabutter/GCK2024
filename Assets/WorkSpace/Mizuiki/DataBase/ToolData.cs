@@ -49,7 +49,8 @@ public class ToolData : ScriptableObject
 	[Header("ツール名")]
 	public string toolName = "";
 	[Header("ツールの種類")]
-	public ToolType type = ToolType.BOMB;
+	//public ToolType type = ToolType.BOMB;
+	[CustomEnum(typeof(ToolType))] public string typeStr;
 	[Header("ツールの分類")]
 	public ToolCategory category = ToolCategory.SUPPORT;
 	[Header("ツールのアイコン画像")]
@@ -61,11 +62,13 @@ public class ToolData : ScriptableObject
 
 	[Header("ツール作成に必要な素材")]
 	public List<Items> itemMaterials = new List<Items>();
+	public ToolType type => SerializeUtil.Restore<ToolType>(typeStr);
 
 	public ToolData(ToolData tool)
 	{
 		toolName = tool.toolName;
-		type = tool.type;
+		//type = tool.type;
+		typeStr = tool.typeStr;
 		sprite = tool.sprite;
 		recastTime = tool.recastTime;
 		prefab = tool.prefab;

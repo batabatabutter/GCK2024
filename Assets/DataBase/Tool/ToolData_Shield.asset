@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ToolData_Shield
   m_EditorClassIdentifier: 
   toolName: "\u30B7\u30FC\u30EB\u30C9"
-  type: 103
+  typeStr: 103:SHIELD
   category: 0
   sprite: {fileID: 0}
   recastTime: 10

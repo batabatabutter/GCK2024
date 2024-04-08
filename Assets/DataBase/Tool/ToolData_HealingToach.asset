@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ToolData_HealingToach
   m_EditorClassIdentifier: 
   toolName: "\u7652\u3057\u306E\u677E\u660E"
-  type: 107
+  typeStr: 108:HEALING_TOACH
   category: 0
   sprite: {fileID: 0}
   recastTime: 10

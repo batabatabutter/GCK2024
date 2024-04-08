@@ -328,7 +328,7 @@ public class PlayerTool : MonoBehaviour
 		for (int i = 0; i < data.itemMaterials.Count; i++)
 		{
 			// アイテムの種類
-			ItemData.Type type = data.itemMaterials[i].type;
+			ItemData.ItemType type = data.itemMaterials[i].type;
 
 			// アイテムが存在しない
 			if (!m_playerItem.Items.ContainsKey(type))

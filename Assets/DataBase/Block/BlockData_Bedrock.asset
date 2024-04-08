@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlockData_Bedrock
   m_EditorClassIdentifier: 
   blockName: "\u5CA9\u76E4"
-  type: 102
+  typeStr: 102:BEDROCK
   endurance: 10000
   dontBroken: 1
   lightLevel: 0

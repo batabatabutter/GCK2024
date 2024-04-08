@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlockData_Core
   m_EditorClassIdentifier: 
   blockName: "\u30B3\u30A2"
-  type: 101
+  typeStr: 101:CORE
   endurance: 300
   dontBroken: 0
   lightLevel: 4

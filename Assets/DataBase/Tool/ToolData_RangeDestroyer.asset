@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ToolData_RangeDestroyer
   m_EditorClassIdentifier: 
   toolName: "\u7BC4\u56F2\u7834\u58CA\u3064\u308B\u306F\u3057"
-  type: 102
+  typeStr: 102:RANGE_DESTROYER
   category: 1
   sprite: {fileID: 0}
   recastTime: 10

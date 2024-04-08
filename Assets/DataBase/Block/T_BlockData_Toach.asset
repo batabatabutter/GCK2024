@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: T_BlockData_Toach
   m_EditorClassIdentifier: 
   blockName: "\u677E\u660E"
-  type: 7
+  typeStr: 1000:TOACH
   endurance: 1
   dontBroken: 0
   lightLevel: 7

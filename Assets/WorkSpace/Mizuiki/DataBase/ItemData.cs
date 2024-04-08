@@ -5,7 +5,7 @@ using UnityEngine;
 public class ItemData : ScriptableObject
 {
 	[System.Serializable]
-	public enum Type
+	public enum ItemType
 	{
 		STONE	= 0,	// 岩
 		COAL,			// 石炭
@@ -33,16 +33,19 @@ public class ItemData : ScriptableObject
 	[Header("アイテム名")]
 	public string itemName;
 	[Header("アイテムの種類")]
-	public Type type;
+	//public Type type;
+	[CustomEnum(typeof(ItemType))] public string typeStr;
 	[Header("アイテムの画像")]
 	public Sprite sprite;
 	[Header("アイテムのプレハブ")]
 	public GameObject prefab = null;
 
+	public ItemType type => SerializeUtil.Restore<ItemType>(typeStr);
+
 	public ItemData(ItemData item)
 	{
 		itemName = item.itemName;
-		type = item.type;
+		typeStr = item.typeStr;
 		sprite = item.sprite;
 	}
 }
@@ -50,7 +53,7 @@ public class ItemData : ScriptableObject
 [System.Serializable]
 public class Items
 {
-	public ItemData.Type type;       // 種類
+	public ItemData.ItemType type;       // 種類
 	public int count;       // 数
 }
 

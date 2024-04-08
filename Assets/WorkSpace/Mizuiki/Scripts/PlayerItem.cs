@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PlayerItem : MonoBehaviour
 {
 	[Header("所持品")]
-	[SerializeField] private Dictionary<ItemData.Type, int> m_items = new();
+	[SerializeField] private Dictionary<ItemData.ItemType, int> m_items = new();
 	[Header("最大数")]
 	[SerializeField] private int m_maxCount = 99;
 
@@ -54,7 +54,7 @@ public class PlayerItem : MonoBehaviour
 			{
 				m_text.text = "";
 
-				foreach(KeyValuePair<ItemData.Type, int> item in m_items)
+				foreach(KeyValuePair<ItemData.ItemType, int> item in m_items)
 				{
 					m_text.text += item.Key.ToString() + " : " + item.Value.ToString() + "\n";
 				}
@@ -76,7 +76,7 @@ public class PlayerItem : MonoBehaviour
 			return;
 
 		// アイテムの種類
-		ItemData.Type itemType = item.ItemType;
+		ItemData.ItemType itemType = item.ItemType;
 
 		// 拾えない
 		if (!CheckAcquirable(itemType))
@@ -89,7 +89,7 @@ public class PlayerItem : MonoBehaviour
 
 
 	// 拾えるか確認
-	public bool CheckAcquirable(ItemData.Type itemType)
+	public bool CheckAcquirable(ItemData.ItemType itemType)
 	{
 		// 所持数が最大数に達していない
 		if (m_items[itemType] < m_maxCount)
@@ -106,7 +106,7 @@ public class PlayerItem : MonoBehaviour
 	/// <param name="type">アイテムの種類</param>
 	/// <param name="count">アイテムの数</param>
 	/// <returns>拾った数</returns>
-	public int PicUp(ItemData.Type type, int count)
+	public int PicUp(ItemData.ItemType type, int count)
 	{
 		// 所持数が最大
 		if (m_items[type] >= m_maxCount)
@@ -135,7 +135,7 @@ public class PlayerItem : MonoBehaviour
 		for (int i = 0; i < data.itemMaterials.Count; i++)
 		{
 			// アイテムの種類取得
-			ItemData.Type type = data.itemMaterials[i].type;
+			ItemData.ItemType type = data.itemMaterials[i].type;
 
 			// アイテムが存在しない
 			if (!m_items.ContainsKey(type))
@@ -150,7 +150,7 @@ public class PlayerItem : MonoBehaviour
 	}
 
 	// アイテムの所持数取得
-	public int GetItemCount(ItemData.Type type)
+	public int GetItemCount(ItemData.ItemType type)
 	{
 		// アイテムが存在しない
 		if (!m_items.ContainsKey(type))
@@ -165,7 +165,7 @@ public class PlayerItem : MonoBehaviour
 
 
 
-	public Dictionary<ItemData.Type, int> Items
+	public Dictionary<ItemData.ItemType, int> Items
 	{
 		get { return m_items; }
 	}

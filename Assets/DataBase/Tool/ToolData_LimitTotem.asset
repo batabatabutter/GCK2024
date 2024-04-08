@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ToolData_LimitTotem
   m_EditorClassIdentifier: 
   toolName: "\u5236\u9650\u30C8\u30FC\u30C6\u30E0"
-  type: 109
+  typeStr: 109:LIMIT_TOTEM
   category: 0
   sprite: {fileID: 0}
   recastTime: 10

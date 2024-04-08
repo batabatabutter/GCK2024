@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlockData_Dengerous
   m_EditorClassIdentifier: 
   blockName: "\u5371\u967A\u7269"
-  type: 103
+  typeStr: 103:DENGEROUS
   endurance: 100
   dontBroken: 0
   lightLevel: 3

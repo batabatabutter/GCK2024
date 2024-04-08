@@ -88,7 +88,7 @@ public class MyFunction
 	}
 
 	// アイテムデータの取得
-	static public ItemData GetItemData(ItemDataBase dataBase, ItemData.Type type)
+	static public ItemData GetItemData(ItemDataBase dataBase, ItemData.ItemType type)
 	{
 		foreach(ItemData data in dataBase.item)
 		{

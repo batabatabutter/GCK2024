@@ -6,7 +6,7 @@ using UnityEngine.UIElements.Experimental;
 public class Item : MonoBehaviour
 {
     [Header("アイテムの種類")]
-    [SerializeField] private ItemData.Type m_itemType;
+    [SerializeField] private ItemData.ItemType m_itemType;
 
     [Header("スタック数")]
     [SerializeField] private int m_count;
@@ -188,7 +188,7 @@ public class Item : MonoBehaviour
 
 
 
-	public ItemData.Type ItemType
+	public ItemData.ItemType ItemType
     {
         get { return m_itemType; }
         set { m_itemType = value; }

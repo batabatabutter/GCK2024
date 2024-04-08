@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ToolData_MiningBomb
   m_EditorClassIdentifier: 
   toolName: "\u63A1\u6398\u7206\u5F3E"
-  type: 111
+  typeStr: 111:MINING_BOMB
   category: 0
   sprite: {fileID: 0}
   recastTime: 10

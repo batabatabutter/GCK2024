@@ -43,7 +43,7 @@ public class BlockData : ScriptableObject
 	public struct DropItems
 	{
 		[Header("アイテムの種類")]
-		public ItemData.Type type;
+		public ItemData.ItemType type;
 		[Header("ドロップ数"), Min(0)]
 		public int count;
 		[Header("ドロップ率"), Range(0f, 1f)]
@@ -53,7 +53,8 @@ public class BlockData : ScriptableObject
 	[Header("ブロック名")]
 	public string blockName = "";
 	[Header("ブロックの種類")]
-	public BlockType type = BlockType.OVER;
+	//public BlockType type = BlockType.OVER;
+	[CustomEnum(typeof(BlockType))] public string typeStr = "";
 	[Header("ブロックの耐久力")]
 	public float endurance = 100.0f;
 	[Header("破壊不可能")]
@@ -76,6 +77,8 @@ public class BlockData : ScriptableObject
 	public int order = 0;
 	[Header("マップ表示アイコン(あれば設定)")]
 	public Sprite mapIcon = null;
+
+	public BlockType type => SerializeUtil.Restore<BlockType>(typeStr);
 
 	public BlockData(BlockData block)
 	{
