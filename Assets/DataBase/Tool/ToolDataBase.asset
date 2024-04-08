@@ -16,4 +16,18 @@ MonoBehaviour:
   - {fileID: 11400000, guid: afed5e5373016584fb66eeb4614dca4c, type: 2}
   - {fileID: 11400000, guid: c7bdb39777dac3e478d1cdfe923d30b8, type: 2}
   - {fileID: 11400000, guid: 79b9fb67727083a43bc06005cd99d832, type: 2}
+  - {fileID: 11400000, guid: a2b17c7d8a923dd48b490717544ae29d, type: 2}
+  - {fileID: 11400000, guid: 9eaca94146c8c054fa98da56db503566, type: 2}
+  - {fileID: 11400000, guid: 3fca933d6683a364c8665983d9f9bd49, type: 2}
+  tool2:
+  - key: 0:TOACH
+    value: {fileID: 11400000, guid: afed5e5373016584fb66eeb4614dca4c, type: 2}
+  - key: 1:BOMB
+    value: {fileID: 11400000, guid: c7bdb39777dac3e478d1cdfe923d30b8, type: 2}
+  - key: 2:ARMOR
+    value: {fileID: 11400000, guid: 79b9fb67727083a43bc06005cd99d832, type: 2}
+  - key: 100:RARE
+    value: {fileID: 0}
+  - key: 101:HOLY_TOACH
+    value: {fileID: 11400000, guid: a2b17c7d8a923dd48b490717544ae29d, type: 2}
   type: 0

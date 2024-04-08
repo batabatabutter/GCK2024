@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -9,8 +10,20 @@ public class ToolDataBase : ScriptableObject
     [Header("ツールの種類順で設定してね")]
     public List<ToolData> tool;
 
-    public List<SerializableKeyPair<ToolData.ToolType, ToolData>> tool2;
+    public List<SerializableKeyPairCustomEnum<ToolData.ToolType, ToolData>> toolData;
+    public Dictionary<ToolData.ToolType, ToolData> toolDic;
 
     [Header("Type確認用")]
     public ToolData.ToolType type;
+
+    //  データ起動時
+    private void OnEnable()
+    {
+        toolDic = SerializableKeyPairCustomEnum<ToolData.ToolType, ToolData>.ConvertToDictionaly(toolData);
+
+        foreach (var pair in toolDic)
+        {
+            Debug.Log("ToolData:" + pair.Key);
+        }
+    }
 }

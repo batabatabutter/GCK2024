@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class ToolUI : MonoBehaviour
 {
@@ -12,7 +10,7 @@ public class ToolUI : MonoBehaviour
 
     //  ツールデータベース
     [Header("ツールのデータベース")]
-    [SerializeField] private ToolDataBase m_data;
+    [SerializeField] private ToolDataBase m_toolDataBase;
 
     //  UI表示ツール数
     [Header("UIに必要な数")]
@@ -64,76 +62,40 @@ public class ToolUI : MonoBehaviour
             //  追加
             m_toolObjects.Add(frame);
         }
-
-        //for (int i = 0; i < m_data.tool.Count; i++)
-        //{
-        //    //  座標
-        //    pos = new Vector3((size.x + m_offset.x)* i, 0.0f) + transform.position;
-        //    //  UI生成
-        //    GameObject frame = Instantiate(m_toolFrame, pos, Quaternion.identity, transform);
-        //    //  画像設定
-        //    frame.GetComponent<ToolFrame>().SetImage(m_data.tool[i].sprite);
-
-        //    m_toolObjects.Add(frame);
-        //}        //for (int i = 0; i < m_data.tool.Count; i++)
-        //{
-        //    //  座標
-        //    pos = new Vector3((size.x + m_offset.x)* i, 0.0f) + transform.position;
-        //    //  UI生成
-        //    GameObject frame = Instantiate(m_toolFrame, pos, Quaternion.identity, transform);
-        //    //  画像設定
-        //    frame.GetComponent<ToolFrame>().SetImage(m_data.tool[i].sprite);
-
-        //    m_toolObjects.Add(frame);
-        //}
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        //  ツール更新
-        //for (int i = 0; i < m_toolObjects.Count; i++)
-        //{
-        //    //  ツール数設定
-        //    m_toolObjects[i].GetComponent<ToolFrame>().SetIsSelected(false);
-        //    //  ツール作成可能数設定
-        //    m_toolObjects[i].GetComponent<ToolFrame>().SetNum(GetToolUseNum(i));
-
-        //    //  クールタイムがあるなら0.0～1.0に補間
-        //    if (m_data.tool[i].recastTime > 0)
-        //    {
-        //        m_toolObjects[i].GetComponent<ToolFrame>()
-        //            .GetRecastImage().fillAmount =
-        //            m_player.GetComponent<PlayerAction>()
-        //            .GetToolRecast((ToolData.ToolType)i) / 
-        //            m_data.tool[i].recastTime;
-        //    }
-        //    else
-        //    {
-        //        m_toolObjects[i].GetComponent<ToolFrame>()
-        //            .GetRecastImage().fillAmount = 0.0f;
-        //    }
-        //}
         //  スライダー式
         //  レアフラグ
         bool isRare = m_player.GetComponent<PlayerTool>().IsRareTool;
         //  ツールの数
-        int playerToolNum = (int)m_player.GetComponent<PlayerTool>().ToolType;
+        ToolData.ToolType playerToolType = m_player.GetComponent<PlayerTool>().ToolType;
+        int playerToolNum = (int)playerToolType;
         int centerNum = m_toolObjects.Count / 2;
+
+        //  デバッグ
+        if (m_debug) Debug.Log("現在のツール:" + playerToolType);
 
         //  ID
         int minID = 0;
         int maxID = 0;
-        //if (isRare)
-        //{
-        //    minID = (int)ToolData.ToolType.RARE + 1;
-        //    maxID = (int)ToolData.ToolType.OVER;
-        //}
-        //else
+        if (isRare)
+        {
+            minID = (int)ToolData.ToolType.RARE + 1;
+            maxID = m_toolDataBase.toolData.Count - (int)ToolData.ToolType.RARE;
+        }
+        else
         {
             minID = 0;
-            maxID = (int)ToolData.ToolType.NORMAL_NUM;
+            foreach (var toolData in m_toolDataBase.toolData)
+            {
+                //  見つからなくなったらスキップ
+                if (toolData.Key == ToolData.ToolType.NORMAL_NUM) break;
+
+                maxID++;
+            }
         }
 
         for (int i = 0; i < m_toolObjects.Count; i++)
@@ -152,18 +114,26 @@ public class ToolUI : MonoBehaviour
             //  ツール数設定
             m_toolObjects[i].GetComponent<ToolFrame>().SetIsSelected(false);
             //  ツール画像設定
-            m_toolObjects[i].GetComponent<ToolFrame>().SetImage(m_data.tool[thisToolID].sprite);
+            //m_toolObjects[i].GetComponent<ToolFrame>().SetImage(m_toolDataBase.tool[thisToolID].sprite);
+            m_toolObjects[i].GetComponent<ToolFrame>().SetImage(m_toolDataBase.toolDic[playerToolType].sprite);
             //  ツール作成可能数設定
-            m_toolObjects[i].GetComponent<ToolFrame>().SetNum(GetToolUseNum(thisToolID));
+            //m_toolObjects[i].GetComponent<ToolFrame>().SetNum(GetToolUseNum(thisToolID));
+            m_toolObjects[i].GetComponent<ToolFrame>().SetNum(GetToolUseNum(playerToolType));
 
             //  クールタイムがあるなら0.0～1.0に補間
-            if (m_data.tool[thisToolID].recastTime > 0)
+            //if (m_toolDataBase.tool[thisToolID].recastTime > 0)
+            if (m_toolDataBase.toolDic[playerToolType].recastTime > 0)
             {
+                //m_toolObjects[i].GetComponent<ToolFrame>()
+                //.GetRecastImage().fillAmount =
+                //m_player.GetComponent<PlayerAction>()
+                //.GetToolRecast(thisToolType) /
+                //m_toolDataBase.tool[thisToolID].recastTime;
                 m_toolObjects[i].GetComponent<ToolFrame>()
-                    .GetRecastImage().fillAmount =
-                    m_player.GetComponent<PlayerAction>()
-                    .GetToolRecast(thisToolType) /
-                    m_data.tool[thisToolID].recastTime;
+                .GetRecastImage().fillAmount =
+                m_player.GetComponent<PlayerAction>()
+                .GetToolRecast(playerToolType) /
+                m_toolDataBase.toolDic[playerToolType].recastTime;
             }
             else
             {
@@ -173,10 +143,6 @@ public class ToolUI : MonoBehaviour
         }
 
         //  ツール選択状態参照
-        //if ((int)m_player.GetComponent<PlayerAction>().ToolType >= 0 &&
-        //    (int)m_player.GetComponent<PlayerAction>().ToolType < m_toolObjects.Count)
-        //    m_toolObjects[(int)m_player.GetComponent<PlayerAction>().ToolType].
-        //        GetComponent<ToolFrame>().SetIsSelected(true);
         m_toolObjects[centerNum].GetComponent<ToolFrame>().SetIsSelected(true);
         m_toolObjects[centerNum].transform.localScale = Vector3.one;
     }
@@ -188,11 +154,32 @@ public class ToolUI : MonoBehaviour
         int num = int.MaxValue;
 
         //  アイテム数取得
-        for (int i = 0; i < m_data.tool[toolType].itemMaterials.Count; i++)
+        for (int i = 0; i < m_toolDataBase.tool[toolType].itemMaterials.Count; i++)
         {
             //  アイテム
-            ItemData.Type type = m_data.tool[toolType].itemMaterials[i].type;
-            int count = m_data.tool[toolType].itemMaterials[i].count;
+            ItemData.Type type = m_toolDataBase.tool[toolType].itemMaterials[i].type;
+            int count = m_toolDataBase.tool[toolType].itemMaterials[i].count;
+
+            //  所持アイテム数から作成可能数を割り出す
+            num = Mathf.Min(num,
+                m_player.transform.Find("Item").gameObject.
+                GetComponent<PlayerItem>().Items[type] / count);
+        }
+
+        return num;
+    }
+    //  ツール作成可能数取得
+    public int GetToolUseNum(ToolData.ToolType toolType)
+    {
+        //  可能数
+        int num = int.MaxValue;
+
+        //  アイテム数取得
+        for (int i = 0; i < m_toolDataBase.toolDic[toolType].itemMaterials.Count; i++)
+        {
+            //  アイテム
+            ItemData.Type type = m_toolDataBase.toolDic[toolType].itemMaterials[i].type;
+            int count = m_toolDataBase.toolDic[toolType].itemMaterials[i].count;
 
             //  所持アイテム数から作成可能数を割り出す
             num = Mathf.Min(num,
