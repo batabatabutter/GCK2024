@@ -38,10 +38,15 @@ public class Block : MonoBehaviour
             m_spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
-        // アセットからアイテムのデータベースを取得する
-        m_itemDataBase = AssetDatabase.LoadAssetAtPath<ItemDataBase>("Assets/DataBase/Item/ItemDataBase.asset");
+        // データベースが設定されてない
+        if (m_itemDataBase == null)
+        {
+            Debug.Log(gameObject.name + "のアイテムデータベースを設定してね");
 
-    }
+			//m_itemDataBase = AssetDatabase.LoadAssetAtPath<ItemDataBase>("Assets/DataBase/Item/ItemDataBase.asset");
+		}
+
+	}
 
     // Update is called once per frame
     void Update()

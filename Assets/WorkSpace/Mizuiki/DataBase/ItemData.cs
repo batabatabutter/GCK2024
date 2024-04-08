@@ -13,18 +13,19 @@ public class ItemData : ScriptableObject
 		TIN,			// 錫
 		LEAD,			// 鉛
 
-		BIR_GARNET	= 200,	// ガーネット
-		BIR_AMETHYST,		// アメジスト
-		BIR_AQUAMARINE,		// アクアマリン
-		BIR_DIAMOND,		// ダイヤモンド
-		BIR_EMERALD,		// エメラルド
-		BIR_PEARL,			// パール
-		BIR_RUBY,			// ルビー
-		BIR_PERIDOT,		// ペリドット
-		BIR_SAPPHIRE,		// サファイア
-		BIR_OPAL,			// オパール
-		BIR_TOPAZ,			// トパーズ
-		BIR_TURQUOISE,		// ターコイズ
+		BIRTHDAY_STONE = 200,	// ここから誕生石シリーズ
+		BIR_GARNET,				// ガーネット
+		BIR_AMETHYST,			// アメジスト
+		BIR_AQUAMARINE,			// アクアマリン
+		BIR_DIAMOND,			// ダイヤモンド
+		BIR_EMERALD,			// エメラルド
+		BIR_PEARL,				// パール
+		BIR_RUBY,				// ルビー
+		BIR_PERIDOT,			// ペリドット
+		BIR_SAPPHIRE,			// サファイア
+		BIR_OPAL,				// オパール
+		BIR_TOPAZ,				// トパーズ
+		BIR_TURQUOISE,			// ターコイズ
 
 		OVER,
 	}

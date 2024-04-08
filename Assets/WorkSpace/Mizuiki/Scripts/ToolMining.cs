@@ -28,7 +28,10 @@ public class ToolMining : Tool
 		// 強化終了
 		if (m_playerMining.TakenDamage > m_amountValue)
 		{
+			// リキャスト開始
 			m_playerTool.SetRecast(true, m_toolType);
+			// 強化剥奪
+			m_playerMining.MiningValueBoost -= m_boost;
 		}
 
 	}
@@ -43,7 +46,7 @@ public class ToolMining : Tool
 			m_playerMining = mining;
 
 			// 強化
-			mining.MiningValueBoost = m_boost;
+			mining.MiningValueBoost += m_boost;
 
 			// 強化終了値
 			m_amountValue = mining.TakenDamage + (mining.MiningPower * m_boostAmountValue);

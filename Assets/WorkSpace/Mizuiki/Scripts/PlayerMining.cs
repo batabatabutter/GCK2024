@@ -9,39 +9,57 @@ public class PlayerMining : MonoBehaviour
 {
     // 採掘に使用する値
     [System.Serializable]
-    public struct MiningValue
+    public class MiningValue
     {
-		[Header("採掘範囲(半径)")]
-		public float range;
-		[Header("採掘力")]
-		public float power;
-		[Header("採掘速度(/s)")]
-		public float speed;
-		[Header("クリティカル率(%)")]
-		public float critical;
-        [Header("クリティカルダメージ")]
-        public float criticalDamage;
-		[Header("アイテムドロップ率")]
-		public float itemDrop;
+		[Tooltip("採掘範囲(半径)")]
+		public float range = 1.0f;
+        [Tooltip("採掘サイズ(半径)")]
+        public float size = 0.0f;
+		[Tooltip("採掘力")]
+		public float power = 1.0f;
+		[Tooltip("採掘速度(/s)")]
+		public float speed = 1.0f;
+		[Tooltip("クリティカル率(%)")]
+		public float critical = 1.0f;
+        [Tooltip("クリティカルダメージ")]
+        public float criticalDamage = 1.0f;
+		[Tooltip("アイテムドロップ率")]
+		public float itemDrop = 1.0f;
 
-        public static MiningValue operator+ (MiningValue left, MiningValue right)
+        public static MiningValue operator+ (MiningValue left, MiningValue right)   // 和
         {
             MiningValue val = new()
             {
                 range = left.range + right.range,
+                size = left.size + right.size,
                 power = left.power + right.power,
                 speed = left.speed + right.speed,
-                critical = left.critical + right.criticalDamage,
+                critical = left.critical + right.critical,
                 criticalDamage = left.criticalDamage + right.criticalDamage,
                 itemDrop = left.itemDrop + right.itemDrop,
             };
             return val;
         }
-        public static MiningValue operator* (MiningValue left, MiningValue right)
+        public static MiningValue operator- (MiningValue left, MiningValue right)   // 差
+        {
+            MiningValue val = new()
+            {
+                range = left.range - right.range,
+                size = left.size - right.size,
+                power = left.power - right.power,
+                speed = left.speed - right.speed,
+                critical = left.critical - right.critical,
+                criticalDamage = left.criticalDamage - right.criticalDamage,
+                itemDrop = left.itemDrop - right.itemDrop,
+            };
+            return val;
+        }
+        public static MiningValue operator* (MiningValue left, MiningValue right)   // 積
         {
 			MiningValue val = new()
 			{
 				range = left.range * right.range,
+                size = left.size * right.size,
 				power = left.power * right.power,
 				speed = left.speed * right.speed,
 				critical = left.critical * right.critical,
@@ -65,31 +83,8 @@ public class PlayerMining : MonoBehaviour
     // 最終的な採掘値
     private MiningValue m_miningValue;
 
-    //[Header("採掘範囲(半径)")]
-    //[SerializeField] private float m_miningRange = 2.0f;
-    //[Header("採掘範囲倍率")]
-    //[SerializeField] private float m_miningRangeRate = 1.0f;
-
-    //[Header("採掘力")]
-    //[SerializeField] private float m_miningPower = 1.0f;
-    //[Header("採掘力倍率")]
-    //[SerializeField] private float m_miningPowerRate = 1.0f;
-
-    //[Header("採掘速度(/s)")]
-    //[SerializeField] private float m_miningSpeed = 1.0f;
+    // 採掘のクールタイム
     private float m_miningCoolTime = 0.0f;
-    //[Header("採掘速度倍率")]
-    //[SerializeField] private float m_miningSpeedRate = 1.0f;
-
-    //[Header("クリティカル率(%)")]
-    //[SerializeField] private float m_criticalRate = 0.0f;
-    //[Header("クリティカルダメージ(%)")]
-    //[SerializeField] private float m_criticalDamageRate = 2.0f;
-
-    //[Header("アイテムドロップ数")]
-    //[SerializeField] private int m_itemDropCount = 1;
-    //[Header("アイテムドロップ率")]
-    //[SerializeField] private float m_itemDropRate = 1.0f;
 
     // 採掘回数
     private int m_miningCount = 0;
@@ -136,26 +131,41 @@ public class PlayerMining : MonoBehaviour
         // ベクトル正規化
         playerToMouse.Normalize();
 
-        // プレイヤーから採掘方向へのRayCast
-        RaycastHit2D rayCast = Physics2D.Raycast(playerPos, playerToMouse, m_miningValue.range, m_layerMask);
-        // 当たったものがあれば当たった位置が採掘ポイント
-        if (rayCast)
-        {
-            m_debugMiningPoint.transform.position = rayCast.point;
-        }
-        // 当たったものがなければ
-        else
+		// プレイヤーから採掘方向へのRayCast
+		RaycastHit2D[] rayCasts = Physics2D.RaycastAll(playerPos, playerToMouse, m_miningValue.range, m_layerMask);
+		foreach (RaycastHit2D rayCast in rayCasts)
+		{
+			// タグが Block
+			if (rayCast.transform.CompareTag("Block"))
+			{
+                // 当たった位置を採掘ポイントにする
+                m_debugMiningPoint.transform.position = rayCast.point;
+
+                break;
+			}
+
+			// タグが Tool
+			if (rayCast.transform.CompareTag("Tool"))
+			{
+				// マウスカーソルと同じグリッド
+				if (MyFunction.CheckSameGrid(rayCast.transform.position, mousePos))
+				{
+                    m_debugMiningPoint.transform.position = rayCast.transform.position;
+				}
+
+			}
+		}
+        // 当たったものがない
+        if (rayCasts.Length == 0)
         {
             // 採掘ポイント
             m_debugMiningPoint.transform.position = playerPos + (playerToMouse * m_miningValue.range);
         }
 
+    }
 
-
-	}
-
-    // 採掘する
-    public void Mining()
+	// 採掘する
+	public void Mining()
     {
         // 採掘クールタイム中
         if (m_miningCoolTime > 0.0f)
@@ -174,6 +184,8 @@ public class PlayerMining : MonoBehaviour
 
         // プレイヤーから採掘方向へのRayCast
         RaycastHit2D[] rayCasts = Physics2D.RaycastAll(playerPos, playerToMouse, m_miningValue.range, m_layerMask);
+        // ダメージを与えたブロックの位置
+        Transform blockTransform = null;
         foreach (RaycastHit2D rayCast in rayCasts)
         {
             // タグが Block
@@ -182,16 +194,14 @@ public class PlayerMining : MonoBehaviour
                 // ブロックにダメージを与える
                 if (CauseDamageToBlock(rayCast.transform))
                 {
-                    // 与ダメージに加算
-                    m_takenDamage += m_miningValue.power;
+                    // ダメージを与えたブロック
+                    blockTransform = rayCast.transform;
 
-                    // 一番手前のブロックにダメージを与えた
                     break;
                 }
 
                 continue;
             }
-
             // タグが Tool
             if (rayCast.transform.CompareTag("Tool"))
             {
@@ -200,11 +210,16 @@ public class PlayerMining : MonoBehaviour
 				{
                     // ツールにダメージを与える
                     CauseDamageToBlock(rayCast.transform);
-                    break;
-				}
 
+					// ダメージを与えたブロック
+					blockTransform = rayCast.transform;
+
+					break;
+				}
 			}
 		}
+        // 範囲採掘
+        MiningOfRange(blockTransform);
 
 		// クールタイム設定
 		m_miningCoolTime = 1.0f / (m_miningValue.speed);
@@ -233,6 +248,9 @@ public class PlayerMining : MonoBehaviour
 			// 採掘回数加算
 			m_miningCount++;
 
+			// 与ダメージ加算
+			m_takenDamage += m_miningValue.power;
+
 			// ブロックに当たったらダメージ処理を抜ける
 			return true;
 
@@ -241,6 +259,31 @@ public class PlayerMining : MonoBehaviour
         return false;
 	}
 
+    // 広範囲の採掘
+    private void MiningOfRange(Transform center)
+    {
+        // トランスフォームがない
+        if (center == null)
+            return;
+
+        // 採掘サイズが 0
+        if (m_miningValue.size <= 0.0f)
+            return;
+
+        // ブロックの取得
+        Collider2D[] blocks = Physics2D.OverlapCircleAll(center.position, m_miningValue.size, LayerMask.GetMask("Block"));
+
+        foreach(Collider2D block in blocks)
+        {
+            // 中心のブロックは除外
+            if (center == block.transform)
+                continue;
+
+            // ダメージ
+            CauseDamageToBlock(block.transform);
+        }
+
+    }
 
 	// 採掘力算出
 	private float GetPower()

@@ -22,6 +22,8 @@ public class PlayerTool : MonoBehaviour
 
 	[Header("ツール")]
 	[SerializeField] private Dictionary<ToolData.ToolType, ToolContainer> m_tools = new();
+	[Header("ツール格納用オブジェクト")]
+	[SerializeField] private GameObject m_toolContainer = null;
 
 	// ツール更新用のオブジェクト
 	private Dictionary<ToolData.ToolType, Tool> m_toolScripts = new();
@@ -74,7 +76,7 @@ public class PlayerTool : MonoBehaviour
 			{
 				if (toolData.prefab)
 				{
-					m_toolScripts[type] = Instantiate(toolData.prefab.GetComponent<Tool>(), transform);
+					m_toolScripts[type] = Instantiate(toolData.prefab.GetComponent<Tool>(), m_toolContainer.transform);
 				}
 			}
 		}

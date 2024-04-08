@@ -16,10 +16,12 @@ public class BlockGenerator : MonoBehaviour
 
 	private void Awake()
 	{
-		// ブロックデータベースがなければ取得する
+		// ブロックデータベースがない
 		if (m_blockDataBase == null)
 		{
-			m_blockDataBase = AssetDatabase.LoadAssetAtPath<BlockDataBase>("Assets/DataBase/Block/BlockDataBase.asset");
+            Debug.Log(gameObject.name + "にブロックデータベースを設定してね");
+
+			//m_blockDataBase = AssetDatabase.LoadAssetAtPath<BlockDataBase>("Assets/DataBase/Block/BlockDataBase.asset");
 		}
 	}
 
@@ -51,20 +53,25 @@ public class BlockGenerator : MonoBehaviour
         if (data == null)
             return null;
 
+        // プレハブが設定されていない
+        if (!data.prefab)
+        {
+            Debug.Log(data.name + "にブロックのプレハブを設定してね");
+
+            return null;
+            //data.prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Block.prefab");
+        }
+
 		// 生成したブロックを設定する用
 		GameObject obj;
 
-        // プレハブが設定されていない場合はアセット参照でブロックを持ってくる
-        if (!data.prefab)
-        {
-            data.prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Block.prefab");
-        }
-
+        // 親が指定されている
         if (parent)
         {
             // 親を設定して生成
             obj = Instantiate(data.prefab, position, Quaternion.identity, parent);
         }
+        // 親の指定はない
         else
         {
             // 指定座標に生成

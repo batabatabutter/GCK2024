@@ -141,7 +141,7 @@ public class PlayerItem : MonoBehaviour
 			if (!m_items.ContainsKey(type))
 			{
 				Debug.Log(type + "が存在しない");
-				return;
+				continue;
 			}
 
 			// [type] を [count] 消費する
@@ -152,6 +152,13 @@ public class PlayerItem : MonoBehaviour
 	// アイテムの所持数取得
 	public int GetItemCount(ItemData.Type type)
 	{
+		// アイテムが存在しない
+		if (!m_items.ContainsKey(type))
+		{
+			Debug.Log(type + "が存在しない");
+			return　0;
+		}
+		// 所持数を返す
 		return m_items[type];
 	}
 

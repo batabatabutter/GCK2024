@@ -57,6 +57,28 @@ public class MyFunction
 		return false;
 	}
 
+	// 4方向の取得
+	static public Vector2 GetFourDirection(Vector2 direction)
+	{
+		// ベクトル正規化
+		direction.Normalize();
+
+		// 縦より横の値が大きい
+		if (Mathf.Abs(direction.y) < Mathf.Abs(direction.x))
+		{
+			direction.y = 0.0f;
+		}
+		else
+		{
+			direction.x = 0.0f;
+		}
+
+		// ベクトル正規化
+		direction.Normalize();
+
+		return direction;
+	}
+
 	// アイテムデータの取得
 	static public ItemData GetItemData(ItemDataBase dataBase, ItemData.Type type)
 	{
@@ -75,6 +97,20 @@ public class MyFunction
 	static public BlockData GetBlockData(BlockDataBase dataBase, BlockData.BlockType type)
 	{
 		foreach (BlockData data in dataBase.block)
+		{
+			if (data.type == type)
+			{
+				return data;
+			}
+		}
+		// データが見つからなかった
+		return null;
+	}
+
+	// ツールデータの取得
+	static public ToolData GetToolData(ToolDataBase dataBase, ToolData.ToolType type)
+	{
+		foreach (ToolData data in dataBase.tool)
 		{
 			if (data.type == type)
 			{
