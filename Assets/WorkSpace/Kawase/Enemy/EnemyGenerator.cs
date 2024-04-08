@@ -99,10 +99,15 @@ public class EnemyGenerator : MonoBehaviour
 
                 Collider2D[] colliders = Physics2D.OverlapCircleAll(m_player.transform.position, m_spawnradius, detectionLayer);
 
-                if (colliders.Length > 0)
+                List<Collider2D> collidersList = new List<Collider2D>(colliders);
+
+                // 条件に合わない要素を削除
+                collidersList.RemoveAll(collider => !ShouldKeepCollider(collider));
+
+                if (collidersList.Count > 0)
                 {
                     // 検知したオブジェクトからランダムに一つ選ぶ
-                    Collider2D randomCollider = colliders[Random.Range(0, colliders.Length)];
+                    Collider2D randomCollider = collidersList[Random.Range(0, collidersList.Count)];
 
                     // 選択されたオブジェクトに対する処理を行う
 
@@ -123,5 +128,18 @@ public class EnemyGenerator : MonoBehaviour
                 break;
         }
 
+    }
+
+    // コライダーを保持するかどうかを判定するメソッド
+    bool ShouldKeepCollider(Collider2D collider)
+    {
+        // 指定された条件に基づいてコライダーを保持するかどうかを判定
+        Block block = collider.gameObject.GetComponent<Block>();
+        if (block != null && block.BlockData != null) // BlockDataがnullでないことを確認
+        {
+            return block.BlockData.type < BlockData.BlockType.SPECIAL;
+        }
+        // Blockスクリプトがアタッチされていない場合は保持しない
+        return false;
     }
 }
