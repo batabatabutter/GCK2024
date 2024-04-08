@@ -104,10 +104,6 @@ public class EnemyGenerator : MonoBehaviour
                 // 条件に合わない要素を削除
                 collidersList.RemoveAll(collider => !ShouldKeepCollider(collider));
 
-                Debug.Log(colliders.Length);
-                Debug.Log(collidersList.Count);
-
-
                 if (collidersList.Count > 0)
                 {
                     // 検知したオブジェクトからランダムに一つ選ぶ
