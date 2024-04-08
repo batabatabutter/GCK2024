@@ -113,7 +113,7 @@ public class Enemy : MonoBehaviour
                 continue;
 
             // アイテムのゲームオブジェクトを生成
-            GameObject obj = Instantiate(data.prefab, transform.position, Quaternion.identity);
+            GameObject obj = Instantiate(data.Prefab, transform.position, Quaternion.identity);
 
             // 明るさの概念を追加
             obj.AddComponent<ChangeBrightness>();

@@ -94,7 +94,7 @@ public class Block : MonoBehaviour
 	// アイテムドロップ
 	public virtual void DropItem(int dropCount = 1)
 	{
-        foreach (BlockData.DropItems dropItem in m_blockData.dropItem)
+        foreach (BlockData.DropItems dropItem in m_blockData.DropItem)
         {
             // 0 ~ 1乱数取得
             float random = Random.value;
@@ -111,7 +111,7 @@ public class Block : MonoBehaviour
                 continue;
 
 			// アイテムのゲームオブジェクトを生成
-			GameObject obj = Instantiate(data.prefab, transform.position, Quaternion.identity);
+			GameObject obj = Instantiate(data.Prefab, transform.position, Quaternion.identity);
 
             // 明るさの概念を追加
             obj.AddComponent<ChangeBrightness>();
@@ -131,7 +131,7 @@ public class Block : MonoBehaviour
             // 画像を設定
             if (obj.TryGetComponent(out SpriteRenderer sprite))
             {
-                sprite.sprite = data.sprite;
+                sprite.sprite = data.Sprite;
             }
         }
 	}

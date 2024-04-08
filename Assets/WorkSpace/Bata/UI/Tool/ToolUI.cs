@@ -120,14 +120,14 @@ public class ToolUI : MonoBehaviour
             m_toolObjects[i].GetComponent<ToolFrame>().SetIsSelected(false);
             //  ツール画像設定
             //m_toolObjects[i].GetComponent<ToolFrame>().SetImage(m_toolDataBase.tool[thisToolID].sprite);
-            m_toolObjects[i].GetComponent<ToolFrame>().SetImage(m_toolDataBase.toolDic[playerToolType].sprite);
+            m_toolObjects[i].GetComponent<ToolFrame>().SetImage(m_toolDataBase.toolDic[playerToolType].Icon);
             //  ツール作成可能数設定
             //m_toolObjects[i].GetComponent<ToolFrame>().SetNum(GetToolUseNum(thisToolID));
             m_toolObjects[i].GetComponent<ToolFrame>().SetNum(GetToolUseNum(playerToolType));
 
             //  クールタイムがあるなら0.0～1.0に補間
             //if (m_toolDataBase.tool[thisToolID].recastTime > 0)
-            if (m_toolDataBase.toolDic[playerToolType].recastTime > 0)
+            if (m_toolDataBase.toolDic[playerToolType].RecastTime > 0)
             {
                 //m_toolObjects[i].GetComponent<ToolFrame>()
                 //.GetRecastImage().fillAmount =
@@ -138,7 +138,7 @@ public class ToolUI : MonoBehaviour
                 .GetRecastImage().fillAmount =
                 m_player.GetComponent<PlayerAction>()
                 .GetToolRecast(playerToolType) /
-                m_toolDataBase.toolDic[playerToolType].recastTime;
+                m_toolDataBase.toolDic[playerToolType].RecastTime;
             }
             else
             {
@@ -159,11 +159,11 @@ public class ToolUI : MonoBehaviour
         int num = int.MaxValue;
 
         //  アイテム数取得
-        for (int i = 0; i < m_toolDataBase.tool[toolType].itemMaterials.Count; i++)
+        for (int i = 0; i < m_toolDataBase.tool[toolType].ItemMaterials.Length; i++)
         {
             //  アイテム
-            ItemData.ItemType type = m_toolDataBase.tool[toolType].itemMaterials[i].type;
-            int count = m_toolDataBase.tool[toolType].itemMaterials[i].count;
+            ItemData.ItemType type = m_toolDataBase.tool[toolType].ItemMaterials[i].type;
+            int count = m_toolDataBase.tool[toolType].ItemMaterials[i].count;
 
             //  所持アイテム数から作成可能数を割り出す
             num = Mathf.Min(num,
@@ -180,11 +180,11 @@ public class ToolUI : MonoBehaviour
         int num = int.MaxValue;
 
         //  アイテム数取得
-        for (int i = 0; i < m_toolDataBase.toolDic[toolType].itemMaterials.Count; i++)
+        for (int i = 0; i < m_toolDataBase.toolDic[toolType].ItemMaterials.Length; i++)
         {
             //  アイテム
-            ItemData.ItemType type = m_toolDataBase.toolDic[toolType].itemMaterials[i].type;
-            int count = m_toolDataBase.toolDic[toolType].itemMaterials[i].count;
+            ItemData.ItemType type = m_toolDataBase.toolDic[toolType].ItemMaterials[i].type;
+            int count = m_toolDataBase.toolDic[toolType].ItemMaterials[i].count;
 
             //  所持アイテム数から作成可能数を割り出す
             num = Mathf.Min(num,

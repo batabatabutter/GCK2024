@@ -54,7 +54,7 @@ public class BlockGenerator : MonoBehaviour
             return null;
 
         // プレハブが設定されていない
-        if (!data.prefab)
+        if (!data.Prefab)
         {
             Debug.Log(data.name + "にブロックのプレハブを設定してね");
 
@@ -69,13 +69,13 @@ public class BlockGenerator : MonoBehaviour
         if (parent)
         {
             // 親を設定して生成
-            obj = Instantiate(data.prefab, position, Quaternion.identity, parent);
+            obj = Instantiate(data.Prefab, position, Quaternion.identity, parent);
         }
         // 親の指定はない
         else
         {
             // 指定座標に生成
-            obj = Instantiate(data.prefab, position, Quaternion.identity);
+            obj = Instantiate(data.Prefab, position, Quaternion.identity);
         }
 
         // データの設定
@@ -84,19 +84,19 @@ public class BlockGenerator : MonoBehaviour
             // データ
             block.BlockData = data;
             // 耐久
-            block.Endurance = data.endurance;
+            block.Endurance = data.Endurance;
             // 破壊不可
-            block.DontBroken = data.dontBroken;
+            block.DontBroken = data.DontBroken;
             // 光源レベル
-            block.LightLevel = data.lightLevel;
+            block.LightLevel = data.LightLevel;
         }
 
 		// 画像の設定
-		if (data.sprite)
+		if (data.Sprite)
 		{
 			if (obj.TryGetComponent(out SpriteRenderer sprite))
 			{
-				sprite.sprite = data.sprite;
+				sprite.sprite = data.Sprite;
 			}
 		}
 
@@ -112,10 +112,10 @@ public class BlockGenerator : MonoBehaviour
             // マップオブジェクトの生成
             GameObject mapObj = Instantiate(m_mapObject, obj.transform);
             // 色の設定
-            mapObj.GetComponent<SpriteRenderer>().color = data.color;
-            mapObj.GetComponent<MapObject>().BlockColor = data.color;
+            mapObj.GetComponent<SpriteRenderer>().color = data.Color;
+            mapObj.GetComponent<MapObject>().BlockColor = data.Color;
             // 表示順の設定
-            mapObj.GetComponent<SpriteRenderer>().sortingOrder = data.order;
+            mapObj.GetComponent<SpriteRenderer>().sortingOrder = data.Order;
             // スプライトの設定
             mapObj.GetComponent<MapObject>().ParentSprite = obj.gameObject.GetComponent<SpriteRenderer>();
 

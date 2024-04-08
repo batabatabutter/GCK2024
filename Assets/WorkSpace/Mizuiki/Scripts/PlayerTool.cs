@@ -58,7 +58,7 @@ public class PlayerTool : MonoBehaviour
 		foreach (ToolData toolData in m_dataBase.tool)
 		{
 			// ツールの種類
-			ToolData.ToolType type = toolData.type;
+			ToolData.ToolType type = toolData.Type;
 
 			// 上書き防止
 			if (m_tools.ContainsKey(type))
@@ -72,11 +72,11 @@ public class PlayerTool : MonoBehaviour
 			};
 
 			// サポートツール更新用
-			if (toolData.category == ToolData.ToolCategory.SUPPORT)
+			if (toolData.Category == ToolData.ToolCategory.SUPPORT)
 			{
-				if (toolData.prefab)
+				if (toolData.Prefab)
 				{
-					m_toolScripts[type] = Instantiate(toolData.prefab.GetComponent<Tool>(), m_toolContainer.transform);
+					m_toolScripts[type] = Instantiate(toolData.Prefab.GetComponent<Tool>(), m_toolContainer.transform);
 				}
 			}
 		}
@@ -89,7 +89,7 @@ public class PlayerTool : MonoBehaviour
 		foreach(ToolContainer tool in m_tools.Values)
 		{
 			// ツールの種類取得
-			ToolData.ToolType type = tool.data.type;
+			ToolData.ToolType type = tool.data.Type;
 
 			// リキャスト中
 			if (m_tools[type].isRecast)
@@ -262,13 +262,13 @@ public class PlayerTool : MonoBehaviour
 		// ツールのデータ取得
 		ToolData data = m_tools[type].data;
 		// ツールの分類
-		switch (data.category)
+		switch (data.Category)
 		{
 			case ToolData.ToolCategory.PUT:			// 設置型
 				// ツールの設置
 				Put(data, position);
 				// リキャスト時間の設定
-				m_tools[type].recastTime = data.recastTime;
+				m_tools[type].recastTime = data.RecastTime;
 				m_tools[type].isRecast = true;
 				break;
 
@@ -276,7 +276,7 @@ public class PlayerTool : MonoBehaviour
 				// ツール使用の処理を呼び出す
 				m_toolScripts[type].UseTool(gameObject);
 				// リキャスト時間の設定
-				m_tools[type].recastTime = data.recastTime;
+				m_tools[type].recastTime = data.RecastTime;
 				// 使用不可能にする
 				m_tools[type].available = false;
 				break;
@@ -291,11 +291,11 @@ public class PlayerTool : MonoBehaviour
 	public void Put(ToolData data, Vector3 position, bool con = false)
 	{
 		// プレハブが設定されていなければ返す
-		if (!data.prefab)
+		if (!data.Prefab)
 			return;
 
 		// アイテムを置く
-		GameObject tool = Instantiate(data.prefab, position, Quaternion.identity);
+		GameObject tool = Instantiate(data.Prefab, position, Quaternion.identity);
 		// アクティブにする(念のため)
 		tool.SetActive(true);
 
@@ -325,10 +325,10 @@ public class PlayerTool : MonoBehaviour
 	public bool CheckCreate(ToolData data, int value = 1)
 	{
 		// 素材の種類分ループ
-		for (int i = 0; i < data.itemMaterials.Count; i++)
+		for (int i = 0; i < data.ItemMaterials.Length; i++)
 		{
 			// アイテムの種類
-			ItemData.ItemType type = data.itemMaterials[i].type;
+			ItemData.ItemType type = data.ItemMaterials[i].type;
 
 			// アイテムが存在しない
 			if (!m_playerItem.Items.ContainsKey(type))
@@ -338,7 +338,7 @@ public class PlayerTool : MonoBehaviour
 			}
 
 			// 必要数
-			int count = data.itemMaterials[i].count * value;
+			int count = data.ItemMaterials[i].count * value;
 
 			// 所持アイテム数が必要素材数未満
 			if (m_playerItem.Items[type] < count)
@@ -383,7 +383,7 @@ public class PlayerTool : MonoBehaviour
 	// ツールの分類を取得
 	public ToolData.ToolCategory GetCategory(ToolData.ToolType type)
 	{
-		return m_dataBase.tool[(int)type].category;//m_tools[type].data.category;
+		return m_dataBase.tool[(int)type].Category;
 	}
 
 	// ツールのリキャスト状態の設定

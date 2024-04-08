@@ -70,7 +70,7 @@ public class PlayerUpgrade : MonoBehaviour
         };
 
         // ã≠âª
-        m_playerMining.MiningValueBase = m_playerMining.MiningValueBase + val;
+        m_playerMining.MiningValueBase += val;
 
         // ëfçﬁÇÃè¡îÔ
         m_playerTool.ConsumeMaterials(m_upgradeData, value);

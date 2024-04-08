@@ -92,7 +92,7 @@ public class MyFunction
 	{
 		foreach(ItemData data in dataBase.item)
 		{
-			if (data.type == type)
+			if (data.Type == type)
 			{
 				return data;
 			}
@@ -106,7 +106,7 @@ public class MyFunction
 	{
 		foreach (BlockData data in dataBase.block)
 		{
-			if (data.type == type)
+			if (data.Type == type)
 			{
 				return data;
 			}
@@ -120,7 +120,7 @@ public class MyFunction
 	{
 		foreach (ToolData data in dataBase.tool)
 		{
-			if (data.type == type)
+			if (data.Type == type)
 			{
 				return data;
 			}

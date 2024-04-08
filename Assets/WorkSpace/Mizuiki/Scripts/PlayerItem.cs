@@ -33,12 +33,12 @@ public class PlayerItem : MonoBehaviour
 		// 所持アイテム数の初期化
 		foreach(ItemData itemData in m_itemDataBase.item)
 		{
-			m_items[itemData.type] = 0;
+			m_items[itemData.Type] = 0;
 
 			// デバッグがオンになっていたら所持数をカンストさせる
 			if (m_debug)
 			{
-				m_items[itemData.type] = m_maxCount;
+				m_items[itemData.Type] = m_maxCount;
 			}
 
 		}
@@ -132,10 +132,10 @@ public class PlayerItem : MonoBehaviour
 	// アイテムを消費する
 	public void ConsumeMaterials(ToolData data, int value = 1)
 	{
-		for (int i = 0; i < data.itemMaterials.Count; i++)
+		for (int i = 0; i < data.ItemMaterials.Length; i++)
 		{
 			// アイテムの種類取得
-			ItemData.ItemType type = data.itemMaterials[i].type;
+			ItemData.ItemType type = data.ItemMaterials[i].type;
 
 			// アイテムが存在しない
 			if (!m_items.ContainsKey(type))
@@ -145,7 +145,7 @@ public class PlayerItem : MonoBehaviour
 			}
 
 			// [type] を [count] 消費する
-			m_items[type] -= data.itemMaterials[i].count * value;
+			m_items[type] -= data.ItemMaterials[i].count * value;
 		}
 	}
 

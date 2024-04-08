@@ -44,7 +44,7 @@ public class ItemUI : MonoBehaviour
             //  UI¶¬
             GameObject frame = Instantiate(m_itemFrame, pos, Quaternion.identity, transform);
             //  ‰æ‘œİ’è
-            frame.GetComponent<ItemFrame>().SetImage(m_data.item[i].sprite);
+            frame.GetComponent<ItemFrame>().SetImage(m_data.item[i].Sprite);
 
             m_itemObjects.Add(frame);
         }
@@ -58,7 +58,7 @@ public class ItemUI : MonoBehaviour
         {
             //  ƒAƒCƒeƒ€”İ’è
             m_itemObjects[i].GetComponent<ItemFrame>().SetNum(
-                m_player.transform.Find("Item").gameObject.GetComponent<PlayerItem>().Items[m_data.item[i].type]);
+                m_player.transform.Find("Item").gameObject.GetComponent<PlayerItem>().Items[m_data.item[i].Type]);
         }
     }
 

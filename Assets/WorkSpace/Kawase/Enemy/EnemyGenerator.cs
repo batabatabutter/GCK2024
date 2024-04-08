@@ -137,7 +137,7 @@ public class EnemyGenerator : MonoBehaviour
         Block block = collider.gameObject.GetComponent<Block>();
         if (block != null && block.BlockData != null) // BlockDataがnullでないことを確認
         {
-            return block.BlockData.type < BlockData.BlockType.SPECIAL;
+            return block.BlockData.Type < BlockData.BlockType.SPECIAL;
         }
         // Blockスクリプトがアタッチされていない場合は保持しない
         return false;
