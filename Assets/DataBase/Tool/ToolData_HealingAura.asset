@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ToolData_HealingAura
   m_EditorClassIdentifier: 
   toolName: "\u7652\u3057\u306E\u30AA\u30FC\u30E9"
-  typeStr: 113:HEALING_AURA
+  typeStr: 112:HEALING_AURA
   category: 1
   sprite: {fileID: 0}
   recastTime: 10

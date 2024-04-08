@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9102e5fe6745808438d597f5ef891521, type: 3}
   m_Name: BlockData_Dengerous
   m_EditorClassIdentifier: 
-  blockName: "\u5371\u967A\u7269"
-  typeStr: 103:DENGEROUS
+  blockName: 
+  typeStr: 503:DENGEROUS
   endurance: 100
   dontBroken: 0
   lightLevel: 3

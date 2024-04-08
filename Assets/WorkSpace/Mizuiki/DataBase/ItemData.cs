@@ -30,17 +30,19 @@ public class ItemData : ScriptableObject
 		OVER,
 	}
 
-	[Header("アイテム名")]
-	public string itemName;
-	[Header("アイテムの種類")]
-	//public Type type;
-	[CustomEnum(typeof(ItemType))] public string typeStr;
-	[Header("アイテムの画像")]
-	public Sprite sprite;
-	[Header("アイテムのプレハブ")]
-	public GameObject prefab = null;
+	[Header("アイテム名"), SerializeField]
+	private string itemName;
+	[Header("アイテムの種類"), SerializeField ,CustomEnum(typeof(ItemType))]
+	private string typeStr;
+	[Header("アイテムの画像"), SerializeField]
+	private Sprite sprite;
+	[Header("アイテムのプレハブ"), SerializeField]
+	private GameObject prefab = null;
 
-	public ItemType type => SerializeUtil.Restore<ItemType>(typeStr);
+	public string Name => name;
+	public ItemType Type => SerializeUtil.Restore<ItemType>(typeStr);
+	public Sprite Sprite => sprite;
+	public GameObject Prefab => prefab;
 
 	public ItemData(ItemData item)
 	{

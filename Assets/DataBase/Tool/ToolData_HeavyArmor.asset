@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ToolData_HeavyArmor
   m_EditorClassIdentifier: 
   toolName: "\u91CD\u93A7"
-  typeStr: 107:HEAVY_ARMOR
+  typeStr: 106:HEAVY_ARMOR
   category: 1
   sprite: {fileID: 0}
   recastTime: 10

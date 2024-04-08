@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ToolData_DengerousBomb
   m_EditorClassIdentifier: 
   toolName: "\u5371\u967A\u7206\u5F3E"
-  typeStr: 106:DENGEROUS_BOMB
+  typeStr: 105:DENGEROUS_BOMB
   category: 0
   sprite: {fileID: 0}
   recastTime: 10

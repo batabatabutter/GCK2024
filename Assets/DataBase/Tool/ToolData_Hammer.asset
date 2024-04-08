@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ToolData_Hammer
   m_EditorClassIdentifier: 
   toolName: "\u30CF\u30F3\u30DE\u30FC"
-  typeStr: 111:HAMMER
+  typeStr: 110:HAMMER
   category: 1
   sprite: {fileID: 0}
   recastTime: 10

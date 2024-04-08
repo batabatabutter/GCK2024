@@ -46,30 +46,36 @@ public class ToolData : ScriptableObject
 		OVER,
 	}
 
-	[Header("ツール名")]
-	public string toolName = "";
-	[Header("ツールの種類")]
-	//public ToolType type = ToolType.BOMB;
-	[CustomEnum(typeof(ToolType))] public string typeStr;
-	[Header("ツールの分類")]
-	public ToolCategory category = ToolCategory.SUPPORT;
-	[Header("ツールのアイコン画像")]
-	public Sprite sprite = null;
-	[Header("リキャスト時間")]
-	public float recastTime = 0.0f;
-	[Header("ツールのプレハブ")]
-	public GameObject prefab = null;
+	[Header("ツール名"), SerializeField]
+	private string toolName = "";
+	[Header("ツールの種類"), SerializeField, CustomEnum(typeof(ToolType))]
+	private string typeStr;
+	[Header("ツールの分類"), SerializeField]
+	private ToolCategory category = ToolCategory.SUPPORT;
+	[Header("ツールのアイコン画像"), SerializeField]
+	private Sprite icon = null;
+	[Header("リキャスト時間"), SerializeField]
+	private float recastTime = 0.0f;
+	[Header("ツールのプレハブ"), SerializeField]
+	private GameObject prefab = null;
 
-	[Header("ツール作成に必要な素材")]
-	public List<Items> itemMaterials = new List<Items>();
-	public ToolType type => SerializeUtil.Restore<ToolType>(typeStr);
+	[Header("ツール作成に必要な素材"), SerializeField]
+	private Items[] itemMaterials = null;
+
+	public string Name => toolName;
+	public ToolType Type => SerializeUtil.Restore<ToolType>(typeStr);
+	public ToolCategory Category => category;
+	public Sprite Icon => icon;
+	public float RecastTime => recastTime;
+	public GameObject Prefab => prefab;
+	public Items[] ItemMaterials => itemMaterials;
+
 
 	public ToolData(ToolData tool)
 	{
 		toolName = tool.toolName;
-		//type = tool.type;
 		typeStr = tool.typeStr;
-		sprite = tool.sprite;
+		icon = tool.icon;
 		recastTime = tool.recastTime;
 		prefab = tool.prefab;
 		itemMaterials = tool.itemMaterials;

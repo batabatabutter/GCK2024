@@ -8,33 +8,33 @@ public class BlockData : ScriptableObject
 	[System.Serializable]
 	public enum BlockType
 	{
-		STONE = 0,		// 石
-		COAL,			// 石炭
-		STEEL,			// 鉄
-		TIN,			// 錫
-		LEAD,			// 鉛
+		STONE = 0,      // 石
+		COAL,           // 石炭
+		STEEL,          // 鉄
+		TIN,            // 錫
+		LEAD,           // 鉛
 
-		SPECIAL = 100,	// ここから特殊ブロック
-		CORE,			// コア
-		BEDROCK,		// 岩盤
-		DENGEROUS,		// 危険物
+		BIRTHDAY = 200,     // ここから誕生石シリーズ
+		BIR_GARNET,         // ガーネット
+		BIR_AMETHYST,       // アメジスト
+		BIR_AQUAMARINE,     // アクアマリン
+		BIR_DIAMOND,        // ダイヤモンド
+		BIR_EMERALD,        // エメラルド
+		BIR_PEARL,          // パール
+		BIR_RUBY,           // ルビー
+		BIR_PERIDOT,        // ペリドット
+		BIR_SAPPHIRE,       // サファイア
+		BIR_OPAL,           // オパール
+		BIR_TOPAZ,          // トパーズ
+		BIR_TURQUOISE,      // ターコイズ
 
-		BIRTHDAY_BLOCK = 200,	// ここから誕生石シリーズ
-		BIR_GARNET,				// ガーネット
-		BIR_AMETHYST,			// アメジスト
-		BIR_AQUAMARINE,			// アクアマリン
-		BIR_DIAMOND,			// ダイヤモンド
-		BIR_EMERALD,			// エメラルド
-		BIR_PEARL,				// パール
-		BIR_RUBY,				// ルビー
-		BIR_PERIDOT,			// ペリドット
-		BIR_SAPPHIRE,			// サファイア
-		BIR_OPAL,				// オパール
-		BIR_TOPAZ,				// トパーズ
-		BIR_TURQUOISE,			// ターコイズ
+		SPECIAL = 500,  // ここから特殊ブロック
+		CORE,           // コア
+		BEDROCK,        // 岩盤
+		DENGEROUS,      // 危険物
 
-		TOACH = 1000,	// 松明
-		BOMB,			// 爆弾
+		TOACH = 1000,   // 松明
+		BOMB,           // 爆弾
 
 		OVER
 	}
@@ -50,40 +50,59 @@ public class BlockData : ScriptableObject
 		public float rate;
 	}
 
-	[Header("ブロック名")]
-	public string blockName = "";
-	[Header("ブロックの種類")]
-	//public BlockType type = BlockType.OVER;
-	[CustomEnum(typeof(BlockType))] public string typeStr = "";
-	[Header("ブロックの耐久力")]
-	public float endurance = 100.0f;
-	[Header("破壊不可能")]
-	public bool dontBroken = false;
-	[Header("光源レベル")]
-	public int lightLevel = 0;
-	[Header("ブロックのプレハブ")]
-	public GameObject prefab = null;
-	[Header("ブロックの画像")]
-	public Sprite sprite = null;
+	[Header("ブロック名"), SerializeField]
+	private string blockName = "";
+	[Header("ブロックの種類"), SerializeField, CustomEnum(typeof(BlockType))]
+	private string typeStr = "";
+	[Header("ブロックの耐久力"), SerializeField]
+	private float endurance = 100.0f;
+	[Header("破壊不可能"), SerializeField]
+	private bool dontBroken = false;
+	[Header("光源レベル"), SerializeField]
+	private int lightLevel = 0;
+	[Header("ブロックのプレハブ"), SerializeField]
+	private GameObject prefab = null;
+	[Header("ブロックの画像"), SerializeField]
+	private Sprite sprite = null;
 
-	[Header("ドロップアイテム")]
-	public DropItems[] dropItem;
+	[Header("ドロップアイテム"), SerializeField]
+	private DropItems[] dropItem;
 
 	[Header("---マップ---")]
 
-	[Header("マップ表示の色")]
-	public Color color = Color.white;
-	[Header("表示順")]
-	public int order = 0;
-	[Header("マップ表示アイコン(あれば設定)")]
-	public Sprite mapIcon = null;
+	[Header("マップ表示の色"), SerializeField]
+	private Color color = Color.white;
+	[Header("表示順"), SerializeField]
+	private int order = 0;
+	[Header("マップ表示アイコン(あれば設定)"), SerializeField]
+	private Sprite mapIcon = null;
 
-	public BlockType type => SerializeUtil.Restore<BlockType>(typeStr);
+	public string Name => blockName;
+	public BlockType Type => SerializeUtil.Restore<BlockType>(typeStr);
+	public float Endurance => endurance;
+	public bool DontBroken => dontBroken;
+	public int LightLevel => lightLevel;
+	public GameObject Prefab => prefab;
+	public Sprite Sprite => sprite;
+	public DropItems[] DropItem => dropItem;
+	public Color Color => color;
+	public int Order => order;
+	public Sprite MapIcon => mapIcon;
 
 	public BlockData(BlockData block)
 	{
 		blockName = block.blockName;
+		typeStr = block.typeStr;
+		endurance = block.endurance;
+		dontBroken = block.dontBroken;
+		lightLevel = block.lightLevel;
+		prefab = block.prefab;
 		sprite = block.sprite;
+		dropItem = block.dropItem;
+
+		color = block.color;
+		order = block.order;
+		mapIcon = block.mapIcon;
 	}
 
 }
