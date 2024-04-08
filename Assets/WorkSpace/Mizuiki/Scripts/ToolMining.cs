@@ -25,6 +25,10 @@ public class ToolMining : Tool
 	// Update is called once per frame
 	void Update()
 	{
+		// 採掘が存在しない
+		if (m_playerMining == null)
+			return;
+
 		// 強化終了
 		if (m_playerMining.TakenDamage > m_amountValue)
 		{
