@@ -193,6 +193,7 @@ public class Block : MonoBehaviour
     // ブロックデータ
     public BlockData BlockData
     {
+        get { return m_blockData; }
         set { m_blockData = value; }
     }
 

@@ -56,7 +56,7 @@ public class BlockData : ScriptableObject
 	public BlockType type = BlockType.OVER;
 	[Header("ブロックの耐久力")]
 	public float endurance = 100.0f;
-	[Header("破壊可能")]
+	[Header("破壊不可能")]
 	public bool dontBroken = false;
 	[Header("光源レベル")]
 	public int lightLevel = 0;
