@@ -19,7 +19,7 @@ MonoBehaviour:
   recastTime: 10
   prefab: {fileID: 3584993475108489714, guid: 71ed18093ab7b6a4497ef87d1a0517be, type: 3}
   itemMaterials:
-  - type: 207
+  - typeStr: 207:BIR_RUBY
     count: 1
-  - type: 1
+  - typeStr: 1:COAL
     count: 5

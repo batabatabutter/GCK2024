@@ -19,7 +19,7 @@ MonoBehaviour:
   recastTime: 10
   prefab: {fileID: 0}
   itemMaterials:
-  - type: 211
+  - typeStr: 211:BIR_TOPAZ
     count: 1
-  - type: 1
+  - typeStr: 0:STONE
     count: 2

@@ -19,5 +19,5 @@ MonoBehaviour:
   recastTime: 20
   prefab: {fileID: 4644734387504674375, guid: 986d3b93e511950439be3bdac02579a8, type: 3}
   itemMaterials:
-  - type: 0
-    count: 20
+  - typeStr: 0:STONE
+    count: 10

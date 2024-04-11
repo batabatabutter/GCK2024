@@ -19,7 +19,7 @@ MonoBehaviour:
   recastTime: 10
   prefab: {fileID: 3584993475108489714, guid: ad8bf6c4944a96b43a22e91cffd3507d, type: 3}
   itemMaterials:
-  - type: 209
+  - typeStr: 209:BIR_SAPPHIRE
     count: 1
-  - type: 1
+  - typeStr: 1:COAL
     count: 5

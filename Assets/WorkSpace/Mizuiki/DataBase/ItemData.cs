@@ -1,4 +1,5 @@
 using UnityEngine;
+using static ToolData;
 
 [System.Serializable]
 [CreateAssetMenu(fileName = "ItemData", menuName = "CreateItem")]
@@ -55,7 +56,8 @@ public class ItemData : ScriptableObject
 [System.Serializable]
 public class Items
 {
-	public ItemData.ItemType type;       // í—Ş
-	public int count;       // ”
+    [CustomEnum(typeof(ItemData.ItemType))] public string typeStr;       // í—Ş
+	public ItemData.ItemType type => SerializeUtil.Restore<ItemData.ItemType>(typeStr);
+    public int count;       // ”
 }
 

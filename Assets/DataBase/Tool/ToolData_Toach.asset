@@ -19,5 +19,5 @@ MonoBehaviour:
   recastTime: 0
   prefab: {fileID: 1605569564547797263, guid: 5cd6e11a21e8d74498a673fc06be8e44, type: 3}
   itemMaterials:
-  - type: 1
+  - typeStr: 1:COAL
     count: 1

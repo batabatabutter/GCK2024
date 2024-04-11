@@ -19,7 +19,7 @@ MonoBehaviour:
   recastTime: 10
   prefab: {fileID: 2280796163066816382, guid: 80e89238203f0cf4baa9f0bfeabcd0ed, type: 3}
   itemMaterials:
-  - type: 205
+  - typeStr: 205:BIR_EMERALD
     count: 1
-  - type: 0
+  - typeStr: 0:STONE
     count: 7
