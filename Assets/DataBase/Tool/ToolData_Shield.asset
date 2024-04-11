@@ -15,11 +15,11 @@ MonoBehaviour:
   toolName: "\u30B7\u30FC\u30EB\u30C9"
   typeStr: 103:SHIELD
   category: 0
-  sprite: {fileID: 0}
+  icon: {fileID: 0}
   recastTime: 10
   prefab: {fileID: 0}
   itemMaterials:
-  - type: 210
+  - type: 211
     count: 1
   - type: 0
     count: 5

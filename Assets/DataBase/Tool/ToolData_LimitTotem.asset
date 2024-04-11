@@ -15,11 +15,11 @@ MonoBehaviour:
   toolName: "\u5236\u9650\u30C8\u30FC\u30C6\u30E0"
   typeStr: 109:LIMIT_TOTEM
   category: 0
-  sprite: {fileID: 0}
+  icon: {fileID: 0}
   recastTime: 10
   prefab: {fileID: 0}
   itemMaterials:
-  - type: 204
+  - type: 205
     count: 1
   - type: 0
     count: 3

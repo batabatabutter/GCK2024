@@ -15,11 +15,11 @@ MonoBehaviour:
   toolName: "\u63A1\u6398\u7206\u5F3E"
   typeStr: 111:MINING_BOMB
   category: 0
-  sprite: {fileID: 0}
+  icon: {fileID: 0}
   recastTime: 10
   prefab: {fileID: 3584993475108489714, guid: ad8bf6c4944a96b43a22e91cffd3507d, type: 3}
   itemMaterials:
-  - type: 208
+  - type: 209
     count: 1
   - type: 1
     count: 5

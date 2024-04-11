@@ -15,11 +15,11 @@ MonoBehaviour:
   toolName: "\u7652\u3057\u306E\u677E\u660E"
   typeStr: 107:HEALING_TOACH
   category: 0
-  sprite: {fileID: 0}
+  icon: {fileID: 0}
   recastTime: 10
   prefab: {fileID: 0}
   itemMaterials:
-  - type: 204
+  - type: 205
     count: 1
   - type: 1
     count: 1

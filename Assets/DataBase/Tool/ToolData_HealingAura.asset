@@ -15,9 +15,9 @@ MonoBehaviour:
   toolName: "\u7652\u3057\u306E\u30AA\u30FC\u30E9"
   typeStr: 112:HEALING_AURA
   category: 1
-  sprite: {fileID: 0}
+  icon: {fileID: 0}
   recastTime: 10
   prefab: {fileID: 6405283266790632720, guid: 1e7f3f81fc8f66e409ff199cc607fe1a, type: 3}
   itemMaterials:
-  - type: 208
+  - type: 209
     count: 1

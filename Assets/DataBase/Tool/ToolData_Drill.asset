@@ -15,11 +15,11 @@ MonoBehaviour:
   toolName: "\u30C9\u30EA\u30EB"
   typeStr: 104:DRILL
   category: 1
-  sprite: {fileID: 0}
+  icon: {fileID: 21300000, guid: 279644b5f782ce74cba4fb31c82701de, type: 3}
   recastTime: 10
   prefab: {fileID: 524177092823824717, guid: 687f91ee2012dc64e97946cd339e5990, type: 3}
   itemMaterials:
-  - type: 206
+  - type: 207
     count: 1
   - type: 0
     count: 5
