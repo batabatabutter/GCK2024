@@ -45,7 +45,8 @@ public class Enemy_Dorinoko : EnemyDwell
 
     public override void Attack()
     {
-        Instantiate(m_dori,gameObject.transform.position,Quaternion.identity,gameObject.transform);
+        // 子供のオブジェクトを取得する
+        Instantiate(m_dori, gameObject.transform.position, Quaternion.identity, gameObject.transform);
 
     }
 

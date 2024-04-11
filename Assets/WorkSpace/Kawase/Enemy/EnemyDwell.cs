@@ -35,7 +35,7 @@ public class EnemyDwell : Enemy
         //h‚èæ‚ª€‚ñ‚¾‚ç€‚Ê
         if (!m_dwellBlock)
         {
-           base.Dead();
+           //base.Dead();
         }
     }
 
