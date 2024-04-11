@@ -16,6 +16,7 @@ MonoBehaviour:
   system: 0
   hp: 0
   coolTime: 3.5
+  radius: 3
   dropItems:
   - type: 0
     count: 3

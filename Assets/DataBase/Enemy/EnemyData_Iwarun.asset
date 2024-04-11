@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5ddf80b55ae6ae4e8ba1b8ad937c557, type: 3}
   m_Name: EnemyData_Iwarun
   m_EditorClassIdentifier: 
-  prefab: {fileID: 5906353031345709085, guid: 1e3c7638253476640a9e522370a172fd, type: 3}
+  prefab: {fileID: 7011560388824915914, guid: 0ec43134470245845839e6e69d183daf, type: 3}
+  system: 0
   hp: 0
   coolTime: 5.5
+  radius: 7
   dropItems:
   - type: 0
     count: 8

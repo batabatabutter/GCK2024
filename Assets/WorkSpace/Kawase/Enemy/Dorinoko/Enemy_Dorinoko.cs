@@ -23,24 +23,7 @@ public class Enemy_Dorinoko : EnemyDwell
     {
         base.Update();
 
-        if (base.Player != null)
-        {
-            Transform target = base.Player.transform;
-            // ターゲットの方向ベクトルを計算
-            Vector3 direction = target.position - transform.position;
 
-            // 方向ベクトルを正規化
-            direction.Normalize();
-
-            // 方向ベクトルから角度を計算
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-            // 角度を四捨五入して、0°、90°、180°、270°のいずれかに丸める
-            angle = Mathf.Round(angle / 90) * 90 - 90;
-
-            // オブジェクトを回転
-            transform.rotation = Quaternion.Euler(0, 0, angle);
-        }
     }
 
     public override void Attack()

@@ -60,6 +60,25 @@ public class Enemy : MonoBehaviour
 
         m_dropItems = m_enemyData.dropItems;
 
+
+        // サークルコライダー2Dがアタッチされていない場合、追加する
+        if (GetComponent<CircleCollider2D>() == null)
+        {
+            // サークルコライダー2Dを追加する
+            CircleCollider2D circleCollider = gameObject.AddComponent<CircleCollider2D>();
+
+            // コライダーの半径を設定する
+            circleCollider.radius = m_enemyData.radius;
+
+            // コライダーがトリガーとして動作する
+            circleCollider.isTrigger = true; 
+        }
+        else
+        {
+            GetComponent<CircleCollider2D>().radius = m_enemyData.radius;
+        }
+
+
     }
 
     // Update is called once per frame

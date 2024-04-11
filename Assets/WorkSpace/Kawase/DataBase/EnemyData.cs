@@ -17,6 +17,9 @@ public class EnemyData : ScriptableObject
     [Header("UŒ‚ŠÔŠu")]
     public float coolTime;
 
+    [Header("UŒ‚”ÍˆÍ‚Ì”¼Œa")]
+    public float radius;
+
     //[Header("ƒhƒƒbƒvƒAƒCƒeƒ€")]
     public List<BlockData.DropItems> dropItems;
 
