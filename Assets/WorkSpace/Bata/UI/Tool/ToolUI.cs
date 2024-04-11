@@ -80,20 +80,14 @@ public class ToolUI : MonoBehaviour
         if (isRare)
         {
             minID = (int)ToolData.ToolType.RARE + 1;
-            maxID = m_toolDataBase.toolData.Count - (int)ToolData.ToolType.RARE;
-            //playerToolType = m_player.GetComponent<PlayerTool>().ToolTypeRare;
-            playerToolType = m_player.GetComponent<PlayerTool>().ToolType;
+            maxID = m_toolDataBase.toolRareData.Count + (int)ToolData.ToolType.RARE;
+            playerToolType = m_player.GetComponent<PlayerTool>().ToolTypeRare;
+            Debug.Log("min:" + minID + "_max:" + maxID);
         }
         else
         {
             minID = 0;
-            foreach (var toolData in m_toolDataBase.toolData)
-            {
-                //  見つからなくなったらスキップ
-                if (toolData.Key == ToolData.ToolType.NORMAL_NUM) break;
-
-                maxID++;
-            }
+            maxID = m_toolDataBase.toolNormalData.Count - 1;
             playerToolType = m_player.GetComponent<PlayerTool>().ToolType;
         }
 
@@ -106,13 +100,13 @@ public class ToolUI : MonoBehaviour
         for (int i = 0; i < m_toolObjects.Count; i++)
         {
             //  対応ツール
-            //int thisToolID = playerToolNum - (centerNum - i);
-            int thisToolID = playerToolNum;
+            int thisToolID = playerToolNum - (centerNum - i);
             //  オーバーしてたら修正
-            //if (thisToolID < minID) thisToolID = maxID + thisToolID;
-            //else if (thisToolID >= maxID) thisToolID = thisToolID - maxID;
+            if (thisToolID < minID) thisToolID = (maxID + 1) - minID + thisToolID;
+            else if (thisToolID > maxID) thisToolID = thisToolID - (maxID + 1) + minID;
             //  タイプに変換
             ToolData.ToolType thisToolType = (ToolData.ToolType)thisToolID;
+            Debug.Log(thisToolType);
 
             //  大きさ変更
             m_toolObjects[i].transform.localScale = Vector3.one * m_graphScaleDeg;
@@ -121,24 +115,19 @@ public class ToolUI : MonoBehaviour
             m_toolObjects[i].GetComponent<ToolFrame>().SetIsSelected(false);
             //  ツール画像設定
             m_toolObjects[i].GetComponent<ToolFrame>().SetImage(m_toolDataBase.toolDic[thisToolType].Icon);
-            //m_toolObjects[i].GetComponent<ToolFrame>().SetImage(m_toolDataBase.toolDic[playerToolType].Icon);
             //  ツール作成可能数設定
-            m_toolObjects[i].GetComponent<ToolFrame>().SetNum(GetToolUseNum(thisToolType));
-            //m_toolObjects[i].GetComponent<ToolFrame>().SetNum(GetToolUseNum(playerToolType));
+            if (!isRare)
+                m_toolObjects[i].GetComponent<ToolFrame>().SetNum(GetToolUseNum(thisToolType));
 
             //  クールタイムがあるなら0.0～1.0に補間
             if (m_toolDataBase.toolDic[thisToolType].RecastTime > 0)
             {
-                m_toolObjects[i].GetComponent<ToolFrame>()
+                if (!isRare)
+                    m_toolObjects[i].GetComponent<ToolFrame>()
                 .GetRecastImage().fillAmount =
                 m_player.GetComponent<PlayerAction>()
                 .GetToolRecast(thisToolType) /
                 m_toolDataBase.toolDic[thisToolType].RecastTime;
-                //m_toolObjects[i].GetComponent<ToolFrame>()
-                //.GetRecastImage().fillAmount =
-                //m_player.GetComponent<PlayerAction>()
-                //.GetToolRecast(playerToolType) /
-                //m_toolDataBase.toolDic[playerToolType].RecastTime;
             }
             else
             {
@@ -151,28 +140,6 @@ public class ToolUI : MonoBehaviour
         m_toolObjects[centerNum].GetComponent<ToolFrame>().SetIsSelected(true);
         m_toolObjects[centerNum].transform.localScale = Vector3.one;
     }
-
-    ////  ツール作成可能数取得
-    //public int GetToolUseNum(int toolType)
-    //{
-    //    //  可能数
-    //    int num = int.MaxValue;
-
-    //    //  アイテム数取得
-    //    for (int i = 0; i < m_toolDataBase.tool[toolType].ItemMaterials.Length; i++)
-    //    {
-    //        //  アイテム
-    //        ItemData.ItemType type = m_toolDataBase.tool[toolType].ItemMaterials[i].type;
-    //        int count = m_toolDataBase.tool[toolType].ItemMaterials[i].count;
-
-    //        //  所持アイテム数から作成可能数を割り出す
-    //        num = Mathf.Min(num,
-    //            m_player.transform.Find("Item").gameObject.
-    //            GetComponent<PlayerItem>().Items[type] / count);
-    //    }
-
-    //    return num;
-    //}
 
     //  ツール作成可能数取得
     private int GetToolUseNum(ToolData.ToolType toolType)
