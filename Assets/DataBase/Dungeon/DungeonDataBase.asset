@@ -15,3 +15,4 @@ MonoBehaviour:
   dungeonDatas:
   - {fileID: 11400000, guid: 69c8c3a09511b1044ad6fd27a7170a2a, type: 2}
   - {fileID: 11400000, guid: fe30182db5f5b2a45a8abfbb0f3501a1, type: 2}
+  - {fileID: 11400000, guid: 86276ac7ab57a5c4a823651ab8bcfc51, type: 2}
