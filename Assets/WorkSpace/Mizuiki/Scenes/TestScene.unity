@@ -204,7 +204,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &75050969
 Transform:
   m_ObjectHideFlags: 0
@@ -341,6 +341,7 @@ MonoBehaviour:
   m_player: {fileID: 6945831396311541013, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
   m_playSceneManager: {fileID: 0}
   m_ground: {fileID: 0}
+  m_dungeonGeneratorDig: {fileID: 0}
 --- !u!222 &425261721
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3483,6 +3484,32 @@ Transform:
   - {fileID: 662870471}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1242418141 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1614570275442964, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
+  m_PrefabInstance: {fileID: 1621739907}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1242418148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242418141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0455d59bf1346c94a923cf9a1ecbeed5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_roomRange:
+    min: 5
+    max: 15
+  m_pathRange:
+    min: 3
+    max: 20
+  m_maxCount: 150
+  m_roomGenerateRate: 0.2
+  m_pathFillRate: 0.5
 --- !u!1 &1356507940
 GameObject:
   m_ObjectHideFlags: 0
@@ -4572,7 +4599,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1614570275442964, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 792408576829412996, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
       propertyPath: m_ground
@@ -4585,6 +4612,18 @@ PrefabInstance:
     - target: {fileID: 792408576829412996, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
       propertyPath: m_isBrightness
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 792408576829412996, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
+      propertyPath: m_dungeonGeneratorDig
+      value: 
+      objectReference: {fileID: 1242418148}
+    - target: {fileID: 3469568166959932924, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
+      propertyPath: m_debugFlag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3469568166959932924, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
+      propertyPath: m_debugStageNum
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4028424752848547877, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4629,7 +4668,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1614570275442964, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1242418148}
   m_SourcePrefab: {fileID: 100100000, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
 --- !u!1 &1837239483
 GameObject:

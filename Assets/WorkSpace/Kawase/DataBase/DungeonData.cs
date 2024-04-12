@@ -4,6 +4,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "DungeonData", menuName = "CreateDungeonData")]
 public class DungeonData : ScriptableObject
 {
+    // 生成パターン
+    [System.Serializable]
+    public enum Pattern
+    {
+        TEN_X_TEN,      // 10 * 10
+        DIGGING,        // 穴掘り
+    }
+
     [Header("ダンジョンのCSV")]
     public List<TextAsset> dungeonCSV;
 
@@ -12,6 +20,9 @@ public class DungeonData : ScriptableObject
 
     [Header("ダンジョンの生成確率")]
     public List<DungeonGenerator.BlockOdds> dungeonOdds;
+
+    [Header("ダンジョンの生成パターン")]
+    public Pattern pattern;
 
     [Header("ダンジョンの攻撃パターン")]
     public List<DungeonAttack.AttackPattern> dungeonAttackPattern;

@@ -34,7 +34,9 @@ public class TestDungeonGenerator1 : TestDungeonGeneratorBase
     [System.Serializable]
     struct RangeInt
     {
+        [Min(0)]
         public int min;
+        [Min(1)]
         public int max;
     }
     // 部屋(通路にも使用)
@@ -51,7 +53,7 @@ public class TestDungeonGenerator1 : TestDungeonGeneratorBase
     [Header("道の長さの範囲")]
     [SerializeField] private RangeInt m_pathRange;
 
-    [Header("生成の最大数")]
+    [Header("生成の最大数"), Min(0)]
     [SerializeField] private int m_maxCount = 100;
 
     [Header("部屋の生成率")]
@@ -71,9 +73,10 @@ public class TestDungeonGenerator1 : TestDungeonGeneratorBase
     // マップのサイズ
     private Vector2Int m_mapSize;
 
-	private void Update()
-	{
-	}
+    // ダンジョンデータの設定
+    public void SetDungeonData(DungeonData dungeonData)
+    {
+    }
 
 	public override List<List<string>> GenerateDungeon(Vector2Int size)
     {
