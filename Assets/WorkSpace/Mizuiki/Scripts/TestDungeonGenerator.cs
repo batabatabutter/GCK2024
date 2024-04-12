@@ -10,8 +10,7 @@ public class TestDungeonGenerator : MonoBehaviour
 	[SerializeField] private Object m_dungeonData = null;
 
 	[Header("ダンジョンのサイズ")]
-	[SerializeField] private int m_dungeonSizeX;
-	[SerializeField] private int m_dungeonSizeY;
+	[SerializeField] private Vector2Int m_dungeonSize;
 
 	[System.Serializable]
 	struct MapBlock
@@ -22,11 +21,17 @@ public class TestDungeonGenerator : MonoBehaviour
 
 	[Header("生成ブロック")]
 	[SerializeField] private MapBlock[] m_setBlocks;
-	private Dictionary<string, BlockData.BlockType> m_blocks = new();
+	private readonly Dictionary<string, BlockData.BlockType> m_blocks = new();
 
 	[Header("ブロックジェネレータ")]
 	[SerializeField] private BlockGenerator m_blockGenerator;
 
+	[Header("生成方式のインデックス")]
+	[SerializeField] private int m_dungeonIndex = 0;
+	[Header("生成スクリプトの配列")]
+	[SerializeField] private TestDungeonGeneratorBase[] m_dungeonGenerators;
+
+	[Header("プレイヤー(インスタンス用)")]
 	[SerializeField] GameObject m_player = null;
 
 
@@ -52,11 +57,21 @@ public class TestDungeonGenerator : MonoBehaviour
 			Instantiate(m_player);
 		}
 
-		// SCV読み込み
-		GenerateSCV();
+		List<List<string>> mapList;
 
-		// ダンジョンらしいダンジョン生成
-		//GenerateRoom();
+		// 生成
+		if (m_dungeonGenerators.Length > 0)
+		{
+			mapList = m_dungeonGenerators[m_dungeonIndex].GenerateDungeon(m_dungeonSize);
+		}
+		else
+		{
+			// SCV読み込み
+			mapList = GenerateSCV();
+		}
+
+		// マップの生成
+		Generate(mapList);
 
 	}
 
@@ -84,7 +99,7 @@ public class TestDungeonGenerator : MonoBehaviour
 				Vector3 pos = new(x, y, 0.0f);
 
 				// ブロックの生成
-				GameObject block = m_blockGenerator.GenerateBlock(m_blocks[name], pos);
+				m_blockGenerator.GenerateBlock(m_blocks[name], pos);
 
 			}
 		}
@@ -92,11 +107,11 @@ public class TestDungeonGenerator : MonoBehaviour
 	}
 
 	// CSV読み込みの生成
-	private void GenerateSCV()
+	private List<List<string>> GenerateSCV()
 	{
 		// ファイルがなければマップ読み込みの処理をしない
 		if (!m_dungeonData)
-			return;
+			return new();
 
 		// マップのリスト
 		List<List<string>> mapList = new ();
@@ -121,44 +136,8 @@ public class TestDungeonGenerator : MonoBehaviour
 			mapList.Add(list);
 		}
 
-		// マップの生成
-		Generate(mapList);
-
+		return mapList;
 	}
 
-
-	struct Room
-	{
-		int topLeftX;   // 左上座標X
-		int topLeftY;   // 左上座標Y
-		int width;		// 幅
-		int height;		// 高さ
-
-	}
-
-	// 部屋分けダンジョン生成
-	private void GenerateRoom()
-	{
-		// マップ
-		List<List<string>> mapList = new ();
-
-		// マップの初期化
-		for (int y = 0; y < m_dungeonSizeY; y++)
-		{
-			mapList.Add(new List<string>());
-
-			for (int x = 0; x < m_dungeonSizeX; x++)
-			{
-				// 通常ブロックで埋める
-				mapList[y].Add("1");
-			}
-		}
-
-		// 部屋の生成数(5 ~ 10)
-		int generateRoomCount = Random.Range(5, 10);
-
-
-
-	}
 
 }

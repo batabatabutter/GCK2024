@@ -196,13 +196,15 @@ GameObject:
   - component: {fileID: 75050969}
   - component: {fileID: 75050970}
   - component: {fileID: 75050971}
+  - component: {fileID: 75050973}
+  - component: {fileID: 75050972}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &75050969
 Transform:
   m_ObjectHideFlags: 0
@@ -232,16 +234,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_dungeonData: {fileID: 4900000, guid: 43fce2a9671a62744ae85b889cb50413, type: 3}
-  m_dungeonSizeX: 0
-  m_dungeonSizeY: 0
+  m_dungeonSize: {x: 100, y: 100}
   m_setBlocks:
   - mapName: 1
     blockType: 0
   - mapName: 2
-    blockType: 102
+    blockType: 502
   - mapName: 3
-    blockType: 101
+    blockType: 501
   m_blockGenerator: {fileID: 75050971}
+  m_dungeonIndex: 0
+  m_dungeonGenerators:
+  - {fileID: 75050973}
+  - {fileID: 75050972}
   m_player: {fileID: 0}
 --- !u!114 &75050971
 MonoBehaviour:
@@ -258,6 +263,42 @@ MonoBehaviour:
   m_blockDataBase: {fileID: 11400000, guid: c2edababa67c99348a73038833ee0dbc, type: 2}
   m_mapObject: {fileID: 1862195980944505719, guid: 6626405694a3a3e4191b6cfe03fe79e8, type: 3}
   m_mapBlind: {fileID: 1862195980944505719, guid: c1924fe14703f584b922f18489774354, type: 3}
+--- !u!114 &75050972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 75050967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bdeab2298016ab4ea1f396ce5084034, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MINIMUM_SIZE: 5
+  AISLE_WIDTH: 3
+  m_roomCount: {x: 0, y: 0}
+--- !u!114 &75050973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 75050967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0455d59bf1346c94a923cf9a1ecbeed5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_roomRange:
+    min: 5
+    max: 15
+  m_pathRange:
+    min: 3
+    max: 20
+  m_maxCount: 150
+  m_roomGenerateRate: 0.2
+  m_pathFillRate: 0.5
 --- !u!224 &145493590 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5673070608454416527, guid: 565ea1613a295a746acd0e483db3e630, type: 3}
@@ -4531,7 +4572,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1614570275442964, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 792408576829412996, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
       propertyPath: m_ground
@@ -4766,7 +4807,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2116144918
 MonoBehaviour:
   m_ObjectHideFlags: 0
