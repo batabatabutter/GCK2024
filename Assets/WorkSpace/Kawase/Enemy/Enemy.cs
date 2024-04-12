@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 /// <summary>
 /// 一番親アダムイブ
 /// </summary>
@@ -18,7 +19,7 @@ public class Enemy : MonoBehaviour
     //系統
     public enum System
     {
-        Dwell,
+        Dwell,//宿り型
 
 
         OverID
@@ -29,6 +30,9 @@ public class Enemy : MonoBehaviour
 
     [Header("アイテムのデータベース")]
     [SerializeField] private ItemDataBase m_itemDataBase = null;
+
+    [Header("障害物レイヤー")]
+    [SerializeField] private LayerMask m_blockLayer;
 
     //プレイヤー
     private GameObject m_player = null;
@@ -84,7 +88,6 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-
         if (m_attackCoolTime < 0)
         {
             //攻撃
@@ -94,10 +97,25 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            m_attackCoolTime -= Time.deltaTime;
+            float length = m_enemyData.radius;
+            Transform startTransform = transform;
+
+            if (m_player && Vector3.Distance(startTransform.position, m_player.transform.position) < length)
+            {
+                Vector3 direction = m_player.transform.position - startTransform.position;
+
+                RaycastHit hit;
+                // レイを飛ばす
+                if (!Physics.Raycast(startTransform.position, direction, out hit, length, m_blockLayer))
+                {
+                    // 線をデバッグ表示
+                    Debug.DrawLine(startTransform.position, m_player.transform.position, Color.red);
+                    // ここで処理を行う（ブロックされていない場合の処理）
+                    m_attackCoolTime -= Time.deltaTime;
+                }
+            }
+
         }
-
-
     }
 
     public virtual void Attack()

@@ -101,6 +101,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_enemyData: {fileID: 11400000, guid: 82a7b3d348821b24bbb1e40a0c81112e, type: 2}
   m_itemDataBase: {fileID: 11400000, guid: c534141616c2bbc4ba996d4d9f120330, type: 2}
+  m_blockLayer:
+    serializedVersion: 2
+    m_Bits: 8
   m_dori: {fileID: 2229316193798925885, guid: 84d9cc8547f1dac43b3379e951c356bb, type: 3}
 --- !u!58 &-8482557614235469475
 CircleCollider2D:

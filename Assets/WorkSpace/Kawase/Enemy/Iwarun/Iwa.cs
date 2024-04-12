@@ -47,8 +47,11 @@ public class Iwa : Enemy_AttackBall
         // 親オブジェクトの回転を取得する
         m_parentRotation = transform.parent.transform.rotation;
 
+        Vector2 targetPos = transform.parent.GetComponent<Enemy_Iwarun>().Player.transform.position;
+        Vector2 startLocation = transform.parent.position;
+
         // 親オブジェクトの正面方向を取得する
-        m_velocityDirection = (Vector2)(m_parentRotation * Vector3.up).normalized;
+        m_velocityDirection = (Vector2)(targetPos - startLocation).normalized;
 
         transform.parent = null;
         m_isMove = true;
