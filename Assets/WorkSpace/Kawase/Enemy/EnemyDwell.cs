@@ -44,7 +44,7 @@ public class EnemyDwell : Enemy
         }
     }
 
-    private void RotationToPlayer()
+    protected void RotationToPlayer()
     {
         Transform target = base.Player.transform;
         // ターゲットの方向ベクトルを計算

@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour
     }
 
     [Header("敵データベース")]
-    [SerializeField] EnemyData m_enemyData;
+    [SerializeField] protected EnemyData m_enemyData;
 
     [Header("アイテムのデータベース")]
     [SerializeField] private ItemDataBase m_itemDataBase = null;
@@ -51,7 +51,7 @@ public class Enemy : MonoBehaviour
 
 
     //攻撃間隔
-    float m_attackCoolTime;
+    protected float m_attackCoolTime;
 
     //ドロップアイテム
     List<BlockData.DropItems> m_dropItems;
@@ -176,7 +176,7 @@ public class Enemy : MonoBehaviour
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && m_player == null)
         {
             m_player = collision.gameObject;
 

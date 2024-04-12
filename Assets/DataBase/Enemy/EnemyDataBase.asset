@@ -15,3 +15,4 @@ MonoBehaviour:
   enemyDatas:
   - {fileID: 11400000, guid: 82a7b3d348821b24bbb1e40a0c81112e, type: 2}
   - {fileID: 11400000, guid: 113b525e8be9cdf438212f0df16b25ad, type: 2}
+  - {fileID: 11400000, guid: 87eb7d1e36a7eff46bbed418b20ad7d3, type: 2}
