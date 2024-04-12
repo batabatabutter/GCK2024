@@ -82,7 +82,6 @@ public class ToolUI : MonoBehaviour
             minID = (int)ToolData.ToolType.RARE + 1;
             maxID = m_toolDataBase.toolRareData.Count + (int)ToolData.ToolType.RARE;
             playerToolType = m_player.GetComponent<PlayerTool>().ToolTypeRare;
-            Debug.Log("min:" + minID + "_max:" + maxID);
         }
         else
         {
@@ -106,7 +105,6 @@ public class ToolUI : MonoBehaviour
             else if (thisToolID > maxID) thisToolID = thisToolID - (maxID + 1) + minID;
             //  タイプに変換
             ToolData.ToolType thisToolType = (ToolData.ToolType)thisToolID;
-            Debug.Log(thisToolType);
 
             //  大きさ変更
             m_toolObjects[i].transform.localScale = Vector3.one * m_graphScaleDeg;
