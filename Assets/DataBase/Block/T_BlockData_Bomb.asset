@@ -18,7 +18,7 @@ MonoBehaviour:
   dontBroken: 0
   lightLevel: 0
   prefab: {fileID: 0}
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 92266822cb345e743a0f64be6fce1a60, type: 3}
   dropItem: []
   color: {r: 0.2603773, g: 0.2603773, b: 0.2603773, a: 1}
   order: 0
