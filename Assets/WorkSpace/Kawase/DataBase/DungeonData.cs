@@ -12,17 +12,11 @@ public class DungeonData : ScriptableObject
         DIGGING,        // 穴掘り
     }
 
-    [Header("ダンジョンのCSV")]
-    public List<TextAsset> dungeonCSV;
-
-    [Header("ダンジョンの大きさ(X:1 Y:1 = 10 * 10)")]
-    public Vector2 dungeonSize;
+    [Header("ダンジョンの生成パターン")]
+    public Pattern pattern;
 
     [Header("ダンジョンの生成確率")]
     public List<DungeonGenerator.BlockOdds> dungeonOdds;
-
-    [Header("ダンジョンの生成パターン")]
-    public Pattern pattern;
 
     [Header("ダンジョンの攻撃パターン")]
     public List<DungeonAttack.AttackPattern> dungeonAttackPattern;
@@ -35,5 +29,12 @@ public class DungeonData : ScriptableObject
 
     [Header("敵の出現頻度")]
     public float enemySpawnTime;
+
+
+    [Header("ダンジョンの大きさ(X:1 Y:1 = 10 * 10)")]
+    public Vector2 dungeonSize;
+
+    [Header("ダンジョンのCSV")]
+    public List<TextAsset> dungeonCSV;
 
 }

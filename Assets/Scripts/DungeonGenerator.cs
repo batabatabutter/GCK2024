@@ -38,8 +38,7 @@ public class DungeonGenerator : MonoBehaviour
     [SerializeField] private GameObject m_ground;
 
     //コアの位置
-    private int m_corePosX;
-    private int m_corePosY;
+    private Vector2Int m_corePos;
     //プレイヤーの位置
     private Vector2 m_playerPos;
     //ブロックの親
@@ -49,7 +48,7 @@ public class DungeonGenerator : MonoBehaviour
     private BlockGenerator m_blockGenerator;
 
     [Header("ダンジョン生成スクリプト")]
-    [SerializeField] private TestDungeonGenerator1 m_dungeonGeneratorDig = new();
+    [SerializeField] private TestDungeonGenerator1 m_dungeonGeneratorDig = null;
 
 
     private void Awake()
@@ -72,48 +71,6 @@ public class DungeonGenerator : MonoBehaviour
         // 生成パターン取得
         DungeonData.Pattern pattern = dungeonData.pattern;
 
-        // コアの生成座標決定
-        m_corePosX = Random.Range(0, (int)dungeonSize.x * 10);
-        m_corePosY = Random.Range(0, (int)dungeonSize.y * 10);
-
-        int roop_error = 0;
-
-        //プレイヤーとコアの位置が離れるまで繰り返す
-        do
-        {
-            m_playerPos = new Vector2(Random.Range(0, (int)dungeonSize.x * 10), Random.Range(0, (int)dungeonSize.y * 10));
-
-            if (roop_error > 100)
-            {
-                Debug.Log("コアとプレイヤーが近すぎます。間隔を見直してください");
-                break;
-            }
-            roop_error++;
-
-        }
-        while (
-        m_playerPos.x < m_corePosX + m_playerLength &&
-        m_playerPos.x > m_corePosX - m_playerLength &&
-        m_playerPos.y < m_corePosY + m_playerLength &&
-        m_playerPos.y > m_corePosY - m_playerLength
-        );
-
-        //  プレイヤーの生成
-        GameObject pl = Instantiate<GameObject>(m_player, m_playerPos, Quaternion.identity);
-
-        // coreの生成
-        GameObject co = m_blockGenerator.GenerateBlock(BlockData.BlockType.CORE, new Vector3(m_corePosX, m_corePosY), null, m_isBrightness);
-
-
-        //  プレイシーンマネージャーが無かったら格納しない
-        if (m_playSceneManager == null)
-            Debug.Log("Error:Playerの格納に失敗 PlaySceneManagerが見つかりません:DungeonManager");
-        else
-        {
-            m_playSceneManager.SetPlayer(pl);
-            m_playSceneManager.SetCore(co);
-        }
-
         // 生成パターンごと
         switch (pattern)
         {
@@ -122,7 +79,7 @@ public class DungeonGenerator : MonoBehaviour
                 break;
 
             case DungeonData.Pattern.DIGGING:
-                GenerateDigging(dungeonData, dungeonSize);
+                GenerateDigging(dungeonData);
                 break;
         }
 
@@ -131,8 +88,50 @@ public class DungeonGenerator : MonoBehaviour
 
     void Generate10to10(DungeonData dungeonData, Vector2 size)
     {
+		// コアの生成座標決定
+		m_corePos.x = Random.Range(0, (int)size.x * 10);
+		m_corePos.y = Random.Range(0, (int)size.y * 10);
+
+		int roop_error = 0;
+
+		//プレイヤーとコアの位置が離れるまで繰り返す
+		do
+		{
+			m_playerPos = new Vector2(Random.Range(0, (int)size.x * 10), Random.Range(0, (int)size.y * 10));
+
+			if (roop_error > 100)
+			{
+				Debug.Log("コアとプレイヤーが近すぎます。間隔を見直してください");
+				break;
+			}
+			roop_error++;
+
+		}
+		while (
+		m_playerPos.x < m_corePos.x + m_playerLength &&
+		m_playerPos.x > m_corePos.x - m_playerLength &&
+		m_playerPos.y < m_corePos.y + m_playerLength &&
+		m_playerPos.y > m_corePos.y - m_playerLength
+		);
+
+		//  プレイヤーの生成
+		GameObject pl = Instantiate<GameObject>(m_player, m_playerPos, Quaternion.identity);
+
+		// coreの生成
+		GameObject co = m_blockGenerator.GenerateBlock(BlockData.BlockType.CORE, new Vector3(m_corePos.x, m_corePos.y), null, m_isBrightness);
+
+
+		//  プレイシーンマネージャーが無かったら格納しない
+		if (m_playSceneManager == null)
+			Debug.Log("Error:Playerの格納に失敗 PlaySceneManagerが見つかりません:DungeonManager");
+		else
+		{
+			m_playSceneManager.SetPlayer(pl);
+			m_playSceneManager.SetCore(co);
+		}
+
 		//１０＊１０のリスト管理用
-		List<List<List<string>>> mapListManager = new List<List<List<string>>>();
+		List<List<List<string>>> mapListManager = new ();
 
 		//データベースからリストの取得
 		List<TextAsset> dungeonCSV = dungeonData.dungeonCSV;
@@ -148,7 +147,7 @@ public class DungeonGenerator : MonoBehaviour
 			}
 
 			// マップのリスト
-			List<List<string>> mapList = new List<List<string>>();
+			List<List<string>> mapList = new ();
 
 			// ファイルの内容を1行ずつ処理
 			string[] lines = dungeonCSV[i].text.Split('\n');
@@ -157,7 +156,7 @@ public class DungeonGenerator : MonoBehaviour
 				string[] values = line.Split(',');
 
 				// 各行のデータを格納するリスト
-				List<string> rowData = new List<string>();
+				List<string> rowData = new ();
 
 				// 各列の値を処理する
 				foreach (string value in values)
@@ -208,7 +207,7 @@ public class DungeonGenerator : MonoBehaviour
 				Vector3 pos = new(x, y, 0.0f);
 
 				// ブロックの生成
-				GameObject block = Instantiate<GameObject>(m_ground, pos, Quaternion.identity);
+				GameObject block = Instantiate(m_ground, pos, Quaternion.identity);
 
 				block.transform.parent = m_parent.transform;
 
@@ -230,7 +229,7 @@ public class DungeonGenerator : MonoBehaviour
                 }
 
                 //コアを生成
-                if (m_corePosX == x + originX && m_corePosY == y + originY)
+                if (m_corePos.x == x + originX && m_corePos.y == y + originY)
                 {
                     continue;
                 }
@@ -253,9 +252,73 @@ public class DungeonGenerator : MonoBehaviour
         }
     }
 
-    void GenerateDigging(DungeonData dungeonData, Vector2 size)
+    void GenerateDigging(DungeonData dungeonData)
     {
-        List<List<string>> mapList = m_dungeonGeneratorDig.GenerateDungeon(new Vector2Int((int)size.x, (int)size.y));
+		// 派生クラスにキャストする
+		DungeonDataDigging dig = dungeonData as DungeonDataDigging;
+		// キャストできなかった
+		if (dungeonData == null)
+			return;
+
+		// ダンジョンのサイズ取得
+		Vector2Int dungeonSize = dig.Size;
+
+		// データの設定
+		m_dungeonGeneratorDig.SetDungeonData(dig);
+		// マップの取得
+		List<List<string>> mapList = m_dungeonGeneratorDig.GenerateDungeon(dungeonSize);
+
+		// コアの生成座標決定(無限ループにならないように回数制限をつける)
+		for (int i = 0; i < 1000000; i++)
+		{
+			// コアの生成位置をランダムで取得
+			Vector2Int pos = new(Random.Range(0, dungeonSize.x), Random.Range(0, dungeonSize.y));
+			// 生成位置がブロックなら設定してループを抜ける
+			if (mapList[pos.y][pos.x] == "1")
+			{
+				m_corePos = pos;
+				break;
+			}
+		}
+
+		int roop_error = 0;
+
+		//プレイヤーとコアの位置が離れるまで繰り返す
+		do
+		{
+			m_playerPos = new Vector2(Random.Range(0.0f, dungeonSize.x), Random.Range(0.0f, dungeonSize.y));
+
+			if (roop_error > 100)
+			{
+				Debug.Log("コアとプレイヤーが近すぎます。間隔を見直してください");
+				break;
+			}
+			roop_error++;
+
+		}
+		// コアに近い限りループ
+		while (
+		m_playerPos.x < m_corePos.x + m_playerLength &&
+		m_playerPos.x > m_corePos.x - m_playerLength &&
+		m_playerPos.y < m_corePos.y + m_playerLength &&
+		m_playerPos.y > m_corePos.y - m_playerLength
+		);
+
+		//  プレイヤーの生成
+		GameObject pl = Instantiate(m_player, m_playerPos, Quaternion.identity);
+
+		// coreの生成
+		GameObject co = m_blockGenerator.GenerateBlock(BlockData.BlockType.CORE, new Vector3(m_corePos.x, m_corePos.y), null, m_isBrightness);
+
+
+		//  プレイシーンマネージャーが無かったら格納しない
+		if (m_playSceneManager == null)
+			Debug.Log("Error:Playerの格納に失敗 PlaySceneManagerが見つかりません:DungeonManager");
+		else
+		{
+			m_playSceneManager.SetPlayer(pl);
+			m_playSceneManager.SetCore(co);
+		}
 
         // ブロック生成
         for (int y = 0; y < mapList.Count; y++)
@@ -268,7 +331,7 @@ public class DungeonGenerator : MonoBehaviour
 					continue;
 				}
 				//コアを生成
-				if (m_corePosX == x && m_corePosY == y)
+				if (m_corePos.x == x && m_corePos.y == y)
 				{
 					continue;
 				}
@@ -286,27 +349,27 @@ public class DungeonGenerator : MonoBehaviour
 		}
 
 		//岩盤で囲う
-		for (int i = 0; i < (int)size.y; i++)
+		for (int i = 0; i < dungeonSize.y; i++)
 		{
 			m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(-1, i, 0), m_parent.transform, m_isBrightness);
-			m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3((int)size.y, i, 0), m_parent.transform, m_isBrightness);
+			m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(dungeonSize.y, i, 0), m_parent.transform, m_isBrightness);
 		}
-		for (int i = 0; i < (int)size.x; i++)
+		for (int i = 0; i < dungeonSize.x; i++)
 		{
 			m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(i, -1, 0), m_parent.transform, m_isBrightness);
-			m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(i, (int)size.y, 0), m_parent.transform, m_isBrightness);
+			m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(i, dungeonSize.y, 0), m_parent.transform, m_isBrightness);
 		}
 
 		//地面の生成
-		for (int y = 0; y < (int)size.y; ++y)
+		for (int y = 0; y < dungeonSize.y; ++y)
 		{
-			for (int x = 0; x < (int)size.x; ++x)
+			for (int x = 0; x < dungeonSize.x; ++x)
 			{
 				// 生成座標
 				Vector3 pos = new(x, y, 0.0f);
 
 				// ブロックの生成
-				GameObject block = Instantiate<GameObject>(m_ground, pos, Quaternion.identity);
+				GameObject block = Instantiate(m_ground, pos, Quaternion.identity);
 
 				block.transform.parent = m_parent.transform;
 

@@ -13,12 +13,8 @@ public class PlayerUpgrade : MonoBehaviour
     [Header("採掘強化")]
     [SerializeField] private ToolData m_upgradeData = null;
 
-    [Header("採掘速度")]
-    [SerializeField] private float m_upgradeSpeed = 0.1f;
-    [Header("採掘力")]
-    [SerializeField] private float m_upgradePower = 10.0f;
-    [Header("クリティカル率")]
-    [SerializeField] private float m_upgradeCritical = 1.0f;
+    [Header("強化値")]
+    [SerializeField] private PlayerMining.MiningValue m_upgradeValue;
 
     [Header("強化ランク")]
     [SerializeField] private int m_upgradeRank = 1;
@@ -62,15 +58,8 @@ public class PlayerUpgrade : MonoBehaviour
         // アップグレード
         m_upgradeRank += value;
 
-        PlayerMining.MiningValue val = new()
-        {
-            power = m_upgradePower,
-            speed = m_upgradeSpeed,
-            critical = m_upgradeCritical
-        };
-
         // 強化
-        m_playerMining.MiningValueBase += val;
+        m_playerMining.MiningValueBase += m_upgradeValue * value;
 
         // 素材の消費
         m_playerTool.ConsumeMaterials(m_upgradeData, value);

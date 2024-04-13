@@ -30,15 +30,6 @@ public class TestDungeonGenerator1 : TestDungeonGeneratorBase
         OVER,
     }
 
-    // 範囲
-    [System.Serializable]
-    struct RangeInt
-    {
-        [Min(0)]
-        public int min;
-        [Min(1)]
-        public int max;
-    }
     // 部屋(通路にも使用)
     struct Room
     {
@@ -48,10 +39,10 @@ public class TestDungeonGenerator1 : TestDungeonGeneratorBase
         public Tile tile;
     }
     [Header("部屋のサイズの最小値と最大値")]
-    [SerializeField] private RangeInt m_roomRange;
+    [SerializeField] private MyFunction.MinMax m_roomRange;
 
-    [Header("道の長さの範囲")]
-    [SerializeField] private RangeInt m_pathRange;
+    [Header("通路の長さの範囲")]
+    [SerializeField] private MyFunction.MinMax m_pathRange;
 
     [Header("生成の最大数"), Min(0)]
     [SerializeField] private int m_maxCount = 100;
@@ -62,20 +53,30 @@ public class TestDungeonGenerator1 : TestDungeonGeneratorBase
     [Header("通路が埋まっている割合")]
     [SerializeField, Range(0.0f, 1.0f)] private float m_pathFillRate = 0.5f;
 
-    // タイルマップ
-    List<List<Tile>> m_tiles = new();
+	// タイルマップ
+	readonly List<List<Tile>> m_tiles = new();
 
     // 部屋の配列
-    private List<Room> m_rooms = new();
+    private readonly List<Room> m_rooms = new();
     // 通路の生成可能位置
-    private List<Room> m_root = new();
+    private readonly List<Room> m_root = new();
 
     // マップのサイズ
     private Vector2Int m_mapSize;
 
     // ダンジョンデータの設定
-    public void SetDungeonData(DungeonData dungeonData)
+    public void SetDungeonData(DungeonDataDigging dungeonData)
     {
+        // 部屋のサイズ
+        m_roomRange = dungeonData.RoomRange;
+        // 通路の長さ
+        m_pathRange = dungeonData.PathRange;
+        // 生成の最大数
+        m_maxCount = dungeonData.MaxCount;
+        // 部屋の生成率
+        m_roomGenerateRate = dungeonData.RoomGenerateRate;
+        // 通路の埋め立て
+        m_pathFillRate = dungeonData.PathFillRate;
     }
 
 	public override List<List<string>> GenerateDungeon(Vector2Int size)
@@ -83,13 +84,14 @@ public class TestDungeonGenerator1 : TestDungeonGeneratorBase
         // タイルマップ初期化
         for (int y = 0; y < size.y; y++)
         {
-            // 行の追加
-            m_tiles.Add(new());
+            List<Tile> tiles = new();
             for (int x = 0; x < size.x; x++)
             {
                 // 列の追加
-                m_tiles[y].Add(Tile.BLOCK);
+                tiles.Add(Tile.BLOCK);
             }
+            // 行の追加
+            m_tiles.Add(tiles);
         }
 
         // マップのサイズ取得

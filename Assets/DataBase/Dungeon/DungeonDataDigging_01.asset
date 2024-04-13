@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c6b8fc460f885c438a933dce6da20c1, type: 3}
-  m_Name: DungeonData_Test
+  m_Script: {fileID: 11500000, guid: 82a82efb7a028c246a3f184825fdc42f, type: 3}
+  m_Name: DungeonDataDigging_01
   m_EditorClassIdentifier: 
-  dungeonCSV: []
-  dungeonSize: {x: 5, y: 5}
+  pattern: 1
   dungeonOdds:
   - type: 0
     odds: 66
@@ -21,8 +20,19 @@ MonoBehaviour:
     odds: 33
   - type: 207
     odds: 1
-  pattern: 1
   dungeonAttackPattern: 000000000100000002000000
   dungeonAttackCoolTime: 6
   enemy: 00000000
   enemySpawnTime: 5
+  dungeonSize: {x: 0, y: 0}
+  dungeonCSV: []
+  size: {x: 50, y: 50}
+  roomRange:
+    min: 5
+    max: 15
+  pathRange:
+    min: 3
+    max: 20
+  maxCount: 100
+  roomGenerateRate: 0.2
+  pathFillRate: 0.5

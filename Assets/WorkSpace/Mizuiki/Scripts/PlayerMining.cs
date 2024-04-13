@@ -68,7 +68,21 @@ public class PlayerMining : MonoBehaviour
 			};
 			return val;
         }
-    }
+        public static MiningValue operator *(MiningValue value, float product)
+        {
+			MiningValue val = new()
+			{
+				range = value.range * product,
+				size = value.size * product,
+				power = value.power * product,
+				speed = value.speed * product,
+				critical = value.critical * product,
+				criticalDamage = value.criticalDamage * product,
+				itemDrop = value.itemDrop * product
+			};
+			return val;
+		}
+	}
 
     [Header("レイヤーマスク")]
     [SerializeField] private LayerMask m_layerMask;

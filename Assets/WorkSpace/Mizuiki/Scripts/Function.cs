@@ -5,6 +5,16 @@ using UnityEngine;
 
 public class MyFunction
 {
+	// ”ÍˆÍ
+	[System.Serializable]
+	public struct MinMax
+	{
+		[Min(0)]
+		public int min;
+		[Min(1)]
+		public int max;
+	}
+
 	// ŽlŽÌŒÜ“ü
 	static public Vector2 RoundHalfUp(Vector2 value)
 	{
