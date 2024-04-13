@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestDungeonGenerator2 : TestDungeonGeneratorBase
+public class TestDungeonGenerator2 : DungeonGeneratorBase
 {
 	class Room
 	{

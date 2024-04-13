@@ -29,7 +29,7 @@ public class TestDungeonGenerator : MonoBehaviour
 	[Header("生成方式のインデックス")]
 	[SerializeField] private int m_dungeonIndex = 0;
 	[Header("生成スクリプトの配列")]
-	[SerializeField] private TestDungeonGeneratorBase[] m_dungeonGenerators;
+	[SerializeField] private DungeonGeneratorBase[] m_dungeonGenerators;
 
 	[Header("プレイヤー(インスタンス用)")]
 	[SerializeField] GameObject m_player = null;

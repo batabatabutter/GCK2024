@@ -48,7 +48,7 @@ public class DungeonGenerator : MonoBehaviour
     private BlockGenerator m_blockGenerator;
 
     [Header("ダンジョン生成スクリプト")]
-    [SerializeField] private TestDungeonGenerator1 m_dungeonGeneratorDig = null;
+    [SerializeField] private DungeonGeneratorBase[] m_dungeonGeneratorDig = null;
 
 
     private void Awake()
