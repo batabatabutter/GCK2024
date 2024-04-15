@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-[CreateAssetMenu(fileName = "ToolData", menuName = "CreateTool")]
+[CreateAssetMenu(fileName = "ToolData_", menuName = "CreateDataBase/Tool/ToolData")]
 public class ToolData : ScriptableObject
 {
 	// ƒc[ƒ‹‚Ìí—Ş

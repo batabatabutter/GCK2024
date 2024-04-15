@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName = "BlockDataBase", menuName = "CreateBlockDataBase")]
+[CreateAssetMenu(fileName = "BlockDataBase", menuName = "CreateDataBase/Block/BlockDataBase")]
 public class BlockDataBase : ScriptableObject
 {
 	[Header("ƒuƒƒbƒN(Type‡‚Åİ’è‚·‚é)")]

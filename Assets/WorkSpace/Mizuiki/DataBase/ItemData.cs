@@ -2,7 +2,7 @@ using UnityEngine;
 using static ToolData;
 
 [System.Serializable]
-[CreateAssetMenu(fileName = "ItemData", menuName = "CreateItem")]
+[CreateAssetMenu(fileName = "ItemData_", menuName = "CreateDataBase/Item/ItemData")]
 public class ItemData : ScriptableObject
 {
 	[System.Serializable]

@@ -99,13 +99,13 @@ public class DungeonAttack : MonoBehaviour
         m_keepCoolTime = 
             m_dungeonDataBase.dungeonDatas
             [GetComponent<DungeonGenerator>().GetStageNum()].
-            dungeonAttackCoolTime;
+            DungeonAttackCoolTime;
 
         m_attackCoolTime = m_keepCoolTime;
 
         List<AttackPattern> attackPatterns = m_dungeonDataBase.
             dungeonDatas[GetComponent<DungeonGenerator>().GetStageNum()].
-            dungeonAttackPattern;
+            AttackPattern;
 
         //çUåÇÇÃê›íË
         for (int i = 0; i < attackPatterns.Count; i++)

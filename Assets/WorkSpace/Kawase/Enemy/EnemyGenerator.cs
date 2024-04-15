@@ -39,7 +39,7 @@ public class EnemyGenerator : MonoBehaviour
         //ステージ番号
         int stageNum = m_playSceneManager.StageNum;
         //ステージの出現敵配列
-        List<Enemy.Type> enemyTypeList = m_dungeonDataBase.dungeonDatas[stageNum].enemy;
+        List<Enemy.Type> enemyTypeList = m_dungeonDataBase.dungeonDatas[stageNum].Enemy;
 
         for (int i = 0; i < enemyTypeList.Count; i++)
         {
@@ -61,7 +61,7 @@ public class EnemyGenerator : MonoBehaviour
         //プレイヤーよこせ
         m_player = m_playSceneManager.GetPlayer();
         //スポーン間隔よこせ
-        m_spawnTime = m_dungeonDataBase.dungeonDatas[stageNum].enemySpawnTime;
+        m_spawnTime = m_dungeonDataBase.dungeonDatas[stageNum].EnemySpawnTime;
 
         //親
         m_parent = new GameObject("Enemies");
@@ -80,7 +80,7 @@ public class EnemyGenerator : MonoBehaviour
             Spawn(m_spawnList[Random.Range(0, m_spawnList.Count)]);
 
 
-            m_spawnTime = m_dungeonDataBase.dungeonDatas[stageNum].enemySpawnTime;
+            m_spawnTime = m_dungeonDataBase.dungeonDatas[stageNum].EnemySpawnTime;
         }
         else
         {

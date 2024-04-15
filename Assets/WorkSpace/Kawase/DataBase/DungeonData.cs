@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "DungeonData", menuName = "CreateDungeonData")]
 public class DungeonData : ScriptableObject
 {
     // ê∂ê¨ÉpÉ^Å[Éì

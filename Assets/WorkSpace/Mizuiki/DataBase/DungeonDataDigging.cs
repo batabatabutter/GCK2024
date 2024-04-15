@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "DungeonData_", menuName = "CreateDungeonDataDig")]
+[CreateAssetMenu(fileName = "DungeonData_", menuName = "CreateDataBase/Dungeon/DungeonDataDig")]
 public class DungeonDataDigging : DungeonData
 {
 	[Header("ŒÂ•Ê")]
