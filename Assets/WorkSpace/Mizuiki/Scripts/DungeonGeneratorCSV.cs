@@ -58,8 +58,8 @@ public class DungeonGeneratorCSV : DungeonGeneratorBase
 				if (line == "")
 					break;
 
-				// 文字列をカンマ区切りで配列に格納
-				string[] values = line.Split(',');
+				// 改行を削除した文字列をカンマ区切りで配列に格納
+				string[] values = line.Remove(line.Length - 1).Split(',');
 				// 各行のデータを格納するリスト
 				List<string> rowData = new();
 				// 各列の値を処理する
@@ -97,14 +97,20 @@ public class DungeonGeneratorCSV : DungeonGeneratorBase
 		{
 			for (int x = 0; x < mapList[y].Count; x++)
 			{
-				//// 0 の場合は何も生成しない
-				//if (mapList[y][x] == "0" || mapList[y][x] == "")
-				//	continue;
+				// 0 の場合は何も生成しない
+				if (mapList[y][x] == "0" || mapList[y][x] == "")
+				{
+					// 生成座標
+					Vector2Int pos = new((originX * 10) + x, (originY * 10) + y);
+					// マップ追加
+					m_mapList[pos.y][pos.x] = "0";
 
-				// 生成座標
-				Vector2Int pos = new((originX * 10) + x, (originY * 10) + y);
-				// マップ追加
-				m_mapList[pos.y][pos.x] = mapList[y][x];
+				}
+
+				//// 生成座標
+				//Vector2Int pos = new((originX * 10) + x, (originY * 10) + y);
+				//// マップ追加
+				//m_mapList[pos.y][pos.x] = mapList[y][x];
 			}
 		}
 	}

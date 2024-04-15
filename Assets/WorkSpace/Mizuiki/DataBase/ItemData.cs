@@ -1,4 +1,5 @@
 using UnityEngine;
+using static BlockData;
 using static ToolData;
 
 [System.Serializable]
@@ -35,15 +36,21 @@ public class ItemData : ScriptableObject
 	private string itemName;
 	[Header("アイテムの種類"), SerializeField ,CustomEnum(typeof(ItemType))]
 	private string typeStr;
+	private ItemType type;
 	[Header("アイテムの画像"), SerializeField]
 	private Sprite sprite;
 	[Header("アイテムのプレハブ"), SerializeField]
 	private GameObject prefab = null;
 
 	public string Name => name;
-	public ItemType Type => SerializeUtil.Restore<ItemType>(typeStr);
+	public ItemType Type => type;
 	public Sprite Sprite => sprite;
 	public GameObject Prefab => prefab;
+
+	private void OnEnable()
+	{
+		type = SerializeUtil.Restore<ItemType>(typeStr);
+	}
 
 	public ItemData(ItemData item)
 	{

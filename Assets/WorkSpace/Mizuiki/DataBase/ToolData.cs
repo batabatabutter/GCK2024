@@ -50,6 +50,7 @@ public class ToolData : ScriptableObject
 	private string toolName = "";
 	[Header("ツールの種類"), SerializeField, CustomEnum(typeof(ToolType))]
 	private string typeStr;
+	private ToolType type;
 	[Header("ツールの分類"), SerializeField]
 	private ToolCategory category = ToolCategory.SUPPORT;
 	[Header("ツールのアイコン画像"), SerializeField]
@@ -63,13 +64,17 @@ public class ToolData : ScriptableObject
 	private Items[] itemMaterials = null;
 
 	public string Name => toolName;
-	public ToolType Type => SerializeUtil.Restore<ToolType>(typeStr);
+	public ToolType Type => type;
 	public ToolCategory Category => category;
 	public Sprite Icon => icon;
 	public float RecastTime => recastTime;
 	public GameObject Prefab => prefab;
 	public Items[] ItemMaterials => itemMaterials;
 
+	private void OnEnable()
+	{
+		type = SerializeUtil.Restore<ToolType>(typeStr);
+	}
 
 	public ToolData(ToolData tool)
 	{

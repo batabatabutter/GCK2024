@@ -54,6 +54,7 @@ public class BlockData : ScriptableObject
 	private string blockName = "";
 	[Header("ブロックの種類"), SerializeField, CustomEnum(typeof(BlockType))]
 	private string typeStr = "";
+	private BlockType type;
 	[Header("ブロックの耐久力"), SerializeField]
 	private float endurance = 100.0f;
 	[Header("破壊不可能"), SerializeField]
@@ -78,7 +79,7 @@ public class BlockData : ScriptableObject
 	private Sprite mapIcon = null;
 
 	public string Name => blockName;
-	public BlockType Type => SerializeUtil.Restore<BlockType>(typeStr);
+	public BlockType Type => type;
 	public float Endurance => endurance;
 	public bool DontBroken => dontBroken;
 	public int LightLevel => lightLevel;
@@ -88,6 +89,11 @@ public class BlockData : ScriptableObject
 	public Color Color => color;
 	public int Order => order;
 	public Sprite MapIcon => mapIcon;
+
+	private void OnEnable()
+	{
+		type = SerializeUtil.Restore<BlockType>(typeStr);
+	}
 
 	public BlockData(BlockData block)
 	{
