@@ -15,7 +15,7 @@ MonoBehaviour:
   toolName: "\u91CD\u93A7"
   typeStr: 106:HEAVY_ARMOR
   category: 1
-  icon: {fileID: 21300000, guid: 85c7156f05802ca43bef718cad39014a, type: 3}
+  icon: {fileID: 21300000, guid: 650e9f6f59855cc47b1905f4ee308d23, type: 3}
   recastTime: 10
   prefab: {fileID: 4156167675861179288, guid: 37a8790865bd0b540856e8131789640f, type: 3}
   itemMaterials:

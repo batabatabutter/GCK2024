@@ -195,7 +195,7 @@ public class PlayerTool : MonoBehaviour
 			int index = typeList.IndexOf(m_toolType);
 
 			// •ÏXŒã‚Ì’l
-			int change = index + val;
+			int change = index - val;
 
 			// •ÏXŒã‚ª 0 –¢–
 			while (change < 0)

@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
 		int scroll = (int)m_controls.Player.ChangeTool.ReadValue<float>() / 120;
 		if (scroll != 0)
 		{
-			m_playerAction.ChangeTool(-scroll);
+			m_playerAction.ChangeTool(scroll);
 		}
 
 		// ツールのレア、ノーマル切り替え
