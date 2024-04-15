@@ -15,7 +15,7 @@ MonoBehaviour:
   toolName: "\u5236\u9650\u30C8\u30FC\u30C6\u30E0"
   typeStr: 109:LIMIT_TOTEM
   category: 0
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: e9de6c47587a1354ab2031359fdf5568, type: 3}
   recastTime: 10
   prefab: {fileID: 0}
   itemMaterials:

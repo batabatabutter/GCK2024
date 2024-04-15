@@ -15,7 +15,7 @@ MonoBehaviour:
   toolName: "\u30B7\u30FC\u30EB\u30C9"
   typeStr: 103:SHIELD
   category: 0
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 51261a24bb8e0174883cccc0c20a1066, type: 3}
   recastTime: 10
   prefab: {fileID: 0}
   itemMaterials:
