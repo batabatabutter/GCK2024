@@ -138,4 +138,18 @@ public class MyFunction
 		// ÉfÅ[É^Ç™å©Ç¬Ç©ÇÁÇ»Ç©Ç¡ÇΩ
 		return null;
 	}
+
+	static public bool DetectCollision(Vector2 point, Vector2 boxPos, Vector2 boxSize)
+	{
+		if (point.x < boxPos.x + boxSize.x &&
+			point.x > boxPos.x - boxSize.x &&
+			point.y < boxPos.y + boxSize.y &&
+			point.y > boxPos.y - boxSize.y)
+		{
+			// ìñÇΩÇÈ
+			return true;
+		}
+		// ìñÇΩÇÁÇ»Ç¢
+		return false;
+	}
 }

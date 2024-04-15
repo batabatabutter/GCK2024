@@ -41,8 +41,10 @@ public class TestDungeonGenerator2 : DungeonGeneratorBase
 	List<List<string>> mapList = new();
 
 	// 部屋分けダンジョン生成
-	public override List<List<string>> GenerateDungeon(Vector2Int size)
+	public override List<List<string>> GenerateDungeon(DungeonData data)
 	{
+		Vector2Int size = data.Size;
+
 		// マップの初期化
 		for (int y = 0; y < size.y; y++)
 		{

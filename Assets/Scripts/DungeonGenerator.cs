@@ -47,14 +47,31 @@ public class DungeonGenerator : MonoBehaviour
     //ブロック生成スクリプト
     private BlockGenerator m_blockGenerator;
 
-    [Header("ダンジョン生成スクリプト")]
-    [SerializeField] private DungeonGeneratorBase[] m_dungeonGeneratorDig = null;
+	[System.Serializable]
+	public struct Generator
+	{
+		public DungeonData.Pattern pattern;
+		public DungeonGeneratorBase generator;
+	}
+
+	[Header("ダンジョン生成スクリプト")]
+    [SerializeField] private Generator[] m_generators = null;
+	private Dictionary<DungeonData.Pattern, DungeonGeneratorBase> m_dungeonGenerators = null;
 
 
     private void Awake()
     {
         m_blockGenerator = GetComponent<BlockGenerator>();
         m_parent = new GameObject("Blocks");
+
+		foreach (Generator generator in m_generators)
+		{
+			// 上書き防止
+			if (m_dungeonGenerators.ContainsKey(generator.pattern))
+				continue;
+			// ジェネレータの設定
+			m_dungeonGenerators[generator.pattern] = generator.generator;
+		}
     }
 
     /// <summary>
@@ -65,39 +82,110 @@ public class DungeonGenerator : MonoBehaviour
         // ダンジョンのデータ取得
         DungeonData dungeonData = m_dungeonDataBase.dungeonDatas[m_stageNum];
 
-        // ダンジョンのサイズ取得
-        Vector2 dungeonSize = dungeonData.dungeonSize;
-
         // 生成パターン取得
-        DungeonData.Pattern pattern = dungeonData.pattern;
+        DungeonData.Pattern pattern = dungeonData.DungeonPattern;
 
-        // 生成パターンごと
-        switch (pattern)
-        {
-            case DungeonData.Pattern.TEN_X_TEN:
-                Generate10to10(dungeonData, dungeonSize);
-                break;
+		// ダンジョンのマップ取得
+		List<List<string>> mapList = m_dungeonGenerators[pattern].GenerateDungeon(dungeonData);
 
-            case DungeonData.Pattern.DIGGING:
-                GenerateDigging(dungeonData);
-                break;
-        }
+		// ダンジョンのサイズ
+		Vector2Int dungeonSize = new(mapList[0].Count, mapList.Count);
 
-
-    }
-
-    void Generate10to10(DungeonData dungeonData, Vector2 size)
-    {
-		// コアの生成座標決定
-		m_corePos.x = Random.Range(0, (int)size.x * 10);
-		m_corePos.y = Random.Range(0, (int)size.y * 10);
+		// コアの生成座標決定(無限ループにならないように回数制限をつける)
+		for (int i = 0; i < 1000000; i++)
+		{
+			// コアの生成位置をランダムで取得
+			Vector2Int pos = new(Random.Range(0, dungeonSize.x), Random.Range(0, dungeonSize.y));
+			// 生成位置がブロックなら設定してループを抜ける
+			if (mapList[pos.y][pos.x] == "1")
+			{
+				m_corePos = pos;
+				break;
+			}
+		}
 
 		int roop_error = 0;
 
 		//プレイヤーとコアの位置が離れるまで繰り返す
 		do
 		{
-			m_playerPos = new Vector2(Random.Range(0, (int)size.x * 10), Random.Range(0, (int)size.y * 10));
+			m_playerPos = new Vector2(Random.Range(0.0f, dungeonSize.x), Random.Range(0.0f, dungeonSize.y));
+
+			if (roop_error > 100)
+			{
+				Debug.Log("コアとプレイヤーが近すぎます。間隔を見直してください");
+				break;
+			}
+			roop_error++;
+
+		}
+		// コアに近い限りループ
+		while (MyFunction.DetectCollision(m_playerPos, m_corePos, new Vector2(m_playerLength, m_playerLength))
+		//m_playerPos.x < m_corePos.x + m_playerLength &&
+		//m_playerPos.x > m_corePos.x - m_playerLength &&
+		//m_playerPos.y < m_corePos.y + m_playerLength &&
+		//m_playerPos.y > m_corePos.y - m_playerLength
+		);
+
+		//  プレイヤーの生成
+		GameObject pl = Instantiate(m_player, m_playerPos, Quaternion.identity);
+
+		// coreの生成
+		GameObject co = m_blockGenerator.GenerateBlock(BlockData.BlockType.CORE, new Vector3(m_corePos.x, m_corePos.y), null, m_isBrightness);
+
+
+		//  プレイシーンマネージャーが無かったら格納しない
+		if (m_playSceneManager == null)
+		{
+			Debug.Log("Error:Playerの格納に失敗 PlaySceneManagerが見つかりません:DungeonManager");
+		}
+		else
+		{
+			m_playSceneManager.SetPlayer(pl);
+			m_playSceneManager.SetCore(co);
+		}
+
+		// ブロック生成
+		CreateBlock(mapList, dungeonData.BlockOdds);
+
+		//岩盤で囲う
+		CreateBedrock(dungeonSize);
+
+		//地面の生成
+		CreateGround(dungeonSize);
+
+
+		//// 生成パターンごと
+		//switch (pattern)
+  //      {
+  //          case DungeonData.Pattern.TEN_X_TEN:
+  //              Generate10to10(dungeonData);
+  //              break;
+
+  //          case DungeonData.Pattern.DIGGING:
+  //              GenerateDigging(dungeonData);
+  //              break;
+  //      }
+
+
+    }
+
+    void Generate10to10(DungeonData dungeonData)
+    {
+		DungeonDataCSV data = dungeonData as DungeonDataCSV;
+
+		Vector2Int size = data.Size;
+
+		// コアの生成座標決定
+		m_corePos.x = Random.Range(0, size.x * 10);
+		m_corePos.y = Random.Range(0, size.y * 10);
+
+		int roop_error = 0;
+
+		//プレイヤーとコアの位置が離れるまで繰り返す
+		do
+		{
+			m_playerPos = new Vector2(Random.Range(0, size.x * 10), Random.Range(0, size.y * 10));
 
 			if (roop_error > 100)
 			{
@@ -134,7 +222,7 @@ public class DungeonGenerator : MonoBehaviour
 		List<List<List<string>>> mapListManager = new ();
 
 		//データベースからリストの取得
-		List<TextAsset> dungeonCSV = dungeonData.dungeonCSV;
+		List<TextAsset> dungeonCSV = data.DungeonCSV;
 
 		for (int i = 0; i < dungeonCSV.Count; i++)
 		{
@@ -176,43 +264,21 @@ public class DungeonGenerator : MonoBehaviour
 		}
 
 		//ブロック生成
-		for (int y = 0; y < (int)size.y; y++)
+		for (int y = 0; y < size.y; y++)
 		{
-			for (int x = 0; x < (int)size.x; x++)
+			for (int x = 0; x < size.x; x++)
 			{
 				int random = Random.Range(0, dungeonCSV.Count);
-				Make10_10Block(mapListManager[random], x * 10, y * 10);
+				Make10_10Block(mapListManager[random], x, y);
 
 			}
 		}
 
 		//岩盤で囲う
-		for (int i = 0; i < (int)size.y * 10; i++)
-		{
-			m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(-1, i, 0), m_parent.transform, m_isBrightness);
-			m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3((int)size.y * 10, i, 0), m_parent.transform, m_isBrightness);
-		}
-		for (int i = 0; i < (int)size.x * 10; i++)
-		{
-			m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(i, -1, 0), m_parent.transform, m_isBrightness);
-			m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(i, (int)size.y * 10, 0), m_parent.transform, m_isBrightness);
-		}
+		CreateBedrock(size);
 
 		//地面の生成
-		for (int y = 0; y < (int)size.y * 10; ++y)
-		{
-			for (int x = 0; x < (int)size.x * 10; ++x)
-			{
-				// 生成座標
-				Vector3 pos = new(x, y, 0.0f);
-
-				// ブロックの生成
-				GameObject block = Instantiate(m_ground, pos, Quaternion.identity);
-
-				block.transform.parent = m_parent.transform;
-
-			}
-		}
+		CreateGround(size);
 
 	}
 	void Make10_10Block(List<List<string>> mapList, int originX, int originY)
@@ -242,7 +308,7 @@ public class DungeonGenerator : MonoBehaviour
 
                 // ブロックの生成
                 m_blockGenerator.GenerateBlock(
-                    m_dungeonDataBase.dungeonDatas[m_stageNum].dungeonOdds
+                    m_dungeonDataBase.dungeonDatas[m_stageNum].BlockOdds
                     [LotteryBlock()].type,
                     pos,
                     m_parent.transform,
@@ -264,9 +330,9 @@ public class DungeonGenerator : MonoBehaviour
 		Vector2Int dungeonSize = dig.Size;
 
 		// データの設定
-		m_dungeonGeneratorDig[0].SetDungeonData(dig);
+		m_dungeonGenerators[DungeonData.Pattern.DIGGING].SetDungeonData(dig);
 		// マップの取得
-		List<List<string>> mapList = m_dungeonGeneratorDig[0].GenerateDungeon(dungeonSize);
+		List<List<string>> mapList = m_dungeonGenerators[DungeonData.Pattern.DIGGING].GenerateDungeon(dig);
 
 		// コアの生成座標決定(無限ループにならないように回数制限をつける)
 		for (int i = 0; i < 1000000; i++)
@@ -339,7 +405,7 @@ public class DungeonGenerator : MonoBehaviour
                 if (mapList[y][x] == "1")
                 {
                     // 生成する種類
-                    BlockData.BlockType type = dungeonData.dungeonOdds[LotteryBlock()].type;
+                    BlockData.BlockType type = dungeonData.BlockOdds[LotteryBlock()].type;
                     // 生成する座標
                     Vector2 position = new(x, y);
                     // ブロック生成
@@ -349,32 +415,10 @@ public class DungeonGenerator : MonoBehaviour
 		}
 
 		//岩盤で囲う
-		for (int i = 0; i < dungeonSize.y; i++)
-		{
-			m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(-1, i, 0), m_parent.transform, m_isBrightness);
-			m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(dungeonSize.y, i, 0), m_parent.transform, m_isBrightness);
-		}
-		for (int i = 0; i < dungeonSize.x; i++)
-		{
-			m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(i, -1, 0), m_parent.transform, m_isBrightness);
-			m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(i, dungeonSize.y, 0), m_parent.transform, m_isBrightness);
-		}
+		CreateBedrock(dungeonSize);
 
 		//地面の生成
-		for (int y = 0; y < dungeonSize.y; ++y)
-		{
-			for (int x = 0; x < dungeonSize.x; ++x)
-			{
-				// 生成座標
-				Vector3 pos = new(x, y, 0.0f);
-
-				// ブロックの生成
-				GameObject block = Instantiate(m_ground, pos, Quaternion.identity);
-
-				block.transform.parent = m_parent.transform;
-
-			}
-		}
+		CreateGround(dungeonSize);
 
 	}
 
@@ -386,7 +430,7 @@ public class DungeonGenerator : MonoBehaviour
         //全ての確率合算
         int allOdds = 0;
 
-        List<BlockOdds> blockOddsList = m_dungeonDataBase.dungeonDatas[m_stageNum].dungeonOdds;
+        List<BlockOdds> blockOddsList = m_dungeonDataBase.dungeonDatas[m_stageNum].BlockOdds;
 
 
         //ブロックの種類の数
@@ -404,8 +448,75 @@ public class DungeonGenerator : MonoBehaviour
         return oddsList[Random.Range(0, allOdds)];
     }
 
+	// ブロックの生成
+	private void CreateBlock(List<List<string>> mapList, List<BlockOdds> odds)
+	{
+		for (int y = 0; y < mapList.Count; y++)
+		{
+			for (int x = 0; x < mapList[y].Count; x++)
+			{
+				//プレイヤー
+				if ((int)m_playerPos.x == x && (int)m_playerPos.y == y)
+				{
+					continue;
+				}
+				//コアを生成
+				if (m_corePos.x == x && m_corePos.y == y)
+				{
+					continue;
+				}
+				// ブロックの生成位置
+				if (mapList[y][x] == "1")
+				{
+					// 生成する種類
+					BlockData.BlockType type = odds[LotteryBlock()].type;
+					// 生成する座標
+					Vector2 position = new(x, y);
+					// ブロック生成
+					m_blockGenerator.GenerateBlock(type, position, m_parent.transform, m_isBrightness);
+				}
+			}
+		}
 
-    public int GetStageNum()
+	}
+
+	// 岩盤の生成
+	private void CreateBedrock(Vector2Int size)
+	{
+		//岩盤で囲う
+		for (int x = 0; x < size.x; x++)
+		{
+			// 上下
+			m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(x, -1    , 0), m_parent.transform, m_isBrightness);
+			m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(x, size.y, 0), m_parent.transform, m_isBrightness);
+		}
+		for (int y = 0; y < size.y; y++)
+		{
+			// 左右
+			m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(-1    , y, 0), m_parent.transform, m_isBrightness);
+			m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(size.y, y, 0), m_parent.transform, m_isBrightness);
+		}
+	}
+
+	// 地面の生成
+	private void CreateGround(Vector2Int size)
+	{
+		//地面の生成
+		for (int y = 0; y < size.y; ++y)
+		{
+			for (int x = 0; x < size.x; ++x)
+			{
+				// 生成座標
+				Vector3 pos = new(x, y, 0.0f);
+				// ブロックの生成
+				GameObject block = Instantiate(m_ground, pos, Quaternion.identity);
+				// 親の設定
+				block.transform.parent = m_parent.transform;
+			}
+		}
+	}
+
+	public int GetStageNum()
     {
         return m_stageNum;
     }

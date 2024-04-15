@@ -10,31 +10,31 @@ public class DungeonData : ScriptableObject
     {
         TEN_X_TEN,      // 10 * 10
         DIGGING,        // 穴掘り
+
+        OVER,
     }
 
     [Header("ダンジョンの生成パターン")]
-    public Pattern pattern;
-
+    [SerializeField] private Pattern pattern;
+    [Header("ダンジョンのサイズ")]
+	[SerializeField] private Vector2Int size = new (50, 50);
     [Header("ダンジョンの生成確率")]
-    public List<DungeonGenerator.BlockOdds> dungeonOdds;
-
+	[SerializeField] private List<DungeonGenerator.BlockOdds> dungeonOdds;
     [Header("ダンジョンの攻撃パターン")]
-    public List<DungeonAttack.AttackPattern> dungeonAttackPattern;
-
+	[SerializeField] private List<DungeonAttack.AttackPattern> dungeonAttackPattern;
     [Header("ダンジョンの攻撃間隔")]
-    public float dungeonAttackCoolTime;
-
+    [SerializeField] private float dungeonAttackCoolTime;
     [Header("敵")]
-    public List<Enemy.Type> enemy;
-
+    [SerializeField] private List<Enemy.Type> enemy;
     [Header("敵の出現頻度")]
-    public float enemySpawnTime;
+    [SerializeField] private float enemySpawnTime;
 
-
-    [Header("ダンジョンの大きさ(X:1 Y:1 = 10 * 10)")]
-    public Vector2 dungeonSize;
-
-    [Header("ダンジョンのCSV")]
-    public List<TextAsset> dungeonCSV;
+    public Pattern DungeonPattern => pattern;
+    public Vector2Int Size => size;
+    public List<DungeonGenerator.BlockOdds> BlockOdds => dungeonOdds;
+    public List<DungeonAttack.AttackPattern > AttackPattern => dungeonAttackPattern;
+    public float DungeonAttackCoolTime => dungeonAttackCoolTime;
+    public List<Enemy.Type> Enemy => enemy;
+    public float EnemySpawnTime => enemySpawnTime;
 
 }

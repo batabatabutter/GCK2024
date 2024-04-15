@@ -1,10 +1,10 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "DungeonDataDigging", menuName = "CreateDungeonDataDig")]
+[CreateAssetMenu(fileName = "DungeonData_", menuName = "CreateDungeonDataDig")]
 public class DungeonDataDigging : DungeonData
 {
-	[Header("ダンジョンのサイズ")]
-	[SerializeField] private Vector2Int size;
+	[Header("個別")]
+
 	[Header("部屋のサイズの最小値と最大値")]
 	[SerializeField] private MyFunction.MinMax roomRange;
 	[Header("道の長さの範囲")]
@@ -16,7 +16,6 @@ public class DungeonDataDigging : DungeonData
 	[Header("通路が埋まっている割合")]
 	[SerializeField, Range(0.0f, 1.0f)] private float pathFillRate = 0.5f;
 
-	public Vector2Int Size => size;
 	public MyFunction.MinMax RoomRange => roomRange;
 	public MyFunction.MinMax PathRange => pathRange;
 	public int MaxCount => maxCount;

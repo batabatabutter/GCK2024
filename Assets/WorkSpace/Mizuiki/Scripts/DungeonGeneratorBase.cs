@@ -9,7 +9,7 @@ public class DungeonGeneratorBase : MonoBehaviour
 
     }
 
-    public virtual List<List<string>> GenerateDungeon(Vector2Int size)
+    public virtual List<List<string>> GenerateDungeon(DungeonData data)
     {
         return new();
     }
