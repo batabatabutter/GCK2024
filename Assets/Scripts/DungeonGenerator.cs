@@ -264,9 +264,9 @@ public class DungeonGenerator : MonoBehaviour
 		Vector2Int dungeonSize = dig.Size;
 
 		// データの設定
-		m_dungeonGeneratorDig.SetDungeonData(dig);
+		m_dungeonGeneratorDig[0].SetDungeonData(dig);
 		// マップの取得
-		List<List<string>> mapList = m_dungeonGeneratorDig.GenerateDungeon(dungeonSize);
+		List<List<string>> mapList = m_dungeonGeneratorDig[0].GenerateDungeon(dungeonSize);
 
 		// コアの生成座標決定(無限ループにならないように回数制限をつける)
 		for (int i = 0; i < 1000000; i++)
