@@ -15,7 +15,7 @@ MonoBehaviour:
   toolName: "\u500D\u5897\u3064\u308B\u306F\u3057"
   typeStr: 108:DOUBLE_PICAXE
   category: 1
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: df9d1c68fdc3ced4380914b2f84a95c0, type: 3}
   recastTime: 10
   prefab: {fileID: 2280796163066816382, guid: 80e89238203f0cf4baa9f0bfeabcd0ed, type: 3}
   itemMaterials:
