@@ -114,7 +114,7 @@ public class ToolUI : MonoBehaviour
             //  ツール画像設定
             m_toolObjects[i].GetComponent<ToolFrame>().SetImage(m_toolDataBase.toolDic[thisToolType].Icon);
             //  ツール作成可能数設定
-            if (!isRare)
+            //if (!isRare)
                 m_toolObjects[i].GetComponent<ToolFrame>().SetNum(GetToolUseNum(thisToolType));
 
             //  クールタイムがあるなら0.0～1.0に補間
