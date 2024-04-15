@@ -15,7 +15,7 @@ MonoBehaviour:
   toolName: "\u7652\u3057\u306E\u677E\u660E"
   typeStr: 107:HEALING_TOACH
   category: 0
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: a479c5b5d3e55e1498740707c9753133, type: 3}
   recastTime: 10
   prefab: {fileID: 0}
   itemMaterials:
