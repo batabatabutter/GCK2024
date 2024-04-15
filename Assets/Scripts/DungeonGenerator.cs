@@ -56,7 +56,7 @@ public class DungeonGenerator : MonoBehaviour
 
 	[Header("ダンジョン生成スクリプト")]
     [SerializeField] private Generator[] m_generators = null;
-	private Dictionary<DungeonData.Pattern, DungeonGeneratorBase> m_dungeonGenerators = null;
+	private Dictionary<DungeonData.Pattern, DungeonGeneratorBase> m_dungeonGenerators = new();
 
 
     private void Awake()

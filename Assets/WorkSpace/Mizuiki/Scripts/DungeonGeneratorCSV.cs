@@ -47,15 +47,21 @@ public class DungeonGeneratorCSV : DungeonGeneratorBase
 
 			}
 
-			// ファイルの内容を1行ずつ処理
+			// ファイルを改行区切りで配列に格納
 			string[] lines = dungeonCSV[i].text.Split('\n');
+			// 読みだしたデータ格納用リスト
+			List<List<string>> list = new();
+			// ファイルの内容を1行ずつ処理
 			foreach (string line in lines)
 			{
-				string[] values = line.Split(',');
+				// 文字列がない
+				if (line == "")
+					break;
 
+				// 文字列をカンマ区切りで配列に格納
+				string[] values = line.Split(',');
 				// 各行のデータを格納するリスト
 				List<string> rowData = new();
-
 				// 各列の値を処理する
 				foreach (string value in values)
 				{
@@ -64,13 +70,10 @@ public class DungeonGeneratorCSV : DungeonGeneratorBase
 				}
 
 				// 行のデータをCSVデータに追加
-				m_mapList.Add(rowData);
+				list.Add(rowData);
 			}
-
-
 			//３次元に入れる
-			mapListManager.Add(m_mapList);
-
+			mapListManager.Add(list);
 		}
 
 		//ブロック生成
@@ -79,9 +82,6 @@ public class DungeonGeneratorCSV : DungeonGeneratorBase
 			for (int x = 0; x < size.x / 10; x++)
 			{
 				int random = Random.Range(0, dungeonCSV.Count);
-
-
-
 				Make10_10Block(mapListManager[random], x, y);
 
 			}
@@ -97,14 +97,14 @@ public class DungeonGeneratorCSV : DungeonGeneratorBase
 		{
 			for (int x = 0; x < mapList[y].Count; x++)
 			{
-				// 0 の場合は何も生成しない
-				if (mapList[y][x] == "0" || mapList[y][x] == "")
-					continue;
+				//// 0 の場合は何も生成しない
+				//if (mapList[y][x] == "0" || mapList[y][x] == "")
+				//	continue;
 
 				// 生成座標
 				Vector2Int pos = new((originX * 10) + x, (originY * 10) + y);
 				// マップ追加
-				m_mapList[pos.y][pos.x] = "1";
+				m_mapList[pos.y][pos.x] = mapList[y][x];
 			}
 		}
 	}
