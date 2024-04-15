@@ -15,7 +15,7 @@ MonoBehaviour:
   toolName: "\u7BC4\u56F2\u7834\u58CA\u3064\u308B\u306F\u3057"
   typeStr: 102:RANGE_DESTROYER
   category: 1
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 0571512e592169845861fe0f6045ee06, type: 3}
   recastTime: 10
   prefab: {fileID: 3597453636523977009, guid: 2b0c4f68d6d8d0945aaa522df3a87110, type: 3}
   itemMaterials:
