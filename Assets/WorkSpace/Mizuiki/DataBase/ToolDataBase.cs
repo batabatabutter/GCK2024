@@ -11,7 +11,7 @@ public class ToolDataBase : ScriptableObject
     public List<ToolData> tool;
 
     public List<SerializableKeyPairCustomEnum<ToolData.ToolType, ToolData>> toolData;
-    public Dictionary<ToolData.ToolType, ToolData> toolDic;
+    public Dictionary<ToolData.ToolType, ToolData> toolDic => SerializableKeyPairCustomEnum<ToolData.ToolType, ToolData>.ConvertToDictionaly(toolData);
     public List<SerializableKeyPairCustomEnum<ToolData.ToolType, ToolData>> toolNormalData;
     public Dictionary<ToolData.ToolType, ToolData> toolNormalDic;
     public List<SerializableKeyPairCustomEnum<ToolData.ToolType, ToolData>> toolRareData;
@@ -19,10 +19,4 @@ public class ToolDataBase : ScriptableObject
 
     [Header("Type確認用")]
     public ToolData.ToolType type;
-
-    //  データ起動時
-    private void OnEnable()
-    {
-        toolDic = SerializableKeyPairCustomEnum<ToolData.ToolType, ToolData>.ConvertToDictionaly(toolData);
-    }
 }

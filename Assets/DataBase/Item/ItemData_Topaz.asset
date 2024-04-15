@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 10387625528c8cf4d99562735228409f, type: 3}
-  m_Name: ItemData_Steel
+  m_Name: ItemData_Topaz
   m_EditorClassIdentifier: 
-  itemName: "\u9244"
-  typeStr: 2:STEEL
-  sprite: {fileID: 21300000, guid: d1cd434a121fe204289e1e7db912ac40, type: 3}
+  itemName: "\u30C8\u30D1\u30FC\u30BA"
+  typeStr: 211:BIR_TOPAZ
+  sprite: {fileID: 21300000, guid: 592dfc220f2e3d64e9a7be7a7a985551, type: 3}
   prefab: {fileID: 3463832332005368329, guid: f5cfcee0633651a4d8105fc02df88bfe, type: 3}
