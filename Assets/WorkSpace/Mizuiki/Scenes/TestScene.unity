@@ -299,6 +299,10 @@ MonoBehaviour:
   m_maxCount: 150
   m_roomGenerateRate: 0.2
   m_pathFillRate: 0.5
+  m_roomOreChunkRate: 0
+  m_roomOreChunkCount:
+    min: 0
+    max: 0
 --- !u!224 &145493590 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5673070608454416527, guid: 565ea1613a295a746acd0e483db3e630, type: 3}
@@ -3430,6 +3434,10 @@ PrefabInstance:
       propertyPath: m_miningValueBase.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8429125128454659071, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
+      propertyPath: stopAction
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -3510,6 +3518,10 @@ MonoBehaviour:
   m_maxCount: 150
   m_roomGenerateRate: 0.2
   m_pathFillRate: 0.5
+  m_roomOreChunkRate: 0
+  m_roomOreChunkCount:
+    min: 0
+    max: 0
 --- !u!114 &1242418155
 MonoBehaviour:
   m_ObjectHideFlags: 0

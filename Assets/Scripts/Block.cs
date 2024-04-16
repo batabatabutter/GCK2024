@@ -71,7 +71,7 @@ public class Block : MonoBehaviour
 	/// 採掘ダメージ
 	/// </summary>
 	/// <param name="power"></param>
-	/// <returns></returns>
+	/// <returns>ダメージを与えたか</returns>
 	public virtual bool AddMiningDamage(float power, int dropCount = 1)
     {
         // 破壊不可能ブロックの場合は処理しない
@@ -84,10 +84,10 @@ public class Block : MonoBehaviour
         // 耐久が0になった
         if (m_blockEndurance <= 0.0f)
         {
-            return BrokenBlock(dropCount);
+            BrokenBlock(dropCount);
         }
 
-        return false;
+        return true;
     }
 
 	// アイテムドロップ

@@ -90,6 +90,11 @@ public class PlayerMining : MonoBehaviour
         public Vector2 direction;
         public Vector2 origin;
         public float length;
+
+        public Vector2 MiningPos()
+        {
+            return origin + (direction * length);
+        }
     }
 
     [Header("レイヤーマスク")]
@@ -115,8 +120,6 @@ public class PlayerMining : MonoBehaviour
 
     // 採掘回数
     private int m_miningCount = 0;
-    // ブロックの破壊数
-    private int m_brokenCount = 0;
     // 与えたダメージ
     private float m_takenDamage = 0.0f;
 
@@ -244,7 +247,7 @@ public class PlayerMining : MonoBehaviour
 			}
 		}
         // 範囲採掘
-        MiningOfRange(blockTransform);
+        MiningOfRange(blockTransform, miningRay.MiningPos());
 
 		// クールタイム設定
 		m_miningCoolTime = 1.0f / (m_miningValue.speed);
@@ -289,28 +292,26 @@ public class PlayerMining : MonoBehaviour
 		// [Block] の取得を試みる
 		if (transform.TryGetComponent(out Block block))
 		{
-			// 採掘ダメージ加算
-			if (block.AddMiningDamage(GetPower(), (int)(m_miningValue.itemDrop)))
-			{
-				// 破壊回数加算
-				m_brokenCount++;
-			}
+            // 採掘ダメージ加算
+            if (!block.AddMiningDamage(GetPower(), (int)(m_miningValue.itemDrop)))
+                return false;
 
 			// 採掘回数加算
 			m_miningCount++;
-
 			// 与ダメージ加算
 			m_takenDamage += m_miningValue.power;
 
-            // 採掘エフェクト
-            if (m_miningParticle)
+			// 採掘エフェクト
+			if (m_miningParticle)
             {
                 //m_particleMaterial.color = block.BlockData.Color;
                 // なぜか暗くなるからエミッションカラーのほうを変える(**********要検証***********)
-                m_particleMaterial.SetColor("_EmissionColor", block.BlockData.Color);
+                //m_particleMaterial.SetColor("_EmissionColor", block.BlockData.Color);
 
-                m_miningParticle.transform.position = transform.position;
-                m_miningParticle.Play();
+                GameObject particle = Instantiate(m_miningParticle.gameObject, transform.position, Quaternion.identity);
+
+                //m_miningParticle.transform.position = transform.position;
+                //m_miningParticle.Play();
             }
 
 			// ブロックに当たったらダメージ処理を抜ける
@@ -322,23 +323,25 @@ public class PlayerMining : MonoBehaviour
 	}
 
     // 広範囲の採掘
-    private void MiningOfRange(Transform center)
+    private void MiningOfRange(Transform hit, Vector2 center)
     {
-        // トランスフォームがない
-        if (center == null)
-            return;
+        // トランスフォームがある
+        if (hit)
+        {
+            center = hit.position;
+        }
 
         // 採掘サイズが 0
         if (m_miningValue.size <= 0.0f)
             return;
 
         // ブロックの取得
-        Collider2D[] blocks = Physics2D.OverlapCircleAll(center.position, m_miningValue.size, LayerMask.GetMask("Block"));
+        Collider2D[] blocks = Physics2D.OverlapCircleAll(center, m_miningValue.size, LayerMask.GetMask("Block"));
 
         foreach(Collider2D block in blocks)
         {
             // 中心のブロックは除外
-            if (center == block.transform)
+            if (hit == block.transform)
                 continue;
 
             // ダメージ
@@ -424,11 +427,6 @@ public class PlayerMining : MonoBehaviour
     {
         get { return m_miningCount; }
         set { m_miningCount = value; }
-    }
-    // 破壊数
-    public int BrokenCount
-    {
-        get { return m_brokenCount; }
     }
     // 与えたダメージ
     public float TakenDamage
