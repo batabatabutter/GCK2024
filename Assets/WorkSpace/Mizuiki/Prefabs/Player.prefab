@@ -501,7 +501,7 @@ MonoBehaviour:
     m_Bits: 8
   m_miningValueBase:
     range: 3
-    size: 0
+    size: 0.3
     power: 50
     speed: 2
     critical: 0
@@ -953,7 +953,7 @@ MonoBehaviour:
   m_maxCount: 99
   m_detectionRange: 5
   m_itemDataBase: {fileID: 11400000, guid: c534141616c2bbc4ba996d4d9f120330, type: 2}
-  m_debug: 0
+  m_debug: 1
   m_text: {fileID: 0}
 --- !u!1001 &2332144236898340225
 PrefabInstance:

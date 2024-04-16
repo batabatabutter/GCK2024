@@ -36,6 +36,8 @@ public class ToolMining : Tool
 			m_playerTool.SetRecast(true, m_toolType);
 			// 強化剥奪
 			m_playerMining.MiningValueBoost -= m_boost;
+			// 採掘を削除する
+			m_playerMining = null;
 		}
 
 	}

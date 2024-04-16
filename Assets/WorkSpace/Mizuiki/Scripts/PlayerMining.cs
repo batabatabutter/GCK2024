@@ -331,8 +331,8 @@ public class PlayerMining : MonoBehaviour
             center = hit.position;
         }
 
-        // 採掘サイズが 0
-        if (m_miningValue.size <= 0.0f)
+        // 採掘サイズが 1 以下
+        if (m_miningValue.size <= 0.5f)
             return;
 
         // ブロックの取得
