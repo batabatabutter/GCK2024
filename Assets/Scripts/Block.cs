@@ -61,6 +61,8 @@ public class Block : MonoBehaviour
         {
             // 透明度
             float alpha = m_receiveLightLevel / 7.0f * 100.0f;
+            // 透明度を 0 ~ 1 にクランプ
+            alpha = Mathf.Clamp(alpha, 0.0f, 1.0f);
             // 色を設定
             m_spriteRenderer.color = new Color(1.0f, 1.0f, 1.0f, alpha);
         }

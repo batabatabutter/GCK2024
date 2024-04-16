@@ -344,11 +344,28 @@ public class PlayerMining : MonoBehaviour
             if (hit == block.transform)
                 continue;
 
-            // ダメージ
-            CauseDamageToBlock(block.transform);
-        }
+			// ダメージ
+			// タグが Block
+			if (block.transform.CompareTag("Block"))
+			{
+                // ブロックにダメージを与える
+                CauseDamageToBlock(block.transform);
+				continue;
+			}
+			// タグが Tool
+			if (block.transform.CompareTag("Tool"))
+			{
+				// マウスカーソルと同じグリッド
+				if (MyFunction.CheckSameGrid(block.transform.position, center))
+				{
+					// ツールにダメージを与える
+					CauseDamageToBlock(block.transform);
+					break;
+				}
+			}
+		}
 
-    }
+	}
 
 	// 採掘力算出
 	private float GetPower()
