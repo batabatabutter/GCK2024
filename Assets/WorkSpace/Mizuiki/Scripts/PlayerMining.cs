@@ -102,6 +102,11 @@ public class PlayerMining : MonoBehaviour
     [Header("強化値")]
     [SerializeField] private MiningValue m_miningValueBoost;
 
+    [Header("採掘パーティクル")]
+    [SerializeField] private ParticleSystem m_miningParticle = null;
+    private ParticleSystemRenderer m_miningParticleRenderer = null;
+    private Material m_particleMaterial = null;
+
     // 最終的な採掘値
     private MiningValue m_miningValue;
 
@@ -128,7 +133,14 @@ public class PlayerMining : MonoBehaviour
 
         // 採掘範囲の設定
         m_debugMiningRange.transform.localScale = new Vector3(m_miningValue.range * 2.0f, m_miningValue.range * 2.0f, m_miningValue.range * 2.0f);
-    }
+
+        // パーティクルの取得
+        if (m_miningParticle)
+        {
+			m_miningParticleRenderer = m_miningParticle.GetComponent<ParticleSystemRenderer>();
+            m_particleMaterial = m_miningParticleRenderer.sharedMaterial;
+		}
+	}
 
     // Update is called once per frame
     void Update()
@@ -289,6 +301,17 @@ public class PlayerMining : MonoBehaviour
 
 			// 与ダメージ加算
 			m_takenDamage += m_miningValue.power;
+
+            // 採掘エフェクト
+            if (m_miningParticle)
+            {
+                //m_particleMaterial.color = block.BlockData.Color;
+                // なぜか暗くなるからエミッションカラーのほうを変える(**********要検証***********)
+                m_particleMaterial.SetColor("_EmissionColor", block.BlockData.Color);
+
+                m_miningParticle.transform.position = transform.position;
+                m_miningParticle.Play();
+            }
 
 			// ブロックに当たったらダメージ処理を抜ける
 			return true;

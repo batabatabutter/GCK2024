@@ -24,9 +24,6 @@ public class Block : MonoBehaviour
     [Header("アイテムのデータベース")]
     [SerializeField] private ItemDataBase m_itemDataBase = null;
 
-    [Header("パーティクル")]
-    [SerializeField] private ParticleSystem m_particle = null;
-
     // ブロックが破壊されている
     private bool m_isBroken = false;
 
@@ -47,12 +44,6 @@ public class Block : MonoBehaviour
 
 			//m_itemDataBase = AssetDatabase.LoadAssetAtPath<ItemDataBase>("Assets/DataBase/Item/ItemDataBase.asset");
 		}
-
-        // パーティクルシステムがない
-        if (m_particle == null)
-        {
-            m_particle = GetComponent<ParticleSystem>();
-        }
 
 	}
 
@@ -89,9 +80,6 @@ public class Block : MonoBehaviour
 
         // 採掘ダメージ加算
         m_blockEndurance -= power;
-
-        // パーティクル実行
-        m_particle.Play();
 
         // 耐久が0になった
         if (m_blockEndurance <= 0.0f)
