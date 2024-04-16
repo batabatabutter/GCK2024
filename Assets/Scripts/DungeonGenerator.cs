@@ -109,7 +109,7 @@ public class DungeonGenerator : MonoBehaviour
 		//プレイヤーとコアの位置が離れるまで繰り返す
 		do
 		{
-			m_playerPos = new Vector2(Random.Range(0.0f, dungeonSize.x), Random.Range(0.0f, dungeonSize.y));
+			m_playerPos = new Vector2(Random.Range(0, dungeonSize.x), Random.Range(0, dungeonSize.y));
 
 			if (roop_error > 100)
 			{

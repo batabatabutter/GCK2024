@@ -53,8 +53,14 @@ public class DungeonGeneratorDigging : DungeonGeneratorBase
     [Header("通路が埋まっている割合")]
     [SerializeField, Range(0.0f, 1.0f)] private float m_pathFillRate = 0.5f;
 
+    [Header("部屋に鉱石の塊ができる確率")]
+    [SerializeField, Range(0.0f, 1.0f)] private float m_roomOreChunkRate = 0.0f;
+    [Header("部屋の鉱石生成数")]
+    [SerializeField, Min(1)] private MyFunction.MinMax m_roomOreChunkCount;
+
 	// タイルマップ
 	readonly List<List<Tile>> m_tiles = new();
+    readonly List<List<string>> m_mapList = new();
 
     // 部屋の配列
     private readonly List<Room> m_rooms = new();
@@ -85,8 +91,6 @@ public class DungeonGeneratorDigging : DungeonGeneratorBase
 
 	public override List<List<string>> GenerateDungeon(DungeonData dungeonData)
     {
-		List<List<string>> mapList = new();
-
 		// マップのサイズ取得
 		m_mapSize = dungeonData.Size;
 
@@ -103,7 +107,7 @@ public class DungeonGeneratorDigging : DungeonGeneratorBase
             }
             // 行の追加
             m_tiles.Add(tiles);
-            mapList.Add(map);
+            m_mapList.Add(map);
         }
 
         // データのキャスト
@@ -112,7 +116,7 @@ public class DungeonGeneratorDigging : DungeonGeneratorBase
         // キャストできなかった
         if (data == null)
         {
-            return mapList;
+            return m_mapList;
         }
 
         // 最初の部屋の座標
@@ -165,10 +169,13 @@ public class DungeonGeneratorDigging : DungeonGeneratorBase
                     list.Add("0");
                 }
             }
-            mapList.Add(list);
+            m_mapList.Add(list);
         }
 
-        return mapList;
+        // 鉱石生成
+        CreateOre();
+
+        return m_mapList;
     }
 
 
@@ -533,6 +540,39 @@ public class DungeonGeneratorDigging : DungeonGeneratorBase
         }
         // 部屋を作れる
         return true;
+    }
+
+    // 鉱石の生成
+    private void CreateOre()
+    {
+        // まずは生成する部屋を決める
+		foreach (Room room in m_rooms)
+		{
+            // 乱数取得
+            float rand = Random.Range(0.0f, 1.0f);
+
+            // 鉱石を生成しない
+            if (rand > m_roomOreChunkRate)
+                continue;
+
+            // 生成数の決定
+            int count = Random.Range(m_roomOreChunkCount.min, m_roomOreChunkCount.max + 1);
+            // 鉱石の塊を生成
+            for (int i = 0; i < count; i++)
+            {
+                // 生成位置決定
+                Vector2Int pos = new(Random.Range(room.pos.x, room.pos.x + room.size.x), Random.Range(room.pos.y, room.pos.y + room.size.y));
+
+                CreateOre(pos);
+            }
+		}
+	}
+    private void CreateOre(Vector2Int pos)
+    {
+
+
+        m_mapList[pos.y][pos.x] = "2";
+        
     }
 
 }

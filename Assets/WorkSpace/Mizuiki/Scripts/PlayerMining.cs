@@ -84,6 +84,14 @@ public class PlayerMining : MonoBehaviour
 		}
 	}
 
+    // 採掘方向のRay
+    struct MiningRay
+    {
+        public Vector2 direction;
+        public Vector2 origin;
+        public float length;
+    }
+
     [Header("レイヤーマスク")]
     [SerializeField] private LayerMask m_layerMask;
 
@@ -134,19 +142,15 @@ public class PlayerMining : MonoBehaviour
             m_miningCoolTime -= Time.deltaTime;
         }
 
-        // プレイヤーの位置
-        Vector2 playerPos = transform.position;
 
-        // マウスの位置を取得
-        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		// マウスの位置を取得
+		Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        // プレイヤーの位置からマウスの位置へのベクトル
-        Vector2 playerToMouse = mousePos - playerPos;
-        // ベクトル正規化
-        playerToMouse.Normalize();
+		// 採掘用のRay取得
+		MiningRay miningRay = GetMiningPoint(mousePos);
 
 		// プレイヤーから採掘方向へのRayCast
-		RaycastHit2D[] rayCasts = Physics2D.RaycastAll(playerPos, playerToMouse, m_miningValue.range, m_layerMask);
+		RaycastHit2D[] rayCasts = Physics2D.RaycastAll(miningRay.origin, miningRay.direction, miningRay.length, m_layerMask);
 		foreach (RaycastHit2D rayCast in rayCasts)
 		{
 			// タグが Block
@@ -166,14 +170,14 @@ public class PlayerMining : MonoBehaviour
 				{
                     m_debugMiningPoint.transform.position = rayCast.transform.position;
 				}
-
+                break;
 			}
 		}
         // 当たったものがない
         if (rayCasts.Length == 0)
         {
             // 採掘ポイント
-            m_debugMiningPoint.transform.position = playerPos + (playerToMouse * m_miningValue.range);
+            m_debugMiningPoint.transform.position = miningRay.origin + (miningRay.direction * m_miningValue.range);
         }
 
     }
@@ -185,19 +189,14 @@ public class PlayerMining : MonoBehaviour
         if (m_miningCoolTime > 0.0f)
             return;
 
-		// プレイヤーの位置
-		Vector2 playerPos = transform.position;
-
 		// マウスの位置を取得
 		Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-		// プレイヤーの位置からマウスの位置へのベクトル
-		Vector2 playerToMouse = mousePos - playerPos;
-		// ベクトル正規化
-		playerToMouse.Normalize();
+		// 採掘用のRay取得
+		MiningRay miningRay = GetMiningPoint(mousePos);
 
         // プレイヤーから採掘方向へのRayCast
-        RaycastHit2D[] rayCasts = Physics2D.RaycastAll(playerPos, playerToMouse, m_miningValue.range, m_layerMask);
+        RaycastHit2D[] rayCasts = Physics2D.RaycastAll(miningRay.origin, miningRay.direction, miningRay.length, m_layerMask);
         // ダメージを与えたブロックの位置
         Transform blockTransform = null;
         foreach (RaycastHit2D rayCast in rayCasts)
@@ -242,12 +241,38 @@ public class PlayerMining : MonoBehaviour
 
 
 
-	/// <summary>
-	/// ブロックにダメージを与える
-	/// </summary>
-	/// <param name="transform">ダメージを与えるブロック</param>
-	/// <returns>ダメージが通ったか</returns>
-	private bool CauseDamageToBlock(Transform transform)
+    private MiningRay GetMiningPoint(Vector2 mousePos)
+    {
+		// プレイヤーの位置
+		Vector2 playerPos = transform.position;
+
+		// プレイヤーの位置からマウスの位置へのベクトル
+		Vector2 playerToMouse = mousePos - playerPos;
+		// プレイヤーからマウスまでの距離
+		float length = playerToMouse.magnitude;
+		if (length > m_miningValue.range)
+		{
+			length = m_miningValue.range;
+		}
+		// ベクトル正規化
+		playerToMouse.Normalize();
+
+        MiningRay miningRay = new()
+        {
+            direction = playerToMouse,
+            origin = playerPos,
+            length = length,
+        };
+
+        return miningRay;
+    }
+
+    /// <summary>
+    /// ブロックにダメージを与える
+    /// </summary>
+    /// <param name="transform">ダメージを与えるブロック</param>
+    /// <returns>ダメージが通ったか</returns>
+    private bool CauseDamageToBlock(Transform transform)
     {
 		// [Block] の取得を試みる
 		if (transform.TryGetComponent(out Block block))
