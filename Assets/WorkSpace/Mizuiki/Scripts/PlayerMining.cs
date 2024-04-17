@@ -166,6 +166,7 @@ public class PlayerMining : MonoBehaviour
 
 		// プレイヤーから採掘方向へのRayCast
 		RaycastHit2D[] rayCasts = Physics2D.RaycastAll(miningRay.origin, miningRay.direction, miningRay.length, m_layerMask);
+        bool hit = false;
 		foreach (RaycastHit2D rayCast in rayCasts)
 		{
 			// タグが Block
@@ -173,7 +174,7 @@ public class PlayerMining : MonoBehaviour
 			{
                 // 当たった位置を採掘ポイントにする
                 m_debugMiningPoint.transform.position = rayCast.point;
-
+                hit = true;
                 break;
 			}
 
@@ -184,15 +185,16 @@ public class PlayerMining : MonoBehaviour
 				if (MyFunction.CheckSameGrid(rayCast.transform.position, mousePos))
 				{
                     m_debugMiningPoint.transform.position = rayCast.transform.position;
+                    hit = true;
+					break;
 				}
-                break;
 			}
 		}
         // 当たったものがない
-        if (rayCasts.Length == 0)
+        if (!hit)
         {
             // 採掘ポイント
-            m_debugMiningPoint.transform.position = miningRay.origin + (miningRay.direction * m_miningValue.range);
+            m_debugMiningPoint.transform.position = miningRay.origin + (miningRay.direction * miningRay.length);
         }
 
     }

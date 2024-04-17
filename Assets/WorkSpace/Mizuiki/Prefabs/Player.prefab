@@ -980,6 +980,10 @@ PrefabInstance:
       value: Tool_Toach
       objectReference: {fileID: 0}
     - target: {fileID: 1605569564547797263, guid: 5cd6e11a21e8d74498a673fc06be8e44, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1605569564547797263, guid: 5cd6e11a21e8d74498a673fc06be8e44, type: 3}
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}

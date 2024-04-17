@@ -16,7 +16,7 @@ public class DungeonData : ScriptableObject
     [Header("ダンジョンの生成パターン")]
     [SerializeField] private Pattern pattern;
     [Header("ダンジョンのサイズ")]
-	[SerializeField] private Vector2Int size = new (50, 50);
+	[SerializeField] private Vector2Int size;
     [Header("ダンジョンの生成確率")]
 	[SerializeField] private List<DungeonGenerator.BlockOdds> dungeonOdds;
     [Header("ダンジョンの攻撃パターン")]

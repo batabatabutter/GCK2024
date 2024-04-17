@@ -99,7 +99,7 @@ public class TestDungeonGenerator : MonoBehaviour
 				Vector3 pos = new(x, y, 0.0f);
 
 				// ƒuƒƒbƒN‚Ì¶¬
-				m_blockGenerator.GenerateBlock(m_blocks[name], pos);
+				m_blockGenerator.GenerateBlock(m_blocks[name], pos, null, true);
 
 			}
 		}

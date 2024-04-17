@@ -261,6 +261,14 @@ public class PlayerTool : MonoBehaviour
 
 		// ツールのデータ取得
 		ToolData data = m_tools[type].data;
+
+		// プレハブが設定されていない
+		if (data.Prefab == null)
+		{
+			Debug.Log("プレハブを設定してね");
+			return;
+		}
+
 		// ツールの分類
 		switch (data.Category)
 		{

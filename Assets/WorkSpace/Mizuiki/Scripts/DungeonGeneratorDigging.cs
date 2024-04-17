@@ -56,7 +56,7 @@ public class DungeonGeneratorDigging : DungeonGeneratorBase
     [Header("部屋に鉱石の塊ができる確率")]
     [SerializeField, Range(0.0f, 1.0f)] private float m_roomOreChunkRate = 0.0f;
     [Header("部屋の鉱石生成数")]
-    [SerializeField, Min(1)] private MyFunction.MinMax m_roomOreChunkCount;
+    [SerializeField] private MyFunction.MinMax m_roomOreChunkCount;
 
 	// タイルマップ
 	readonly List<List<Tile>> m_tiles = new();
@@ -71,11 +71,8 @@ public class DungeonGeneratorDigging : DungeonGeneratorBase
     private Vector2Int m_mapSize;
 
     // ダンジョンデータの設定
-    public override void SetDungeonData(DungeonData dungeonData)
+    public void SetDungeonData(DungeonDataDigging data)
     {
-		// データのキャスト
-		DungeonDataDigging data = dungeonData as DungeonDataDigging;
-
 		// 部屋のサイズ
 		m_roomRange = data.RoomRange;
 		// 通路の長さ
@@ -98,25 +95,22 @@ public class DungeonGeneratorDigging : DungeonGeneratorBase
 		for (int y = 0; y < m_mapSize.y; y++)
         {
             List<Tile> tiles = new();
-            List<string> map = new();
             for (int x = 0; x < m_mapSize.x; x++)
             {
                 // 列の追加
                 tiles.Add(Tile.BLOCK);
-                map.Add("1");
             }
             // 行の追加
             m_tiles.Add(tiles);
-            m_mapList.Add(map);
         }
 
         // データのキャスト
 		DungeonDataDigging data = dungeonData as DungeonDataDigging;
 
-        // キャストできなかった
-        if (data == null)
+        // データの設定
+        if (data)
         {
-            return m_mapList;
+            SetDungeonData(data);
         }
 
         // 最初の部屋の座標
