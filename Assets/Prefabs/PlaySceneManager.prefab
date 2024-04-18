@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: -4963957752362924521}
   - component: {fileID: 1500174390285807772}
   - component: {fileID: -1378431894499735817}
+  - component: {fileID: -618236753607932433}
+  - component: {fileID: -600300867920135826}
   m_Layer: 0
   m_Name: PlaySceneManager
   m_TagString: Untagged
@@ -71,6 +73,11 @@ MonoBehaviour:
   m_player: {fileID: 6945831396311541013, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
   m_playSceneManager: {fileID: 3469568166959932924}
   m_ground: {fileID: 6018421707374535805, guid: c39488e997ce861448ac80594ec8975c, type: 3}
+  m_generators:
+  - pattern: 0
+    generator: {fileID: -618236753607932433}
+  - pattern: 1
+    generator: {fileID: -600300867920135826}
 --- !u!114 &-4963957752362924521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,3 +141,40 @@ MonoBehaviour:
   detectionLayer:
     serializedVersion: 2
     m_Bits: 8
+--- !u!114 &-618236753607932433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1614570275442964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4acffe1975897f47a7ce5b700d3c3e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-600300867920135826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1614570275442964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0455d59bf1346c94a923cf9a1ecbeed5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_roomRange:
+    min: 0
+    max: 0
+  m_pathRange:
+    min: 0
+    max: 0
+  m_maxCount: 100
+  m_roomGenerateRate: 0.5
+  m_pathFillRate: 0.5
+  m_roomOreChunkRate: 0
+  m_roomOreChunkCount:
+    min: 0
+    max: 0
