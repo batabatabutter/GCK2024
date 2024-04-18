@@ -13,6 +13,22 @@ public class DungeonData : ScriptableObject
         OVER,
     }
 
+    //  ダンジョンのウェーブデータ
+    [System.Serializable]
+    public struct DungeonWave
+    {
+        [Header("ダンジョンの行動パターン"), SerializeField]
+        List<DungeonAttack.AttackPattern> dungeonATKPattern;
+        [Header("ダンジョンの行動間隔"), SerializeField]
+        float dungeonATKCoolTime;
+        [Header("敵の種類"), SerializeField]
+        List<Enemy.Type> generateEnemyType;
+        [Header("敵の生成数"), SerializeField]
+        int generateEnemyNum;
+        [Header("敵の生成間隔"), SerializeField]
+        float geterateEnemyInterval;
+    }
+
     [Header("ダンジョンの生成パターン")]
     [SerializeField] private Pattern pattern;
     [Header("ダンジョンのサイズ")]
@@ -27,6 +43,8 @@ public class DungeonData : ScriptableObject
     [SerializeField] private List<Enemy.Type> enemy;
     [Header("敵の出現頻度")]
     [SerializeField] private float enemySpawnTime;
+    [Header("ウェーブ情報")]
+    [SerializeField] private List<DungeonWave> dungeonWaves;
 
     public Pattern DungeonPattern => pattern;
     public Vector2Int Size => size;
@@ -35,5 +53,5 @@ public class DungeonData : ScriptableObject
     public float DungeonAttackCoolTime => dungeonAttackCoolTime;
     public List<Enemy.Type> Enemy => enemy;
     public float EnemySpawnTime => enemySpawnTime;
-
+    public List<DungeonWave> DungeonWaves => dungeonWaves;
 }
