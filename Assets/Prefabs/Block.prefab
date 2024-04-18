@@ -150,4 +150,3 @@ MonoBehaviour:
   m_spriteRenderer: {fileID: 0}
   m_blockData: {fileID: 0}
   m_itemDataBase: {fileID: 11400000, guid: c534141616c2bbc4ba996d4d9f120330, type: 2}
-  m_particle: {fileID: 0}

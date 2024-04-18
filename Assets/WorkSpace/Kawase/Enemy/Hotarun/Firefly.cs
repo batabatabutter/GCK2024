@@ -58,7 +58,7 @@ public class Firefly : Enemy_AttackBall
             DestroyThis();
         }
     }
-    public void MoveStart()
+    public override void MoveStart()
     {
         // 親オブジェクトの回転を取得する
         m_parentRotation = transform.parent.transform.rotation;

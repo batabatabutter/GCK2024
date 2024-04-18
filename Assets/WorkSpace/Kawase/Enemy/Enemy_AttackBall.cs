@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy_AttackBall : MonoBehaviour
 {
     //èhÇËêÊ
-    GameObject m_dwellBlock;
+    protected GameObject m_dwellBlock;
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -51,4 +51,8 @@ public class Enemy_AttackBall : MonoBehaviour
         Destroy(gameObject);
     }
 
+
+    public virtual void MoveStart()
+    { 
+    }
 }

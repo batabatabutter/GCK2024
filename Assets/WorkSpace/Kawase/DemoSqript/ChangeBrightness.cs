@@ -57,8 +57,7 @@ public class ChangeBrightness : MonoBehaviour
 
         //F‚Ì•ÏX
         ChangeColor();
-
-        
+            
 
     }
 

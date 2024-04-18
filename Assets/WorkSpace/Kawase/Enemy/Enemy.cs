@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
         Dorinoko,
         Iwarun,
         Hotarun,
+        Bomurun,
 
         OverID
     }
