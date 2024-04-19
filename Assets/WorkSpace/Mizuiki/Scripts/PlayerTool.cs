@@ -307,8 +307,12 @@ public class PlayerTool : MonoBehaviour
 		// アクティブにする(念のため)
 		tool.SetActive(true);
 
-		// 素材を消費する
-		if (con)
+		//	ブロックスクリプトがあるならplayer座標取得
+		var br = tool.GetComponent<ChangeBrightness>();
+		if (br) br.SetPlayerTransform(transform);
+
+        // 素材を消費する
+        if (con)
 		{
 			m_playerItem.ConsumeMaterials(data);
 		}
