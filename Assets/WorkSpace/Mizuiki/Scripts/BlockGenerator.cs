@@ -41,7 +41,7 @@ public class BlockGenerator : MonoBehaviour
 
         // データがない
         if (data == null)
-            return null;
+            return ground;
 
         // プレハブが設定されていない
         if (!data.Prefab)

@@ -18,7 +18,7 @@ public class DungeonGenerator : MonoBehaviour
     [Header("ダンジョンデータベース")]
     [SerializeField] private DungeonDataBase m_dungeonDataBase;
 
-	private GameObject[][] m_blocks = null;
+	private GameObject[,] m_blocks = null;
 
     [System.Serializable]
     public class BlockOdds
@@ -58,7 +58,7 @@ public class DungeonGenerator : MonoBehaviour
 
 	[Header("ダンジョン生成スクリプト")]
     [SerializeField] private Generator[] m_generators = null;
-	private Dictionary<DungeonData.Pattern, DungeonGeneratorBase> m_dungeonGenerators = new();
+	private readonly Dictionary<DungeonData.Pattern, DungeonGeneratorBase> m_dungeonGenerators = new();
 
 
     private void Awake()
@@ -164,7 +164,7 @@ public class DungeonGenerator : MonoBehaviour
 	private int LotteryBlock()
     {
         //確率の抽選
-        List<int> oddsList = new List<int>();
+        List<int> oddsList = new ();
 
         //全ての確率合算
         int allOdds = 0;
@@ -190,6 +190,8 @@ public class DungeonGenerator : MonoBehaviour
 	// ブロックの生成
 	private void CreateBlock(List<List<string>> mapList, List<BlockOdds> odds)
 	{
+		m_blocks = new GameObject[mapList.Count, mapList[0].Count];
+
 		for (int y = 0; y < mapList.Count; y++)
 		{
 			for (int x = 0; x < mapList[y].Count; x++)
@@ -200,7 +202,7 @@ public class DungeonGenerator : MonoBehaviour
 				if ((int)m_playerPos.x == x && (int)m_playerPos.y == y)
 				{
 					// 空のブロックを生成
-					m_blockGenerator.GenerateBlock(BlockData.BlockType.OVER, position, m_parent.transform, m_isBrightness);
+					m_blocks[y,x] = m_blockGenerator.GenerateBlock(BlockData.BlockType.OVER, position, m_parent.transform, m_isBrightness);
 					continue;
 				}
 				//コアを生成
@@ -214,12 +216,12 @@ public class DungeonGenerator : MonoBehaviour
 					// 生成する種類
 					BlockData.BlockType type = odds[LotteryBlock()].type;
 					// ブロック生成
-					m_blockGenerator.GenerateBlock(type, position, m_parent.transform, m_isBrightness);
+					m_blocks[y, x] = m_blockGenerator.GenerateBlock(type, position, m_parent.transform, m_isBrightness);
 				}
 				else
 				{
 					// 空のブロックを生成
-					m_blockGenerator.GenerateBlock(BlockData.BlockType.OVER, position, m_parent.transform, m_isBrightness);
+					m_blocks[y, x] = m_blockGenerator.GenerateBlock(BlockData.BlockType.OVER, position, m_parent.transform, m_isBrightness);
 				}
 			}
 		}
@@ -244,23 +246,23 @@ public class DungeonGenerator : MonoBehaviour
 		}
 	}
 
-	// 地面の生成
-	private void CreateGround(Vector2Int size)
-	{
-		//地面の生成
-		for (int y = 0; y < size.y; ++y)
-		{
-			for (int x = 0; x < size.x; ++x)
-			{
-				// 生成座標
-				Vector3 pos = new(x, y, 0.0f);
-				// ブロックの生成
-				GameObject block = Instantiate(m_ground, pos, Quaternion.identity);
-				// 親の設定
-				block.transform.parent = m_parent.transform;
-			}
-		}
-	}
+	//// 地面の生成
+	//private void CreateGround(Vector2Int size)
+	//{
+	//	//地面の生成
+	//	for (int y = 0; y < size.y; ++y)
+	//	{
+	//		for (int x = 0; x < size.x; ++x)
+	//		{
+	//			// 生成座標
+	//			Vector3 pos = new(x, y, 0.0f);
+	//			// ブロックの生成
+	//			GameObject block = Instantiate(m_ground, pos, Quaternion.identity);
+	//			// 親の設定
+	//			block.transform.parent = m_parent.transform;
+	//		}
+	//	}
+	//}
 
 	// ステージ番号取得
 	public int GetStageNum()
