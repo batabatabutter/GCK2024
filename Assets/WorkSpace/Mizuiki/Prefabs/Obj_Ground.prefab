@@ -242,6 +242,10 @@ PrefabInstance:
       value: Map_Object
       objectReference: {fileID: 0}
     - target: {fileID: 3400363934103720657, guid: 6626405694a3a3e4191b6cfe03fe79e8, type: 3}
+      propertyPath: m_parent
+      value: 
+      objectReference: {fileID: 5668319801934073067}
+    - target: {fileID: 3400363934103720657, guid: 6626405694a3a3e4191b6cfe03fe79e8, type: 3}
       propertyPath: m_blockColor.b
       value: 0.20534708
       objectReference: {fileID: 0}

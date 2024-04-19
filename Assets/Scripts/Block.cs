@@ -190,6 +190,11 @@ public class Block : MonoBehaviour
         get { return m_receiveLightLevel; }
         set { m_receiveLightLevel = value; }
     }
+    // 受けている明度
+    public float ReceiveLightValue
+    {
+        get { return m_receiveLightLevel / 7.0f; }
+    }
 
     // ブロックデータ
     public BlockData BlockData

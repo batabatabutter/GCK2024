@@ -10,8 +10,9 @@ public class BlockGenerator : MonoBehaviour
 
     [Header("マップオブジェクト")]
     [SerializeField] private GameObject m_mapObject = null;
-    [Header("マップの目隠し")]
-    [SerializeField] private GameObject m_mapBlind = null;
+
+    [Header("地面")]
+    [SerializeField] private GameObject m_ground = null;
 
 
 	private void Awake()
@@ -20,25 +21,11 @@ public class BlockGenerator : MonoBehaviour
 		if (m_blockDataBase == null)
 		{
             Debug.Log(gameObject.name + "にブロックデータベースを設定してね");
-
-			//m_blockDataBase = AssetDatabase.LoadAssetAtPath<BlockDataBase>("Assets/DataBase/Block/BlockDataBase.asset");
 		}
 	}
 
-	// Start is called before the first frame update
-	void Start()
-    {
-	}
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-
     /// <summary>
-    /// ブロックを生成
+    /// ブロックを生成(typeにOVERを設定すると地面のみが生成される)
     /// </summary>
     /// <param name="type">生成するブロックの種類</param>
     /// <param name="position">生成する座標</param>
@@ -46,6 +33,9 @@ public class BlockGenerator : MonoBehaviour
     /// <param name="isBrightness">明るさをつけるかどうか</param>
     public GameObject GenerateBlock(BlockData.BlockType type, Vector2 position, Transform parent = null, bool isBrightness = false)
     {
+		// 地面を生成
+		GameObject ground = CreateObject(parent, m_ground, position);
+ 
 		// ブロックのデータ取得
 		BlockData data = MyFunction.GetBlockData(m_blockDataBase, type);
 
@@ -59,36 +49,21 @@ public class BlockGenerator : MonoBehaviour
             Debug.Log(data.name + "にブロックのプレハブを設定してね");
 
             return null;
-            //data.prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Block.prefab");
         }
 
 		// 生成したブロックを設定する用
 		GameObject obj;
-
-        // 親が指定されている
-        if (parent)
+        // 地面が生成されている
+        if (ground)
         {
-            // 親を設定して生成
-            obj = Instantiate(data.Prefab, position, Quaternion.identity, parent);
+            // 地面を親に設定して生成
+            obj = CreateObject(ground.transform, data.Prefab, position);
         }
-        // 親の指定はない
+        // 地面はない
         else
         {
-            // 指定座標に生成
-            obj = Instantiate(data.Prefab, position, Quaternion.identity);
-        }
-
-        // データの設定
-        if (obj.TryGetComponent(out Block block))
-        {
-            // データ
-            block.BlockData = data;
-            // 耐久
-            block.Endurance = data.Endurance;
-            // 破壊不可
-            block.DontBroken = data.DontBroken;
-            // 光源レベル
-            block.LightLevel = data.LightLevel;
+            // 親を設定して生成
+            obj = CreateObject(parent, data.Prefab, position);
         }
 
 		// 画像の設定
@@ -106,27 +81,54 @@ public class BlockGenerator : MonoBehaviour
             obj.AddComponent<ChangeBrightness>();
         }
 
+        // データの設定
+        if (!obj.TryGetComponent(out Block block))
+            return obj;
+
+        // データ
+        block.BlockData = data;
+        // 耐久
+        block.Endurance = data.Endurance;
+        // 破壊不可
+        block.DontBroken = data.DontBroken;
+        // 光源レベル
+        block.LightLevel = data.LightLevel;
 
         if (m_mapObject)
         {
             // マップオブジェクトの生成
             GameObject mapObj = Instantiate(m_mapObject, obj.transform);
+            MapObject map = mapObj.GetComponent<MapObject>();
             // 色の設定
             mapObj.GetComponent<SpriteRenderer>().color = data.Color;
-            mapObj.GetComponent<MapObject>().BlockColor = data.Color;
+            map.BlockColor = data.Color;
             // 表示順の設定
             mapObj.GetComponent<SpriteRenderer>().sortingOrder = data.Order;
             // スプライトの設定
-            mapObj.GetComponent<MapObject>().ParentSprite = obj.gameObject.GetComponent<SpriteRenderer>();
-
+            map.ParentSprite = obj.gameObject.GetComponent<SpriteRenderer>();
+            // 親の設定
+            map.Parent = block;
         }
-		if (m_mapBlind)
-		{
-			// マップの目隠し生成
-			//Instantiate(m_mapBlind, block.transform);
-		}
-
 
         return obj;
 	}
+
+    // オブジェクトを生成する
+    private GameObject CreateObject(Transform parent, GameObject gameObject, Vector2 position)
+    {
+        // 生成するオブジェクト
+        GameObject obj;
+        // 親が指定されている
+        if (parent)
+        {
+            obj = Instantiate(gameObject, position, Quaternion.identity, parent.transform);
+        }
+        // 親が指定されていない
+        else
+        {
+            obj = Instantiate(gameObject, position, Quaternion.identity);
+        }
+        // 生成したオブジェクトを返す
+        return obj;
+    }
 }

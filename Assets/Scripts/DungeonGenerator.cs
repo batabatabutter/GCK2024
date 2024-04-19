@@ -18,6 +18,8 @@ public class DungeonGenerator : MonoBehaviour
     [Header("ダンジョンデータベース")]
     [SerializeField] private DungeonDataBase m_dungeonDataBase;
 
+	private GameObject[][] m_blocks = null;
+
     [System.Serializable]
     public class BlockOdds
     {
@@ -152,7 +154,7 @@ public class DungeonGenerator : MonoBehaviour
 		CreateBedrock(dungeonSize);
 
 		//地面の生成
-		CreateGround(dungeonSize);
+		//CreateGround(dungeonSize);
 
     }
 
@@ -192,9 +194,13 @@ public class DungeonGenerator : MonoBehaviour
 		{
 			for (int x = 0; x < mapList[y].Count; x++)
 			{
+				// 生成する座標
+				Vector2 position = new(x, y);
 				//プレイヤー
 				if ((int)m_playerPos.x == x && (int)m_playerPos.y == y)
 				{
+					// 空のブロックを生成
+					m_blockGenerator.GenerateBlock(BlockData.BlockType.OVER, position, m_parent.transform, m_isBrightness);
 					continue;
 				}
 				//コアを生成
@@ -207,10 +213,13 @@ public class DungeonGenerator : MonoBehaviour
 				{
 					// 生成する種類
 					BlockData.BlockType type = odds[LotteryBlock()].type;
-					// 生成する座標
-					Vector2 position = new(x, y);
 					// ブロック生成
 					m_blockGenerator.GenerateBlock(type, position, m_parent.transform, m_isBrightness);
+				}
+				else
+				{
+					// 空のブロックを生成
+					m_blockGenerator.GenerateBlock(BlockData.BlockType.OVER, position, m_parent.transform, m_isBrightness);
 				}
 			}
 		}

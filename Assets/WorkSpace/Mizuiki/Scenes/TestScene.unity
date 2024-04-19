@@ -204,7 +204,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &75050969
 Transform:
   m_ObjectHideFlags: 0
@@ -262,7 +262,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_blockDataBase: {fileID: 11400000, guid: c2edababa67c99348a73038833ee0dbc, type: 2}
   m_mapObject: {fileID: 1862195980944505719, guid: 6626405694a3a3e4191b6cfe03fe79e8, type: 3}
-  m_mapBlind: {fileID: 1862195980944505719, guid: c1924fe14703f584b922f18489774354, type: 3}
+  m_ground: {fileID: 0}
 --- !u!114 &75050972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3410,6 +3410,10 @@ PrefabInstance:
       propertyPath: m_playerUpgrade
       value: 
       objectReference: {fileID: 1847183017}
+    - target: {fileID: 3897111010116377742, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
+      propertyPath: m_TagString
+      value: Tool
+      objectReference: {fileID: 0}
     - target: {fileID: 6054228071190134199, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
       propertyPath: m_text
       value: 
@@ -4623,7 +4627,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1614570275442964, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 792408576829412996, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
       propertyPath: m_ground
@@ -4635,7 +4639,7 @@ PrefabInstance:
       objectReference: {fileID: 4565198709969196584, guid: 39d265f821b12d5418f29e714696adc7, type: 3}
     - target: {fileID: 792408576829412996, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
       propertyPath: m_isBrightness
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 792408576829412996, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
       propertyPath: m_dungeonGeneratorDig
@@ -4665,6 +4669,10 @@ PrefabInstance:
       propertyPath: m_generators.Array.data[1].generator
       value: 
       objectReference: {fileID: 1242418148}
+    - target: {fileID: 1500174390285807772, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
+      propertyPath: m_ground
+      value: 
+      objectReference: {fileID: 6018421707374535805, guid: c39488e997ce861448ac80594ec8975c, type: 3}
     - target: {fileID: 3469568166959932924, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
       propertyPath: m_debugFlag
       value: 0

@@ -17,7 +17,7 @@ public class PlayerUpgrade : MonoBehaviour
     [SerializeField] private PlayerMining.MiningValue m_upgradeValue;
 
     [Header("‹­‰»ƒ‰ƒ“ƒN")]
-    [SerializeField] private int m_upgradeRank = 1;
+    [SerializeField] private int m_upgradeRank = 0;
 
 
 
