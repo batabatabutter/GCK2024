@@ -45,6 +45,8 @@ public class DungeonData : ScriptableObject
     [SerializeField] private float enemySpawnTime;
     [Header("ウェーブ情報")]
     [SerializeField] private List<DungeonWave> dungeonWaves;
+    [Header("休憩ウェーブ時間")]
+    [SerializeField] private float restWaveTime;
 
     public Pattern DungeonPattern => pattern;
     public Vector2Int Size => size;
@@ -54,4 +56,5 @@ public class DungeonData : ScriptableObject
     public List<Enemy.Type> Enemy => enemy;
     public float EnemySpawnTime => enemySpawnTime;
     public List<DungeonWave> DungeonWaves => dungeonWaves;
+    public float RestWaveTime => restWaveTime;
 }

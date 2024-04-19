@@ -36,6 +36,12 @@ MonoBehaviour:
     generateEnemyType: 0000000001000000
     generateEnemyNum: 9
     geterateEnemyInterval: 1
+  - dungeonATKPattern: 0000000001000000
+    dungeonATKCoolTime: 4
+    generateEnemyType: 0000000001000000
+    generateEnemyNum: 10
+    geterateEnemyInterval: 1
+  restWaveTime: 30
   dungeonCSV:
   - {fileID: 4900000, guid: 0e35215235d219d46be3f40a33eaba2e, type: 3}
   - {fileID: 4900000, guid: 6961f29b4be0e05478a47f0aea956a73, type: 3}
