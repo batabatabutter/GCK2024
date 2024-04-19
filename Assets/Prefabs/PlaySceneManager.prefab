@@ -68,7 +68,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8beeff47756d2a345992583b10fca279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_isBrightness: 0
+  m_isBlockBrightness: 1
+  m_isGroundBrightness: 1
   m_dungeonDataBase: {fileID: 11400000, guid: 0bf61c7eff449f24d9512881d58682a1, type: 2}
   m_playerLength: 20
   m_player: {fileID: 6945831396311541013, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
@@ -122,7 +123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_blockDataBase: {fileID: 11400000, guid: c2edababa67c99348a73038833ee0dbc, type: 2}
   m_mapObject: {fileID: 1862195980944505719, guid: 6626405694a3a3e4191b6cfe03fe79e8, type: 3}
-  m_mapBlind: {fileID: 1862195980944505719, guid: c1924fe14703f584b922f18489774354, type: 3}
+  m_ground: {fileID: 6018421707374535805, guid: c39488e997ce861448ac80594ec8975c, type: 3}
 --- !u!114 &-1378431894499735817
 MonoBehaviour:
   m_ObjectHideFlags: 0
