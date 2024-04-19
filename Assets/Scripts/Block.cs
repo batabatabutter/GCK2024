@@ -56,16 +56,16 @@ public class Block : MonoBehaviour
             Destroy(gameObject);
         }
         
-        // 受けている明るさレベルに応じて色を設定
-        if (m_receiveLightLevel > 0)
-        {
-            // 透明度
-            float alpha = m_receiveLightLevel / 7.0f * 100.0f;
-            // 透明度を 0 ~ 1 にクランプ
-            alpha = Mathf.Clamp(alpha, 0.0f, 1.0f);
-            // 色を設定
-            m_spriteRenderer.color = new Color(1.0f, 1.0f, 1.0f, alpha);
-        }
+        //// 受けている明るさレベルに応じて色を設定
+        //if (m_receiveLightLevel > 0)
+        //{
+        //    // 透明度
+        //    float alpha = m_receiveLightLevel / 7.0f * 100.0f;
+        //    // 透明度を 0 ~ 1 にクランプ
+        //    alpha = Mathf.Clamp(alpha, 0.0f, 1.0f);
+        //    // 色を設定
+        //    m_spriteRenderer.color = new Color(1.0f, 1.0f, 1.0f, alpha);
+        //}
 
     }
 
@@ -114,9 +114,6 @@ public class Block : MonoBehaviour
 			// アイテムのゲームオブジェクトを生成
 			GameObject obj = Instantiate(data.Prefab, transform.position, Quaternion.identity);
 
-            // 明るさの概念を追加
-            obj.AddComponent<ChangeBrightness>();
-
             // 名前を変える
             obj.name = "Material_" + dropItem.type.ToString();
 
@@ -127,6 +124,14 @@ public class Block : MonoBehaviour
                 item.ItemType = dropItem.type;
                 // ドロップ数の設定
                 item.Drop(dropItem.count * dropCount);
+            }
+
+            //  明るさがついていたら
+            if(GetComponent<ChangeBrightness>())
+            {
+                // 明るさの概念を追加
+                var itemBr = obj.AddComponent<ChangeBrightness>();
+                itemBr.SetPlayerTransform(GetComponent<ChangeBrightness>().GetPlayerTransform());
             }
 
             // 画像を設定

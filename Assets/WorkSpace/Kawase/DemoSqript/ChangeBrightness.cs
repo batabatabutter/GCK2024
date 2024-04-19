@@ -11,11 +11,17 @@ public class ChangeBrightness : MonoBehaviour
     //とりあえず色があるもの
     SpriteRenderer spriteRenderer;
     //明るさの最大値
-    const int MAX_BRIGHTNESS = 7;
+    static private int MAX_BRIGHTNESS = 7;
+    public int GetMAXBRIGHTBESS() { return MAX_BRIGHTNESS; }
 
     //LightList
     public List<GameObject> m_lightList = new List<GameObject>();
     public List<Vector3> m_lightPositionList = new List<Vector3>();
+
+    //  プレイヤーの座標
+    private Transform m_playerTr;
+    //  距離光源
+    private const float DISTANCE_LIGHT = 17.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -31,8 +37,33 @@ public class ChangeBrightness : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //  プレイヤーとの距離が一定以上離れていたら処理しない
+        if (m_playerTr == null)
+        {
+            Debug.Log("Error:BlockにPlyer座標が入ってない：" + this);
+            return;
+        }
+        if (Vector2.Distance(transform.position, m_playerTr.position) > DISTANCE_LIGHT)
+        {
+            Collider[] colliders = GetComponents<Collider>();
+            foreach (Collider collider in colliders)
+            {
+                collider.enabled = false;
+            }
+            return;
+        }
+        else
+        {
+            Collider[] colliders = GetComponents<Collider>();
+            foreach (Collider collider in colliders)
+            {
+                collider.enabled = true;
+
+            }
+        }
+
         //光源の処理をしない
-        if(GetComponent<Block>())
+        if (GetComponent<Block>())
         {
             if (GetComponent<Block>().LightLevel > 0)
             {
@@ -245,4 +276,8 @@ public class ChangeBrightness : MonoBehaviour
         m_lightList.RemoveAt(num);
         m_lightPositionList.RemoveAt(num);
     }
+
+    //  プレイヤー座標系設定
+    public void SetPlayerTransform(Transform tr) { m_playerTr = tr; }
+    public Transform GetPlayerTransform() { return m_playerTr; }
 }

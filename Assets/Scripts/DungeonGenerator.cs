@@ -10,7 +10,8 @@ using static UnityEngine.UI.Image;
 public class DungeonGenerator : MonoBehaviour
 {
     [Header("明るさをつける(デバッグ)")]
-    [SerializeField] private bool m_isBrightness;
+    [SerializeField] private bool m_isBlockBrightness;
+    [SerializeField] private bool m_isGroundBrightness;
 
     //"ステージ(0～)
     private int m_stageNum;
@@ -131,9 +132,10 @@ public class DungeonGenerator : MonoBehaviour
 
 		//  プレイヤーの生成
 		GameObject pl = Instantiate(m_player, m_playerPos, Quaternion.identity);
+		m_blockGenerator.SetPlayerTransform(pl.transform);
 
 		// coreの生成
-		GameObject co = m_blockGenerator.GenerateBlock(BlockData.BlockType.CORE, new Vector3(m_corePos.x, m_corePos.y), null, m_isBrightness);
+		GameObject co = m_blockGenerator.GenerateBlock(BlockData.BlockType.CORE, new Vector3(m_corePos.x, m_corePos.y), null, m_isBlockBrightness, m_isGroundBrightness);
 
 
 		//  プレイシーンマネージャーが無かったら格納しない
@@ -202,7 +204,7 @@ public class DungeonGenerator : MonoBehaviour
 				if ((int)m_playerPos.x == x && (int)m_playerPos.y == y)
 				{
 					// 空のブロックを生成
-					m_blocks[y,x] = m_blockGenerator.GenerateBlock(BlockData.BlockType.OVER, position, m_parent.transform, m_isBrightness);
+					m_blocks[y,x] = m_blockGenerator.GenerateBlock(BlockData.BlockType.OVER, position, m_parent.transform, m_isBlockBrightness, m_isGroundBrightness);
 					continue;
 				}
 				//コアを生成
@@ -216,12 +218,12 @@ public class DungeonGenerator : MonoBehaviour
 					// 生成する種類
 					BlockData.BlockType type = odds[LotteryBlock()].type;
 					// ブロック生成
-					m_blocks[y, x] = m_blockGenerator.GenerateBlock(type, position, m_parent.transform, m_isBrightness);
+					m_blocks[y, x] = m_blockGenerator.GenerateBlock(type, position, m_parent.transform, m_isBlockBrightness, m_isGroundBrightness);
 				}
 				else
 				{
 					// 空のブロックを生成
-					m_blocks[y, x] = m_blockGenerator.GenerateBlock(BlockData.BlockType.OVER, position, m_parent.transform, m_isBrightness);
+					m_blocks[y, x] = m_blockGenerator.GenerateBlock(BlockData.BlockType.OVER, position, m_parent.transform, m_isBlockBrightness, m_isGroundBrightness);
 				}
 			}
 		}
@@ -235,14 +237,14 @@ public class DungeonGenerator : MonoBehaviour
 		for (int x = 0; x < size.x; x++)
 		{
 			// 上下
-			m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(x, -1    , 0), m_parent.transform, m_isBrightness);
-			m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(x, size.y, 0), m_parent.transform, m_isBrightness);
+			m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(x, -1    , 0), m_parent.transform, m_isBlockBrightness, m_isGroundBrightness);
+			m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(x, size.y, 0), m_parent.transform, m_isBlockBrightness, m_isGroundBrightness);
 		}
 		for (int y = 0; y < size.y; y++)
 		{
 			// 左右
-			m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(-1    , y, 0), m_parent.transform, m_isBrightness);
-			m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(size.y, y, 0), m_parent.transform, m_isBrightness);
+			m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(-1    , y, 0), m_parent.transform, m_isBlockBrightness, m_isGroundBrightness);
+			m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(size.y, y, 0), m_parent.transform, m_isBlockBrightness, m_isGroundBrightness);
 		}
 	}
 

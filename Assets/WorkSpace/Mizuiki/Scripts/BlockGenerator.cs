@@ -14,8 +14,10 @@ public class BlockGenerator : MonoBehaviour
     [Header("地面")]
     [SerializeField] private GameObject m_ground = null;
 
+    //  プレイヤーの座標
+    private Transform m_playerTr;
 
-	private void Awake()
+    private void Awake()
 	{
 		// ブロックデータベースがない
 		if (m_blockDataBase == null)
@@ -30,14 +32,21 @@ public class BlockGenerator : MonoBehaviour
     /// <param name="type">生成するブロックの種類</param>
     /// <param name="position">生成する座標</param>
     /// <param name="parent">親</param>
-    /// <param name="isBrightness">明るさをつけるかどうか</param>
-    public GameObject GenerateBlock(BlockData.BlockType type, Vector2 position, Transform parent = null, bool isBrightness = false)
+    /// <param name="isBlockBrightness">ブロック明るさをつけるかどうか</param>
+    /// <param name="isGroundBrightness">地面明るさをつけるかどうか</param>
+    public GameObject GenerateBlock(BlockData.BlockType type, Vector2 position, Transform parent = null, bool isBlockBrightness = false, bool isGroundBrightness = false)
     {
 		// 地面を生成
 		GameObject ground = CreateObject(parent, m_ground, position);
- 
-		// ブロックのデータ取得
-		BlockData data = MyFunction.GetBlockData(m_blockDataBase, type);
+        //　地面の明るさ
+        if (isGroundBrightness)
+        {
+            var br = ground.AddComponent<ChangeBrightness>();
+            br.SetPlayerTransform(m_playerTr);
+        }
+
+        // ブロックのデータ取得
+        BlockData data = MyFunction.GetBlockData(m_blockDataBase, type);
 
         // データがない
         if (data == null)
@@ -76,9 +85,10 @@ public class BlockGenerator : MonoBehaviour
 		}
 
 		//明るさの追加
-		if (isBrightness)
+		if (isBlockBrightness)
         {
-            obj.AddComponent<ChangeBrightness>();
+            var br = obj.AddComponent<ChangeBrightness>();
+            br.SetPlayerTransform(m_playerTr);
         }
 
         // データの設定
@@ -131,4 +141,7 @@ public class BlockGenerator : MonoBehaviour
         // 生成したオブジェクトを返す
         return obj;
     }
+
+    //  プレイヤー座標系設定
+    public void SetPlayerTransform(Transform tr) { m_playerTr = tr; }
 }
