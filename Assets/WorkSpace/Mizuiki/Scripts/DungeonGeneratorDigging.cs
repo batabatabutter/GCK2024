@@ -86,26 +86,10 @@ public class DungeonGeneratorDigging : DungeonGeneratorBase
 
 	}
 
-	public override List<List<string>> GenerateDungeon(DungeonData dungeonData)
+    public override List<List<string>> GenerateDungeon(DungeonData dungeonData)
     {
-		// マップのサイズ取得
-		m_mapSize = dungeonData.Size;
-
-		// タイルマップ初期化
-		for (int y = 0; y < m_mapSize.y; y++)
-        {
-            List<Tile> tiles = new();
-            for (int x = 0; x < m_mapSize.x; x++)
-            {
-                // 列の追加
-                tiles.Add(Tile.BLOCK);
-            }
-            // 行の追加
-            m_tiles.Add(tiles);
-        }
-
         // データのキャスト
-		DungeonDataDigging data = dungeonData as DungeonDataDigging;
+        DungeonDataDigging data = dungeonData as DungeonDataDigging;
 
         // データの設定
         if (data)
@@ -113,8 +97,29 @@ public class DungeonGeneratorDigging : DungeonGeneratorBase
             SetDungeonData(data);
         }
 
-        // 最初の部屋の座標
-        Vector2Int firstRoomPos = new(Random.Range(0, m_mapSize.x - m_roomRange.max), Random.Range(0, m_mapSize.y - m_roomRange.max));
+        return GenerateDungeon(dungeonData.Size);
+
+    }
+    public override List<List<string>> GenerateDungeon(Vector2Int size)
+    {
+		// マップのサイズ取得
+		m_mapSize = size;
+
+		// タイルマップ初期化
+		for (int y = 0; y < size.y; y++)
+		{
+			List<Tile> tiles = new();
+			for (int x = 0; x < size.x; x++)
+			{
+				// 列の追加
+				tiles.Add(Tile.BLOCK);
+			}
+			// 行の追加
+			m_tiles.Add(tiles);
+		}
+
+		// 最初の部屋の座標
+		Vector2Int firstRoomPos = new(Random.Range(0, m_mapSize.x - m_roomRange.max), Random.Range(0, m_mapSize.y - m_roomRange.max));
 
         // 最初の部屋を作る
         CreateRoom(firstRoomPos, Direction.OVER);

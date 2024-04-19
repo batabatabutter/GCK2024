@@ -114,10 +114,8 @@ public class BlockGenerator : MonoBehaviour
             map.BlockColor = data.Color;
             // 表示順の設定
             mapObj.GetComponent<SpriteRenderer>().sortingOrder = data.Order;
-            // スプライトの設定
-            map.ParentSprite = obj.gameObject.GetComponent<SpriteRenderer>();
-            // 親の設定
-            map.Parent = block;
+            // マップオブジェクトを設定
+            block.MapObject = map;
         }
 
         return obj;

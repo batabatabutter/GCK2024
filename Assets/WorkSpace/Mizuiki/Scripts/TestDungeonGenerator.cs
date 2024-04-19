@@ -62,7 +62,7 @@ public class TestDungeonGenerator : MonoBehaviour
 		// ¶¬
 		if (m_dungeonGenerators.Length > 0)
 		{
-			mapList = m_dungeonGenerators[m_dungeonIndex].GenerateDungeon(new ());
+			mapList = m_dungeonGenerators[m_dungeonIndex].GenerateDungeon(m_dungeonSize);
 		}
 		else
 		{

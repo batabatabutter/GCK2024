@@ -7,10 +7,6 @@ public class MapObject : MonoBehaviour
     [Header("ブロックの色")]
     [SerializeField] private Color m_blockColor = Color.white;
 
-    [Header("親のブロックスクリプト")]
-    [SerializeField] private Block m_parent = null;
-    [Header("親のスプライト")]
-    [SerializeField] private SpriteRenderer m_parentSprite;
     // 自身のスプライト
     private SpriteRenderer m_ownSprite;
 
@@ -23,30 +19,18 @@ public class MapObject : MonoBehaviour
         m_ownSprite.color = m_blockColor;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        Color color = m_blockColor * Color.HSVToRGB(0.0f, 0.0f, m_parent.ReceiveLightValue);
-        m_ownSprite.color = color;
-    }
+	// 明度の設定
+	public void SetValue(float value)
+	{
+		Color color = m_blockColor * Color.HSVToRGB(0.0f, 0.0f, value);
+		m_ownSprite.color = color;
+	}
 
-
-    // ブロックの色
-    public Color BlockColor
+	// ブロックの色
+	public Color BlockColor
     {
         get { return m_blockColor; }
         set { m_blockColor = value; }
-    }
-    // 親
-    public Block Parent
-    {
-        set { m_parent = value; }
-    }
-    // 親のスプライト
-    public SpriteRenderer ParentSprite
-    {
-        get { return m_parentSprite; }
-        set { m_parentSprite = value; }
     }
 
 }

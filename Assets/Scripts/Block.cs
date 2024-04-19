@@ -15,7 +15,8 @@ public class Block : MonoBehaviour
     [SerializeField] private int m_lightLevel = 0;
     [Header("受けている光源レベル")]
     [SerializeField] private int m_receiveLightLevel = 0;
-    [Header("スプライトレンダー")]
+    private float m_receiveLightValue = 1.0f;    // 明度
+	[Header("スプライトレンダー")]
     [SerializeField] private SpriteRenderer m_spriteRenderer;
 
     [Header("ブロックの情報")]
@@ -26,6 +27,8 @@ public class Block : MonoBehaviour
 
     // ブロックが破壊されている
     private bool m_isBroken = false;
+    // 子のマップオブジェクト
+    private MapObject m_mapObject = null;
 
 
     // Start is called before the first frame update
@@ -41,8 +44,6 @@ public class Block : MonoBehaviour
         if (m_itemDataBase == null)
         {
             Debug.Log(gameObject.name + "のアイテムデータベースを設定してね");
-
-			//m_itemDataBase = AssetDatabase.LoadAssetAtPath<ItemDataBase>("Assets/DataBase/Item/ItemDataBase.asset");
 		}
 
 	}
@@ -56,17 +57,6 @@ public class Block : MonoBehaviour
             Destroy(gameObject);
         }
         
-        //// 受けている明るさレベルに応じて色を設定
-        //if (m_receiveLightLevel > 0)
-        //{
-        //    // 透明度
-        //    float alpha = m_receiveLightLevel / 7.0f * 100.0f;
-        //    // 透明度を 0 ~ 1 にクランプ
-        //    alpha = Mathf.Clamp(alpha, 0.0f, 1.0f);
-        //    // 色を設定
-        //    m_spriteRenderer.color = new Color(1.0f, 1.0f, 1.0f, alpha);
-        //}
-
     }
 
 	/// <summary>
@@ -193,19 +183,41 @@ public class Block : MonoBehaviour
     public int ReceiveLightLevel
     {
         get { return m_receiveLightLevel; }
-        set { m_receiveLightLevel = value; }
-    }
-    // 受けている明度
-    public float ReceiveLightValue
-    {
-        get { return m_receiveLightLevel / 7.0f; }
-    }
+        set
+        {
+            // 明るさレベルの設定
+            m_receiveLightLevel = value;
+            // 明度を計算
+            m_receiveLightValue = m_receiveLightLevel / 7.0f;
+
+            // 受けている明るさレベルに応じて色を設定
+            if (m_receiveLightLevel <= 0)
+                return;
+            // 明度
+            float val = m_receiveLightLevel / 7.0f;
+            // 明度を 0 ~ 1 にクランプ
+            val = Mathf.Clamp(val, 0.0f, 1.0f);
+			// 色を設定
+			m_spriteRenderer.color = Color.HSVToRGB(0.0f, 0.0f, val);
+            // マップオブジェクトの明度を設定
+            if (m_mapObject)
+            {
+				m_mapObject.SetValue(m_receiveLightValue);
+			}
+		}
+	}
 
     // ブロックデータ
     public BlockData BlockData
     {
         get { return m_blockData; }
         set { m_blockData = value; }
+    }
+
+    // マップオブジェクト
+    public MapObject MapObject
+    {
+        set { m_mapObject = value; }
     }
 
 }
