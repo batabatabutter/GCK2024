@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class EnemyGenerator : MonoBehaviour
 {
-    const int MAX_RECHANGE = 100;
-
     [Header("ダンジョンデータベース")]
     [SerializeField] DungeonDataBase m_dungeonDataBase;
 
@@ -79,7 +77,6 @@ public class EnemyGenerator : MonoBehaviour
             //スポーン
             Spawn(m_spawnList[Random.Range(0, m_spawnList.Count)]);
 
-
             m_spawnTime = m_dungeonDataBase.dungeonDatas[stageNum].EnemySpawnTime;
         }
         else
@@ -91,8 +88,6 @@ public class EnemyGenerator : MonoBehaviour
 
     public void Spawn(Enemy.Type type)
     {
-
-
         switch (m_enemyDataBase.enemyDatas[(int)type].system)
         {
             case Enemy.System.Dwell:

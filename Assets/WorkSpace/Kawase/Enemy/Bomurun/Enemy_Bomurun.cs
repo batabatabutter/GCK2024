@@ -7,9 +7,6 @@ public class Enemy_Bomurun : EnemyDwell
     [Header("”š”­")]
     [SerializeField] GameObject m_blast;
 
-    //”š”­‚µ‚½‚©‚Ç‚¤‚©
-    bool m_isExplosion = false;
-
     Animator m_anim;
 
     protected override void Start()

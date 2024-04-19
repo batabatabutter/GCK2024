@@ -23,3 +23,15 @@ MonoBehaviour:
   dungeonAttackCoolTime: 6
   enemy: 03000000
   enemySpawnTime: 5
+  dungeonWaves:
+  - dungeonATKPattern: 
+    dungeonATKCoolTime: 0
+    generateEnemyType: 
+    generateEnemyNum: 0
+    geterateEnemyInterval: 0
+  - dungeonATKPattern: 
+    dungeonATKCoolTime: 0
+    generateEnemyType: 
+    generateEnemyNum: 0
+    geterateEnemyInterval: 0
+  restWaveTime: 0

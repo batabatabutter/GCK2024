@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: -1378431894499735817}
   - component: {fileID: -618236753607932433}
   - component: {fileID: -600300867920135826}
+  - component: {fileID: 1479931723885810416}
   m_Layer: 0
   m_Name: PlaySceneManager
   m_TagString: Untagged
@@ -178,3 +179,16 @@ MonoBehaviour:
   m_roomOreChunkCount:
     min: 0
     max: 0
+--- !u!114 &1479931723885810416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1614570275442964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d5111c37091394abac2534eef22e0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_DungeonDataBase: {fileID: 11400000, guid: 0bf61c7eff449f24d9512881d58682a1, type: 2}
