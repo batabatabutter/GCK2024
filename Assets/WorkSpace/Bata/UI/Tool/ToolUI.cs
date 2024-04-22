@@ -120,7 +120,7 @@ public class ToolUI : MonoBehaviour
             //  クールタイムがあるなら0.0～1.0に補間
             if (m_toolDataBase.toolDic[thisToolType].RecastTime > 0)
             {
-                if (!isRare)
+                //if (!isRare)
                     m_toolObjects[i].GetComponent<ToolFrame>()
                 .GetRecastImage().fillAmount =
                 m_player.GetComponent<PlayerAction>()

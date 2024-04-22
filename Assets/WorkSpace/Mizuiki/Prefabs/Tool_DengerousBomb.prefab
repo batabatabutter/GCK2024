@@ -148,7 +148,7 @@ MonoBehaviour:
   m_lightLevel: 3
   m_receiveLightLevel: 0
   m_spriteRenderer: {fileID: 0}
-  m_blockData: {fileID: 0}
+  m_blockData: {fileID: 11400000, guid: e8355ac22db923c44adf486803772450, type: 2}
   m_itemDataBase: {fileID: 11400000, guid: c534141616c2bbc4ba996d4d9f120330, type: 2}
   m_blockExplosionPower: 1000
   m_playerExplosionDamage: 2
