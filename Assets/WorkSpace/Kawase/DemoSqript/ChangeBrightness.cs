@@ -22,6 +22,8 @@ public class ChangeBrightness : MonoBehaviour
     private Transform m_playerTr;
     //  距離光源
     private const float DISTANCE_LIGHT = 17.0f;
+    //  ブロック
+    private Block m_block;
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +33,8 @@ public class ChangeBrightness : MonoBehaviour
         ChangeBlack();
         //光源は光る
         FlashLight();
-
+        //  ブロック情報取得
+        m_block = GetComponent<Block>();
     }
 
     // Update is called once per frame
@@ -45,31 +48,15 @@ public class ChangeBrightness : MonoBehaviour
         }
         if (Vector2.Distance(transform.position, m_playerTr.position) > DISTANCE_LIGHT)
         {
-            Collider[] colliders = GetComponents<Collider>();
-            foreach (Collider collider in colliders)
-            {
-                collider.enabled = false;
-            }
             return;
-        }
-        else
-        {
-            Collider[] colliders = GetComponents<Collider>();
-            foreach (Collider collider in colliders)
-            {
-                collider.enabled = true;
-
-            }
         }
 
         //光源の処理をしない
-        if (GetComponent<Block>())
-        {
-            if (GetComponent<Block>().LightLevel > 0)
+        if (m_block)
+            if (m_block.LightLevel > 0)
             {
                 return;
             }
-        }
 
         //ライトリストの管理
         for (int i = 0; i < m_lightList.Count; i++)
@@ -88,7 +75,7 @@ public class ChangeBrightness : MonoBehaviour
 
         //色の変更
         ChangeColor();
-            
+
 
     }
 
