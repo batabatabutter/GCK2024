@@ -10,9 +10,11 @@ public class HPUI : MonoBehaviour
     [Header("HPUIのプレハブ")]
     [SerializeField] private GameObject m_hpGauge;
     [SerializeField] private GameObject m_hpGaugeFrame;
+    [SerializeField] private GameObject m_armorGauge;
+    [Header("値")]
     [SerializeField] private Vector2 m_hpOffset;
+    [SerializeField] private Vector2 m_armorOutlineWidth;
     [SerializeField] private UnityEngine.Color m_hpColor;
-    [SerializeField] private UnityEngine.Color m_armorColor;
     [SerializeField] private UnityEngine.Color m_emptyColor;
 
     //  シーンマネージャー
@@ -27,7 +29,9 @@ public class HPUI : MonoBehaviour
     public int m_debugNowHP;
 
     //  HP格納
-    private List<GameObject> m_hpGaugeObject = new List<GameObject>();
+    private List<GameObject> m_hpGaugeObjects = new List<GameObject>();
+    //  アーマー格納
+    private GameObject m_armorGaugeObject = null;
 
     // Start is called before the first frame update
     void Start()
@@ -41,9 +45,14 @@ public class HPUI : MonoBehaviour
         else val = m_player.GetComponent<Player>().MaxLife;
 
         //  UI生成
-        //  生成位置
         Vector2 size = m_hpGaugeFrame.GetComponent<RectTransform>().sizeDelta;
         Vector3 pos;
+        //  アーマー用UI生成
+        //  座標
+        pos = new Vector3((size.x + m_hpOffset.x) * ((val - 1) / 2.0f), 0.0f) + transform.position;
+        m_armorGaugeObject = Instantiate(m_armorGauge, pos, Quaternion.identity, transform);
+        m_armorGaugeObject.SetActive(false);
+        //  生成位置
         for (int i = 0; i < val; i++)
         {
             //  座標
@@ -51,7 +60,7 @@ public class HPUI : MonoBehaviour
             //  UI生成
             GameObject frame = Instantiate(m_hpGaugeFrame, pos, Quaternion.identity, transform);
             frame = Instantiate(m_hpGauge, pos, Quaternion.identity, frame.transform);
-            m_hpGaugeObject.Add(frame);
+            m_hpGaugeObjects.Add(frame);
         }
     }
 
@@ -73,31 +82,49 @@ public class HPUI : MonoBehaviour
         //  生成位置
         Vector2 size = m_hpGaugeFrame.GetComponent<RectTransform>().sizeDelta;
         Vector3 pos;
-        for (int i = 0; i < Mathf.Max(maxHpVal + armorVal, m_hpGaugeObject.Count); i++)
+        for (int i = 0; i < maxHpVal; i++)
         {
             //  最大HPとアーマーよりUIが少なかったら生成
-            if (i >= m_hpGaugeObject.Count)
+            if (i >= m_hpGaugeObjects.Count)
             {
                 //  座標
                 pos = new Vector3((size.x + m_hpOffset.x) * i, 0.0f) + transform.position;
                 //  UI生成
                 GameObject frame = Instantiate(m_hpGaugeFrame, pos, Quaternion.identity, transform);
                 frame = Instantiate(m_hpGauge, pos, Quaternion.identity, frame.transform);
-                m_hpGaugeObject.Add(frame);
+                m_hpGaugeObjects.Add(frame);
             }
 
-            //  アーマー分は表示しないように
-            if (i >= maxHpVal + armorVal)
-                m_hpGaugeObject[i].transform.parent.gameObject.SetActive(false);
-            else m_hpGaugeObject[i].transform.parent.gameObject.SetActive(true);
+            ////  アーマー分は表示しないように
+            //if (i >= maxHpVal + armorVal)
+            //    m_hpGaugeObject[i].transform.parent.gameObject.SetActive(false);
+            //else m_hpGaugeObject[i].transform.parent.gameObject.SetActive(true);
 
             //  HPがあれば色付き
-            if (i < hpVal) m_hpGaugeObject[i].GetComponent<RawImage>().color = m_hpColor;
-            else if(i >= maxHpVal && i < maxHpVal + armorVal) m_hpGaugeObject[i].GetComponent<RawImage>().color = m_armorColor;
-            else m_hpGaugeObject[i].GetComponent<RawImage>().color = m_emptyColor;
+            if (i < hpVal) m_hpGaugeObjects[i].GetComponent<RawImage>().color = m_hpColor;
+            //else if(i >= maxHpVal && i < maxHpVal + armorVal) m_hpGaugeObject[i].GetComponent<RawImage>().color = m_armorColor;
+            else m_hpGaugeObjects[i].GetComponent<RawImage>().color = m_emptyColor;
         }
 
-        //  アーマー
+        //  アーマーがあれば
+        if (armorVal > 0)
+        {
+            //  表示
+            m_armorGaugeObject.SetActive(true);
+
+            //  生成位置
+            pos = new Vector3((size.x + m_hpOffset.x) * ((maxHpVal - 1) / 2.0f), 0.0f) + transform.position;
+
+            //  大きさ
+            size = new Vector2(
+                size.x * maxHpVal + m_hpOffset.x * (maxHpVal - 1) + m_armorOutlineWidth.x,
+                size.y + m_armorOutlineWidth.y);
+
+            //  代入
+            m_armorGaugeObject.transform.position = pos;
+            m_armorGaugeObject.GetComponent<RectTransform>().sizeDelta = size;
+        }
+        else m_armorGaugeObject.SetActive(false);
 
         //  デバッグ状態
         if (m_debug)

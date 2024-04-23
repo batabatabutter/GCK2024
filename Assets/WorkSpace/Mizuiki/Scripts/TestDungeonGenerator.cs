@@ -1,51 +1,123 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TestDungeonGenerator : MonoBehaviour
 {
-	[Header("生成するダンジョンのパス")]
-	[SerializeField] private string m_dungeonPath = "Assets/DungeonData/Dungeon.csv";
+	[Header("生成するダンジョンのデータ")]
+	[SerializeField] private Object m_dungeonData = null;
 
 	[Header("ダンジョンのサイズ")]
-	[SerializeField] private int m_dungeonSizeX;
-	[SerializeField] private int m_dungeonSizeY;
+	[SerializeField] private Vector2Int m_dungeonSize;
+
+	[System.Serializable]
+	struct MapBlock
+	{
+		public string mapName;
+		public BlockData.BlockType blockType;
+	}
 
 	[Header("生成ブロック")]
-	[SerializeField] private GameObject m_block = null;
-	[SerializeField] private GameObject m_blockBedrock = null;
-	[SerializeField] private GameObject m_blockCore = null;
+	[SerializeField] private MapBlock[] m_setBlocks;
+	private readonly Dictionary<string, BlockData.BlockType> m_blocks = new();
 
-	[Header("何の変哲もないブロック")]
-	[SerializeField] private string m_blockNameNormal = "1";
-	[Header("破壊不可能ブロック")]
-	[SerializeField] private string m_blockNameBedrock = "2";
-	[Header("ダンジョンの核")]
-	[SerializeField] private string m_blockNameCore = "3";
+	[Header("ブロックジェネレータ")]
+	[SerializeField] private BlockGenerator m_blockGenerator;
 
+	[Header("生成方式のインデックス")]
+	[SerializeField] private int m_dungeonIndex = 0;
+	[Header("生成スクリプトの配列")]
+	[SerializeField] private DungeonGeneratorBase[] m_dungeonGenerators;
+
+	[Header("プレイヤー(インスタンス用)")]
 	[SerializeField] GameObject m_player = null;
+
 
 	// Start is called before the first frame update
 	void Start()
 	{
+		// ブロックの設定
+		for (int i = 0; i < m_setBlocks.Length; i++)
+		{
+			MapBlock mapBlock = m_setBlocks[i];
+
+			// 上書き防止
+			if (m_blocks.ContainsKey(mapBlock.mapName))
+				continue;
+
+			// ブロックの種類設定
+			m_blocks[mapBlock.mapName] = mapBlock.blockType;
+		}
+
+		// プレイヤーが設定されていれば生成
 		if (m_player != null)
 		{
 			Instantiate(m_player);
 		}
 
+		List<List<string>> mapList;
+
+		// 生成
+		if (m_dungeonGenerators.Length > 0)
+		{
+			mapList = m_dungeonGenerators[m_dungeonIndex].GenerateDungeon(m_dungeonSize);
+		}
+		else
+		{
+			// SCV読み込み
+			mapList = GenerateSCV();
+		}
+
+		// マップの生成
+		Generate(mapList);
+
+	}
+
+	// Update is called once per frame
+	void Update()
+	{
+
+	}
+
+	// ダンジョンの生成
+	private void Generate(List<List<string>> mapList)
+	{
+		// 読みだしたデータをもとにダンジョン生成をする
+		for (int y = 0; y < mapList.Count; y++)
+		{
+			for (int x = 0; x < mapList[y].Count; x++)
+			{
+				string name = mapList[y][x];
+
+				// キーが存在しない場合は何も生成しない
+				if (!m_blocks.ContainsKey(name))
+					continue;
+
+				// 生成座標
+				Vector3 pos = new(x, y, 0.0f);
+
+				// ブロックの生成
+				m_blockGenerator.GenerateBlock(m_blocks[name], pos, null, true);
+
+			}
+		}
+
+	}
+
+	// CSV読み込みの生成
+	private List<List<string>> GenerateSCV()
+	{
 		// ファイルがなければマップ読み込みの処理をしない
-		if (!File.Exists(m_dungeonPath))
-			return;
+		if (!m_dungeonData)
+			return new();
 
 		// マップのリスト
-		List<List<string>> mapList = new List<List<string>>();
-
-		// ファイル読み込み
-		StreamReader streamReader = new StreamReader(m_dungeonPath);
+		List<List<string>> mapList = new ();
 
 		// 改行区切りで読み出す
-		foreach (string line in streamReader.ReadToEnd().Split("\n"))
+		foreach (string line in m_dungeonData.ToString().Split("\n"))
 		{
 			// 行が存在しなければループを抜ける
 			if (line == "")
@@ -53,7 +125,7 @@ public class TestDungeonGenerator : MonoBehaviour
 
 			string lin = line.Remove(line.Length - 1);
 
-			List<string> list = new List<string>();
+			List<string> list = new ();
 
 			// カンマ区切りで読み出す
 			foreach (string line2 in lin.Split(","))
@@ -64,54 +136,8 @@ public class TestDungeonGenerator : MonoBehaviour
 			mapList.Add(list);
 		}
 
-		// ファイルを閉じる
-		streamReader.Close();
-
-		// 読みだしたデータをもとにダンジョン生成をする
-		for (int y = 0; y < mapList.Count; y++)
-		{
-			for (int x = 0; x < mapList[y].Count; x++)
-			{
-				// 0 の場合は何も生成しない
-				if (mapList[y][x] == "0" || mapList[y][x] == "")
-					continue;
-
-				// 生成座標
-				Vector3 pos = new(x, y, 0.0f);
-
-				// ブロックの生成
-				GameObject block = null;
-
-				// 普通のブロック
-				if (mapList[y][x] == m_blockNameNormal)
-				{
-					block = Instantiate(m_block, pos, Quaternion.identity);
-				}
-				// 破壊不可能ブロックにする
-				else if (mapList[y][x] == m_blockNameBedrock)
-				{
-					// 岩盤ブロック生成
-					block = Instantiate(m_blockBedrock, pos, Quaternion.identity);
-				}
-				// 核にする
-				else if (mapList[y][x] == m_blockNameCore)
-				{
-					// 核ブロック生成
-					block = Instantiate(m_blockCore, pos, Quaternion.identity);
-				}
-
-				// 松明対応
-				block.AddComponent<ChangeBrightness>();
-
-			}
-		}
-
-
+		return mapList;
 	}
 
-	// Update is called once per frame
-	void Update()
-	{
 
-	}
 }

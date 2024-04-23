@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f32322d6a3befb942b18974efc8c4bbe, type: 3}
+  m_Name: ToolData_DengerousBomb
+  m_EditorClassIdentifier: 
+  toolName: "\u5371\u967A\u7206\u5F3E"
+  typeStr: 105:DENGEROUS_BOMB
+  category: 0
+  icon: {fileID: 21300000, guid: 0ce5fd3f7268b9842a9833ac0f4eb6ab, type: 3}
+  recastTime: 10
+  prefab: {fileID: 3584993475108489714, guid: 71ed18093ab7b6a4497ef87d1a0517be, type: 3}
+  itemMaterials:
+  - typeStr: 207:BIR_RUBY
+    count: 1
+  - typeStr: 1:COAL
+    count: 5

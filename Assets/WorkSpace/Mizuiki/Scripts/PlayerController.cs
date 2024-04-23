@@ -5,13 +5,13 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("プレイヤーの移動スクリプト")]
-    [SerializeField] private PlayerMove m_playerMove;
+    [SerializeField] private PlayerMove m_playerMove = null;
 
     [Header("プレイヤーの採掘スクリプト")]
-    [SerializeField] private PlayerMining m_playerMining;
+    [SerializeField] private PlayerMining m_playerMining = null;
 
 	[Header("プレイヤーの設置スクリプト")]
-	[SerializeField] private PlayerAction m_playerAction;
+	[SerializeField] private PlayerAction m_playerAction = null;
 
 	// 入力
 	private Controls m_controls = null;
@@ -42,10 +42,17 @@ public class PlayerController : MonoBehaviour
 			m_playerMining.Mining();
 		}
 
-		// 設置
-		if (m_controls.Player.Put.WasPressedThisFrame())	// 押した瞬間
+		// ツール使用
+		if (m_controls.Player.Tool.WasPressedThisFrame())	// 押した瞬間
 		{
-			m_playerAction.Put();
+			m_playerAction.UseTool();
+		}
+
+
+		// 強化
+		if (m_controls.Player.Upgrade.WasPerformedThisFrame())
+		{
+			m_playerAction.Upgrade();
 		}
 
 		// ツール変更
@@ -53,6 +60,12 @@ public class PlayerController : MonoBehaviour
 		if (scroll != 0)
 		{
 			m_playerAction.ChangeTool(scroll);
+		}
+
+		// ツールのレア、ノーマル切り替え
+		if (m_controls.Player.SwitchTool.WasPerformedThisFrame())
+		{
+			m_playerAction.SwitchTool();
 		}
 
 	}

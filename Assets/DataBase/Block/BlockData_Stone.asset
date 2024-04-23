@@ -13,5 +13,16 @@ MonoBehaviour:
   m_Name: BlockData_Stone
   m_EditorClassIdentifier: 
   blockName: "\u77F3"
+  typeStr: 0:STONE
+  endurance: 100
+  dontBroken: 0
+  lightLevel: 0
+  prefab: {fileID: 3457520386420079125, guid: cbe61a2527b59f44ea88ed42d8cd8019, type: 3}
   sprite: {fileID: 21300000, guid: 12153932601e8cc4b86662554fe983fa, type: 3}
+  dropItem:
+  - type: 0
+    count: 1
+    rate: 1
   color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  order: 0
+  mapIcon: {fileID: 0}

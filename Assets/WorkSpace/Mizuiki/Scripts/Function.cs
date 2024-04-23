@@ -5,11 +5,29 @@ using UnityEngine;
 
 public class MyFunction
 {
+	// 範囲
+	[System.Serializable]
+	public struct MinMax
+	{
+		[Min(0)]
+		public int min;
+		[Min(1)]
+		public int max;
+	}
+
 	// 四捨五入
 	static public Vector2 RoundHalfUp(Vector2 value)
 	{
 		value.x = RoundHalfUp(value.x);
 		value.y = RoundHalfUp(value.y);
+
+		return value;
+	}
+	static public Vector3 RoundHalfUp(Vector3 value)
+	{
+		value.x = RoundHalfUp(value.x);
+		value.y = RoundHalfUp(value.y);
+		value.z = RoundHalfUp(value.z);
 
 		return value;
 	}
@@ -54,6 +72,84 @@ public class MyFunction
 		}
 
 		// 違う
+		return false;
+	}
+
+	// 4方向の取得
+	static public Vector2 GetFourDirection(Vector2 direction)
+	{
+		// ベクトル正規化
+		direction.Normalize();
+
+		// 縦より横の値が大きい
+		if (Mathf.Abs(direction.y) < Mathf.Abs(direction.x))
+		{
+			direction.y = 0.0f;
+		}
+		else
+		{
+			direction.x = 0.0f;
+		}
+
+		// ベクトル正規化
+		direction.Normalize();
+
+		return direction;
+	}
+
+	// アイテムデータの取得
+	static public ItemData GetItemData(ItemDataBase dataBase, ItemData.ItemType type)
+	{
+		foreach(ItemData data in dataBase.item)
+		{
+			if (data.Type == type)
+			{
+				return data;
+			}
+		}
+		// データが見つからなかった
+		return null;
+	}
+
+	// ブロックデータの取得
+	static public BlockData GetBlockData(BlockDataBase dataBase, BlockData.BlockType type)
+	{
+		foreach (BlockData data in dataBase.block)
+		{
+			if (data.Type == type)
+			{
+				return data;
+			}
+		}
+		// データが見つからなかった
+		return null;
+	}
+
+	// ツールデータの取得
+	static public ToolData GetToolData(ToolDataBase dataBase, ToolData.ToolType type)
+	{
+		foreach (ToolData data in dataBase.tool)
+		{
+			if (data.Type == type)
+			{
+				return data;
+			}
+		}
+		// データが見つからなかった
+		return null;
+	}
+
+	static public bool DetectCollision(Vector2 point, Vector2 boxPos, Vector2 boxSize)
+	{
+		if (point.x < boxPos.x + boxSize.x &&
+			point.x > boxPos.x - boxSize.x &&
+			point.y < boxPos.y + boxSize.y &&
+			point.y > boxPos.y - boxSize.y)
+		{
+			// 当たる
+			return true;
+		}
+		// 当たらない
 		return false;
 	}
 }

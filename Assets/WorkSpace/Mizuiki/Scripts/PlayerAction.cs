@@ -17,19 +17,13 @@ public class PlayerAction : MonoBehaviour
 	[Header("レイヤーマスク")]
 	[SerializeField] private LayerMask m_layerMask;
 
-	[Header("ツール")]
-	[SerializeField] private PlayerTool m_playerTool;
+	[Header("ツールスクリプト")]
+	[SerializeField] private PlayerTool m_playerTool = null;
+	[Header("アップグレードスクリプト")]
+	[SerializeField] private PlayerUpgrade m_playerUpgrade = null;
 
 	// ツール設置可能
 	private bool m_canPut = true;
-
-	// 設置ツール
-	private ToolData.ToolType m_toolType = ToolData.ToolType.TOACH;
-
-
-	[Header("デバッグ---------------------------")]
-	[SerializeField] private bool m_debug = false;
-	[SerializeField] private Text m_text = null;
 
 
 	// Start is called before the first frame update
@@ -38,10 +32,13 @@ public class PlayerAction : MonoBehaviour
 		// ツールがなければ取得
 		if (m_playerTool == null)
 		{
-			if (TryGetComponent(out PlayerTool tool))
-			{
-				m_playerTool = tool;
-			}
+			m_playerTool = GetComponent<PlayerTool>();
+		}
+
+		// アップグレードがなければ取得
+		if (m_playerUpgrade == null)
+		{
+			m_playerUpgrade = GetComponent<PlayerUpgrade>();
 		}
 
     }
@@ -94,34 +91,24 @@ public class PlayerAction : MonoBehaviour
 		// ブロックからの押し返し
 		foreach (RaycastHit2D cast in rayCast)
 		{
-			// ブロックに当たった
-			if (cast.transform)
+			// ブロックタグが付いている
+			if (cast.transform.CompareTag("Block"))
 			{
-				// ブロックタグが付いている
-				if (cast.transform.CompareTag("Block"))
-				{
-					// 埋まり防止で当たった面の法線方向に 0.1 加算する
-					mousePos = cast.point + (cast.normal * new Vector2(0.1f, 0.1f));
+				// 埋まり防止で当たった面の法線方向に 0.1 加算する
+				mousePos = cast.point + (cast.normal * new Vector2(0.1f, 0.1f));
 
-					break;
-				}
+				break;
 			}
 		}
 		// ツールの重ね置き回避
 		foreach (RaycastHit2D cast in rayCast)
 		{
-			if (cast.transform)
+			// Toolタグが付いていて、同じグリッド
+			if (cast.transform.CompareTag("Tool") &&
+				MyFunction.CheckSameGrid(mousePos, cast.transform.position))
 			{
-				// Toolタグが付いている
-				if (cast.transform.CompareTag("Tool"))
-				{
-					// 同じグリッド
-					if (MyFunction.CheckSameGrid(mousePos, cast.transform.position))
-					{
-						// 設置できなくする
-						m_canPut = false;
-					}
-				}
+				// 設置できなくする
+				m_canPut = false;
 			}
 		}
 
@@ -131,20 +118,17 @@ public class PlayerAction : MonoBehaviour
 		// アイテムの設置位置
 		m_cursorImage.transform.position = mousePos;
 
-		// デバッグ
-		if (m_debug)
-		{
-			if (m_text != null)
-			{
-				m_text.text = m_toolType.ToString();
-			}
-		}
-
 	}
 
-	// ツール設置
-	public void Put()
-    {
+	// 強化
+	public void Upgrade()
+	{
+		m_playerUpgrade.Upgrade();
+	}
+
+	// ツールの使用
+	public void UseTool()
+	{
 		// アイテムが設置できない
 		if (!m_canPut)
 		{
@@ -152,55 +136,31 @@ public class PlayerAction : MonoBehaviour
 			return;
 		}
 
-		// 選択されているアイテムが作成できない
-		if (!m_playerTool.CheckCreate(m_toolType))
-		{
-			Debug.Log("素材不足");
-			return;
-		}
+		// ツールの使用
+		m_playerTool.UseTool(m_cursorImage.transform.position);
 
-		// クールタイム中なら設置できない
-		if (!m_playerTool.Available(m_toolType))
-		{
-			Debug.Log("クールタイム中");
-			return;
-		}
-
-		// ツールを使用する
-		m_playerTool.UseTool(m_toolType, m_cursorImage.transform.position);
-
-    }
+	}
 
 	// ツール変更
 	public void ChangeTool(int val)
 	{
-		// 変更後の値
-		ToolData.ToolType change = m_toolType - val;
+		m_playerTool.ChangeTool(val);
 
-		// 変更後が 0 未満
-		if (change < 0)
-		{
-			// 一番後ろのツールにする
-			change = ToolData.ToolType.OVER - 1;
-		}
-		// 変更後が範囲外
-		else if (change >= ToolData.ToolType.OVER)
-		{
-			change = 0;
-		}
-
-		// ツールを変更する
-		m_toolType = change;
 	}
 
+	// ツールの切り替え
+	public void SwitchTool()
+	{
+		m_playerTool.SwitchTool();
 
+	}
 
 
 
 	// 選択ツールの取得
 	public ToolData.ToolType ToolType
 	{
-		get { return m_toolType; }
+		get { return m_playerTool.ToolType; }
 	}
     public float GetToolRecast(ToolData.ToolType type)
     {

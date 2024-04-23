@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9102e5fe6745808438d597f5ef891521, type: 3}
+  m_Name: BlockData_Emerald
+  m_EditorClassIdentifier: 
+  blockName: "\u30A8\u30E1\u30E9\u30EB\u30C9"
+  typeStr: 205:BIR_EMERALD
+  endurance: 700
+  dontBroken: 0
+  lightLevel: 3
+  prefab: {fileID: 3457520386420079125, guid: cbe61a2527b59f44ea88ed42d8cd8019, type: 3}
+  sprite: {fileID: 21300000, guid: fe1af026b055e694b9dca336a11ed636, type: 3}
+  dropItem:
+  - type: 0
+    count: 1
+    rate: 1
+  - type: 205
+    count: 1
+    rate: 1
+  color: {r: 0, g: 0, b: 0, a: 0}
+  order: 0
+  mapIcon: {fileID: 0}

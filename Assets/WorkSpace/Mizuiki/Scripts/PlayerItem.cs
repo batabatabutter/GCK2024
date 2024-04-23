@@ -6,17 +6,15 @@ using UnityEngine.UI;
 public class PlayerItem : MonoBehaviour
 {
 	[Header("所持品")]
-	[SerializeField] private Dictionary<ItemData.Type, int> m_items = new();
+	[SerializeField] private Dictionary<ItemData.ItemType, int> m_items = new();
 	[Header("最大数")]
 	[SerializeField] private int m_maxCount = 99;
 
 	[Header("アイテムの検知範囲(半径)")]
 	[SerializeField] private float m_detectionRange = 3.0f;
-	//[Header("アイテムの吸い込み速度(/s)")]
-	//[SerializeField] private float m_suctionSpeed = 0.5f;
-	//[Header("アイテムを拾いあげる範囲(半径)")]
-	//[SerializeField] private float m_picupRange = 1.0f;
 
+	[Header("アイテムのデータベース")]
+	[SerializeField] private ItemDataBase m_itemDataBase = null;
 
 	[Header("デバッグ----------")]
 	[SerializeField] private bool m_debug = false;
@@ -33,14 +31,14 @@ public class PlayerItem : MonoBehaviour
 		col.isTrigger = true;
 
 		// 所持アイテム数の初期化
-		for (ItemData.Type type = ItemData.Type.STONE; type < ItemData.Type.OVER; type++)
+		foreach(ItemData itemData in m_itemDataBase.item)
 		{
-			m_items[type] = 0;
+			m_items[itemData.Type] = 0;
 
 			// デバッグがオンになっていたら所持数をカンストさせる
 			if (m_debug)
 			{
-				m_items[type] = m_maxCount;
+				m_items[itemData.Type] = m_maxCount;
 			}
 
 		}
@@ -56,9 +54,9 @@ public class PlayerItem : MonoBehaviour
 			{
 				m_text.text = "";
 
-				for (ItemData.Type type = ItemData.Type.STONE; type < ItemData.Type.OVER; type++)
+				foreach(KeyValuePair<ItemData.ItemType, int> item in m_items)
 				{
-					m_text.text += type.ToString() + " : " + m_items[type] + "\n";
+					m_text.text += item.Key.ToString() + " : " + item.Value.ToString() + "\n";
 				}
 
 			}
@@ -78,7 +76,7 @@ public class PlayerItem : MonoBehaviour
 			return;
 
 		// アイテムの種類
-		ItemData.Type itemType = item.ItemType;
+		ItemData.ItemType itemType = item.ItemType;
 
 		// 拾えない
 		if (!CheckAcquirable(itemType))
@@ -91,7 +89,7 @@ public class PlayerItem : MonoBehaviour
 
 
 	// 拾えるか確認
-	public bool CheckAcquirable(ItemData.Type itemType)
+	public bool CheckAcquirable(ItemData.ItemType itemType)
 	{
 		// 所持数が最大数に達していない
 		if (m_items[itemType] < m_maxCount)
@@ -108,7 +106,7 @@ public class PlayerItem : MonoBehaviour
 	/// <param name="type">アイテムの種類</param>
 	/// <param name="count">アイテムの数</param>
 	/// <returns>拾った数</returns>
-	public int PicUp(ItemData.Type type, int count)
+	public int PicUp(ItemData.ItemType type, int count)
 	{
 		// 所持数が最大
 		if (m_items[type] >= m_maxCount)
@@ -132,25 +130,42 @@ public class PlayerItem : MonoBehaviour
 	}
 
 	// アイテムを消費する
-	public void ConsumeMaterials(ToolData data)
+	public void ConsumeMaterials(ToolData data, int value = 1)
 	{
-		for (int i = 0; i < data.itemMaterials.Count; i++)
+		for (int i = 0; i < data.ItemMaterials.Length; i++)
 		{
+			// アイテムの種類取得
+			ItemData.ItemType type = data.ItemMaterials[i].type;
+
+			// アイテムが存在しない
+			if (!m_items.ContainsKey(type))
+			{
+				Debug.Log(type + "が存在しない");
+				continue;
+			}
+
 			// [type] を [count] 消費する
-			m_items[data.itemMaterials[i].type] -= data.itemMaterials[i].count;
+			m_items[type] -= data.ItemMaterials[i].count * value;
 		}
 	}
 
 	// アイテムの所持数取得
-	public int GetItemCount(ItemData.Type type)
+	public int GetItemCount(ItemData.ItemType type)
 	{
+		// アイテムが存在しない
+		if (!m_items.ContainsKey(type))
+		{
+			Debug.Log(type + "が存在しない");
+			return　0;
+		}
+		// 所持数を返す
 		return m_items[type];
 	}
 
 
 
 
-	public Dictionary<ItemData.Type, int> Items
+	public Dictionary<ItemData.ItemType, int> Items
 	{
 		get { return m_items; }
 	}

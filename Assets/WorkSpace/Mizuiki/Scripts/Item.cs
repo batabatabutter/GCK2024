@@ -6,16 +6,20 @@ using UnityEngine.UIElements.Experimental;
 public class Item : MonoBehaviour
 {
     [Header("アイテムの種類")]
-    [SerializeField] private ItemData.Type m_itemType;
+    [SerializeField] private ItemData.ItemType m_itemType;
 
     [Header("スタック数")]
     [SerializeField] private int m_count;
 
     [Header("プレイヤーが拾いあげるまでの時間")]
     [SerializeField] private float m_picupTime = 1.0f;
+    [Header("アイテムドロップの動きをする時間")]
+    [SerializeField] private float m_dropTime = 0.5f;
 
     // アイテムの元の位置
     private Vector3 m_originalPos = Vector3.zero;
+    // アイテムのドロップ方向
+    private Vector3 m_dropDirection = Vector3.up;
     // プレイヤーのトランスフォーム
     private Transform m_player = null;
     // アイテムの移動時間
@@ -47,8 +51,15 @@ public class Item : MonoBehaviour
             Destroy(gameObject);
         }
         
+        // アイテムのドロップ動作
+        if (m_moveTime > m_picupTime)
+        {
+            m_moveTime -= Time.deltaTime;
+
+            transform.position += m_dropDirection * Time.deltaTime * 0.5f;
+        }
         // アイテムの移動
-        if (m_moveTime > 0.0f)
+        else if (m_moveTime > 0.0f)
         {
             m_moveTime -= Time.deltaTime;
 
@@ -70,7 +81,13 @@ public class Item : MonoBehaviour
     /// <param name="count">ドロップ数</param>
     public void Drop(int count)
     {
+        // ドロップ数
         m_count = count;
+        // ドロップ方向
+        m_dropDirection= new (Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f));
+        m_dropDirection.Normalize();
+        // ドロップの時間
+        m_moveTime = m_dropTime + m_picupTime;
     }
 
     /// <summary>
@@ -188,9 +205,10 @@ public class Item : MonoBehaviour
 
 
 
-	public ItemData.Type ItemType
+	public ItemData.ItemType ItemType
     {
         get { return m_itemType; }
+        set { m_itemType = value; }
     }
 
     public int Count

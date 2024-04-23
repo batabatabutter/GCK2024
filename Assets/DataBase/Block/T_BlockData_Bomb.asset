@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9102e5fe6745808438d597f5ef891521, type: 3}
+  m_Name: T_BlockData_Bomb
+  m_EditorClassIdentifier: 
+  blockName: "\u7206\u5F3E"
+  typeStr: 1001:BOMB
+  endurance: 1
+  dontBroken: 0
+  lightLevel: 0
+  prefab: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 92266822cb345e743a0f64be6fce1a60, type: 3}
+  dropItem: []
+  color: {r: 0.2603773, g: 0.2603773, b: 0.2603773, a: 1}
+  order: 0
+  mapIcon: {fileID: 0}

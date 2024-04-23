@@ -34,6 +34,7 @@ public class ResultUI : MonoBehaviour
     void Start()
     {
         m_resultButton1.onClick.AddListener(RetryStage);
+        m_resultButton2.onClick.AddListener(BackStageSelectScene);
     }
 
     // Update is called once per frame
@@ -72,5 +73,13 @@ public class ResultUI : MonoBehaviour
     public void RetryStage()
     {
         SceneManager.LoadScene("PlayScene");
+    }
+
+    /// <summary>
+    /// ステージセレクトシーンへ戻る
+    /// </summary>
+    public void BackStageSelectScene()
+    {
+        SceneManager.LoadScene("StageSelectScene");
     }
 }

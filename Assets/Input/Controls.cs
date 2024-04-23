@@ -46,9 +46,18 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Put"",
+                    ""name"": ""Tool"",
                     ""type"": ""Button"",
                     ""id"": ""4aac10fa-5e3a-4c12-a326-292c69be764e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Upgrade"",
+                    ""type"": ""Button"",
+                    ""id"": ""a51a9e9c-f0db-432d-8c05-9df56cd21e7e"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -59,6 +68,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""type"": ""PassThrough"",
                     ""id"": ""804873ef-d72f-4982-b573-455b65ee323a"",
                     ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwitchTool"",
+                    ""type"": ""Button"",
+                    ""id"": ""a67a6a3e-feb1-4d88-9041-43d1b3f1b91d"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -193,7 +211,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Put"",
+                    ""action"": ""Tool"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -207,6 +225,28 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""ChangeTool"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8a23a5a0-980e-4624-8a43-86ea8b51c82d"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Upgrade"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""89e11904-bb71-4df7-99c2-a70a5a18835e"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchTool"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -217,8 +257,10 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
-        m_Player_Put = m_Player.FindAction("Put", throwIfNotFound: true);
+        m_Player_Tool = m_Player.FindAction("Tool", throwIfNotFound: true);
+        m_Player_Upgrade = m_Player.FindAction("Upgrade", throwIfNotFound: true);
         m_Player_ChangeTool = m_Player.FindAction("ChangeTool", throwIfNotFound: true);
+        m_Player_SwitchTool = m_Player.FindAction("SwitchTool", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -282,16 +324,20 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Attack;
-    private readonly InputAction m_Player_Put;
+    private readonly InputAction m_Player_Tool;
+    private readonly InputAction m_Player_Upgrade;
     private readonly InputAction m_Player_ChangeTool;
+    private readonly InputAction m_Player_SwitchTool;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
         public PlayerActions(@Controls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
-        public InputAction @Put => m_Wrapper.m_Player_Put;
+        public InputAction @Tool => m_Wrapper.m_Player_Tool;
+        public InputAction @Upgrade => m_Wrapper.m_Player_Upgrade;
         public InputAction @ChangeTool => m_Wrapper.m_Player_ChangeTool;
+        public InputAction @SwitchTool => m_Wrapper.m_Player_SwitchTool;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -307,12 +353,18 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Attack.started += instance.OnAttack;
             @Attack.performed += instance.OnAttack;
             @Attack.canceled += instance.OnAttack;
-            @Put.started += instance.OnPut;
-            @Put.performed += instance.OnPut;
-            @Put.canceled += instance.OnPut;
+            @Tool.started += instance.OnTool;
+            @Tool.performed += instance.OnTool;
+            @Tool.canceled += instance.OnTool;
+            @Upgrade.started += instance.OnUpgrade;
+            @Upgrade.performed += instance.OnUpgrade;
+            @Upgrade.canceled += instance.OnUpgrade;
             @ChangeTool.started += instance.OnChangeTool;
             @ChangeTool.performed += instance.OnChangeTool;
             @ChangeTool.canceled += instance.OnChangeTool;
+            @SwitchTool.started += instance.OnSwitchTool;
+            @SwitchTool.performed += instance.OnSwitchTool;
+            @SwitchTool.canceled += instance.OnSwitchTool;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -323,12 +375,18 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Attack.started -= instance.OnAttack;
             @Attack.performed -= instance.OnAttack;
             @Attack.canceled -= instance.OnAttack;
-            @Put.started -= instance.OnPut;
-            @Put.performed -= instance.OnPut;
-            @Put.canceled -= instance.OnPut;
+            @Tool.started -= instance.OnTool;
+            @Tool.performed -= instance.OnTool;
+            @Tool.canceled -= instance.OnTool;
+            @Upgrade.started -= instance.OnUpgrade;
+            @Upgrade.performed -= instance.OnUpgrade;
+            @Upgrade.canceled -= instance.OnUpgrade;
             @ChangeTool.started -= instance.OnChangeTool;
             @ChangeTool.performed -= instance.OnChangeTool;
             @ChangeTool.canceled -= instance.OnChangeTool;
+            @SwitchTool.started -= instance.OnSwitchTool;
+            @SwitchTool.performed -= instance.OnSwitchTool;
+            @SwitchTool.canceled -= instance.OnSwitchTool;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -350,7 +408,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
-        void OnPut(InputAction.CallbackContext context);
+        void OnTool(InputAction.CallbackContext context);
+        void OnUpgrade(InputAction.CallbackContext context);
         void OnChangeTool(InputAction.CallbackContext context);
+        void OnSwitchTool(InputAction.CallbackContext context);
     }
 }

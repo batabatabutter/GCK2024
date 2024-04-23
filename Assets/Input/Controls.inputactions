@@ -24,9 +24,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Put",
+                    "name": "Tool",
                     "type": "Button",
                     "id": "4aac10fa-5e3a-4c12-a326-292c69be764e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Upgrade",
+                    "type": "Button",
+                    "id": "a51a9e9c-f0db-432d-8c05-9df56cd21e7e",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -37,6 +46,15 @@
                     "type": "PassThrough",
                     "id": "804873ef-d72f-4982-b573-455b65ee323a",
                     "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SwitchTool",
+                    "type": "Button",
+                    "id": "a67a6a3e-feb1-4d88-9041-43d1b3f1b91d",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -171,7 +189,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Put",
+                    "action": "Tool",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -183,6 +201,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "ChangeTool",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8a23a5a0-980e-4624-8a43-86ea8b51c82d",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Upgrade",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "89e11904-bb71-4df7-99c2-a70a5a18835e",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SwitchTool",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

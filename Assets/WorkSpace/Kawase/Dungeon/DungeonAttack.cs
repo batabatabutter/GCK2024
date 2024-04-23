@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class DungeonAttack : MonoBehaviour
 {
     //プレイヤーの下に出るハイライトの低さ
     const float HEIGLIGHT_HEIGHT = 0.5f;
+
+
 
     enum Direction
     {
@@ -15,15 +18,20 @@ public class DungeonAttack : MonoBehaviour
         LEFT
     }
 
-    [Header("発生コウゲキON:OFF（これデバッグ用）")]
-    [SerializeField] bool isfall;
-    [SerializeField] bool isroll;
-    [SerializeField] bool isbank;
+    public enum AttackPattern
+    {
+        FallRock,
+        RollRock,
+        Bank,
+
+        OverID
+
+    }
+
+    [Header("ダンジョンデータベース")]
+    [SerializeField] DungeonDataBase m_dungeonDataBase;
 
     [Header("--------------------------------------------")]
-
-    [Header("攻撃間隔")]
-    [SerializeField] float attackCoolTime = 3.0f;
 
     [Header("coreの攻撃間隔が２倍になる距離")]
     [SerializeField] float twiceAttackLength = 20;
@@ -68,19 +76,55 @@ public class DungeonAttack : MonoBehaviour
     [Header("コウゲキ時間")]
     [SerializeField] float bankTime = 4.0f;
 
+    //"攻撃間隔"
+    float m_attackCoolTime;
 
-
+    //クルータイム記憶
     float m_keepCoolTime;
 
     GameObject m_target;
     GameObject m_core;
+
+    //攻撃の選択用
+    bool isfall = false;
+    bool isroll = false;
+    bool isbank = false;
+
 
     // Start is called before the first frame update
     void Start()
     {
         m_target = SceneManager.GetPlayer();
         m_core = SceneManager.GetCore();
-        m_keepCoolTime = attackCoolTime;
+        m_keepCoolTime = 
+            m_dungeonDataBase.dungeonDatas
+            [GetComponent<DungeonGenerator>().GetStageNum()].
+            DungeonAttackCoolTime;
+
+        m_attackCoolTime = m_keepCoolTime;
+
+        List<AttackPattern> attackPatterns = m_dungeonDataBase.
+            dungeonDatas[GetComponent<DungeonGenerator>().GetStageNum()].
+            AttackPattern;
+
+        //攻撃の設定
+        for (int i = 0; i < attackPatterns.Count; i++)
+        {
+            switch (attackPatterns[i])
+            {
+                case AttackPattern.FallRock:
+                    isfall = true;
+                    break;
+                case AttackPattern.RollRock:
+                    isroll = true;
+                    break;
+                case AttackPattern.Bank:
+                    isbank = true;
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     // Update is called once per frame
@@ -100,9 +144,9 @@ public class DungeonAttack : MonoBehaviour
 
 
         //クールタイム減少
-        attackCoolTime -= Time.deltaTime * ratio;
+        m_attackCoolTime -= Time.deltaTime * ratio;
 
-        if (attackCoolTime < 0.0f)
+        if (m_attackCoolTime < 0.0f)
         {
             //コウゲキしたかどうか
             bool checkAttacked = false;
@@ -149,9 +193,7 @@ public class DungeonAttack : MonoBehaviour
                     break;
             }
             //クールタイムリセット
-            attackCoolTime = m_keepCoolTime + attackAddTime;
-
-            Debug.Log(attackAddTime);
+            m_attackCoolTime = m_keepCoolTime + attackAddTime;
         }
     }
 

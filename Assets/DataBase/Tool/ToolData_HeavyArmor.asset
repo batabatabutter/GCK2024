@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f32322d6a3befb942b18974efc8c4bbe, type: 3}
+  m_Name: ToolData_HeavyArmor
+  m_EditorClassIdentifier: 
+  toolName: "\u91CD\u93A7"
+  typeStr: 106:HEAVY_ARMOR
+  category: 1
+  icon: {fileID: 21300000, guid: 650e9f6f59855cc47b1905f4ee308d23, type: 3}
+  recastTime: 10
+  prefab: {fileID: 4156167675861179288, guid: 37a8790865bd0b540856e8131789640f, type: 3}
+  itemMaterials:
+  - typeStr: 207:BIR_RUBY
+    count: 1
+  - typeStr: 0:STONE
+    count: 5

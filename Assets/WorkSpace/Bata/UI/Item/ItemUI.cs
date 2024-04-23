@@ -37,14 +37,14 @@ public class ItemUI : MonoBehaviour
         //  生成位置
         Vector2 size = m_itemFrame.GetComponent<RectTransform>().sizeDelta;
         Vector3 pos;
-        for (int i = 0; i < (int)ItemData.Type.OVER; i++)
+        for (int i = 0; i < m_data.item.Count; i++)
         {
             //  座標
             pos = new Vector3(0.0f, -(size.y + m_offset.y) * i) + transform.position;
             //  UI生成
             GameObject frame = Instantiate(m_itemFrame, pos, Quaternion.identity, transform);
             //  画像設定
-            frame.GetComponent<ItemFrame>().SetImage(m_data.item[i].sprite);
+            frame.GetComponent<ItemFrame>().SetImage(m_data.item[i].Sprite);
 
             m_itemObjects.Add(frame);
         }
@@ -54,11 +54,11 @@ public class ItemUI : MonoBehaviour
     void Update()
     {
         //  アイテム数更新
-        for(int i = 0; i < (int)ItemData.Type.OVER; i++) 
+        for(int i = 0; i < m_data.item.Count; i++) 
         {
             //  アイテム数設定
             m_itemObjects[i].GetComponent<ItemFrame>().SetNum(
-                m_player.transform.Find("Item").gameObject.GetComponent<PlayerItem>().Items[(ItemData.Type)i]);
+                m_player.transform.Find("Item").gameObject.GetComponent<PlayerItem>().Items[m_data.item[i].Type]);
         }
     }
 
