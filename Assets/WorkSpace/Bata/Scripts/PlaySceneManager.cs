@@ -46,6 +46,7 @@ public class PlaySceneManager : MonoBehaviour
     [Header("デバッグ用")]
     [SerializeField] private bool m_debugFlag;
     [SerializeField] private int m_debugStageNum;
+    [SerializeField] private bool m_uiFlag;
 
     // Start is called before the first frame update
     void Awake()
@@ -78,6 +79,10 @@ public class PlaySceneManager : MonoBehaviour
             else if (m_player.GetComponent<Player>().HitPoint <= 0)
                 m_gameState = GameState.Failed;
         }
+
+        //  デバッグ用
+        if (m_uiFlag) m_playUI.SetActive(true);
+        else m_playUI.SetActive(false);
     }
 
     //  プレイヤーの設定

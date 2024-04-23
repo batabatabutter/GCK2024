@@ -19,6 +19,10 @@ public class ChangeBrightness : MonoBehaviour
 
     //  プレイヤーの座標
     private Transform m_playerTr;
+    //  光源当たり判定
+    //private Collider[] m_colliders;
+    //  衝突判定起動中か
+    //private bool m_colldiersFlag = true;
     //  距離光源
     private const float DISTANCE_LIGHT = 17.0f;
     [Header("ブロック")]
@@ -32,30 +36,58 @@ public class ChangeBrightness : MonoBehaviour
         ChangeBlack();
         //  ブロック情報取得
         //m_block = GetComponent<Block>();
+
+        //  衝突判定取得
+        //m_colliders = GetComponents<Collider>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        ////  プレイヤーとの距離が一定以上離れていたら処理しない
-        //if (m_playerTr == null)
-        //{
-        //    //Debug.Log("Error:BlockにPlyer座標が入ってない：" + this);
-        //    return;
-        //}
-        //if (Vector2.Distance(transform.position, m_playerTr.position) > DISTANCE_LIGHT)
-        //{
-        //    return;
-        //}
-
         //光源の処理をしない
         if (m_block)
         {
-			if (m_block.LightLevel > 0)
-			{
-				return;
-			}
-		}
+            if (m_block.LightLevel > 0)
+            {
+                return;
+            }
+        }
+
+        //  プレイヤーとの距離が一定以上離れていたら処理しない
+        if (m_playerTr == null)
+        {
+            //Debug.Log("Error:BlockにPlyer座標が入ってない：" + this);
+            return;
+        }
+        if (Vector2.Distance(transform.position, m_playerTr.position) > DISTANCE_LIGHT) return;
+        
+        //if (Vector2.Distance(transform.position, m_playerTr.position) > DISTANCE_LIGHT)
+        //{
+        //    //  判定がついているなら
+        //    if (m_colldiersFlag)
+        //    {
+        //        //  判定を消滅
+        //        m_colldiersFlag = false;
+        //        foreach (Collider collider in m_colliders)
+        //        {
+        //            collider.enabled = false;
+        //        }
+        //    }
+        //    return;
+        //}
+        //else
+        //{
+        //    //  判定がついていないなら
+        //    if (!m_colldiersFlag)
+        //    {
+        //        //  判定つける
+        //        m_colldiersFlag = true;
+        //        foreach (Collider collider in m_colliders)
+        //        {
+        //            collider.enabled = true;
+        //        }
+        //    }
+        //}
 
 		//ライトリストの管理
 		for (int i = 0; i < m_lightList.Count; i++)

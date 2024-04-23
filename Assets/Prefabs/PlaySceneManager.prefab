@@ -56,6 +56,7 @@ MonoBehaviour:
   m_stageNumScriptableObj: {fileID: 11400000, guid: 0ddb2feb839c39a4b8711c3b2833423a, type: 2}
   m_debugFlag: 0
   m_debugStageNum: 0
+  m_uiFlag: 1
 --- !u!114 &792408576829412996
 MonoBehaviour:
   m_ObjectHideFlags: 0
