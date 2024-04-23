@@ -153,9 +153,9 @@ public class ChangeBrightness : MonoBehaviour
 
             }
 
-            if (m_block && !m_block.IsDestroyed())
+            if (m_block && !m_block.IsDestroyed() && lightListV.Count() != 0)
             {
-                m_block.ReceiveLightLevel = (int)lightListV.Max();
+                m_block.ReceiveLightLevel = Math.Max((int)lightListV.Max(), 0);
             }
         }
     }
