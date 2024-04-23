@@ -30,7 +30,7 @@ public class ChangeBrightness : MonoBehaviour
         //spriteRenderer = GetComponent<SpriteRenderer>();
         //黒くする
         ChangeBlack();
-        ////  ブロック情報取得
+        //  ブロック情報取得
         //m_block = GetComponent<Block>();
     }
 
@@ -153,7 +153,7 @@ public class ChangeBrightness : MonoBehaviour
 
             }
 
-            if (m_block)
+            if (m_block && !m_block.IsDestroyed())
             {
                 m_block.ReceiveLightLevel = (int)lightListV.Max();
             }
