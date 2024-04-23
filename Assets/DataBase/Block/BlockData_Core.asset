@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9102e5fe6745808438d597f5ef891521, type: 3}
   m_Name: BlockData_Core
   m_EditorClassIdentifier: 
-  blockName: 
+  blockName: "\u30B3\u30A2"
   typeStr: 501:CORE
   endurance: 300
   dontBroken: 0

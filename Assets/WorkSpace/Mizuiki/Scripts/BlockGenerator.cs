@@ -14,6 +14,11 @@ public class BlockGenerator : MonoBehaviour
     [Header("地面")]
     [SerializeField] private GameObject m_ground = null;
 
+    [Header("光源処理をするか否か")]
+    [SerializeField] private bool m_isBrightness = false;
+    [Header("光源処理をするオブジェクト")]
+    [SerializeField] private GameObject m_lightObject = null;
+
     //  プレイヤーの座標
     private Transform m_playerTr;
 
@@ -36,14 +41,11 @@ public class BlockGenerator : MonoBehaviour
     /// <param name="isGroundBrightness">地面明るさをつけるかどうか</param>
     public GameObject GenerateBlock(BlockData.BlockType type, Vector2 position, Transform parent = null, bool isBlockBrightness = false, bool isGroundBrightness = false)
     {
+        // 光源の設定
+        m_isBrightness = isBlockBrightness;
+
 		// 地面を生成
 		GameObject ground = CreateObject(parent, m_ground, position);
-        //　地面の明るさ
-        if (isGroundBrightness)
-        {
-            var br = ground.AddComponent<ChangeBrightness>();
-            br.SetPlayerTransform(m_playerTr);
-        }
 
         // ブロックのデータ取得
         BlockData data = MyFunction.GetBlockData(m_blockDataBase, type);
@@ -84,16 +86,12 @@ public class BlockGenerator : MonoBehaviour
 			}
 		}
 
-		//明るさの追加
-		if (isBlockBrightness)
-        {
-            var br = obj.AddComponent<ChangeBrightness>();
-            br.SetPlayerTransform(m_playerTr);
-        }
-
         // データの設定
         if (!obj.TryGetComponent(out Block block))
             return obj;
+
+        // 名前の設定
+        block.name = data.Type.ToString() + "_BLOCK";
 
         // データ
         block.BlockData = data;
@@ -136,8 +134,28 @@ public class BlockGenerator : MonoBehaviour
         {
             obj = Instantiate(gameObject, position, Quaternion.identity);
         }
-        // 生成したオブジェクトを返す
-        return obj;
+        // 光源の設定
+		if (m_isBrightness)
+		{
+            // 光源処理用のオブジェクト生成
+            GameObject light = Instantiate(m_lightObject, obj.transform);
+
+            // 光源スクリプトの追加
+			var br = obj.AddComponent<ChangeBrightness>();
+            // プレイヤーのトランスフォームを設定する
+			br.SetPlayerTransform(m_playerTr);
+
+            // ブロックの取得
+            if (obj.TryGetComponent(out Block block))
+            {
+				// 光源コライダー生成
+				light.GetComponent<ObjectLight>().FlashLight(block.LightLevel);
+				// ブロックの設定
+				br.Block = block;
+			}
+		}
+		// 生成したオブジェクトを返す
+		return obj;
     }
 
     //  プレイヤー座標系設定

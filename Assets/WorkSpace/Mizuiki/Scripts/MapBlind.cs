@@ -6,8 +6,8 @@ public class MapBlind : MonoBehaviour
 {
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-        // ƒc[ƒ‹‚É“–‚½‚Á‚½
-        if (collision.transform.CompareTag("Tool"))
+        // ŒõŒ¹‚É“–‚½‚Á‚½
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Light"))
         {
             Destroy(gameObject);
         }

@@ -25,26 +25,32 @@ public class Block : MonoBehaviour
     [Header("アイテムのデータベース")]
     [SerializeField] private ItemDataBase m_itemDataBase = null;
 
+    [Header("子のマップオブジェクト")]
+    [SerializeField] private MapObject m_mapObject = null;
+
     // ブロックが破壊されている
     private bool m_isBroken = false;
-    // 子のマップオブジェクト
-    private MapObject m_mapObject = null;
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        // スプライトレンダーがなければ取得
-        if (!m_spriteRenderer)
-        {
-            m_spriteRenderer = GetComponent<SpriteRenderer>();
-        }
-
-        // データベースが設定されてない
-        if (m_itemDataBase == null)
-        {
-            Debug.Log(gameObject.name + "のアイテムデータベースを設定してね");
+	private void Awake()
+	{
+		// スプライトレンダーがなければ取得
+		if (!m_spriteRenderer)
+		{
+			m_spriteRenderer = GetComponent<SpriteRenderer>();
 		}
+		// データベースが設定されてない
+		if (m_itemDataBase == null)
+		{
+			Debug.Log(gameObject.name + "のアイテムデータベースを設定してね");
+		}
+	}
+
+	// Start is called before the first frame update
+	void Start()
+    {
+        // 光源初期化
+        ReceiveLightLevel = 0;
 
 	}
 
@@ -185,20 +191,14 @@ public class Block : MonoBehaviour
         get { return m_receiveLightLevel; }
         set
         {
-            // 明るさレベルの設定
-            m_receiveLightLevel = value;
-            // 明度を計算
-            m_receiveLightValue = m_receiveLightLevel / 7.0f;
-
-            // 受けている明るさレベルに応じて色を設定
-            if (m_receiveLightLevel <= 0)
-                return;
-            // 明度
-            float val = m_receiveLightLevel / 7.0f;
-            // 明度を 0 ~ 1 にクランプ
-            val = Mathf.Clamp(val, 0.0f, 1.0f);
+			// 明るさレベルの設定(受けている光源レベルと自身の光源レベルを比較して大きいほうの明るさになる)
+            m_receiveLightLevel = Mathf.Max(value, m_lightLevel);
+			// 明度を計算
+			m_receiveLightValue = m_receiveLightLevel / 7.0f;
+            // 明度の値を 0 ~ 1 にクランプ
+            m_receiveLightValue = Mathf.Clamp(m_receiveLightValue, 0.0f, 1.0f);
 			// 色を設定
-			m_spriteRenderer.color = Color.HSVToRGB(0.0f, 0.0f, val);
+			m_spriteRenderer.color = new (m_receiveLightValue, m_receiveLightValue, m_receiveLightValue, 1.0f);
             // マップオブジェクトの明度を設定
             if (m_mapObject)
             {

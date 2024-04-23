@@ -107,6 +107,7 @@ MonoBehaviour:
   m_spriteRenderer: {fileID: 0}
   m_blockData: {fileID: 0}
   m_itemDataBase: {fileID: 11400000, guid: c534141616c2bbc4ba996d4d9f120330, type: 2}
+  m_mapObject: {fileID: 5341136679893137157}
 --- !u!61 &5075732777367063382
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -300,3 +301,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9021416439671306764, guid: 6626405694a3a3e4191b6cfe03fe79e8, type: 3}
   m_PrefabInstance: {fileID: 7291050137455666644}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5341136679893137157 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3400363934103720657, guid: 6626405694a3a3e4191b6cfe03fe79e8, type: 3}
+  m_PrefabInstance: {fileID: 7291050137455666644}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea3b76bfd80649945af45fd9df97c156, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
