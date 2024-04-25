@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements.Experimental;
 
-public class Item : MonoBehaviour
+public class Item : ObjectAffectLight
 {
     [Header("アイテムの種類")]
     [SerializeField] private ItemData.ItemType m_itemType;
@@ -28,7 +28,7 @@ public class Item : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         // リジッドボディがなければつける
         if (GetComponent<Rigidbody2D>() == null)

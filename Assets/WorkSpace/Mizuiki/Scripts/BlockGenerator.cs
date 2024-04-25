@@ -146,12 +146,12 @@ public class BlockGenerator : MonoBehaviour
 			br.SetPlayerTransform(m_playerTr);
 
             // ブロックの取得
-            if (obj.TryGetComponent(out Block block))
+            if (obj.TryGetComponent(out ObjectAffectLight affectLight))
             {
 				// 光源コライダー生成
-				light.GetComponent<ObjectLight>().FlashLight(block.LightLevel);
+				light.GetComponent<ObjectLight>().FlashLight(affectLight.LightLevel);
 				// ブロックの設定
-				br.Block = block;
+				br.AffectLight = affectLight;
 			}
 		}
 		// 生成したオブジェクトを返す

@@ -31,7 +31,10 @@ public class TestDungeonGenerator : MonoBehaviour
 	[Header("生成スクリプトの配列")]
 	[SerializeField] private DungeonGeneratorBase[] m_dungeonGenerators;
 
-	[Header("プレイヤー(インスタンス用)")]
+	[Header("ライトと付ける")]
+	[SerializeField] private bool m_light = true;
+
+	[Header("プレイヤー(トランスフォーム用)")]
 	[SerializeField] GameObject m_player = null;
 
 
@@ -54,7 +57,8 @@ public class TestDungeonGenerator : MonoBehaviour
 		// プレイヤーが設定されていれば生成
 		if (m_player != null)
 		{
-			Instantiate(m_player);
+			//Instantiate(m_player);
+			m_blockGenerator.SetPlayerTransform(m_player.transform);
 		}
 
 		List<List<string>> mapList;
@@ -91,15 +95,18 @@ public class TestDungeonGenerator : MonoBehaviour
 			{
 				string name = mapList[y][x];
 
-				// キーが存在しない場合は何も生成しない
-				if (!m_blocks.ContainsKey(name))
-					continue;
-
 				// 生成座標
 				Vector3 pos = new(x, y, 0.0f);
 
+				// キーが存在しない場合は地面だけ
+				if (!m_blocks.ContainsKey(name))
+				{
+					m_blockGenerator.GenerateBlock(BlockData.BlockType.OVER, pos, null, m_light);
+					continue;
+				}
+
 				// ブロックの生成
-				m_blockGenerator.GenerateBlock(m_blocks[name], pos, null, true);
+				m_blockGenerator.GenerateBlock(m_blocks[name], pos, null, m_light);
 
 			}
 		}
