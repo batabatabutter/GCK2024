@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static DungeonAttack;
+using static WaveManager;
 
 public class DungeonAttack : MonoBehaviour
 {
@@ -33,8 +35,8 @@ public class DungeonAttack : MonoBehaviour
 
     [Header("--------------------------------------------")]
 
-    [Header("coreの攻撃間隔が２倍になる距離")]
-    [SerializeField] float twiceAttackLength = 20;
+    [Header("coreの攻撃してくる距離")]
+    [SerializeField] float m_attackLength = 20;
 
     [Header("--------------------------------------------")]
 
@@ -90,61 +92,70 @@ public class DungeonAttack : MonoBehaviour
     bool isroll = false;
     bool isbank = false;
 
+    //ウェーブ
+    int m_wave;
+
+    //ウェーブマネージャー
+    WaveManager m_waveManager;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        if (m_waveManager == null)
+        {
+            m_waveManager = GetComponent<WaveManager>();
+        }
+        //ウェーブ数の取得
+        m_wave = m_waveManager.WaveNum;
+        //タゲとコア
         m_target = SceneManager.GetPlayer();
         m_core = SceneManager.GetCore();
-        m_keepCoolTime = 
-            m_dungeonDataBase.dungeonDatas
-            [GetComponent<DungeonGenerator>().GetStageNum()].
-            DungeonAttackCoolTime;
+        //攻撃間隔
+        m_keepCoolTime =
+            m_dungeonDataBase.dungeonDatas[GetComponent<DungeonGenerator>().GetStageNum()].DungeonWaves[m_wave].geterateEnemyInterval;
 
+        //タイマーセット
         m_attackCoolTime = m_keepCoolTime;
 
+        //アタックパターンの取得
         List<AttackPattern> attackPatterns = m_dungeonDataBase.
             dungeonDatas[GetComponent<DungeonGenerator>().GetStageNum()].
-            AttackPattern;
+            DungeonWaves[m_wave].dungeonATKPattern;
 
-        //攻撃の設定
-        for (int i = 0; i < attackPatterns.Count; i++)
-        {
-            switch (attackPatterns[i])
-            {
-                case AttackPattern.FallRock:
-                    isfall = true;
-                    break;
-                case AttackPattern.RollRock:
-                    isroll = true;
-                    break;
-                case AttackPattern.Bank:
-                    isbank = true;
-                    break;
-                default:
-                    break;
-            }
-        }
+        //bool値のせってい
+        SetAtkIs(attackPatterns);
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        //ウェーブ変化で内容更新
+        if(m_wave != GetComponent<WaveManager>().WaveNum)
+        {
+            Start();
+        }
+
+
         int ratio = 1;
 
         //coreとプレイヤーが近いとコウゲキが2倍
         if(m_core != null) 
         {
-            if (Vector2.Distance(m_core.transform.position, m_target.transform.position) < twiceAttackLength)
+            if (Vector2.Distance(m_core.transform.position, m_target.transform.position) < m_attackLength)
             {
                 ratio = 2;
+
             }
         }
 
-
-
-        //クールタイム減少
-        m_attackCoolTime -= Time.deltaTime * ratio;
+        //アタック状態でダンジョン攻撃
+        if (m_waveManager.waveState == WaveState.Attack)
+        {        
+            //クールタイム減少
+            m_attackCoolTime -= Time.deltaTime * ratio;
+        }
 
         if (m_attackCoolTime < 0.0f)
         {
@@ -266,5 +277,31 @@ public class DungeonAttack : MonoBehaviour
             }
 
         }
+    }
+
+    private void SetAtkIs(List<AttackPattern> attackPatterns)
+    {
+        isfall = false;
+        isroll = false;
+        isbank = false;
+        //攻撃の設定
+        for (int i = 0; i < attackPatterns.Count; i++)
+        {
+            switch (attackPatterns[i])
+            {
+                case AttackPattern.FallRock:
+                    isfall = true;
+                    break;
+                case AttackPattern.RollRock:
+                    isroll = true;
+                    break;
+                case AttackPattern.Bank:
+                    isbank = true;
+                    break;
+                default:
+                    break;
+            }
+        }
+
     }
 }

@@ -244,6 +244,14 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 792408576829412996, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
+      propertyPath: m_isBlockBrightness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 792408576829412996, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
+      propertyPath: m_isGroundBrightness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 792408576829412996, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
       propertyPath: m_blockOddsList.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -270,6 +278,10 @@ PrefabInstance:
     - target: {fileID: 3469568166959932924, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
       propertyPath: m_debugStageNum
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3469568166959932924, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
+      propertyPath: objectLayer.m_Bits
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 4028424752848547877, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
       propertyPath: m_LocalPosition.x

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static WaveManager;
 
 public class EnemyGenerator : MonoBehaviour
 {
@@ -30,14 +31,50 @@ public class EnemyGenerator : MonoBehaviour
     //親
     private GameObject m_parent;
 
+    //ウェーブ
+    int m_wave;
+
+    //状態
+    WaveManager.WaveState m_waveState;
+
+    //出現数
+    int m_spawnEnemyNum;
+
+    //スポーンタイマー
+    float m_timer;
+
+    //ウェーブマネージャー
+    WaveManager m_waveManager;
 
     // Start is called before the first frame update
     void Start()
     {
+        if(m_waveManager == null)
+        {
+            m_waveManager = GetComponent<WaveManager>();
+        }
+
         //ステージ番号
         int stageNum = m_playSceneManager.StageNum;
+        //現在のウェーブ数の取得
+        m_wave = m_waveManager.WaveNum;
+        //ウェーブごとの情報
+        DungeonData.DungeonWave dungeonData = m_dungeonDataBase.dungeonDatas[stageNum].DungeonWaves[m_wave];
+        //出現数のせってい
+        m_spawnEnemyNum = dungeonData.generateEnemyNum;
+
+        //スポーン間隔
+        m_spawnTime = dungeonData.dungeonATKCoolTime;
+
+        //タイマーの設定
+        m_timer = m_spawnTime;
+
+        //初期化
+        m_spawnList.Clear();
+
         //ステージの出現敵配列
-        List<Enemy.Type> enemyTypeList = m_dungeonDataBase.dungeonDatas[stageNum].Enemy;
+        List<Enemy.Type> enemyTypeList = dungeonData.generateEnemyType;
+
 
         for (int i = 0; i < enemyTypeList.Count; i++)
         {
@@ -56,32 +93,55 @@ public class EnemyGenerator : MonoBehaviour
             }
         }
 
-        //プレイヤーよこせ
-        m_player = m_playSceneManager.GetPlayer();
-        //スポーン間隔よこせ
-        m_spawnTime = m_dungeonDataBase.dungeonDatas[stageNum].EnemySpawnTime;
-
-        //親
-        m_parent = new GameObject("Enemies");
+        if(m_player == null)
+        {
+            //プレイヤーよこせ
+            m_player = m_playSceneManager.GetPlayer();
+        }
+        //if(m_player == null)
+        {
+            //親
+            m_parent = new GameObject("Enemies");
+        }
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        //ステージ番号
-        int stageNum = m_playSceneManager.StageNum;
 
-        if (m_spawnTime < 0)
+
+
+        if (m_timer < 0)
         {
             //スポーン
             Spawn(m_spawnList[Random.Range(0, m_spawnList.Count)]);
 
-            m_spawnTime = m_dungeonDataBase.dungeonDatas[stageNum].EnemySpawnTime;
+            m_spawnEnemyNum--;
+
+            m_timer = m_spawnTime;
         }
         else
         {
-            m_spawnTime -= Time.deltaTime;
+            if(m_waveManager.waveState == WaveState.Attack)
+            {
+                m_timer -= Time.deltaTime;
+
+            }
+        }
+
+        if(m_spawnEnemyNum <= 0)
+        {
+            m_waveManager.waveState = WaveState.Break;
+            //ウェーブ上限じゃない場合かさん
+            if ( m_waveManager.WaveNum < m_waveManager.WAVE_MAX_NUM - 1)
+            {
+
+                m_waveManager.WaveNum++;
+
+            }
+            Start();
+
         }
 
     }

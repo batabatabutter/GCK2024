@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
+    public int WAVE_MAX_NUM;
+
     public enum WaveState
     {
         Attack,//攻撃
@@ -54,6 +56,9 @@ public class WaveManager : MonoBehaviour
         m_waveTime = m_dungeonDatas.RestWaveTime;
         //フェーズ０
         m_waveNum = 0;
+
+        //ウェーブの上限値
+        WAVE_MAX_NUM = m_dungeonDatas.DungeonWaves.Count;
     }
 
     // Update is called once per frame
@@ -79,12 +84,15 @@ public class WaveManager : MonoBehaviour
 
 
         // ここの処理をエネミージェネレーターに組み込む
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            //休憩フェーズ二に移行
-            m_waveState = WaveState.Break;
-            m_waveNum++;
-        }
+        //if (Input.GetKeyDown(KeyCode.T))
+        //{
+        //    //休憩フェーズ二に移行
+        //    m_waveState = WaveState.Break;
+        //    m_waveNum++;
+        //}
+        //Debug.Log("状態：" + m_waveState);
+        //Debug.Log("ウェーブ番号：" + m_waveNum);
+        //Debug.Log("ウェーブ上限：" + (WAVE_MAX_NUM - 1));
     }
 
 }
