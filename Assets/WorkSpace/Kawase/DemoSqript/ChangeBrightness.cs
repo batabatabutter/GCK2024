@@ -56,7 +56,10 @@ public class ChangeBrightness : MonoBehaviour
         //  プレイヤーとの距離が一定以上離れていたら処理しない
         if (m_playerTr == null)
         {
-            //Debug.Log("Error:BlockにPlyer座標が入ってない：" + this);
+            if (Time.frameCount % 60 == 0) // 60FPS固定なら、
+            {
+                Debug.Log("Error:BlockにPlyer座標が入ってない：" + this);
+            }
             return;
         }
         if (Vector2.Distance(transform.position, m_playerTr.position) > DISTANCE_LIGHT) return;

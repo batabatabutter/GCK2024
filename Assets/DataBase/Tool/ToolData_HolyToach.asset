@@ -17,7 +17,7 @@ MonoBehaviour:
   category: 0
   icon: {fileID: 21300000, guid: 82ace541707732f4a835d1cd59d9f6af, type: 3}
   recastTime: 10
-  prefab: {fileID: 6062389311106173501, guid: b269664f2788a434792bedc0b78e4e7b, type: 3}
+  prefab: {fileID: 1605569564547797263, guid: 91eb442b5083b924199570e91465d373, type: 3}
   itemMaterials:
   - typeStr: 211:BIR_TOPAZ
     count: 1
