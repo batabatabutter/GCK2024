@@ -21,10 +21,10 @@ public class PlayerMining : MonoBehaviour
 		public float speed = 1.0f;
 		[Tooltip("クリティカル率(%)")]
 		public float critical = 1.0f;
-        [Tooltip("クリティカルダメージ")]
-        public float criticalDamage = 1.0f;
-		[Tooltip("アイテムドロップ率")]
-		public float itemDrop = 1.0f;
+        [Tooltip("クリティカルダメージ(%)")]
+        public float criticalDamage = 200.0f;
+		[Tooltip("アイテムドロップ率(%)")]
+		public float itemDrop = 100.0f;
 
         public static MiningValue operator+ (MiningValue left, MiningValue right)   // 和
         {
@@ -91,7 +91,7 @@ public class PlayerMining : MonoBehaviour
         public Vector2 origin;
         public float length;
 
-        public Vector2 MiningPos()
+        public readonly Vector2 MiningPos()
         {
             return origin + (direction * length);
         }
@@ -109,8 +109,6 @@ public class PlayerMining : MonoBehaviour
 
     [Header("採掘パーティクル")]
     [SerializeField] private ParticleSystem m_miningParticle = null;
-    private ParticleSystemRenderer m_miningParticleRenderer = null;
-    private Material m_particleMaterial = null;
 
     // 最終的な採掘値
     private MiningValue m_miningValue;
@@ -137,12 +135,6 @@ public class PlayerMining : MonoBehaviour
         // 採掘範囲の設定
         m_debugMiningRange.transform.localScale = new Vector3(m_miningValue.range * 2.0f, m_miningValue.range * 2.0f, m_miningValue.range * 2.0f);
 
-        // パーティクルの取得
-        if (m_miningParticle)
-        {
-			m_miningParticleRenderer = m_miningParticle.GetComponent<ParticleSystemRenderer>();
-            m_particleMaterial = m_miningParticleRenderer.sharedMaterial;
-		}
 	}
 
     // Update is called once per frame
@@ -252,7 +244,7 @@ public class PlayerMining : MonoBehaviour
         MiningOfRange(blockTransform, miningRay.MiningPos());
 
 		// クールタイム設定
-		m_miningCoolTime = 1.0f / (m_miningValue.speed);
+		m_miningCoolTime = 1.0f / m_miningValue.speed;
 
 	}
 
@@ -295,7 +287,7 @@ public class PlayerMining : MonoBehaviour
 		if (transform.TryGetComponent(out Block block))
 		{
             // 採掘ダメージ加算
-            if (!block.AddMiningDamage(GetPower(), (int)(m_miningValue.itemDrop)))
+            if (!block.AddMiningDamage(GetPower(), (int)(m_miningValue.itemDrop / 100.0f)))
                 return false;
 
 			// 採掘回数加算
@@ -306,14 +298,7 @@ public class PlayerMining : MonoBehaviour
 			// 採掘エフェクト
 			if (m_miningParticle)
             {
-                //m_particleMaterial.color = block.BlockData.Color;
-                // なぜか暗くなるからエミッションカラーのほうを変える(**********要検証***********)
-                //m_particleMaterial.SetColor("_EmissionColor", block.BlockData.Color);
-
-                GameObject particle = Instantiate(m_miningParticle.gameObject, transform.position, Quaternion.identity);
-
-                //m_miningParticle.transform.position = transform.position;
-                //m_miningParticle.Play();
+                Instantiate(m_miningParticle.gameObject, transform.position, Quaternion.identity);
             }
 
 			// ブロックに当たったらダメージ処理を抜ける
@@ -382,7 +367,7 @@ public class PlayerMining : MonoBehaviour
         if (rand <= m_miningValue.critical)
         {
             // ダメージ倍率をかける
-            power *= m_miningValue.criticalDamage;
+            power *= m_miningValue.criticalDamage / 100.0f;
         }
 
         // 採掘力を返す

@@ -16,6 +16,9 @@ public class PlayerUpgrade : MonoBehaviour
     [Header("強化値")]
     [SerializeField] private PlayerMining.MiningValue m_upgradeValue;
 
+    [Header("強化段階")]
+    [SerializeField] private PlayerMining.MiningValue[] m_upgradeStage;
+
     [Header("強化ランク")]
     [SerializeField] private int m_upgradeRank = 0;
 
@@ -58,12 +61,26 @@ public class PlayerUpgrade : MonoBehaviour
         // アップグレード
         m_upgradeRank += value;
 
+        // 強化値
+        PlayerMining.MiningValue upgradeValue = GetValue();
+
         // 強化
-        m_playerMining.MiningValueBase += m_upgradeValue * value;
+        m_playerMining.MiningValueBase += upgradeValue * value;
 
         // 素材の消費
         m_playerTool.ConsumeMaterials(m_upgradeData, value);
 
 	}
+
+    // 強化値の取得
+    private PlayerMining.MiningValue GetValue()
+    {
+        // 強化段階の取得
+        int rank = m_upgradeRank / 100;
+        // 強化段階の範囲にクランプ
+        rank = Mathf.Clamp(rank, 0, m_upgradeStage.Length);
+        // 強化値を返す
+        return m_upgradeStage[rank];
+    }
 
 }
