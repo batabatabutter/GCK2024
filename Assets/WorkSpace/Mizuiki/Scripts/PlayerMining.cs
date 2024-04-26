@@ -1,3 +1,4 @@
+using Microsoft.Win32.SafeHandles;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -82,7 +83,26 @@ public class PlayerMining : MonoBehaviour
 			};
 			return val;
 		}
-	}
+
+        public static MiningValue Set(float num)
+        {
+			MiningValue val = new()
+			{
+				range = num,
+				size = num,
+                power = num,
+                speed = num,
+                critical = num,
+                criticalDamage = num,
+                itemDrop = num,
+			};
+			return val;
+		}
+		public static MiningValue Zero()
+        {
+            return Set(0.0f);
+        }
+    }
 
     // çÃå@ï˚å¸ÇÃRay
     struct MiningRay

@@ -15,21 +15,6 @@ public class ToolHummer : Tool
     [SerializeField] private float m_power = 100.0f;
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            UseTool(gameObject);
-        }
-    }
-
 	public override void UseTool(GameObject obj)
 	{
 		base.UseTool(obj);

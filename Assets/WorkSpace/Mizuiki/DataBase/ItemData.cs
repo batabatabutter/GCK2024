@@ -1,3 +1,6 @@
+using System;
+using System.ComponentModel;
+using Unity.VisualScripting;
 using UnityEngine;
 using static BlockData;
 using static ToolData;
@@ -14,6 +17,7 @@ public class ItemData : ScriptableObject
 		STEEL,			// 鉄
 		TIN,			// 錫
 		LEAD,			// 鉛
+		COPPER,			// 銅
 
 		BIRTHDAY_STONE = 200,	// ここから誕生石シリーズ
 		BIR_GARNET,				// ガーネット
@@ -63,8 +67,10 @@ public class ItemData : ScriptableObject
 [System.Serializable]
 public class Items
 {
-    [CustomEnum(typeof(ItemData.ItemType))] public string typeStr;       // 種類
-	public ItemData.ItemType type => SerializeUtil.Restore<ItemData.ItemType>(typeStr);
+    [CustomEnum(typeof(ItemData.ItemType))]
+	[SerializeField] private string typeStr;       // 種類
+	//[NonSerialized] public ItemData.ItemType type;
+	public ItemData.ItemType Type => SerializeUtil.Restore<ItemData.ItemType>(typeStr);
     public int count;       // 数
 }
 

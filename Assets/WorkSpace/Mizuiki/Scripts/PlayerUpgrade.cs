@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Search;
 using UnityEngine;
 
 public class PlayerUpgrade : MonoBehaviour
@@ -10,14 +12,23 @@ public class PlayerUpgrade : MonoBehaviour
     [Header("プレイヤーのツールスクリプト")]
     [SerializeField] private PlayerTool m_playerTool = null;
 
-    [Header("採掘強化")]
-    [SerializeField] private ToolData m_upgradeData = null;
+    //[Header("採掘強化")]
+    //[SerializeField] private ToolData m_upgradeData = null;
 
-    [Header("強化値")]
-    [SerializeField] private PlayerMining.MiningValue m_upgradeValue;
+    [Header("強化段階の区切り")]
+    [SerializeField] private int m_stageDelimiter = 10;
 
     [Header("強化段階")]
-    [SerializeField] private PlayerMining.MiningValue[] m_upgradeStage;
+    [SerializeField] private UpgradeData[] m_upgradeStage;
+
+    [System.Serializable]
+    public struct UpgradeStageValue
+    {
+        public int stage;                       // 増加し始める強化段階
+        public PlayerMining.MiningValue value;  // 強化量
+    }
+    [Header("強化段階ごとの増加量"), Tooltip("[stage] の段階から1段階上がるごとに[value]の数値が加算される")]
+    [SerializeField] private UpgradeStageValue[] m_upgradeStageValue;
 
     [Header("強化ランク")]
     [SerializeField] private int m_upgradeRank = 0;
@@ -41,20 +52,21 @@ public class PlayerUpgrade : MonoBehaviour
         }
 	}
 
-	// Update is called once per frame
-	void Update()
-    {
-    }
-
     // 採掘アップグレードを使用
 	public void Upgrade(int value = 1)
 	{
-        // 作成できない
-        if (!m_playerTool.CheckCreate(m_upgradeData))
+        // 必要素材の取得
+        Items[] items = GetNeedMaterials(value);
+
+        // 素材が足りない
+        if (!m_playerTool.CheckCreate(items))
         {
             Debug.Log("素材不足");
             return;
         }
+
+        // 素材の消費
+        m_playerTool.ConsumeMaterials(items, value);
 
         Debug.Log("アップグレード : " + (m_upgradeRank + value).ToString());
 
@@ -62,25 +74,87 @@ public class PlayerUpgrade : MonoBehaviour
         m_upgradeRank += value;
 
         // 強化値
-        PlayerMining.MiningValue upgradeValue = GetValue();
+        UpgradeData upgradeValue = GetValue();
+        PlayerMining.MiningValue upgradeStageValue = GetStageValue(m_upgradeRank - value, m_upgradeRank);
 
         // 強化
-        m_playerMining.MiningValueBase += upgradeValue * value;
-
-        // 素材の消費
-        m_playerTool.ConsumeMaterials(m_upgradeData, value);
+        m_playerMining.MiningValueBase += upgradeValue.Value * value;
+        m_playerMining.MiningValueBase += upgradeStageValue;
 
 	}
 
-    // 強化値の取得
-    private PlayerMining.MiningValue GetValue()
+    // 必要素材の取得
+    private Items[] GetNeedMaterials(int rank)
     {
-        // 強化段階の取得
-        int rank = m_upgradeRank / 100;
-        // 強化段階の範囲にクランプ
-        rank = Mathf.Clamp(rank, 0, m_upgradeStage.Length);
+        // 必要素材
+        Items[] items = new Items[0];
+
+        for (int i = 0; i < rank; i++)
+        {
+            // 必要素材取得
+            Items[] cost = GetValue(m_upgradeRank + i).Cost;
+
+			Items[] dst = new Items[items.Length + cost.Length];
+
+			// 必要素材の追加
+			Array.Copy(items, dst, items.Length);
+			Array.Copy(cost, 0, dst, items.Length, cost.Length);
+            items = dst;
+        }
+
+        return items;
+    }
+
+    // 強化値の取得(ランクごと)
+    private UpgradeData GetValue()
+    {
         // 強化値を返す
-        return m_upgradeStage[rank];
+        return GetValue(m_upgradeRank);
+    }
+    private UpgradeData GetValue(int rank)
+    {
+		// 強化段階の取得
+		int stage = GetStage(rank);
+		// 強化段階の範囲にクランプ
+		stage = Mathf.Clamp(stage, 0, m_upgradeStage.Length);
+		// 強化値を返す
+		return m_upgradeStage[stage];
+	}
+
+	// 強化値の取得(段階ごと)
+	private PlayerMining.MiningValue GetStageValue(int beforeRank, int afterRank)
+    {
+        // 強化前の段階
+        int beforeStage = GetStage(beforeRank);
+        // 強化後の段階
+        int afterStage = GetStage(afterRank);
+
+        // 強化段階が上がっていない
+        if (beforeStage >= afterStage)
+            return PlayerMining.MiningValue.Zero();
+
+        // 強化量
+        PlayerMining.MiningValue val = PlayerMining.MiningValue.Zero();
+        foreach (UpgradeStageValue stageValue in m_upgradeStageValue)
+        {
+            // 増加開始段階
+            int stage = stageValue.stage;
+
+            // 増加し始める段階ではない
+            if (stage < afterStage)
+                continue;
+
+            // 強化値加算
+            val += stageValue.value;
+        }
+        // 増加段階分掛ける
+        return val * (afterStage - beforeRank);
+    }
+
+    // 強化段階取得
+    private int GetStage(int rank)
+    {
+        return rank / m_stageDelimiter;
     }
 
 }

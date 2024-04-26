@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-[CreateAssetMenu(fileName = "BlockData_", menuName = "CreateDataBase/Block/CreateBlock")]
+[CreateAssetMenu(fileName = "BlockData_", menuName = "CreateDataBase/Block/BlockData")]
 public class BlockData : ScriptableObject
 {
 	[System.Serializable]

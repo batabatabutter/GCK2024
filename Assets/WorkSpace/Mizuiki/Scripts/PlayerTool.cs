@@ -340,7 +340,7 @@ public class PlayerTool : MonoBehaviour
 		for (int i = 0; i < data.ItemMaterials.Length; i++)
 		{
 			// アイテムの種類
-			ItemData.ItemType type = data.ItemMaterials[i].type;
+			ItemData.ItemType type = data.ItemMaterials[i].Type;
 
 			// アイテムが存在しない
 			if (!m_playerItem.Items.ContainsKey(type))
@@ -363,11 +363,38 @@ public class PlayerTool : MonoBehaviour
 		// 必要素材数所持している
 		return true;
 	}
+	public bool CheckCreate(Items[] items, int value = 1)
+	{
+		for (int i = 0; i < items.Length; i++)
+		{
+			// アイテムの種類
+			ItemData.ItemType type = items[i].Type;
+
+			// アイテムが存在しない
+			if (!m_playerItem.Items.ContainsKey(type))
+			{
+				Debug.Log("アイテムが存在しない");
+				return false;
+			}
+
+			// 必要数
+			int count = items[i].count * value;
+
+			// 所持アイテム数が必要素材数未満
+			if (m_playerItem.Items[type] < count)
+			{
+				// 作成できない
+				return false;
+			}
+		}
+		// 必要素材数所持している
+		return true;
+	}
 
 	// 素材の消費
-	public void ConsumeMaterials(ToolData data, int value = 1)
+	public void ConsumeMaterials(Items[] items, int value = 1)
 	{
-		m_playerItem.ConsumeMaterials(data, value);
+		m_playerItem.ConsumeMaterials(items, value);
 	}
 
 

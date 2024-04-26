@@ -132,10 +132,14 @@ public class PlayerItem : MonoBehaviour
 	// アイテムを消費する
 	public void ConsumeMaterials(ToolData data, int value = 1)
 	{
-		for (int i = 0; i < data.ItemMaterials.Length; i++)
+		ConsumeMaterials(data.ItemMaterials, value);
+	}
+	public void ConsumeMaterials(Items[] items, int value = 1)
+	{
+		for (int i = 0; i < items.Length; i++)
 		{
 			// アイテムの種類取得
-			ItemData.ItemType type = data.ItemMaterials[i].type;
+			ItemData.ItemType type = items[i].Type;
 
 			// アイテムが存在しない
 			if (!m_items.ContainsKey(type))
@@ -145,7 +149,7 @@ public class PlayerItem : MonoBehaviour
 			}
 
 			// [type] を [count] 消費する
-			m_items[type] -= data.ItemMaterials[i].count * value;
+			m_items[type] -= items[i].count * value;
 		}
 	}
 
