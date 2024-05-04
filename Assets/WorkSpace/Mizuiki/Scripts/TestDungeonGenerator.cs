@@ -21,7 +21,7 @@ public class TestDungeonGenerator : MonoBehaviour
 
 	[Header("生成ブロック")]
 	[SerializeField] private MapBlock[] m_setBlocks;
-	private readonly Dictionary<string, BlockData.BlockType> m_blocks = new();
+	//private readonly Dictionary<string, BlockData.BlockType> m_blocks = new();
 
 	[Header("ブロックジェネレータ")]
 	[SerializeField] private BlockGenerator m_blockGenerator;
@@ -34,6 +34,7 @@ public class TestDungeonGenerator : MonoBehaviour
 	[Header("コアの座標")]
 	[SerializeField] private Vector2Int m_corePosition = Vector2Int.zero;
 
+
 	[System.Serializable]
 	public struct BlockGenerateData
 	{
@@ -42,20 +43,26 @@ public class TestDungeonGenerator : MonoBehaviour
 		[Header("ブロックの生成率")]
 		[Range(0.0f, 1.0f)] public float rateMin;
 		[Range(0.0f, 1.0f)] public float rateMax;
-		[Header("ノイズのスケール"), Min(0.0f)]
+		[Header("ノイズのスケール"), Min(0.0f), Tooltip("値が大きいほど細かくなる")]
 		public float noiseScale;
 	}
+	[System.Serializable]
+	public struct Blocks
+	{
+		public BlockData.BlockType type;
+		public BlockGenerateData data;
+	}
+	[SerializeField] private Blocks[] m_generateBlocks;
+	private readonly Dictionary<BlockData.BlockType, BlockGenerateData> m_blocks = new();
 
-	[SerializeField] private BlockGenerateData[] m_generateBlocks;
-
-	[Header("ノイズのスケール"), Range(0.0f, 1.0f)]
-	[SerializeField] private float m_noiseScale = 1.0f;
-	[Header("鉱石の生成率")]
-	[SerializeField] private float m_oreGenerateRate = 0.3f;
-	[Header("鉱石の生成範囲")]
-	[SerializeField] private MyFunction.MinMax m_oreGenerateRange = new();
-	[Header("鉱石の生成率の範囲")]
-	[SerializeField] private Vector2 m_oreGenerateRateRange = new();
+	//[Header("ノイズのスケール"), Range(0.0f, 1.0f)]
+	//[SerializeField] private float m_noiseScale = 1.0f;
+	//[Header("鉱石の生成率")]
+	//[SerializeField] private float m_oreGenerateRate = 0.3f;
+	//[Header("鉱石の生成範囲")]
+	//[SerializeField] private MyFunction.MinMax m_oreGenerateRange = new();
+	//[Header("鉱石の生成率の範囲")]
+	//[SerializeField] private Vector2 m_oreGenerateRateRange = new();
 
 	[Header("ライト付ける")]
 	[SerializeField] private bool m_light = true;
@@ -69,17 +76,29 @@ public class TestDungeonGenerator : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
+		//// ブロックの設定
+		//for (int i = 0; i < m_setBlocks.Length; i++)
+		//{
+		//	MapBlock mapBlock = m_setBlocks[i];
+
+		//	// 上書き防止
+		//	if (m_blocks.ContainsKey(mapBlock.mapName))
+		//		continue;
+
+		//	// ブロックの種類設定
+		//	m_blocks[mapBlock.mapName] = mapBlock.blockType;
+		//}
 		// ブロックの設定
-		for (int i = 0; i < m_setBlocks.Length; i++)
+		for (int i = 0; i < m_generateBlocks.Length; i++)
 		{
-			MapBlock mapBlock = m_setBlocks[i];
+			Blocks block = m_generateBlocks[i];
 
 			// 上書き防止
-			if (m_blocks.ContainsKey(mapBlock.mapName))
+			if (m_blocks.ContainsKey(block.type))
 				continue;
 
 			// ブロックの種類設定
-			m_blocks[mapBlock.mapName] = mapBlock.blockType;
+			m_blocks[block.type] = block.data;
 		}
 
 		// プレイヤーが設定されていれば生成
@@ -111,11 +130,11 @@ public class TestDungeonGenerator : MonoBehaviour
 	// ブロックの種類設定
 	private void SetBlockType(List<List<string>> mapList)
 	{
-		List<List<BlockData.BlockType>> types = new();
+		List<List<BlockData.BlockType>> typeLists = new();
 
 		for (int y = 0; y < mapList.Count; y++)
 		{
-			List<BlockData.BlockType> type = new();
+			List<BlockData.BlockType> typeList = new();
 
 			for (int x = 0; x < mapList[y].Count; x++)
 			{
@@ -124,62 +143,42 @@ public class TestDungeonGenerator : MonoBehaviour
 				// ブロックナシ
 				if (name == "0")
 				{
-					type.Add(BlockData.BlockType.OVER);
+					typeList.Add(BlockData.BlockType.OVER);
 				}
 				// ブロックアリ
 				else if (name == "1")
 				{
-					float dis = Vector2.Distance(m_corePosition, new Vector2(x, y));
-
-					// 生成範囲内
-					if (m_oreGenerateRange.Within(dis))
+					// 生成するブロックの種類
+					BlockData.BlockType type = BlockData.BlockType.STONE;
+					// 生成ブロック種類分ループ
+					foreach (KeyValuePair<BlockData.BlockType, BlockGenerateData> blocks in m_blocks)
 					{
-						// ノイズの取得
-						float noise = Mathf.PerlinNoise(x * m_noiseScale, y * m_noiseScale);
-						// 生成範囲の中央値
-						float center = (m_oreGenerateRange.min + m_oreGenerateRange.max) / 2.0f;
-						// 生成範囲の中央からの距離
-						float centerDis = Mathf.Abs(center - dis);
-						// 生成の幅
-						float wid = m_oreGenerateRange.max - m_oreGenerateRange.min;
-						// ラープの値
-						float t = 1.0f - (centerDis / (wid / 2.0f));
-						// 生成率の取得
-						float rate = Mathf.Lerp(m_oreGenerateRateRange.x, m_oreGenerateRateRange.y, t);
-
-						// 鉱石
-						if (noise < rate)
+						// ブロックを生成する
+						if (GenerateBlock(new Vector2(x, y), blocks))
 						{
-							type.Add(CreateOre());
-						}
-						// 石
-						else
-						{
-							type.Add(CreateBlock());
+							// 生成する場合は上書きしていく
+							type = blocks.Key;
 						}
 					}
-					// 生成範囲外
-					else
-					{
-						type.Add(CreateBlock());
-					}
+					// 最終的な結果を生成ブロックとして追加
+					typeList.Add(type);
 				}
 				// 確定鉱石
 				else if (name == "2")
 				{
-					type.Add(CreateOre());
+					typeList.Add(CreateOre());
 				}
 				// 念のためその他
 				else
 				{
-					type.Add(BlockData.BlockType.OVER);
+					typeList.Add(BlockData.BlockType.OVER);
 				}
 			}
 			// 追加
-			types.Add(type);
+			typeLists.Add(typeList);
 		}
 
-		m_blockTypes = types;
+		m_blockTypes = typeLists;
 	}
 
 	// ダンジョンの生成
@@ -242,6 +241,52 @@ public class TestDungeonGenerator : MonoBehaviour
 
 		return mapList;
 	}
+
+	// ブロックの情報生成
+	private bool GenerateBlock(Vector2 pos, KeyValuePair<BlockData.BlockType, BlockGenerateData> pair)
+	{
+		// データ
+		BlockGenerateData data = pair.Value;
+
+		float dis = Vector2.Distance(m_corePosition, pos);
+
+		// 生成範囲内
+		if (data.range.Within(dis))
+		{
+			// ノイズの取得
+			float noise = Mathf.PerlinNoise(pos.x * data.noiseScale, pos.y * data.noiseScale);
+			// 生成範囲の中央値
+			float center = (data.range.min + data.range.max) / 2.0f;
+			// 生成範囲の中央からの距離
+			float centerDis = Mathf.Abs(center - dis);
+			// 生成の幅
+			float wid = data.range.max - data.range.min;
+			// ラープの値
+			float t = 1.0f - (centerDis / (wid / 2.0f));
+			// 生成率の取得
+			float rate = Mathf.Lerp(data.rateMin, data.rateMax, t);
+
+			// 鉱石
+			if (noise < rate)
+			{
+				return true;
+				//type.Add(CreateOre());
+			}
+			// 石
+			else
+			{
+				return false;
+				//type.Add(CreateBlock());
+			}
+		}
+		// 生成範囲外
+		else
+		{
+			return false;
+			//type.Add(CreateBlock());
+		}
+	}
+
 
 	// ブロック
 	private BlockData.BlockType CreateBlock()
