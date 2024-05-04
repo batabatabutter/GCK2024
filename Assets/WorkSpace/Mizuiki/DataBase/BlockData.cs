@@ -9,10 +9,13 @@ public class BlockData : ScriptableObject
 	public enum BlockType
 	{
 		STONE = 0,      // 石
+
+		ORE_BEGIN = 100,// ここから鉱石
 		COAL,           // 石炭
 		STEEL,          // 鉄
 		TIN,            // 錫
 		LEAD,           // 鉛
+		ORE_END,		// 鉱石終了
 
 		BIRTHDAY = 200,     // ここから誕生石シリーズ
 		BIR_GARNET,         // ガーネット

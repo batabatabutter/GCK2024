@@ -13,6 +13,30 @@ public class MyFunction
 		public int min;
 		[Min(1)]
 		public int max;
+
+		public readonly bool Within(int val)
+		{
+			// 最小値より小さい
+			if (val < min)
+				return false;
+			// 最大値より大きい
+			if (val > max)
+				return false;
+			// 数値が含まれている
+			return true;
+		}
+		public readonly bool Within(float val)
+		{
+			// 最小値より小さい
+			if (val < min)
+				return false;
+			// 最大値より大きい
+			if (val > max)
+				return false;
+			// 数値が含まれている
+			return true;
+		}
+
 	}
 
 	// 四捨五入
@@ -139,6 +163,7 @@ public class MyFunction
 		return null;
 	}
 
+	// 単純なボックスコライダー
 	static public bool DetectCollision(Vector2 point, Vector2 boxPos, Vector2 boxSize)
 	{
 		if (point.x < boxPos.x + boxSize.x &&
@@ -152,4 +177,25 @@ public class MyFunction
 		// 当たらない
 		return false;
 	}
+
+	// 距離の取得
+	static public int GetLength(Vector2Int p1, Vector2Int p2)
+	{
+		// x の距離
+		int x = Math.Abs(p1.x - p2.x);
+		// y の距離
+		int y = Math.Abs(p1.y - p2.y);
+
+		return x + y;
+	}
+	static public int GetLength(int x1, int y1, int x2, int y2)
+	{
+		// x の距離
+		int x = Math.Abs(x1 - x2);
+		// y の距離
+		int y = Math.Abs(y1 - y2);
+
+		return x + y;
+	}
+
 }

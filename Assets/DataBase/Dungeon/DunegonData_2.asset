@@ -17,7 +17,7 @@ MonoBehaviour:
   dungeonOdds:
   - type: 0
     odds: 540
-  - type: 1
+  - type: 101
     odds: 350
   - type: 503
     odds: 104

@@ -29,7 +29,7 @@ public class ObjectAffectLight : MonoBehaviour
 			m_spriteRenderer = GetComponent<SpriteRenderer>();
 		}
 		// ŒõŒ¹‰Šú‰»
-		ReceiveLightLevel = 0;
+		//ReceiveLightLevel = 0;
 	}
 
 	// ©g‚Ì‚ÂŒõŒ¹ƒŒƒxƒ‹

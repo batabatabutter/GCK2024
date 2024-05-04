@@ -17,16 +17,12 @@ MonoBehaviour:
   dungeonOdds:
   - type: 0
     odds: 663
-  - type: 1
+  - type: 101
     odds: 333
   - type: 207
     odds: 2
   - type: 209
     odds: 2
-  dungeonAttackPattern: 000000000100000002000000
-  dungeonAttackCoolTime: 6
-  enemy: 0000000001000000
-  enemySpawnTime: 15
   dungeonWaves:
   - dungeonATKPattern: 0000000001000000
     dungeonATKCoolTime: 10

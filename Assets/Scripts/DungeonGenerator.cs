@@ -163,7 +163,7 @@ public class DungeonGenerator : MonoBehaviour
 
 
 
-	private int LotteryBlock()
+	private int LotteryBlock(List<BlockOdds> blockOddsList)
     {
         //確率の抽選
         List<int> oddsList = new ();
@@ -171,7 +171,7 @@ public class DungeonGenerator : MonoBehaviour
         //全ての確率合算
         int allOdds = 0;
 
-        List<BlockOdds> blockOddsList = m_dungeonDataBase.dungeonDatas[m_stageNum].BlockOdds;
+        //List<BlockOdds> blockOddsList = m_dungeonDataBase.dungeonDatas[m_stageNum].BlockOdds;
 
 
         //ブロックの種類の数
@@ -216,7 +216,7 @@ public class DungeonGenerator : MonoBehaviour
 				if (mapList[y][x] == "1")
 				{
 					// 生成する種類
-					BlockData.BlockType type = odds[LotteryBlock()].type;
+					BlockData.BlockType type = odds[LotteryBlock(odds)].type;
 					// ブロック生成
 					m_blocks[y, x] = m_blockGenerator.GenerateBlock(type, position, m_parent.transform, m_isBlockBrightness, m_isGroundBrightness);
 				}

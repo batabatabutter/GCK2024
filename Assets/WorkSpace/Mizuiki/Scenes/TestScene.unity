@@ -185,7 +185,21 @@ MonoBehaviour:
   m_dungeonGenerators:
   - {fileID: 75050973}
   - {fileID: 75050972}
-  m_light: 1
+  m_corePosition: {x: 50, y: 50}
+  m_generateBlocks:
+  - range:
+      min: 0
+      max: 1
+    rateMin: 0
+    rateMax: 0
+    noiseScale: 0.12
+  m_noiseScale: 0.2
+  m_oreGenerateRate: 0.3
+  m_oreGenerateRange:
+    min: 20
+    max: 40
+  m_oreGenerateRateRange: {x: 0.5, y: 1}
+  m_light: 0
   m_player: {fileID: 738526308}
 --- !u!114 &75050971
 MonoBehaviour:
