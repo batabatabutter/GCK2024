@@ -17,6 +17,7 @@ public class ChangeBrightness : MonoBehaviour
 
     //LightList
     public List<ObjectLight> m_lightList = new();
+    public HashSet<ObjectLight> m_lights = new HashSet<ObjectLight>();
     //  現在の受け取りライトレベル
     private int m_nowLightLevel = 0;
 
@@ -146,82 +147,116 @@ public class ChangeBrightness : MonoBehaviour
         if (collision.gameObject.GetComponent<ObjectLight>().LightLevel <= 0)
             return;
 
-        //ライトリストの管理
-        for (int i = 0; i < m_lightList.Count; i++)
+        // HashSetに変換して処理をする。
+        var mainHashSet = new HashSet<ObjectLight>(m_lightList);
+        foreach (var light in m_lightList)
         {
-            //無くなったら消す
-            if (m_lightList[i] == null)
-            {
-                RemoveLightList(i);
-            }
-            //離れたら消す(3は適当に大きめにしたdeleteLength的な)
-            else if (Vector3.Distance(MyFunction.RoundHalfUp(m_lightList[i].gameObject.transform.position), gameObject.transform.position) > m_lightList[i].LightLevel + 3)
-            {
-                RemoveLightList(i);
-            }
+            if (light == null)
+                mainHashSet.Remove(light);
         }
+        m_lightList = mainHashSet.ToList();
+
+        ////ライトリストの管理
+        //for (int i = 0; i < m_lightList.Count; i++)
+        //{
+        //    //無くなったら消す
+        //    if (m_lightList[i] == null)
+        //    {
+        //        RemoveLightList(i);
+        //    }
+        //    //離れたら消す(3は適当に大きめにしたdeleteLength的な)
+        //    else if (Vector3.Distance(MyFunction.RoundHalfUp(m_lightList[i].gameObject.transform.position), gameObject.transform.position) > m_lightList[i].LightLevel + 3)
+        //    {
+        //        RemoveLightList(i);
+        //    }
+        //}
     }
 
     private void ChangeColor()
-	{
-		//例外処理
-		if ((m_lightList.Count == 0 || !m_lightList.Any()/* || m_lightList[0] == null || gameObject == null*/))
-		{
-			ChangeBlack();
-			return;
-		}
-		else
-		{
-            //  総合光レベル
-            int receiveLightLv = 0;
-            if (m_objlight) receiveLightLv = m_objlight.LightLevel;
+    {
+        // 光源レベルの計算
+        int receiveLightLv = m_nowLightLevel;
 
-            for (int i = 0; i < m_lightList.Count; i++)
-			{
-                //  明るさ最大なら処理終了
-                if (receiveLightLv >= MAX_BRIGHTNESS) break;
+        foreach (ObjectLight light in m_lightList)
+        {
+            // 明るさ最大なら処理終了
+            if (receiveLightLv >= MAX_BRIGHTNESS)
+                break;
 
-                //  nullならスキップ
-                if (m_lightList[i] == null)
-                    continue;
+            // nullならスキップ
+            if (light == null)
+                continue;
 
-                //  受けたレベルが自分以下ならスキップ
-                if (receiveLightLv >= m_lightList[i].LightLevel) continue;
+            // 受けたレベルが自分以下ならスキップ
+            if (receiveLightLv >= light.LightLevel)
+                continue;
 
-                //  光源距離計算
-                float lightLength = Mathf.Ceil(Vector3.Distance(MyFunction.RoundHalfUp(m_lightList[i].transform.position), this.transform.position));
+            // 光源距離計算
+            float lightLength = Mathf.Ceil(Vector3.Distance(MyFunction.RoundHalfUp(light.transform.position), transform.position));
 
-                receiveLightLv = math.max(receiveLightLv, m_lightList[i].LightLevel - (int)lightLength);
-            }
+            receiveLightLv = Mathf.Max(receiveLightLv, light.LightLevel - (int)lightLength);
+        }
 
-            //  光源レベル設定
-            m_nowLightLevel = receiveLightLv;
+        // 光源レベル設定
+        m_nowLightLevel = receiveLightLv;
 
-            //  ブロックが存在するなら
-            if (m_affectLight && !m_affectLight.IsDestroyed())
-            {
-                m_affectLight.ReceiveLightLevel = m_nowLightLevel;
-            }
-		}
-	}
+        // ブロックが存在するなら
+        if (m_affectLight && !m_affectLight.IsDestroyed())
+        {
+            m_affectLight.ReceiveLightLevel = m_nowLightLevel;
+        }
+    }
 
-	// 自身を暗くする
-	private void ChangeBlack()
+    //   private void ChangeColor()
+    //{
+    //	//例外処理
+    //	if ((m_lightList.Count == 0 || !m_lightList.Any()/* || m_lightList[0] == null || gameObject == null*/))
+    //	{
+    //		ChangeBlack();
+    //		return;
+    //	}
+    //	else
+    //	{
+    //           //  総合光レベル
+    //           int receiveLightLv = 0;
+    //           if (m_objlight) receiveLightLv = m_objlight.LightLevel;
+
+    //           for (int i = 0; i < m_lightList.Count; i++)
+    //		{
+    //               //  明るさ最大なら処理終了
+    //               if (receiveLightLv >= MAX_BRIGHTNESS) break;
+
+    //               //  nullならスキップ
+    //               if (m_lightList[i] == null) continue;
+
+    //               //  受けたレベルが自分以下ならスキップ
+    //               if (receiveLightLv >= m_lightList[i].LightLevel) continue;
+
+    //               //  光源距離計算
+    //               float lightLength = Mathf.Ceil(Vector3.Distance(MyFunction.RoundHalfUp(m_lightList[i].transform.position), this.transform.position));
+
+    //               receiveLightLv = math.max(receiveLightLv, m_lightList[i].LightLevel - (int)lightLength);
+    //           }
+
+    //           //  光源レベル設定
+    //           m_nowLightLevel = receiveLightLv;
+
+    //           //  ブロックが存在するなら
+    //           if (m_affectLight && !m_affectLight.IsDestroyed())
+    //           {
+    //               m_affectLight.ReceiveLightLevel = m_nowLightLevel;
+    //           }
+    //	}
+    //}
+
+    // 自身を暗くする
+    private void ChangeBlack()
 	{
 		if (m_affectLight)
 		{
 			m_affectLight.ReceiveLightLevel = 0;
 		}
 	}
-
-    //  明るくする
-    private void ChangeBright()
-    {
-        if (m_affectLight)
-        {
-            m_affectLight.ReceiveLightLevel = MAX_BRIGHTNESS;
-        }
-    }
 
     // 引数のオブジェクトが既にある(Lightプレハブ)
     bool CheckForObjectInList(GameObject obj)
