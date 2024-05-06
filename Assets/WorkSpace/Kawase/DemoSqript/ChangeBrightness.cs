@@ -127,9 +127,13 @@ public class ChangeBrightness : MonoBehaviour
             if (li.LightLevel <= m_objlight.LightLevel) return;
 
         // 光源の追加
-        if (!CheckForObjectInList(collision.gameObject))
-		{
-            m_lightList.Add(li);
+  //      if (!CheckForObjectInList(collision.gameObject))
+		//{
+  //          m_lightList.Add(li);
+  //      }
+        if (!m_lights.Contains(li))
+        {
+            m_lights.Add(li);
         }
     }
 
@@ -148,13 +152,18 @@ public class ChangeBrightness : MonoBehaviour
             return;
 
         // HashSetに変換して処理をする。
-        var mainHashSet = new HashSet<ObjectLight>(m_lightList);
-        foreach (var light in m_lightList)
+        //var mainHashSet = new HashSet<ObjectLight>(m_lightList);
+        //foreach (var light in m_lightList)
+        //{
+        //    if (light == null)
+        //        mainHashSet.Remove(light);
+        //}
+        //m_lightList = mainHashSet.ToList();
+        foreach (var light in m_lights)
         {
-            if (light == null)
-                mainHashSet.Remove(light);
+            if (light == null || light.IsDestroyed())
+                m_lights.Remove(light);
         }
-        m_lightList = mainHashSet.ToList();
 
         ////ライトリストの管理
         //for (int i = 0; i < m_lightList.Count; i++)
@@ -177,7 +186,7 @@ public class ChangeBrightness : MonoBehaviour
         // 光源レベルの計算
         int receiveLightLv = m_nowLightLevel;
 
-        foreach (ObjectLight light in m_lightList)
+        foreach(var light in m_lights)
         {
             // 明るさ最大なら処理終了
             if (receiveLightLv >= MAX_BRIGHTNESS)
@@ -196,6 +205,26 @@ public class ChangeBrightness : MonoBehaviour
 
             receiveLightLv = Mathf.Max(receiveLightLv, light.LightLevel - (int)lightLength);
         }
+
+        //foreach (ObjectLight light in m_lightList)
+        //{
+        //    // 明るさ最大なら処理終了
+        //    if (receiveLightLv >= MAX_BRIGHTNESS)
+        //        break;
+
+        //    // nullならスキップ
+        //    if (light == null)
+        //        continue;
+
+        //    // 受けたレベルが自分以下ならスキップ
+        //    if (receiveLightLv >= light.LightLevel)
+        //        continue;
+
+        //    // 光源距離計算
+        //    float lightLength = Mathf.Ceil(Vector3.Distance(MyFunction.RoundHalfUp(light.transform.position), transform.position));
+
+        //    receiveLightLv = Mathf.Max(receiveLightLv, light.LightLevel - (int)lightLength);
+        //}
 
         // 光源レベル設定
         m_nowLightLevel = receiveLightLv;
