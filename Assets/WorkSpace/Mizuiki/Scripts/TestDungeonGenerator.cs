@@ -21,7 +21,6 @@ public class TestDungeonGenerator : MonoBehaviour
 
 	[Header("生成ブロック")]
 	[SerializeField] private MapBlock[] m_setBlocks;
-	//private readonly Dictionary<string, BlockData.BlockType> m_blocks = new();
 
 	[Header("ブロックジェネレータ")]
 	[SerializeField] private BlockGenerator m_blockGenerator;
@@ -36,33 +35,13 @@ public class TestDungeonGenerator : MonoBehaviour
 
 
 	[System.Serializable]
-	public struct BlockGenerateData
-	{
-		[Header("ブロックの生成範囲(コアからの距離)")]
-		public MyFunction.MinMax range;
-		[Header("ブロックの生成率")]
-		[Range(0.0f, 1.0f)] public float rateMin;
-		[Range(0.0f, 1.0f)] public float rateMax;
-		[Header("ノイズのスケール"), Min(0.0f), Tooltip("値が大きいほど細かくなる")]
-		public float noiseScale;
-	}
-	[System.Serializable]
 	public struct Blocks
 	{
 		public BlockData.BlockType type;
-		public BlockGenerateData data;
+		public DungeonGenerator.BlockGenerateData data;
 	}
 	[SerializeField] private Blocks[] m_generateBlocks;
-	private readonly Dictionary<BlockData.BlockType, BlockGenerateData> m_blocks = new();
-
-	//[Header("ノイズのスケール"), Range(0.0f, 1.0f)]
-	//[SerializeField] private float m_noiseScale = 1.0f;
-	//[Header("鉱石の生成率")]
-	//[SerializeField] private float m_oreGenerateRate = 0.3f;
-	//[Header("鉱石の生成範囲")]
-	//[SerializeField] private MyFunction.MinMax m_oreGenerateRange = new();
-	//[Header("鉱石の生成率の範囲")]
-	//[SerializeField] private Vector2 m_oreGenerateRateRange = new();
+	private readonly Dictionary<BlockData.BlockType, DungeonGenerator.BlockGenerateData> m_blocks = new();
 
 	[Header("ライト付ける")]
 	[SerializeField] private bool m_light = true;
@@ -76,18 +55,6 @@ public class TestDungeonGenerator : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		//// ブロックの設定
-		//for (int i = 0; i < m_setBlocks.Length; i++)
-		//{
-		//	MapBlock mapBlock = m_setBlocks[i];
-
-		//	// 上書き防止
-		//	if (m_blocks.ContainsKey(mapBlock.mapName))
-		//		continue;
-
-		//	// ブロックの種類設定
-		//	m_blocks[mapBlock.mapName] = mapBlock.blockType;
-		//}
 		// ブロックの設定
 		for (int i = 0; i < m_generateBlocks.Length; i++)
 		{
@@ -151,13 +118,13 @@ public class TestDungeonGenerator : MonoBehaviour
 					// 生成するブロックの種類
 					BlockData.BlockType type = BlockData.BlockType.STONE;
 					// 生成ブロック種類分ループ
-					foreach (KeyValuePair<BlockData.BlockType, BlockGenerateData> blocks in m_blocks)
+					foreach (DungeonGenerator.BlockGenerateData blocks in m_blocks.Values)
 					{
 						// ブロックを生成する
 						if (GenerateBlock(new Vector2(x, y), blocks))
 						{
 							// 生成する場合は上書きしていく
-							type = blocks.Key;
+							type = blocks.blockType;
 						}
 					}
 					// 最終的な結果を生成ブロックとして追加
@@ -193,13 +160,6 @@ public class TestDungeonGenerator : MonoBehaviour
 
 				// 生成座標
 				Vector3 pos = new(x, y, 0.0f);
-
-				//// キーが存在しない場合は地面だけ
-				//if (!m_blocks.ContainsKey(name))
-				//{
-				//	m_blockGenerator.GenerateBlock(BlockData.BlockType.OVER, pos, null, m_light);
-				//	continue;
-				//}
 
 				// ブロックの生成
 				m_blockGenerator.GenerateBlock(name, pos, null, m_light);
@@ -243,11 +203,8 @@ public class TestDungeonGenerator : MonoBehaviour
 	}
 
 	// ブロックの情報生成
-	private bool GenerateBlock(Vector2 pos, KeyValuePair<BlockData.BlockType, BlockGenerateData> pair)
+	private bool GenerateBlock(Vector2 pos, DungeonGenerator.BlockGenerateData data)
 	{
-		// データ
-		BlockGenerateData data = pair.Value;
-
 		float dis = Vector2.Distance(m_corePosition, pos);
 
 		// 生成範囲内
@@ -270,20 +227,17 @@ public class TestDungeonGenerator : MonoBehaviour
 			if (noise < rate)
 			{
 				return true;
-				//type.Add(CreateOre());
 			}
 			// 石
 			else
 			{
 				return false;
-				//type.Add(CreateBlock());
 			}
 		}
 		// 生成範囲外
 		else
 		{
 			return false;
-			//type.Add(CreateBlock());
 		}
 	}
 
@@ -299,8 +253,7 @@ public class TestDungeonGenerator : MonoBehaviour
 	{
 		int rand = Random.Range((int)BlockData.BlockType.ORE_BEGIN + 1, (int)BlockData.BlockType.ORE_END);
 
-		return BlockData.BlockType.COAL;
-		//return (BlockData.BlockType)rand;
+		return (BlockData.BlockType)rand;
 	}
 
 }

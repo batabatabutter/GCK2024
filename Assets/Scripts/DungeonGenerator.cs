@@ -1,11 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using Unity.VisualScripting;
-using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
-using UnityEngine.AI;
-using static UnityEngine.UI.Image;
 
 public class DungeonGenerator : MonoBehaviour
 {
@@ -29,8 +23,23 @@ public class DungeonGenerator : MonoBehaviour
         [Header("確率")]
         public int odds;       // 確率
     }
+	[System.Serializable]
+	public struct BlockGenerateData
+	{
+		[Header("生成するブロックの種類")]
+		public BlockData.BlockType blockType;
+		[Header("ブロックの生成範囲(コアからの距離)")]
+		public MyFunction.MinMax range;
+		[Header("ブロックの生成率")]
+		[Range(0.0f, 1.0f)] public float rateMin;
+		[Range(0.0f, 1.0f)] public float rateMax;
+		[Header("ノイズのスケール"), Min(0.0f), Tooltip("値が大きいほど細かくなる")]
+		public float noiseScale;
+		// ノイズのオフセット
+		public float offset;
+	}
 
-    [Header("核からプレイヤーの出現しない距離")]
+	[Header("核からプレイヤーの出現しない距離")]
     [SerializeField] private int m_playerLength = 35;
     [Header("プレイヤー")]
     [SerializeField] private GameObject m_player;
@@ -150,7 +159,7 @@ public class DungeonGenerator : MonoBehaviour
 		}
 
 		// ブロック生成
-		CreateBlock(mapList, dungeonData.BlockOdds);
+		CreateBlock(mapList, dungeonData.BlockGenerateData);
 
 		//岩盤で囲う
 		CreateBedrock(dungeonSize);
@@ -171,9 +180,6 @@ public class DungeonGenerator : MonoBehaviour
         //全ての確率合算
         int allOdds = 0;
 
-        //List<BlockOdds> blockOddsList = m_dungeonDataBase.dungeonDatas[m_stageNum].BlockOdds;
-
-
         //ブロックの種類の数
         for (int i = 0; i < blockOddsList.Count; i++)
         {
@@ -189,9 +195,55 @@ public class DungeonGenerator : MonoBehaviour
         return oddsList[Random.Range(0, allOdds)];
     }
 
-	// ブロックの生成
-	private void CreateBlock(List<List<string>> mapList, List<BlockOdds> odds)
+	// ブロックの情報生成
+	private bool GenerateBlock(Vector2 pos, BlockGenerateData data)
 	{
+		float dis = Vector2.Distance(m_corePos, pos);
+
+		// 生成範囲内
+		if (data.range.Within(dis))
+		{
+			// ノイズの取得
+			float noise = MyFunction.GetNoise(pos * data.noiseScale, data.offset);
+			// 生成範囲の中央値
+			float center = (data.range.min + data.range.max) / 2.0f;
+			// 生成範囲の中央からの距離
+			float centerDis = Mathf.Abs(center - dis);
+			// 生成の幅
+			float wid = data.range.max - data.range.min;
+			// ラープの値
+			float t = 1.0f - (centerDis / (wid / 2.0f));
+			// 生成率の取得
+			float rate = Mathf.Lerp(data.rateMin, data.rateMax, t);
+
+			// 鉱石
+			if (noise < rate)
+			{
+				return true;
+			}
+			// 石
+			else
+			{
+				return false;
+			}
+		}
+		// 生成範囲外
+		else
+		{
+			return false;
+		}
+	}
+
+	// ブロックの生成
+	private void CreateBlock(List<List<string>> mapList, BlockGenerateData[] blockGenerateData)
+	{
+		// ブロック生成用のランダムなオフセット設定
+		for (int i = 0; i < blockGenerateData.Length; i++)
+		{
+			blockGenerateData[i].offset = Random.value;
+		}
+
+		// 生成ブロック配列
 		m_blocks = new GameObject[mapList.Count, mapList[0].Count];
 
 		for (int y = 0; y < mapList.Count; y++)
@@ -215,8 +267,18 @@ public class DungeonGenerator : MonoBehaviour
 				// ブロックの生成位置
 				if (mapList[y][x] == "1")
 				{
-					// 生成する種類
-					BlockData.BlockType type = odds[LotteryBlock(odds)].type;
+					// 生成するブロックの種類
+					BlockData.BlockType type = BlockData.BlockType.STONE;
+					// 生成ブロック種類分ループ
+					foreach (BlockGenerateData data in blockGenerateData)
+					{
+						// ブロックを生成する
+						if (GenerateBlock(new Vector2(x, y), data))
+						{
+							// 生成する場合は上書きしていく
+							type = data.blockType;
+						}
+					}
 					// ブロック生成
 					m_blocks[y, x] = m_blockGenerator.GenerateBlock(type, position, m_parent.transform, m_isBlockBrightness, m_isGroundBrightness);
 				}

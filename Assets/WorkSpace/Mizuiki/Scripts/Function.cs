@@ -198,4 +198,9 @@ public class MyFunction
 		return x + y;
 	}
 
+	// ƒmƒCƒY‚ÌŽæ“¾
+	static public float GetNoise(Vector2 pos, float val)
+	{
+		return Mathf.PerlinNoise(pos.x + val, pos.y + val);
+	}
 }

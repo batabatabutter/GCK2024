@@ -23,6 +23,39 @@ MonoBehaviour:
     odds: 2
   - type: 209
     odds: 2
+  blockGenerateData:
+  - blockType: 0
+    range:
+      min: 0
+      max: 100
+    rateMin: 1
+    rateMax: 1
+    noiseScale: 0
+    offset: 0.29635575
+  - blockType: 101
+    range:
+      min: 0
+      max: 100
+    rateMin: 0.3
+    rateMax: 0.3
+    noiseScale: 0.2
+    offset: 0.99419236
+  - blockType: 207
+    range:
+      min: 0
+      max: 100
+    rateMin: 0.02
+    rateMax: 0.1
+    noiseScale: 0.4
+    offset: 0.37941784
+  - blockType: 209
+    range:
+      min: 0
+      max: 100
+    rateMin: 0.02
+    rateMax: 0.1
+    noiseScale: 0.4
+    offset: 0.22440675
   dungeonWaves:
   - dungeonATKPattern: 0000000001000000
     dungeonATKCoolTime: 10
