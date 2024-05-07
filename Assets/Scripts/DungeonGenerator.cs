@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static DungeonGenerator;
 
 public class DungeonGenerator : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class DungeonGenerator : MonoBehaviour
     [SerializeField] private DungeonDataBase m_dungeonDataBase;
 
 	private GameObject[,] m_blocks = null;
+	// ブロックの種類ごとのリスト
+	private Dictionary<BlockData.BlockType, List<Block>> m_blocksList;
 
     [System.Serializable]
     public class BlockOdds
@@ -268,19 +271,11 @@ public class DungeonGenerator : MonoBehaviour
 				if (mapList[y][x] == "1")
 				{
 					// 生成するブロックの種類
-					BlockData.BlockType type = BlockData.BlockType.STONE;
-					// 生成ブロック種類分ループ
-					foreach (BlockGenerateData data in blockGenerateData)
-					{
-						// ブロックを生成する
-						if (GenerateBlock(new Vector2(x, y), data))
-						{
-							// 生成する場合は上書きしていく
-							type = data.blockType;
-						}
-					}
+					BlockData.BlockType type = CreateBlock(blockGenerateData, new Vector2(x, y));
 					// ブロック生成
 					m_blocks[y, x] = m_blockGenerator.GenerateBlock(type, position, m_parent.transform, m_isBlockBrightness, m_isGroundBrightness);
+					// ブロックリストに追加
+					m_blocksList[type].Add(m_blocks[y, x].GetComponent<Block>());
 				}
 				else
 				{
@@ -290,6 +285,25 @@ public class DungeonGenerator : MonoBehaviour
 			}
 		}
 
+	}
+
+	// 生成するブロック
+	private BlockData.BlockType CreateBlock(BlockGenerateData[] blockGenerateData, Vector2 pos)
+	{
+		// 生成するブロックの種類
+		BlockData.BlockType type = BlockData.BlockType.STONE;
+		// 生成ブロック種類分ループ
+		foreach (BlockGenerateData data in blockGenerateData)
+		{
+			// ブロックを生成する
+			if (GenerateBlock(pos, data))
+			{
+				// 生成する場合は上書きしていく
+				type = data.blockType;
+			}
+		}
+		// 最終的な生成ブロックの種類を返す
+		return type;
 	}
 
 	// 岩盤の生成
@@ -309,24 +323,6 @@ public class DungeonGenerator : MonoBehaviour
 			m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(size.y, y, 0), m_parent.transform, m_isBlockBrightness, m_isGroundBrightness);
 		}
 	}
-
-	//// 地面の生成
-	//private void CreateGround(Vector2Int size)
-	//{
-	//	//地面の生成
-	//	for (int y = 0; y < size.y; ++y)
-	//	{
-	//		for (int x = 0; x < size.x; ++x)
-	//		{
-	//			// 生成座標
-	//			Vector3 pos = new(x, y, 0.0f);
-	//			// ブロックの生成
-	//			GameObject block = Instantiate(m_ground, pos, Quaternion.identity);
-	//			// 親の設定
-	//			block.transform.parent = m_parent.transform;
-	//		}
-	//	}
-	//}
 
 	// ステージ番号取得
 	public int GetStageNum()

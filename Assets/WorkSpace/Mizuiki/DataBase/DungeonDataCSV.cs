@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "DunegonData_", menuName = "CreateDataBase/Dungeon/DungeonDataCSV")]
 public class DungeonDataCSV : DungeonData
 {
-	[Header("ŒÂ•Ê")]
+	[Header("CSV")]
 
 	[Header("ƒ_ƒ“ƒWƒ‡ƒ“‚ÌCSV")]
 	[SerializeField] private List<TextAsset> dungeonCSV;

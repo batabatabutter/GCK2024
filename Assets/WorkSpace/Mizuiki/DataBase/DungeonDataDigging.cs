@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "DungeonData_", menuName = "CreateDataBase/Dungeon/DungeonDataDig")]
 public class DungeonDataDigging : DungeonData
 {
-	[Header("個別")]
+	[Header("Digging")]
 
 	[Header("部屋のサイズの最小値と最大値")]
 	[SerializeField] private MyFunction.MinMax roomRange;
