@@ -12,16 +12,6 @@ public class TestDungeonGenerator : MonoBehaviour
 	[Header("ダンジョンのサイズ")]
 	[SerializeField] private Vector2Int m_dungeonSize;
 
-	[System.Serializable]
-	struct MapBlock
-	{
-		public string mapName;
-		public BlockData.BlockType blockType;
-	}
-
-	[Header("生成ブロック")]
-	[SerializeField] private MapBlock[] m_setBlocks;
-
 	[Header("ブロックジェネレータ")]
 	[SerializeField] private BlockGenerator m_blockGenerator;
 
@@ -33,14 +23,9 @@ public class TestDungeonGenerator : MonoBehaviour
 	[Header("コアの座標")]
 	[SerializeField] private Vector2Int m_corePosition = Vector2Int.zero;
 
-
-	[System.Serializable]
-	public struct Blocks
-	{
-		public BlockData.BlockType type;
-		public DungeonGenerator.BlockGenerateData data;
-	}
-	[SerializeField] private Blocks[] m_generateBlocks;
+	[Header("各ブロックの生成情報")]
+	[SerializeField] private DungeonGenerator.BlockGenerateData[] m_generateBlocks;
+	// インスペクターで設定したデータを辞書配列にする
 	private readonly Dictionary<BlockData.BlockType, DungeonGenerator.BlockGenerateData> m_blocks = new();
 
 	[Header("ライト付ける")]
@@ -49,6 +34,7 @@ public class TestDungeonGenerator : MonoBehaviour
 	[Header("プレイヤー(トランスフォーム用)")]
 	[SerializeField] private GameObject m_player = null;
 
+	// 生成するブロックの種類行列
 	private List<List<BlockData.BlockType>> m_blockTypes = new();
 
 
@@ -58,14 +44,14 @@ public class TestDungeonGenerator : MonoBehaviour
 		// ブロックの設定
 		for (int i = 0; i < m_generateBlocks.Length; i++)
 		{
-			Blocks block = m_generateBlocks[i];
+			DungeonGenerator.BlockGenerateData block = m_generateBlocks[i];
 
 			// 上書き防止
-			if (m_blocks.ContainsKey(block.type))
+			if (m_blocks.ContainsKey(block.blockType))
 				continue;
 
 			// ブロックの種類設定
-			m_blocks[block.type] = block.data;
+			m_blocks[block.blockType] = block;
 		}
 
 		// プレイヤーが設定されていれば生成

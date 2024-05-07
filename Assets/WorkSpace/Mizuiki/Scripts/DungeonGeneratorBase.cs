@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DungeonGeneratorBase : MonoBehaviour
 {
-    public virtual List<List<string>> GenerateDungeon(DungeonData data)
+    public virtual List<List<string>> GenerateDungeon(DungeonData dungeonData)
     {
         return new();
     }
