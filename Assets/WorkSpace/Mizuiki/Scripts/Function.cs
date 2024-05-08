@@ -39,6 +39,14 @@ public class MyFunction
 
 	}
 
+	public enum Direction
+	{
+		UP,
+		RIGHT,
+		DOWN,
+		LEFT
+	}
+
 	// ŽlŽÌŒÜ“ü
 	static public Vector2 RoundHalfUp(Vector2 value)
 	{
