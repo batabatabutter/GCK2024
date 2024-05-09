@@ -37,6 +37,9 @@ public class TestDungeonGenerator : MonoBehaviour
 	// 生成するブロックの種類行列
 	private List<List<BlockData.BlockType>> m_blockTypes = new();
 
+	// 生成したブロックの情報
+	private readonly List<Block> m_objectBlock = new();
+
 
 	// Start is called before the first frame update
 	void Start()
@@ -78,6 +81,10 @@ public class TestDungeonGenerator : MonoBehaviour
 		SetBlockType(mapList);
 		Generate(m_blockTypes);
 
+		if (m_player.TryGetComponent(out ToolSearchBlock search))
+		{
+			search.SetSearchBlocks(m_objectBlock);
+		}
 	}
 
 	// ブロックの種類設定
@@ -148,7 +155,14 @@ public class TestDungeonGenerator : MonoBehaviour
 				Vector3 pos = new(x, y, 0.0f);
 
 				// ブロックの生成
-				m_blockGenerator.GenerateBlock(name, pos, null, m_light);
+				GameObject obj = m_blockGenerator.GenerateBlock(name, pos, null, m_light);
+
+				// ブロックがあれば追加
+				if (obj.TryGetComponent(out Block block))
+				{
+					m_objectBlock.Add(block);
+				}
+
 
 			}
 		}
