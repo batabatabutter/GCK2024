@@ -73,7 +73,7 @@ public class PlaySceneManager : MonoBehaviour
         if (m_gameState == GameState.Play)
         {
             //  ゲームクリア
-            if (m_core == null || m_core.IsDestroyed() || !m_core.activeInHierarchy)
+            if (m_core == null || m_core.IsDestroyed() /*|| !m_core.activeInHierarchy*/)
                 m_gameState = GameState.Clear;
             //  ゲームオーバー
             else if (m_player.GetComponent<Player>().HitPoint <= 0)

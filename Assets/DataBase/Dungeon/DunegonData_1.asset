@@ -31,15 +31,15 @@ MonoBehaviour:
     rateMin: 1
     rateMax: 1
     noiseScale: 0
-    offset: 0.29635575
+    offset: 0.6307073
   - blockType: 101
     range:
       min: 0
       max: 100
     rateMin: 0.3
-    rateMax: 0.3
+    rateMax: 0.42
     noiseScale: 0.2
-    offset: 0.99419236
+    offset: 0.41135687
   - blockType: 207
     range:
       min: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
     rateMin: 0.02
     rateMax: 0.1
     noiseScale: 0.4
-    offset: 0.37941784
+    offset: 0.47386461
   - blockType: 209
     range:
       min: 0
@@ -55,7 +55,7 @@ MonoBehaviour:
     rateMin: 0.02
     rateMax: 0.1
     noiseScale: 0.4
-    offset: 0.22440675
+    offset: 0.11339988
   dungeonWaves:
   - dungeonATKPattern: 0000000001000000
     dungeonATKCoolTime: 10
