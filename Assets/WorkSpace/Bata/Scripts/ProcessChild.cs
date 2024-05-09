@@ -1,5 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ProcessChild : MonoBehaviour
@@ -12,14 +12,10 @@ public class ProcessChild : MonoBehaviour
     //  èàóùåyå∏óp
     public void Change(bool flag)
     {
-        foreach (var script in m_scripts)
-        {
-            //if(!script)
-            //{
-            //    m_scripts = new List<MonoBehaviour>(transform.GetComponentsInChildren<MonoBehaviour>().Skip(1));
-            //}
-            script.enabled = flag;
-        }
+        Scripts = new List<MonoBehaviour>(this.transform.GetComponentsInChildren<MonoBehaviour>().Skip(1));
+        Collider2Ds = new List<Collider2D>(transform.GetComponentsInChildren<Collider2D>().Skip(1));
+
+        foreach (var script in m_scripts) script.enabled = flag;
         foreach (var coll in m_colldier2Ds) coll.enabled = flag;
     }
 
