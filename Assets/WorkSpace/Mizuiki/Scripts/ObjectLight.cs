@@ -8,7 +8,7 @@ public class ObjectLight : MonoBehaviour
 	[Header("光源レベル")]
 	[SerializeField] private int m_lightLevel = 0;
 
-	private void Start()
+	private void Awake()
 	{
 		FlashLight(m_lightLevel);
 	}
@@ -29,13 +29,13 @@ public class ObjectLight : MonoBehaviour
 
 	private void AddCricleColToDelete(int lightLevel)
 	{
-		// リジッドボディがなければ追加
-		if (!gameObject.GetComponent<Rigidbody2D>())
-		{
-			Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
-			rb.isKinematic = true;
+		//// リジッドボディがなければ追加
+		//if (!gameObject.GetComponent<Rigidbody2D>())
+		//{
+		//	Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
+		//	rb.isKinematic = true;
 
-		}
+		//}
 
 		// 円のコライダーがなければ追加
 		if (!gameObject.GetComponent<CircleCollider2D>())

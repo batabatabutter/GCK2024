@@ -275,7 +275,7 @@ public class DungeonGenerator : MonoBehaviour
 					// ブロック生成
 					m_blocks[y, x] = m_blockGenerator.GenerateBlock(type, position, m_parent.transform, m_isBlockBrightness, m_isGroundBrightness);
 					// ブロックリストに追加
-					m_blocksList[type].Add(m_blocks[y, x].GetComponent<Block>());
+					//m_blocksList[type].Add(m_blocks[y, x].GetComponent<Block>());
 				}
 				else
 				{

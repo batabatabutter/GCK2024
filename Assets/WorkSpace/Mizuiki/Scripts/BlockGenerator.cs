@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -13,6 +14,10 @@ public class BlockGenerator : MonoBehaviour
 
     [Header("地面")]
     [SerializeField] private GameObject m_ground = null;
+
+    [Header("処理不可軽減用プレハブ")]
+    [SerializeField] private GameObject m_pross = null;
+    [SerializeField] private bool m_prossFlag = false;
 
     [Header("光源処理をするか否か")]
     [SerializeField] private bool m_isBrightness = false;
@@ -44,8 +49,21 @@ public class BlockGenerator : MonoBehaviour
         // 光源の設定
         m_isBrightness = isBlockBrightness;
 
-		// 地面を生成
-		GameObject ground = CreateObject(parent, m_ground, position);
+        //  処理軽減
+        Transform pross = null;
+        if (m_prossFlag)
+        {
+            pross = Instantiate(m_pross, position, Quaternion.identity).transform;
+            pross.parent = parent;
+            parent = pross.transform;
+        }
+
+        // 地面を生成
+        GameObject ground = Instantiate(m_ground, parent);
+        if (m_prossFlag)
+        {
+            //ground.SetActive(false);
+        }
 
         // ブロックのデータ取得
         BlockData data = MyFunction.GetBlockData(m_blockDataBase, type);
@@ -69,6 +87,7 @@ public class BlockGenerator : MonoBehaviour
         {
             // 地面を親に設定して生成
             obj = CreateObject(ground.transform, data.Prefab, position);
+            obj.GetComponent<Block>().Ground = ground.GetComponent<Ground>();
         }
         // 地面はない
         else
@@ -116,6 +135,14 @@ public class BlockGenerator : MonoBehaviour
             block.MapObject = map;
         }
 
+        if (m_prossFlag && pross)
+        {
+            var p = pross.GetComponent<ProcessChild>();
+            p.Scripts = new List<MonoBehaviour>(pross.GetComponentsInChildren<MonoBehaviour>().Skip(1));
+            p.Collider2Ds = new List<Collider2D>(pross.GetComponentsInChildren<Collider2D>().Skip(1));
+            p.Change(false);
+        }
+
         return obj;
 	}
 
@@ -140,18 +167,11 @@ public class BlockGenerator : MonoBehaviour
             // 光源処理用のオブジェクト生成
             GameObject light = Instantiate(m_lightObject, obj.transform);
 
-            // 光源スクリプトの追加
-			var br = obj.AddComponent<ChangeBrightness>();
-            // プレイヤーのトランスフォームを設定する
-			br.SetPlayerTransform(m_playerTr);
-
             // ブロックの取得
             if (obj.TryGetComponent(out ObjectAffectLight affectLight))
             {
 				// 光源コライダー生成
 				light.GetComponent<ObjectLight>().FlashLight(affectLight.LightLevel);
-				// ブロックの設定
-				br.AffectLight = affectLight;
 			}
 		}
 		// 生成したオブジェクトを返す
