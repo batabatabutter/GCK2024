@@ -144,7 +144,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &75050969
 Transform:
   m_ObjectHideFlags: 0
@@ -224,6 +224,8 @@ MonoBehaviour:
   m_blockDataBase: {fileID: 11400000, guid: c2edababa67c99348a73038833ee0dbc, type: 2}
   m_mapObject: {fileID: 1862195980944505719, guid: 6626405694a3a3e4191b6cfe03fe79e8, type: 3}
   m_ground: {fileID: 6018421707374535805, guid: c39488e997ce861448ac80594ec8975c, type: 3}
+  m_pross: {fileID: 0}
+  m_prossFlag: 0
   m_isBrightness: 0
   m_lightObject: {fileID: 798616751297926773, guid: 4eda6187e4dc8cc4ba1247a474ab6e76, type: 3}
 --- !u!114 &75050972
@@ -295,6 +297,17 @@ MonoBehaviour:
   m_mazeType: 1
   m_pathWidth: 2
   m_pathHeight: 3
+--- !u!114 &98117992 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3469568166959932924, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
+  m_PrefabInstance: {fileID: 1621739907}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73846488ec25410479abd5b18083eed4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &145493590 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5673070608454416527, guid: 565ea1613a295a746acd0e483db3e630, type: 3}
@@ -4577,13 +4590,57 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4963957752362924521, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
+      propertyPath: m_up
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -4963957752362924521, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
+      propertyPath: m_bank
+      value: 
+      objectReference: {fileID: 6085554247375089227, guid: 1d29c80645233fb4c94bf95ca0e1b1f3, type: 3}
+    - target: {fileID: -4963957752362924521, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
+      propertyPath: m_down
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -4963957752362924521, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
+      propertyPath: m_left
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -4963957752362924521, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
+      propertyPath: m_right
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -4963957752362924521, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
+      propertyPath: m_fallRock
+      value: 
+      objectReference: {fileID: 2940951798871330703, guid: 829d86242de0c674a8b178b0f249f289, type: 3}
+    - target: {fileID: -4963957752362924521, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
+      propertyPath: m_rollRock
+      value: 
+      objectReference: {fileID: 796929451571866827, guid: e54c54e3e9cf6284b904d9e1c38277e3, type: 3}
+    - target: {fileID: -4963957752362924521, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
+      propertyPath: m_sceneManager
+      value: 
+      objectReference: {fileID: 98117992}
+    - target: {fileID: -4963957752362924521, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
+      propertyPath: m_bankHighlight
+      value: 
+      objectReference: {fileID: 1067109971471968558, guid: 29f861859c529b1498a780cee08eb5fb, type: 3}
+    - target: {fileID: -4963957752362924521, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
+      propertyPath: m_fallRockHighlight
+      value: 
+      objectReference: {fileID: 4708925638394852652, guid: 82994475c12be0f4da5df8587e7d4dec, type: 3}
+    - target: {fileID: -4963957752362924521, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
+      propertyPath: m_rollRockhighlight
+      value: 
+      objectReference: {fileID: 5906353031345709085, guid: 1e3c7638253476640a9e522370a172fd, type: 3}
     - target: {fileID: 1614570275442964, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
       propertyPath: m_Name
       value: PlaySceneManager
       objectReference: {fileID: 0}
     - target: {fileID: 1614570275442964, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 792408576829412996, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
       propertyPath: m_blockCore
