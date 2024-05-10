@@ -28,11 +28,11 @@ public class ChangeBrightness : MonoBehaviour
         //黒くする
         ChangeBlack();
 
-        // ライトの影響を受けるオブジェクトの取得
-        if (gameObject.TryGetComponent(out ObjectAffectLight affectLight))
-        {
-            m_affectLight = affectLight;
-        }
+        //// ライトの影響を受けるオブジェクトの取得
+        //if (gameObject.TryGetComponent(out ObjectAffectLight affectLight))
+        //{
+        //    m_affectLight = affectLight;
+        //}
     }
 
     // Update is called once per frame
