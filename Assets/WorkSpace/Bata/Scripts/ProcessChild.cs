@@ -13,10 +13,10 @@ public class ProcessChild : MonoBehaviour
     public void Change(bool flag)
     {
         Scripts = new List<MonoBehaviour>(this.transform.GetComponentsInChildren<MonoBehaviour>().Skip(1));
-        Collider2Ds = new List<Collider2D>(transform.GetComponentsInChildren<Collider2D>().Skip(1));
+        //Collider2Ds = new List<Collider2D>(transform.GetComponentsInChildren<Collider2D>().Skip(1));
 
         foreach (var script in m_scripts) script.enabled = flag;
-        foreach (var coll in m_colldier2Ds) coll.enabled = flag;
+        //foreach (var coll in m_colldier2Ds) coll.enabled = flag;
     }
 
     public List<MonoBehaviour> Scripts

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6841600883943898201}
   - component: {fileID: 1177589818946404616}
   - component: {fileID: 7840619066121981032}
-  - component: {fileID: 4758592047751663531}
   - component: {fileID: 5075732777367063382}
   m_Layer: 0
   m_Name: Obj_Ground
@@ -106,19 +105,6 @@ MonoBehaviour:
   m_receiveLightLevel: 0
   m_spriteRenderer: {fileID: 0}
   m_mapObject: {fileID: 5341136679893137157}
---- !u!114 &4758592047751663531
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6018421707374535805}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e93158efe0c78643bc2d7ad92ce54d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_affectLight: {fileID: 0}
 --- !u!61 &5075732777367063382
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -174,13 +160,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4308620846564027511}
   - component: {fileID: 1807023076547493096}
-  m_Layer: 0
+  - component: {fileID: 6211329649829696590}
+  m_Layer: 7
   m_Name: RecieveLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4308620846564027511
 Transform:
   m_ObjectHideFlags: 0
@@ -209,6 +196,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_affectLight: {fileID: 7840619066121981032}
+--- !u!58 &6211329649829696590
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7663167625375979424}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1001 &790244845357126595
 PrefabInstance:
   m_ObjectHideFlags: 0
