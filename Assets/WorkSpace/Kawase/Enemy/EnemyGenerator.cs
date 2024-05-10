@@ -179,6 +179,12 @@ public class EnemyGenerator : MonoBehaviour
                 }
 
                     break;
+
+            case Enemy.System.Mob:
+                
+
+
+
             default:
                 break;
         }

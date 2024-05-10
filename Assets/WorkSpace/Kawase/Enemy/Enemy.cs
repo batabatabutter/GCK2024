@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 /// <summary>
-/// 一番親アダムイブ
+/// 一番親
 /// </summary>
 public class Enemy : MonoBehaviour
 {
@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour
     public enum System
     {
         Dwell,//宿り型
-
+        Mob, //Mob型
 
         OverID
     }
@@ -115,7 +115,6 @@ public class Enemy : MonoBehaviour
                     m_attackCoolTime -= Time.deltaTime;
                 }
             }
-
         }
     }
 
@@ -167,11 +166,7 @@ public class Enemy : MonoBehaviour
                 // ドロップ数の設定
                 item.Drop(dropItem.count);
             }
-
-
         }
-
-
     }
 
 

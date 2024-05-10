@@ -90,11 +90,11 @@ public class WaveManager : MonoBehaviour
         //    m_waveState = WaveState.Break;
         //    m_waveNum++;
         //}
-        if (Time.frameCount % 60 == 0) // 60FPS
-        {
-            Debug.Log("状態：" + m_waveState);
-            Debug.Log("ウェーブ番号：" + m_waveNum);
-        }
+        //if (Time.frameCount % 60 == 0) // 60FPS
+        //{
+        //    Debug.Log("状態：" + m_waveState);
+        //    Debug.Log("ウェーブ番号：" + m_waveNum);
+        //}
         //Debug.Log("ウェーブ上限：" + (WAVE_MAX_NUM - 1));
     }
 
