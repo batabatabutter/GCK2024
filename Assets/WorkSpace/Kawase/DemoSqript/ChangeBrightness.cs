@@ -25,14 +25,15 @@ public class ChangeBrightness : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //黒くする
-        ChangeBlack();
+        //白くする
+        ChangeWhite();
 
-        //// ライトの影響を受けるオブジェクトの取得
-        //if (gameObject.TryGetComponent(out ObjectAffectLight affectLight))
-        //{
-        //    m_affectLight = affectLight;
-        //}
+        //  フラグオフなら処理しない
+        if (m_affectLight)
+            if (m_affectLight.BrightnessFlag == false)
+            {
+                Destroy(gameObject);
+            }
     }
 
     // Update is called once per frame
@@ -133,48 +134,6 @@ public class ChangeBrightness : MonoBehaviour
                 m_affectLight.ReceiveLightLevel = receiveLightLv;
             }
     }
-
-    //   private void ChangeColor()
-    //{
-    //	//例外処理
-    //	if ((m_lightList.Count == 0 || !m_lightList.Any()/* || m_lightList[0] == null || gameObject == null*/))
-    //	{
-    //		ChangeBlack();
-    //		return;
-    //	}
-    //	else
-    //	{
-    //           //  総合光レベル
-    //           int receiveLightLv = 0;
-    //           if (m_objlight) receiveLightLv = m_objlight.LightLevel;
-
-    //           for (int i = 0; i < m_lightList.Count; i++)
-    //		{
-    //               //  明るさ最大なら処理終了
-    //               if (receiveLightLv >= MAX_BRIGHTNESS) break;
-
-    //               //  nullならスキップ
-    //               if (m_lightList[i] == null) continue;
-
-    //               //  受けたレベルが自分以下ならスキップ
-    //               if (receiveLightLv >= m_lightList[i].LightLevel) continue;
-
-    //               //  光源距離計算
-    //               float lightLength = Mathf.Ceil(Vector3.Distance(MyFunction.RoundHalfUp(m_lightList[i].transform.position), this.transform.position));
-
-    //               receiveLightLv = math.max(receiveLightLv, m_lightList[i].LightLevel - (int)lightLength);
-    //           }
-
-    //           //  光源レベル設定
-    //           m_nowLightLevel = receiveLightLv;
-
-    //           //  ブロックが存在するなら
-    //           if (m_affectLight && !m_affectLight.IsDestroyed())
-    //           {
-    //               m_affectLight.ReceiveLightLevel = m_nowLightLevel;
-    //           }
-    //	}
-    //}
 
     // 自身を暗くする
     private void ChangeBlack()

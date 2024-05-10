@@ -191,6 +191,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &816587856 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3469568166959932924, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
+  m_PrefabInstance: {fileID: 1028730863}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73846488ec25410479abd5b18083eed4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1028730863
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -199,6 +210,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4963957752362924521, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
+      propertyPath: m_sceneManager
+      value: 
+      objectReference: {fileID: 816587856}
     - target: {fileID: 1614570275442964, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
       propertyPath: m_Name
       value: PlaySceneManager
@@ -217,6 +232,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1500174390285807772, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
       propertyPath: m_prossFlag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1500174390285807772, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
+      propertyPath: m_isBrightness
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3469568166959932924, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}

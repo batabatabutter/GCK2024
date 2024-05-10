@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DunegonData_1
   m_EditorClassIdentifier: 
   pattern: 0
-  size: {x: 50, y: 50}
+  size: {x: 100, y: 100}
   dungeonOdds:
   - type: 0
     odds: 663
@@ -31,7 +31,7 @@ MonoBehaviour:
     rateMin: 1
     rateMax: 1
     noiseScale: 0
-    offset: 0.6307073
+    offset: 0.37624496
   - blockType: 101
     range:
       min: 0
@@ -39,7 +39,7 @@ MonoBehaviour:
     rateMin: 0.3
     rateMax: 0.42
     noiseScale: 0.2
-    offset: 0.41135687
+    offset: 0.18700863
   - blockType: 207
     range:
       min: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
     rateMin: 0.02
     rateMax: 0.1
     noiseScale: 0.4
-    offset: 0.47386461
+    offset: 0.33263102
   - blockType: 209
     range:
       min: 0
@@ -55,7 +55,7 @@ MonoBehaviour:
     rateMin: 0.02
     rateMax: 0.1
     noiseScale: 0.4
-    offset: 0.11339988
+    offset: 0.34716454
   dungeonWaves:
   - dungeonATKPattern: 0000000001000000
     dungeonATKCoolTime: 10

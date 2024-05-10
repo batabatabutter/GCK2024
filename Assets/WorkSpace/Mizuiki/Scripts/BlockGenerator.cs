@@ -46,8 +46,8 @@ public class BlockGenerator : MonoBehaviour
     /// <param name="isGroundBrightness">地面明るさをつけるかどうか</param>
     public GameObject GenerateBlock(BlockData.BlockType type, Vector2 position, Transform parent = null, bool isBlockBrightness = false, bool isGroundBrightness = false)
     {
-        // 光源の設定
-        m_isBrightness = isBlockBrightness;
+        //// 光源の設定
+        //m_isBrightness = isBlockBrightness;
 
         //  処理軽減
         Transform pross = null;
@@ -60,10 +60,7 @@ public class BlockGenerator : MonoBehaviour
 
         // 地面を生成
         GameObject ground = Instantiate(m_ground, parent);
-        if (m_prossFlag)
-        {
-            //ground.SetActive(false);
-        }
+        ground.GetComponent<ObjectAffectLight>().BrightnessFlag = m_isBrightness;
 
         // ブロックのデータ取得
         BlockData data = MyFunction.GetBlockData(m_blockDataBase, type);

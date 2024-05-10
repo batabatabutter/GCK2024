@@ -15,6 +15,9 @@ public class ObjectAffectLight : MonoBehaviour
 	[Header("子のマップオブジェクト")]
 	[SerializeField] private MapObject m_mapObject = null;
 
+	//	光処理
+	private bool m_brightness = true;
+
 
 	private void Awake()
 	{
@@ -67,4 +70,10 @@ public class ObjectAffectLight : MonoBehaviour
 		set { m_mapObject = value; }
 	}
 
+	//	光処理フラグ
+	public bool BrightnessFlag
+	{
+		get { return m_brightness; }
+		set { m_brightness = value; }
+	}
 }

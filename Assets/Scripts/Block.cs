@@ -104,13 +104,8 @@ public class Block : ObjectAffectLight
                 item.Drop(dropItem.count * dropCount);
             }
 
-            //  –¾‚é‚³‚ª‚Â‚¢‚Ä‚¢‚½‚ç
-            if(GetComponent<ChangeBrightness>())
-            {
-                // –¾‚é‚³‚ÌŠT”O‚ğ’Ç‰Á
-                var itemBr = obj.AddComponent<ChangeBrightness>();
-                itemBr.SetPlayerTransform(GetComponent<ChangeBrightness>().GetPlayerTransform());
-            }
+            //  –¾‚é‚³‚ªŸ‘æ
+            obj.GetComponent<ObjectAffectLight>().BrightnessFlag = BrightnessFlag;
 
             // ‰æ‘œ‚ğİ’è
             if (obj.TryGetComponent(out SpriteRenderer sprite))
