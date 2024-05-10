@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -6457559721075105889}
   - component: {fileID: -4818926009694650232}
   m_Layer: 0
-  m_Name: Highlight
+  m_Name: FallRock_Highlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

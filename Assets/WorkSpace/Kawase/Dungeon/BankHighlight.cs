@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HighlightBank : MonoBehaviour
+public class BankHighlight : MonoBehaviour
 {
 
     [Header("è¡ñ≈éûä‘")]

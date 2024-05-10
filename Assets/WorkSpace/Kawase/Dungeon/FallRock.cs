@@ -73,7 +73,7 @@ public class FallRock : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<Highlight>())
+        if (collision.gameObject.GetComponent<FallRockHighlight>())
         {
             ishitPlayer = true;
 

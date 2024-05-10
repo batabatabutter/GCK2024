@@ -15,8 +15,8 @@ public class DungeonGenerator : MonoBehaviour
     [SerializeField] private DungeonDataBase m_dungeonDataBase;
 
 	private GameObject[,] m_blocks = null;
-	// ブロックの種類ごとのリスト
-	private Dictionary<BlockData.BlockType, List<Block>> m_blocksList;
+	// ブロックのリスト
+	private List<Block> m_blocksList = new();
 
     [System.Serializable]
     public class BlockOdds
@@ -76,9 +76,11 @@ public class DungeonGenerator : MonoBehaviour
 
     private void Awake()
     {
+		// ブロックジェネレータの取得
         m_blockGenerator = GetComponent<BlockGenerator>();
+		// 親になるオブジェクトを生成
         m_parent = new GameObject("Blocks");
-
+		// ダンジョン生成クラス
 		foreach (Generator generator in m_generators)
 		{
 			// 上書き防止
@@ -199,7 +201,7 @@ public class DungeonGenerator : MonoBehaviour
     }
 
 	// ブロックの情報生成
-	private bool GenerateBlock(Vector2 pos, BlockGenerateData data)
+	private bool IsCreateBlock(Vector2 pos, BlockGenerateData data)
 	{
 		float dis = Vector2.Distance(m_corePos, pos);
 
@@ -271,11 +273,11 @@ public class DungeonGenerator : MonoBehaviour
 				if (mapList[y][x] == "1")
 				{
 					// 生成するブロックの種類
-					BlockData.BlockType type = CreateBlock(blockGenerateData, new Vector2(x, y));
+					BlockData.BlockType type = CreateBlockType(blockGenerateData, new Vector2(x, y));
 					// ブロック生成
 					m_blocks[y, x] = m_blockGenerator.GenerateBlock(type, position, m_parent.transform, m_isBlockBrightness, m_isGroundBrightness);
 					// ブロックリストに追加
-					m_blocksList[type].Add(m_blocks[y, x].GetComponent<Block>());
+					m_blocksList.Add(m_blocks[y, x].GetComponent<Block>());
 				}
 				else
 				{
@@ -288,7 +290,7 @@ public class DungeonGenerator : MonoBehaviour
 	}
 
 	// 生成するブロック
-	private BlockData.BlockType CreateBlock(BlockGenerateData[] blockGenerateData, Vector2 pos)
+	private BlockData.BlockType CreateBlockType(BlockGenerateData[] blockGenerateData, Vector2 pos)
 	{
 		// 生成するブロックの種類
 		BlockData.BlockType type = BlockData.BlockType.STONE;
@@ -296,7 +298,7 @@ public class DungeonGenerator : MonoBehaviour
 		foreach (BlockGenerateData data in blockGenerateData)
 		{
 			// ブロックを生成する
-			if (GenerateBlock(pos, data))
+			if (IsCreateBlock(pos, data))
 			{
 				// 生成する場合は上書きしていく
 				type = data.blockType;

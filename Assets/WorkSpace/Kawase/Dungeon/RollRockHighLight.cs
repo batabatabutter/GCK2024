@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HighLightArrow : MonoBehaviour
+public class RollRockHighLight : MonoBehaviour
 {
 
     Vector3 fastPos;

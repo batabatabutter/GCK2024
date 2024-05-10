@@ -17,6 +17,9 @@ public class Block : ObjectAffectLight
     [Header("アイテムのデータベース")]
     [SerializeField] private ItemDataBase m_itemDataBase = null;
 
+    //  地面のライト情報
+    private Ground m_ground = null;
+
     // ブロックが破壊されている
     private bool m_isBroken = false;
 
@@ -38,7 +41,10 @@ public class Block : ObjectAffectLight
         {
             Destroy(gameObject);
         }
-        
+
+        //  光源処理
+        if (Ground)
+            ReceiveLightLevel = m_ground.ReceiveLightLevel;
     }
 
 	/// <summary>
@@ -159,6 +165,13 @@ public class Block : ObjectAffectLight
     {
         get { return m_blockData; }
         set { m_blockData = value; }
+    }
+
+    //  地面
+    public Ground Ground 
+    { 
+        get { return m_ground; } 
+        set { m_ground = value; }
     }
 
 }
