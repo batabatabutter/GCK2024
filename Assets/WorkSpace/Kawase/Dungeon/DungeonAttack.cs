@@ -49,7 +49,7 @@ public class DungeonAttack : MonoBehaviour
     [Header("ハイライト")]
     [SerializeField] GameObject m_fallRockHighlight;
     [Header("落石の生成する高さ")]
-    public float heightRock = 3.0f;
+    [SerializeField] float heightRock = 3.0f;
     [Header("コウゲキ時間")]
     [SerializeField] float m_fallTime = 4.0f;
 

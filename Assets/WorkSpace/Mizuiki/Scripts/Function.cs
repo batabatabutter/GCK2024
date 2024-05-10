@@ -44,7 +44,9 @@ public class MyFunction
 		UP,
 		RIGHT,
 		DOWN,
-		LEFT
+		LEFT,
+
+		RANDOM,
 	}
 
 	// 四捨五入
@@ -127,6 +129,15 @@ public class MyFunction
 		direction.Normalize();
 
 		return direction;
+	}
+
+	// ランダムな方向取得
+	static public Direction GetRandomDirection()
+	{
+		// ランダムな方向取得
+		int rand = UnityEngine.Random.Range(0, (int)Direction.RANDOM);
+		// Enumで返す
+		return (Direction)rand;
 	}
 
 	// アイテムデータの取得

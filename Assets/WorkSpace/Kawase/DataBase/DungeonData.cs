@@ -9,6 +9,7 @@ public class DungeonData : ScriptableObject
     {
         TEN_X_TEN,      // 10 * 10
         DIGGING,        // 穴掘り
+        MAZE,           // 迷路
 
         OVER,
     }
@@ -34,8 +35,8 @@ public class DungeonData : ScriptableObject
     [Header("ダンジョンのサイズ")]
 	[SerializeField] private Vector2Int size;
     [Header("ダンジョンの生成確率")]
-	[SerializeField] private List<DungeonGenerator.BlockOdds> dungeonOdds;
     [SerializeField] private DungeonGenerator.BlockGenerateData[] blockGenerateData;
+
     [Header("ウェーブ情報")]
     [SerializeField] private List<DungeonWave> dungeonWaves;
     [Header("休憩ウェーブ時間")]
@@ -43,7 +44,6 @@ public class DungeonData : ScriptableObject
 
     public Pattern DungeonPattern => pattern;
     public Vector2Int Size => size;
-    public List<DungeonGenerator.BlockOdds> BlockOdds => dungeonOdds;
     public DungeonGenerator.BlockGenerateData[] BlockGenerateData => blockGenerateData;
     public List<DungeonWave> DungeonWaves => dungeonWaves;
     public float RestWaveTime => restWaveTime;
