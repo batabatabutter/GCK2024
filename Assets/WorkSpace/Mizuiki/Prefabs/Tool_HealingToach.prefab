@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7290428959467499657}
   - component: {fileID: 9136366110910452564}
   - component: {fileID: 4712899735352964683}
-  - component: {fileID: 8284784771209227362}
   - component: {fileID: 6470701474765415795}
   - component: {fileID: 4076699955101871246}
   m_Layer: 3
@@ -101,33 +100,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d55fb7a811899e458fec40c1747c2e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_blockEndurance: 500
-  m_dontBroken: 0
   m_lightLevel: 10
   m_receiveLightLevel: 0
   m_spriteRenderer: {fileID: 0}
+  m_mapObject: {fileID: 0}
+  m_blockEndurance: 500
+  m_dontBroken: 0
   m_blockData: {fileID: 11400000, guid: 00e3684f0604bf64aa179aef4a038f52, type: 2}
   m_itemDataBase: {fileID: 11400000, guid: c534141616c2bbc4ba996d4d9f120330, type: 2}
-  m_mapObject: {fileID: 0}
   m_ownDamage: 50
   m_damageInterval: 1
   m_healingValue: 1
   m_healingInterval: 2
---- !u!114 &8284784771209227362
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6062389311106173501}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e93158efe0c78643bc2d7ad92ce54d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_lightList: []
-  m_lightPositionList: []
-  m_block: {fileID: 0}
 --- !u!58 &6470701474765415795
 CircleCollider2D:
   m_ObjectHideFlags: 0
