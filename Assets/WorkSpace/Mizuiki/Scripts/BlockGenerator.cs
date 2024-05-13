@@ -118,6 +118,17 @@ public class BlockGenerator : MonoBehaviour
         // 光源レベル
         block.LightLevel = data.LightLevel;
 
+        //  光源処理
+        // 光源の設定
+        if (m_isBrightness)
+        {
+            // 光源処理用のオブジェクト生成
+            GameObject light = Instantiate(m_lightObject, block.transform);
+
+            // 光源コライダー生成
+            light.GetComponent<ObjectLight>().FlashLight(block.LightLevel);
+        }
+
         if (m_mapObject)
         {
             // マップオブジェクトの生成
@@ -158,19 +169,7 @@ public class BlockGenerator : MonoBehaviour
         {
             obj = Instantiate(gameObject, position, Quaternion.identity);
         }
-        // 光源の設定
-		if (m_isBrightness)
-		{
-            // 光源処理用のオブジェクト生成
-            GameObject light = Instantiate(m_lightObject, obj.transform);
 
-            // ブロックの取得
-            if (obj.TryGetComponent(out ObjectAffectLight affectLight))
-            {
-				// 光源コライダー生成
-				light.GetComponent<ObjectLight>().FlashLight(affectLight.LightLevel);
-			}
-		}
 		// 生成したオブジェクトを返す
 		return obj;
     }

@@ -29,8 +29,14 @@ public class ObjectLight : MonoBehaviour
 
 	private void AddCricleColToDelete(int lightLevel)
 	{
-		// 円のコライダーがなければ追加
-		if (!gameObject.GetComponent<CircleCollider2D>())
+        if (!gameObject.GetComponent<Rigidbody2D>())
+        {
+            Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
+            rb.isKinematic = true;
+        }
+
+        // 円のコライダーがなければ追加
+        if (!gameObject.GetComponent<CircleCollider2D>())
 		{
 			CircleCollider2D circleCol = gameObject.AddComponent<CircleCollider2D>();
 

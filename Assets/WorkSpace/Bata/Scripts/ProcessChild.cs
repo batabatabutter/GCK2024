@@ -8,15 +8,19 @@ public class ProcessChild : MonoBehaviour
     private List<MonoBehaviour> m_scripts = new List<MonoBehaviour>();
     //  衝突判定
     private List<Collider2D> m_colldier2Ds = new List<Collider2D>();
+    //  リジッド
+    private List<Rigidbody2D> rigidbody2Ds = new List<Rigidbody2D>();
 
     //  処理軽減用
     public void Change(bool flag)
     {
         Scripts = new List<MonoBehaviour>(this.transform.GetComponentsInChildren<MonoBehaviour>().Skip(1));
         Collider2Ds = new List<Collider2D>(transform.GetComponentsInChildren<Collider2D>().Skip(1));
+        //rigidbody2Ds = new List<Rigidbody2D>(transform.GetComponentsInChildren<Rigidbody2D>());
 
         foreach (var script in m_scripts) script.enabled = flag;
         foreach (var coll in m_colldier2Ds) coll.enabled = flag;
+        //foreach (var rigidbody2D in rigidbody2Ds) rigidbody2D.isKinematic = !flag;
     }
 
     public List<MonoBehaviour> Scripts
