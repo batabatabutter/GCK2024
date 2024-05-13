@@ -6,29 +6,34 @@ using static UnityEngine.GraphicsBuffer;
 public class DungeonAttackRollRock : DungeonAttackBase
 {
 	[Header("転がる岩")]
-	[SerializeField] GameObject m_prefab;
+	[SerializeField] GameObject m_rollRockPrefab;
 	[Header("矢印のハイライト")]
-	[SerializeField] GameObject m_highlight;
-	[Header("矢印のハイライトが出現する距離")]
+	[SerializeField] GameObject m_rollRockHighlight;
+	[Header("岩が出現する距離")]
 	[SerializeField] private float m_targetDistance = 5.0f;
 
 
 	private void Start()
 	{
-		if (m_prefab == null)
+		if (m_rollRockPrefab == null)
 		{
 			Debug.Log("RollRock : プレハブを設定してね");
 		}
-		if (m_highlight == null)
+		if (m_rollRockHighlight == null)
 		{
 			Debug.Log("RollRock : プレハブを設定してね");
 		}
 	}
 
-	public override void Attack(Transform target, int attackRank = 1)
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="target"></param>
+	/// <param name="attackRank">方向(MyFunction.Direction)</param>
+	public override void AttackOne(Vector3 target, int attackRank = 1)
 	{
 		// プレハブがない
-		if (m_prefab == null)
+		if (m_rollRockPrefab == null)
 		{
 			return;
 		}
@@ -41,44 +46,44 @@ public class DungeonAttackRollRock : DungeonAttackBase
 		}
 
 		// 生成位置
-		Vector3 rollingPos = target.position;
+		Vector3 rollingPos = target;
 		// 生成角度
 		float rollingRotation = 0.0f;
 
 		//4通りだから０～３
-		MyFunction.Direction direction = MyFunction.GetRandomDirection();
-		// ランダムな方向から攻撃
+		//MyFunction.Direction direction = MyFunction.GetRandomDirection();
+		MyFunction.Direction direction = (MyFunction.Direction)attackRank;
+		// 指定方向から攻撃
 		switch (direction)
 		{
 			case MyFunction.Direction.UP:
 				// 上から
-				rollingPos = new Vector3(target.position.x, target.position.y + m_targetDistance, 0);
+				rollingPos = new Vector3(target.x, target.y + m_targetDistance, 0);
 				rollingRotation = 180;
 				break;
 
 			case MyFunction.Direction.DOWN:
 				// 下から
-				rollingPos = new Vector3(target.position.x, target.position.y - m_targetDistance, 0);
+				rollingPos = new Vector3(target.x, target.y - m_targetDistance, 0);
 				rollingRotation = 0;
 				break;
 
 			case MyFunction.Direction.LEFT:
 				// 左から
-				rollingPos = new Vector3(target.position.x - m_targetDistance, target.position.y, 0);
+				rollingPos = new Vector3(target.x - m_targetDistance, target.y, 0);
 				rollingRotation = 270;
 				break;
 
 			case MyFunction.Direction.RIGHT:
 				// 右から
-				rollingPos = new Vector3(target.position.x + m_targetDistance, target.position.y, 0);
+				rollingPos = new Vector3(target.x + m_targetDistance, target.y, 0);
 				rollingRotation = 90;
 				break;
 		}
 		// 転がる岩の生成
-		Instantiate(m_prefab, rollingPos, Quaternion.Euler(0, 0, rollingRotation));
+		Instantiate(m_rollRockPrefab, rollingPos, Quaternion.Euler(0, 0, rollingRotation));
 		// ハイライトの生成
-		Instantiate(m_highlight, rollingPos, Quaternion.Euler(0, 0, rollingRotation));
+		Instantiate(m_rollRockHighlight, rollingPos, Quaternion.Euler(0, 0, rollingRotation));
 	}
-
 
 }

@@ -310,6 +310,7 @@ GameObject:
   - component: {fileID: 102538597}
   - component: {fileID: 102538598}
   - component: {fileID: 102538599}
+  - component: {fileID: 102538600}
   m_Layer: 0
   m_Name: DungeonAttacker
   m_TagString: Untagged
@@ -359,15 +360,13 @@ MonoBehaviour:
     attack: {fileID: 102538598}
   - type: 1
     attack: {fileID: 102538599}
+  - type: 2
+    attack: {fileID: 102538600}
   m_attackOrder:
-  - type: 0
+  - type: 2
     coolTime: 5
-    rankValue: 0.5
-    range: 3
-  - type: 1
-    coolTime: 1
-    rankValue: 0
-    range: 3
+    rankValue: 1
+    range: 5
 --- !u!114 &102538598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,6 +402,24 @@ MonoBehaviour:
   m_fallRockHighlight: {fileID: 4708925638394852652, guid: 82994475c12be0f4da5df8587e7d4dec, type: 3}
   m_rockHeight: 3
   m_fallRockRange: 5
+--- !u!114 &102538600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 102538594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b35b61ef8dc5c414981e66999c8c1e9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_attackTime: 5
+  m_rollRockPrefab: {fileID: 796929451571866827, guid: e54c54e3e9cf6284b904d9e1c38277e3, type: 3}
+  m_rollRockHighlight: {fileID: 5906353031345709085, guid: 1e3c7638253476640a9e522370a172fd, type: 3}
+  m_targetDistance: 5
+  m_lineUpCount: 5
+  m_rankValue: 0.5
 --- !u!224 &145493590 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5673070608454416527, guid: 565ea1613a295a746acd0e483db3e630, type: 3}

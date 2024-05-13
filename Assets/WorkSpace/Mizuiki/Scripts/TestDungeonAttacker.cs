@@ -77,6 +77,9 @@ public class TestDungeonAttacker : MonoBehaviour
         // ’â~ŠÔ‚ğ‰Šú‰»
         m_stayTimer = m_stayTime;
 
+        // UŒ‚ƒ^ƒCƒv‚Ì‰Šú‰»
+        m_type = m_attackOrder[0].type;
+
     }
 
     // Update is called once per frame
