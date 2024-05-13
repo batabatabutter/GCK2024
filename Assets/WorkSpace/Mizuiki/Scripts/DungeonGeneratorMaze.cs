@@ -245,8 +245,11 @@ public class DungeonGeneratorMaze : DungeonGeneratorBase
 			if (m_mazeList[start.y][start.x] == "1")
 				continue;
 
+			// 拡張中の壁の情報
+			Stack<Vector2Int> extendWall = new();
+
 			// 壁を伸ばしていく
-			ExtendWall(start);
+			ExtendWall(start, extendWall);
 
 			count++;
 			if (count > 1000000)
@@ -256,11 +259,8 @@ public class DungeonGeneratorMaze : DungeonGeneratorBase
 
 	}
 	// 壁を伸ばす
-	private void ExtendWall(Vector2Int start)
+	private void ExtendWall(Vector2Int start, Stack<Vector2Int> extendWall)
 	{
-		// 拡張中の壁の情報
-		Stack<Vector2Int> extendWall = new();
-
 		List<MyFunction.Direction> direction = new();
 		// 上
 		if (m_mazeList[start.y + 1][start.x] == "0" &&          // 一マス上が通路
@@ -306,9 +306,9 @@ public class DungeonGeneratorMaze : DungeonGeneratorBase
 					// 二マス上が通路
 					path = m_mazeList[start.y + 2][start.x] == "0";
 					// 一マス上を壁にする
-					m_mazeList[start.y++][start.x] = "1";
+					m_mazeList[++start.y][start.x] = "1";
 					// 二マス上を壁にする
-					m_mazeList[start.y++][start.x] = "1";
+					m_mazeList[++start.y][start.x] = "1";
 					extendWall.Push(start);
 					break;
 
@@ -316,9 +316,9 @@ public class DungeonGeneratorMaze : DungeonGeneratorBase
 					// 二マス右が通路
 					path = m_mazeList[start.y][start.x + 2] == "0";
 					// 一マス右を壁にする
-					m_mazeList[start.y][start.x++] = "1";
+					m_mazeList[start.y][++start.x] = "1";
 					// 二マス右を壁にする
-					m_mazeList[start.y][start.x++] = "1";
+					m_mazeList[start.y][++start.x] = "1";
 					extendWall.Push(start);
 					break;
 
@@ -326,9 +326,9 @@ public class DungeonGeneratorMaze : DungeonGeneratorBase
 					// 二マス下が通路
 					path = m_mazeList[start.y - 2][start.x] == "0";
 					// 一マス下を壁にする
-					m_mazeList[start.y--][start.x] = "1";
+					m_mazeList[--start.y][start.x] = "1";
 					// 二マス下を壁にする
-					m_mazeList[start.y--][start.x] = "1";
+					m_mazeList[--start.y][start.x] = "1";
 					extendWall.Push(start);
 					break;
 
@@ -336,9 +336,9 @@ public class DungeonGeneratorMaze : DungeonGeneratorBase
 					// 二マス左が通路
 					path = m_mazeList[start.y][start.x - 2] == "0";
 					// 一マス左を壁にする
-					m_mazeList[start.y][start.x--] = "1";
+					m_mazeList[start.y][--start.x] = "1";
 					// 二マス左を壁にする
-					m_mazeList[start.y][start.x--] = "1";
+					m_mazeList[start.y][--start.x] = "1";
 					extendWall.Push(start);
 					break;
 			}
@@ -346,7 +346,7 @@ public class DungeonGeneratorMaze : DungeonGeneratorBase
 			if (path)
 			{
 				// さらに壁を伸ばす
-				ExtendWall(start);
+				ExtendWall(start, extendWall);
 			}
 		}
 		// どこにも伸ばせない
@@ -354,7 +354,7 @@ public class DungeonGeneratorMaze : DungeonGeneratorBase
 		{
 			// 戻って伸ばす処理を再開する
 			Vector2Int back = extendWall.Pop();
-			ExtendWall(back);
+			ExtendWall(back, extendWall);
 		}
 	}
 

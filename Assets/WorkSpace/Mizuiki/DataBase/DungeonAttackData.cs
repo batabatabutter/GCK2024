@@ -18,10 +18,10 @@ public class DungeonAttackData : ScriptableObject
 	[System.Serializable]
 	public struct AttackData
 	{
-		public AttackType attackType;	// UŒ‚‚Ìí—Ş
-		public float attackCoolTime;	// UŒ‚”­¶‚ÌƒN[ƒ‹ƒ^ƒCƒ€
-		public int attackRank;			// UŒ‚ƒ‰ƒ“ƒN‚É‰‚¶‚½‘‰Á—Ê
-		public float attackRange;		// UŒ‚”ÍˆÍ
+		public AttackType type;	// UŒ‚‚Ìí—Ş
+		public float coolTime;	// UŒ‚”­¶‚ÌƒN[ƒ‹ƒ^ƒCƒ€
+		public float rankValue;		// UŒ‚ƒ‰ƒ“ƒN‚É‰‚¶‚½‘‰Á—Ê
+		public float range;		// UŒ‚”ÍˆÍ
 	}
 
 	[Header("UŒ‚’â~ŠÔ")]
@@ -32,12 +32,12 @@ public class DungeonAttackData : ScriptableObject
 	[Header("ƒ‰ƒ“ƒ_ƒ€‚ÈUŒ‚")]
 	[SerializeField] private bool isRandom = false;
 	[Header("UŒ‚ƒpƒ^[ƒ“")]
-	[SerializeField] private AttackData[] attackData;
+	[SerializeField] private List<AttackData> attackData;
 
 
 	public float StayTime => stayTime;
 	public float AttackTime => attackTime;
 	public bool IsRandom => isRandom;
-	public AttackData[] AttackPattern => attackData;
+	public List<AttackData> AttackPattern => attackData;
 
 }

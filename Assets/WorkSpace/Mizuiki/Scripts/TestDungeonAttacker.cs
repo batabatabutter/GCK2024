@@ -25,6 +25,7 @@ public class TestDungeonAttacker : MonoBehaviour
 
     [Header("攻撃の情報")]
     [SerializeField] private DungeonAttackData m_attackData = null;
+    [SerializeField] private bool m_useData = true;
 
     [Header("攻撃停止時間")]
     [SerializeField] private float m_stayTime = 10.0f;
@@ -41,8 +42,12 @@ public class TestDungeonAttacker : MonoBehaviour
 
     [Header("ダンジョンの攻撃パターン")]
     [SerializeField] private AttackPattern[] m_attackPattern;
-    private Dictionary<DungeonAttackData.AttackType, DungeonAttackBase> m_attacker = new();
+    private readonly Dictionary<DungeonAttackData.AttackType, DungeonAttackBase> m_attacker = new();
 
+    [Header("ダンジョンの攻撃順")]
+    [SerializeField] private List<DungeonAttackData.AttackData> m_attackOrder = new();
+
+    // 攻撃の種類
 	private DungeonAttackData.AttackType m_type;
 
 
@@ -63,7 +68,11 @@ public class TestDungeonAttacker : MonoBehaviour
             m_attacker[type] = m_attackPattern[i].attack;
 		}
 
+        // データの設定
         SetAttackData();
+
+        // クールタイムの設定
+        SetCoolTime();
 
         // 停止時間を初期化
         m_stayTimer = m_stayTime;
@@ -86,6 +95,8 @@ public class TestDungeonAttacker : MonoBehaviour
 				m_stayTimer = m_stayTime;
                 // ランクアップ
                 m_attackRank++;
+				// 次の攻撃タイプ決定
+				NextType();
 				Debug.Log("攻撃停止");
 			}
 		}
@@ -99,7 +110,14 @@ public class TestDungeonAttacker : MonoBehaviour
 				// 攻撃を開始する
 				m_active = true;
 				m_attackTimer = m_attackTime;
-				Debug.Log("攻撃開始");
+				// 攻撃パターンが設定されていなければ処理しない
+				if (!m_attacker.ContainsKey(m_type))
+				{
+					Debug.Log(m_type.ToString() + " : 攻撃パターンが設定されてないよ");
+                    m_active = false;
+					return;
+				}
+				Debug.Log("攻撃開始 : " + m_type.ToString());
 			}
 		}
 	}
@@ -130,7 +148,7 @@ public class TestDungeonAttacker : MonoBehaviour
         if (m_random)
         {
             // 次の攻撃のインデックスをランダムで取得
-            m_attackPatternIndex = Random.Range(0, m_attackData.AttackPattern.Length);
+            m_attackPatternIndex = Random.Range(0, m_attackOrder.Count);
             return;
         }
         else
@@ -138,20 +156,26 @@ public class TestDungeonAttacker : MonoBehaviour
             // インデックスのインクリメント
             m_attackPatternIndex++;
             // 範囲外になった
-            if (m_attackPatternIndex >= m_attackData.AttackPattern.Length)
+            if (m_attackPatternIndex >= m_attackOrder.Count)
             {
                 // 0 に戻す
                 m_attackPatternIndex = 0;
             }
         }
+
         // タイプの設定
-		m_type = m_attackData.AttackPattern[m_attackPatternIndex].attackType;
+		m_type = m_attackOrder[m_attackPatternIndex].type;
 	}
 
 	// 情報設定
 	private void SetAttackData()
     {
+        // データがない
         if (m_attackData == null)
+            return;
+
+        // データを使わない
+        if (!m_useData)
             return;
 
         // 停止時間設定
@@ -160,7 +184,28 @@ public class TestDungeonAttacker : MonoBehaviour
         m_attackTime = m_attackData.AttackTime;
         // ランダムフラグ設定
         m_random = m_attackData.IsRandom;
+        // ダンジョンの攻撃順
+        m_attackOrder = new (m_attackData.AttackPattern);
+    }
 
+    private void SetCoolTime()
+    {
+        foreach (DungeonAttackData.AttackData data in m_attackOrder)
+        {
+            // 攻撃タイプ
+            DungeonAttackData.AttackType type = data.type;
+
+            // キーが設定してある
+            if (m_attacker.ContainsKey(type))
+            {
+                // 攻撃時間の設定
+                m_attacker[type].AttackTime = data.coolTime;
+                // 攻撃範囲の設定
+                m_attacker[type].SetAttackRange(data.range);
+                // ランク増加値の設定
+                m_attacker[type].SetRankValue(data.rankValue);
+            }
+        }
     }
 
 }

@@ -19,10 +19,21 @@ public class DungeonAttackBase : MonoBehaviour
 
     }
 
+    // UŒ‚”ÍˆÍ‚Ìİ’è
+	virtual public void SetAttackRange(float range)
+	{
+	}
 
-    public float AttackTime
+    // ƒ‰ƒ“ƒN‚É‰‚¶‚½‘‰Á—Ê‚Ìİ’è
+    virtual public void SetRankValue(float value)
+    {
+    }
+
+
+	public float AttackTime
     {
         get { return m_attackTime; }
+        set { m_attackTime = value; }
     }
 
 }

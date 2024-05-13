@@ -308,8 +308,8 @@ GameObject:
   m_Component:
   - component: {fileID: 102538595}
   - component: {fileID: 102538597}
-  - component: {fileID: 102538596}
   - component: {fileID: 102538598}
+  - component: {fileID: 102538599}
   m_Layer: 0
   m_Name: DungeonAttacker
   m_TagString: Untagged
@@ -326,28 +326,12 @@ Transform:
   m_GameObject: {fileID: 102538594}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 17.117771, y: 8.241199, z: -0.12857158}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 75050969}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &102538596
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 102538594}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4963d6e4b2f5cf4cb582f6fedab3347, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_attackTime: 5
-  m_prefab: {fileID: 2940951798871330703, guid: 829d86242de0c674a8b178b0f249f289, type: 3}
-  m_highlight: {fileID: 4708925638394852652, guid: 82994475c12be0f4da5df8587e7d4dec, type: 3}
-  m_rockHeight: 3
 --- !u!114 &102538597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -365,15 +349,25 @@ MonoBehaviour:
   m_target: {fileID: 539302612}
   m_attackCoolTime: 0
   m_attackData: {fileID: 11400000, guid: 84e33d87ad14bc44bab3ca7e8f464fdc, type: 2}
+  m_useData: 1
   m_stayTime: 10
   m_attackTime: 10
   m_random: 0
   m_attackPatternIndex: 0
   m_attackPattern:
   - type: 0
-    attack: {fileID: 102538596}
+    attack: {fileID: 102538598}
   - type: 1
-    attack: {fileID: 102538596}
+    attack: {fileID: 102538599}
+  m_attackOrder:
+  - type: 0
+    coolTime: 5
+    rankValue: 0.5
+    range: 3
+  - type: 1
+    coolTime: 1
+    rankValue: 0
+    range: 3
 --- !u!114 &102538598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -383,13 +377,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 102538594}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16c67428db87d18429e4e053284cc0fa, type: 3}
+  m_Script: {fileID: 11500000, guid: 1e6c69c651aaf214596df23b182dcc6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_attackTime: 5
-  m_prefab: {fileID: 796929451571866827, guid: e54c54e3e9cf6284b904d9e1c38277e3, type: 3}
-  m_highlight: {fileID: 5906353031345709085, guid: 1e3c7638253476640a9e522370a172fd, type: 3}
-  m_targetDistance: 5
+  m_fallRockPrefab: {fileID: 2940951798871330703, guid: 829d86242de0c674a8b178b0f249f289, type: 3}
+  m_fallRockHighlight: {fileID: 4708925638394852652, guid: 82994475c12be0f4da5df8587e7d4dec, type: 3}
+  m_rockHeight: 3
+  m_massSize: 3
+  m_rankValue: 1
+--- !u!114 &102538599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 102538594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e9d90d0625aad64d9b7da680691e40f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_attackTime: 0.5
+  m_fallRockPrefab: {fileID: 2940951798871330703, guid: 829d86242de0c674a8b178b0f249f289, type: 3}
+  m_fallRockHighlight: {fileID: 4708925638394852652, guid: 82994475c12be0f4da5df8587e7d4dec, type: 3}
+  m_rockHeight: 3
+  m_fallRockRange: 5
 --- !u!224 &145493590 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5673070608454416527, guid: 565ea1613a295a746acd0e483db3e630, type: 3}
