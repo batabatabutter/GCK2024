@@ -66,19 +66,11 @@ public class ChangeBrightness : MonoBehaviour
         //  光が最大以上なら処理しない
         if (m_affectLight.LightLevel >= MAX_BRIGHTNESS) return;
 
-        // 当たったものがライトではない
-        if (collision.gameObject.layer != LayerMask.NameToLayer("Light"))
-            return;
-
         //  ライトコンポ
         var li = collision.gameObject.GetComponent<ObjectLight>();
 
-        // ライトのレベルが 0 以下
-        if (li.LightLevel <= 0)
-            return;
-
-        //  ライトのレベルが自分の光源レベル以下
-        if (li.LightLevel <= m_affectLight.LightLevel) return;
+        //  ライトのレベルが 0 以下か自分の光源レベル以下
+        if (li.LightLevel <= 0 || li.LightLevel <= m_affectLight.LightLevel) return;
 
         // 光源の追加
         if (!m_lights.Contains(li))

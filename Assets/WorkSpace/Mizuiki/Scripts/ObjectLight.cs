@@ -32,7 +32,7 @@ public class ObjectLight : MonoBehaviour
         if (!gameObject.GetComponent<Rigidbody2D>())
         {
             Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
-            rb.isKinematic = true;
+            rb.bodyType = RigidbodyType2D.Kinematic;
         }
 
         // 円のコライダーがなければ追加

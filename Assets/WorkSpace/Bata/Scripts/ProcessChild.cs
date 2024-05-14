@@ -20,7 +20,11 @@ public class ProcessChild : MonoBehaviour
 
         foreach (var script in m_scripts) script.enabled = flag;
         foreach (var coll in m_colldier2Ds) coll.enabled = flag;
-        //foreach (var rigidbody2D in rigidbody2Ds) rigidbody2D.isKinematic = !flag;
+        //foreach (var rigidbody2D in rigidbody2Ds)
+        //{
+        //    if (flag) rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
+        //    else rigidbody2D.bodyType = RigidbodyType2D.Static;
+        //}
     }
 
     public List<MonoBehaviour> Scripts

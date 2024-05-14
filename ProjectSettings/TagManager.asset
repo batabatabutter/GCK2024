@@ -17,10 +17,10 @@ TagManager:
   - UI
   - Map Object
   - Light
-  - Processing
+  - ProcessingParent
   - Item
-  - 
-  - 
+  - ProcessingChild
+  - ReciveLight
   - 
   - 
   - 
