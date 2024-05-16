@@ -33,13 +33,13 @@ public class DA_RollRock01 : DungeonAttackRollRock
 		// â°
         if (horizon)
         {
-			pos.y = target.position.y - rockCount / 2;
+			pos.y = target.position.y - (rockCount / 2);
 			addPos = Vector3.up;
         }
 		// èc
 		else
 		{
-			pos.x = target.position.x - rockCount / 2;
+			pos.x = target.position.x - (rockCount / 2);
 			addPos = Vector3.right;
 		}
 

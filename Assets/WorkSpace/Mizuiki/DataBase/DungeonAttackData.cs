@@ -12,7 +12,7 @@ public class DungeonAttackData : ScriptableObject
 		FALL_ROCK_01,
 		FALL_ROCK_02,
 
-		ROLL_ROC_01,
+		ROLL_ROCK_01,
 
 		OVER,
 	}

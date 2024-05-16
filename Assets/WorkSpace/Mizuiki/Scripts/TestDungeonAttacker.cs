@@ -11,15 +11,44 @@ public class TestDungeonAttacker : MonoBehaviour
         public DungeonAttackData.AttackType type;
         public DungeonAttackBase attack;
 	}
+    // 距離に応じた攻撃段階
+    [System.Serializable, Tooltip("distance 昇順にソート")]
+    public struct AttackGrade
+    {
+        [Tooltip("開始地点の distance 倍のとき")]
+        public float distance;
+        [Tooltip("攻撃の発生倍率")]
+        public float grade;
+    }
 
     [Header("攻撃状態")]
     [SerializeField] private bool m_active = false;
     [Header("攻撃ランク")]
     [SerializeField] private int m_attackRank = 0;
+    [Header("攻撃ランクの上限")]
+    [SerializeField] private int m_attackRankLimit = 10;
 
+    [Header("コアの位置")]
+    [SerializeField] private Vector3 m_corePosition = Vector3.zero;
     [Header("攻撃対象")]
     [SerializeField] private Transform m_target = null;
 
+    [Header("---------- コアとターゲットの距離 ----------")]
+    [Header("攻撃段階の範囲")]
+    [SerializeField] private MyFunction.MinMaxFloat m_attackGradeRange;
+    [Header("攻撃が最大になる距離")]
+    [SerializeField] private float m_attackMaxDistance = 0.0f;
+    // 開始時のターゲットとコアの距離
+    private float m_coreDistance = 0.0f;
+    [Header("コアとの距離の取り方の種類")]
+    [SerializeField] private bool m_attackGradeStep = false;
+    [Header("距離に応じた攻撃段階")]
+    [SerializeField] private List<AttackGrade> m_attackGrade;
+
+    [Header("現在の攻撃のグレード(確認用)")]
+    [SerializeField] private float m_nowAttackGrade = 1.0f;
+
+    [Header("---------- 攻撃自体の情報 ----------")]
     [Header("攻撃のクールタイム(確認用)")]
     [SerializeField] private float m_attackCoolTime = 0.0f;
 
@@ -80,24 +109,38 @@ public class TestDungeonAttacker : MonoBehaviour
         // 攻撃タイプの初期化
         m_type = m_attackOrder[0].type;
 
+        // 開始時の距離を取得
+        if (m_target)
+        {
+            m_coreDistance = Vector3.Distance(m_target.position, m_corePosition);
+        }
+
+        // distance の昇順にソート
+        m_attackGrade.Sort((lhs, rhs) => lhs.distance.CompareTo(rhs.distance));
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        // 攻撃活動中
         if (m_active)
         {
+            // 攻撃処理
             Attack();
-            // 攻撃時間の経過
+            // 攻撃ターンの時間経過
             m_attackTimer -= Time.deltaTime;
-			// 攻撃時間が過ぎた
+			// 攻撃ターン終了
 			if (m_attackTimer <= 0.0f)
 			{
 				// 攻撃を停止する
 				m_active = false;
+                // 停止時間の設定
 				m_stayTimer = m_stayTime;
                 // ランクアップ
                 m_attackRank++;
+                // 攻撃ランクが上限を超えないようにクランプ
+                m_attackRank = Mathf.Clamp(m_attackRank, 0, m_attackRankLimit);
 				// 次の攻撃タイプ決定
 				NextType();
 				Debug.Log("攻撃停止");
@@ -112,6 +155,7 @@ public class TestDungeonAttacker : MonoBehaviour
 			{
 				// 攻撃を開始する
 				m_active = true;
+                // 攻撃ターンの時間設定
 				m_attackTimer = m_attackTime;
 				// 攻撃パターンが設定されていなければ処理しない
 				if (!m_attacker.ContainsKey(m_type))
@@ -123,9 +167,19 @@ public class TestDungeonAttacker : MonoBehaviour
 				Debug.Log("攻撃開始 : " + m_type.ToString());
 			}
 		}
-	}
+    }
 
 
+    // コアの位置
+    public Vector3 CorePosition
+    {
+        set { m_corePosition = value; }
+    }
+
+
+
+
+    // 攻撃
     private void Attack()
     {
 		// 攻撃パターンがなければ処理しない
@@ -138,14 +192,50 @@ public class TestDungeonAttacker : MonoBehaviour
 		// 攻撃する
 		if (m_attackCoolTime <= 0.0f)
 		{
+            // 指定タイプの攻撃発生
 			m_attacker[m_type].Attack(m_target, m_attackRank);
-			m_attackCoolTime = m_attacker[m_type].AttackTime;
+            // クールタイム計算
+			m_attackCoolTime = m_attacker[m_type].AttackTime * GetAttackGrade();
 		}
 
 	}
 
-    // 次の攻撃タイプ決定
-    private void NextType()
+    // コアとターゲットの距離に応じた攻撃間隔の取得
+    private float GetAttackGrade()
+    {
+		// コアとターゲットの距離
+		float distance = Vector3.Distance(m_target.position, m_corePosition);
+
+		// コアとの距離に応じた攻撃段階(0 ~ 1)
+		float attackGradeNormal = Mathf.InverseLerp(m_attackMaxDistance, m_coreDistance, distance);
+
+        // 距離に応じた段階バージョン
+        float attackGradeRank = 1.0f;
+        foreach (AttackGrade grade in m_attackGrade)
+        {
+            // 特定段階よりも距離が近い
+            if (distance <= m_coreDistance * grade.distance)
+            {
+                attackGradeRank = grade.grade;
+                break;
+            }
+        }
+
+        // 最終的な攻撃時間の割合を返す
+        if (m_attackGradeStep)
+        {
+            m_nowAttackGrade = attackGradeRank;
+            return Mathf.Lerp(m_attackGradeRange.min, m_attackGradeRange.max, attackGradeRank);
+        }
+        else
+        {
+            m_nowAttackGrade = attackGradeNormal;
+            return Mathf.Lerp(m_attackGradeRange.min, m_attackGradeRange.max, attackGradeNormal);
+        }
+	}
+
+	// 次の攻撃タイプ決定
+	private void NextType()
     {
         // ランダム攻撃
         if (m_random)

@@ -36,7 +36,14 @@ public class MyFunction
 			// ”’l‚ªŠÜ‚Ü‚ê‚Ä‚¢‚é
 			return true;
 		}
-
+	}
+	[System.Serializable]
+	public struct MinMaxFloat
+	{
+		[Min(0.0f)]
+		public float min;
+		[Min(0.0f)]
+		public float max;
 	}
 
 	public enum Direction

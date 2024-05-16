@@ -6,18 +6,18 @@ using static UnityEngine.GraphicsBuffer;
 public class DungeonAttackBank : DungeonAttackBase
 {
 	[Header("土手")]
-	[SerializeField] GameObject m_prefab;
+	[SerializeField] GameObject m_bankPrefab;
 	[Header("土手ハイライト")]
-	[SerializeField] GameObject m_highlight;
+	[SerializeField] GameObject m_bankHighlight;
 
 
 	private void Start()
 	{
-		if (m_prefab == null)
+		if (m_bankPrefab == null)
 		{
 			Debug.Log("FallRock : プレハブを設定してね");
 		}
-		if (m_highlight == null)
+		if (m_bankHighlight == null)
 		{
 			Debug.Log("FallRock : プレハブを設定してね");
 		}
@@ -26,7 +26,7 @@ public class DungeonAttackBank : DungeonAttackBase
 	public override void Attack(Transform target, int attackRank = 1)
 	{
 		// プレハブがない
-		if (m_prefab == null)
+		if (m_bankPrefab == null)
 		{
 			return;
 		}
@@ -40,23 +40,30 @@ public class DungeonAttackBank : DungeonAttackBase
 
 		Vector3 pos = target.position;
 
-		pos.x -= 1;
-		pos.y += 1;
+		AttackOne(pos, attackRank);
 
+	}
+
+	public override void AttackOne(Vector3 target, int attackRank = 1)
+	{
+		target.x -= 1;
+		target.y += 1;
+
+		// ターゲットの周りに攻撃を出す
 		for (int i = 0; i < 3; i++)
 		{
 			for (int j = 0; j < 3; j++)
 			{
+				// ターゲットの位置には発生しない
 				if (i == 1 && j == 1)
 					continue;
 
-
-				Instantiate(m_prefab, new Vector3(pos.x + j, pos.y - i, 0), Quaternion.identity);
-				Instantiate(m_highlight, new Vector3(pos.x + j, pos.y - i, 0), Quaternion.identity);
+				// 攻撃生成
+				Instantiate(m_bankPrefab, new Vector3(target.x + j, target.y - i, 0), Quaternion.identity);
+				// ハイライト生成
+				Instantiate(m_bankHighlight, new Vector3(target.x + j, target.y - i, 0), Quaternion.identity);
 			}
-
 		}
-
 	}
 
 }
