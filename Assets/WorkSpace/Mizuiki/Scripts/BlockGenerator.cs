@@ -44,11 +44,8 @@ public class BlockGenerator : MonoBehaviour
     /// <param name="parent">親</param>
     /// <param name="isBlockBrightness">ブロック明るさをつけるかどうか</param>
     /// <param name="isGroundBrightness">地面明るさをつけるかどうか</param>
-    public GameObject GenerateBlock(BlockData.BlockType type, Vector2 position, Transform parent = null, bool isBlockBrightness = false, bool isGroundBrightness = false)
+    public GameObject GenerateBlock(BlockData.BlockType type, Vector2 position, Transform parent = null)
     {
-        //// 光源の設定
-        //m_isBrightness = isBlockBrightness;
-
         //  処理軽減
         Transform pross = null;
         if (m_prossFlag)

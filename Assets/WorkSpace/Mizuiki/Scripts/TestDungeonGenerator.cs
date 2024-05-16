@@ -155,7 +155,7 @@ public class TestDungeonGenerator : MonoBehaviour
 				Vector3 pos = new(x, y, 0.0f);
 
 				// ブロックの生成
-				GameObject obj = m_blockGenerator.GenerateBlock(name, pos, null, m_light);
+				GameObject obj = m_blockGenerator.GenerateBlock(name, pos, null);
 
 				// ブロックがあれば追加
 				if (obj.TryGetComponent(out Block block))

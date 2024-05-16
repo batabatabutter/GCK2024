@@ -14,15 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pattern: 0
   size: {x: 100, y: 100}
-  dungeonOdds:
-  - type: 0
-    odds: 663
-  - type: 101
-    odds: 333
-  - type: 207
-    odds: 2
-  - type: 209
-    odds: 2
   blockGenerateData:
   - blockType: 0
     range:
@@ -73,6 +64,14 @@ MonoBehaviour:
     generateEnemyNum: 10
     geterateEnemyInterval: 1
   restWaveTime: 30
+  restWaveMaxRate: 0
+  restTimeData:
+  - distanceRate: 0.1
+    restTimeRate: 0
+  - distanceRate: 0.5
+    restTimeRate: 0.5
+  - distanceRate: 1
+    restTimeRate: 1
   dungeonCSV:
   - {fileID: 4900000, guid: 0e35215235d219d46be3f40a33eaba2e, type: 3}
   - {fileID: 4900000, guid: 6961f29b4be0e05478a47f0aea956a73, type: 3}
