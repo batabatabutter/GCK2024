@@ -230,6 +230,10 @@ PrefabInstance:
       propertyPath: m_isGroundBrightness
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1479931723885810416, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
+      propertyPath: m_dankaiFlag
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1500174390285807772, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
       propertyPath: m_prossFlag
       value: 1

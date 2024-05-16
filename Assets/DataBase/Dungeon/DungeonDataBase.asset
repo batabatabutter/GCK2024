@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DungeonDataBase
   m_EditorClassIdentifier: 
   dungeonDatas:
-  - {fileID: 11400000, guid: 16e0d3690c8849844b1d55d181964e50, type: 2}
+  - {fileID: 11400000, guid: 6849d2054549852458d98b7f1b4a3138, type: 2}
   - {fileID: 11400000, guid: fe30182db5f5b2a45a8abfbb0f3501a1, type: 2}
   - {fileID: 11400000, guid: 906a3617758718d49bc9df6abeb3fd98, type: 2}
   - {fileID: 11400000, guid: cf591c6a30d24184e98f2caf145ffd8c, type: 2}

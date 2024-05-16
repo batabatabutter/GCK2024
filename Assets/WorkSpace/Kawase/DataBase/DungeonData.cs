@@ -30,6 +30,16 @@ public class DungeonData : ScriptableObject
         public float geterateEnemyInterval;
     }
 
+    //  ダンジョンの休憩ウェーブデータ
+    [System.Serializable]
+    public struct DungeonRestTimeData
+    {
+        [Header("対応距離倍率")]
+        [SerializeField] public float distanceRate;
+        [Header("休憩時間の倍率")]
+        [SerializeField] public float restTimeRate;
+    }
+
 	[Header("ダンジョンの生成パターン")]
     [SerializeField] private Pattern pattern;
     [Header("ダンジョンのサイズ")]
@@ -41,10 +51,16 @@ public class DungeonData : ScriptableObject
     [SerializeField] private List<DungeonWave> dungeonWaves;
     [Header("休憩ウェーブ時間")]
     [SerializeField] private float restWaveTime;
+    [Header("休憩時間の倍率")]
+    [SerializeField] private float restWaveMaxRate;
+    [Header("休憩時間")]
+    [SerializeField] private List<DungeonRestTimeData> restTimeData;
 
     public Pattern DungeonPattern => pattern;
     public Vector2Int Size => size;
     public DungeonGenerator.BlockGenerateData[] BlockGenerateData => blockGenerateData;
     public List<DungeonWave> DungeonWaves => dungeonWaves;
     public float RestWaveTime => restWaveTime;
+    public float RestWaveMaxRate => restWaveMaxRate;
+    public List<DungeonRestTimeData> RestTimeData => restTimeData;
 }
