@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 /// <summary>
 /// 一番親
 /// </summary>
-public class Enemy : MonoBehaviour
+public class Enemy : ObjectAffectLight
 {
     //種類
     public enum Type
@@ -61,6 +62,8 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        m_spriteRenderer = GetComponent<SpriteRenderer>();
+
         m_attackCoolTime = m_enemyData.coolTime;
 
         m_dropItems = m_enemyData.dropItems;
@@ -152,8 +155,8 @@ public class Enemy : MonoBehaviour
             // アイテムのゲームオブジェクトを生成
             GameObject obj = Instantiate(data.Prefab, transform.position, Quaternion.identity);
 
-            // 明るさの概念を追加
-            obj.AddComponent<ChangeBrightness>();
+            //  明るさが次第
+            obj.GetComponent<ObjectAffectLight>().BrightnessFlag = BrightnessFlag;
 
             // 名前を変える
             obj.name = "Material_" + dropItem.type.ToString();

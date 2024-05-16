@@ -25,12 +25,20 @@ public class EnemyDwell : Enemy
     {
         base.Start();
 
+        if (m_dwellBlock.TryGetComponent<ObjectAffectLight>(out ObjectAffectLight light))
+        {
+            BrightnessFlag = light.BrightnessFlag;
+        }
     }
 
     // Update is called once per frame
     protected override void Update()
     {
         base.Update();
+
+        //  –¾‚é‚³Žæ“¾
+        if (BrightnessFlag)
+            ReceiveLightLevel = m_dwellBlock.GetComponent<ObjectAffectLight>().ReceiveLightLevel;
 
         if (base.Player != null)
         {

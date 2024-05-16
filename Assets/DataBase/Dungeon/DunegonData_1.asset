@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DunegonData_1
   m_EditorClassIdentifier: 
   pattern: 0
-  size: {x: 100, y: 100}
+  size: {x: 50, y: 50}
   blockGenerateData:
   - blockType: 0
     range:
@@ -22,7 +22,7 @@ MonoBehaviour:
     rateMin: 1
     rateMax: 1
     noiseScale: 0
-    offset: 0.37624496
+    offset: 0.40153772
   - blockType: 101
     range:
       min: 0
@@ -30,7 +30,7 @@ MonoBehaviour:
     rateMin: 0.3
     rateMax: 0.42
     noiseScale: 0.2
-    offset: 0.18700863
+    offset: 0.4583965
   - blockType: 207
     range:
       min: 0
@@ -38,7 +38,7 @@ MonoBehaviour:
     rateMin: 0.02
     rateMax: 0.1
     noiseScale: 0.4
-    offset: 0.33263102
+    offset: 0.346836
   - blockType: 209
     range:
       min: 0
@@ -46,24 +46,14 @@ MonoBehaviour:
     rateMin: 0.02
     rateMax: 0.1
     noiseScale: 0.4
-    offset: 0.34716454
+    offset: 0.78828275
   dungeonWaves:
   - dungeonATKPattern: 0000000001000000
-    dungeonATKCoolTime: 10
+    dungeonATKCoolTime: 1
     generateEnemyType: 0000000001000000
-    generateEnemyNum: 7
+    generateEnemyNum: 1
     geterateEnemyInterval: 1
-  - dungeonATKPattern: 0000000001000000
-    dungeonATKCoolTime: 8
-    generateEnemyType: 0000000001000000
-    generateEnemyNum: 9
-    geterateEnemyInterval: 1
-  - dungeonATKPattern: 0000000001000000
-    dungeonATKCoolTime: 4
-    generateEnemyType: 0000000001000000
-    generateEnemyNum: 10
-    geterateEnemyInterval: 1
-  restWaveTime: 30
+  restWaveTime: 10
   restWaveMaxRate: 0
   restTimeData:
   - distanceRate: 0.1

@@ -20,7 +20,7 @@ public class WaveManager : MonoBehaviour
     public WaveState waveState
     {
         get { return m_waveState; }
-        set { m_waveState = value; }
+        set { ChangeWave(value); m_waveState = value; }
     }
 
     //フェーズの番号
@@ -47,7 +47,7 @@ public class WaveManager : MonoBehaviour
     private float m_distancePlayerCore;
 
     //ウェーブの経過時間管理
-    public float m_waveTime;
+    private float m_waveTime;
     //ダンジョンデータ
     private DungeonData m_dungeonDatas;
     //ステージ番号
@@ -86,11 +86,42 @@ public class WaveManager : MonoBehaviour
     {
 
         //休憩時間
-        if(m_waveTime < 0)
+        if(m_waveTime <= 0.0f)
         {
             //ウェーブ切り替え
             // 最初の要素を取得する方法
             m_waveState = WaveState.Attack;
+
+            m_waveTime = 0.0f;
+        }
+        //時間があり休憩状態だったら
+        else if(m_waveTime > 0 && m_waveState == WaveState.Break)
+        {
+            //ウェーブ時間の進行
+            m_waveTime -= Time.deltaTime;
+        }
+
+
+        // ここの処理をエネミージェネレーターに組み込む
+        //if (Input.GetKeyDown(KeyCode.T))
+        //{
+        //    //休憩フェーズ二に移行
+        //    m_waveState = WaveState.Break;
+        //    m_waveNum++;
+        //}
+        //if (Time.frameCount % 60 == 0) // 60FPS
+        //{
+        //    Debug.Log("状態：" + m_waveState);
+        //    Debug.Log("ウェーブ番号：" + m_waveNum);
+        //}
+        //Debug.Log("ウェーブ上限：" + (WAVE_MAX_NUM - 1));
+    }
+
+    private void ChangeWave(WaveState state)
+    {
+        //  休憩時間設定
+        if(state == WaveState.Break && m_waveState != WaveState.Break) 
+        {
             //  コアとプレイヤーの距離計算
             var nowDistanceRate = Vector2.Distance(m_playerTr.position, m_coreTr.position) / m_distancePlayerCore;
 
@@ -116,27 +147,6 @@ public class WaveManager : MonoBehaviour
                 m_waveTime -= decreaseTime;
             }
         }
-        //時間があり休憩状態だったら
-        else if(m_waveTime > 0 && m_waveState == WaveState.Break)
-        {
-            //ウェーブ時間の進行
-            m_waveTime -= Time.deltaTime;
-        }
-
-
-        // ここの処理をエネミージェネレーターに組み込む
-        //if (Input.GetKeyDown(KeyCode.T))
-        //{
-        //    //休憩フェーズ二に移行
-        //    m_waveState = WaveState.Break;
-        //    m_waveNum++;
-        //}
-        //if (Time.frameCount % 60 == 0) // 60FPS
-        //{
-        //    Debug.Log("状態：" + m_waveState);
-        //    Debug.Log("ウェーブ番号：" + m_waveNum);
-        //}
-        //Debug.Log("ウェーブ上限：" + (WAVE_MAX_NUM - 1));
     }
 
 }
