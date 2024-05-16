@@ -99,6 +99,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c3fb813b6c7dbd448c14dd8746051dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_lightLevel: 0
+  m_receiveLightLevel: 0
+  m_spriteRenderer: {fileID: 0}
+  m_mapObject: {fileID: 0}
   m_enemyData: {fileID: 11400000, guid: 113b525e8be9cdf438212f0df16b25ad, type: 2}
   m_itemDataBase: {fileID: 11400000, guid: c534141616c2bbc4ba996d4d9f120330, type: 2}
   m_blockLayer:

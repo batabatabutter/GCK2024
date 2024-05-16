@@ -10,7 +10,7 @@ public class ObjectAffectLight : MonoBehaviour
 	[SerializeField] private int m_receiveLightLevel = 0;
 	private float m_receiveLightValue = 1.0f;    // 明度
 	[Header("スプライトレンダー")]
-	[SerializeField] private SpriteRenderer m_spriteRenderer;
+	[SerializeField] protected SpriteRenderer m_spriteRenderer;
 
 	[Header("子のマップオブジェクト")]
 	[SerializeField] private MapObject m_mapObject = null;
@@ -55,7 +55,8 @@ public class ObjectAffectLight : MonoBehaviour
 			// 明度の値を 0 ~ 1 にクランプ
 			m_receiveLightValue = Mathf.Clamp(m_receiveLightValue, 0.0f, 1.0f);
 			// 色を設定
-			m_spriteRenderer.color = new(m_receiveLightValue, m_receiveLightValue, m_receiveLightValue, 1.0f);
+			if (m_spriteRenderer)
+				m_spriteRenderer.color = new(m_receiveLightValue, m_receiveLightValue, m_receiveLightValue, 1.0f);
 			// マップオブジェクトの明度を設定
 			if (m_mapObject)
 			{
