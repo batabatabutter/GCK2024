@@ -76,9 +76,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: ba88ca9fd4c71a645a9be8214e81a4f1, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -100,6 +100,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0abbd025b6626a246a25e4ed9bcf2396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_lightLevel: 0
+  m_receiveLightLevel: 0
+  m_spriteRenderer: {fileID: 0}
+  m_mapObject: {fileID: 0}
   m_enemyData: {fileID: 11400000, guid: 55a47a23f912c134b9969c7ae96b82e2, type: 2}
   m_itemDataBase: {fileID: 11400000, guid: c534141616c2bbc4ba996d4d9f120330, type: 2}
   m_blockLayer:
