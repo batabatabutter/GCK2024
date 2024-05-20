@@ -25,16 +25,24 @@ public class EnemyDwell : Enemy
     {
         base.Start();
 
-        if (m_dwellBlock.TryGetComponent<ObjectAffectLight>(out ObjectAffectLight light))
-        {
-            BrightnessFlag = light.BrightnessFlag;
-        }
+        if (m_dwellBlock)
+            if (m_dwellBlock.TryGetComponent(out ObjectAffectLight light))
+            {
+                BrightnessFlag = light.BrightnessFlag;
+            }
     }
 
     // Update is called once per frame
     protected override void Update()
     {
         base.Update();
+
+        //h‚èæ‚ª€‚ñ‚¾‚ç€‚Ê
+        if (!m_dwellBlock)
+        {
+            base.Dead();
+            return;
+        }
 
         //  –¾‚é‚³æ“¾
         if (BrightnessFlag)
@@ -43,13 +51,7 @@ public class EnemyDwell : Enemy
         if (base.Player != null)
         {
             RotationToPlayer();
-        }
-
-        //h‚èæ‚ª€‚ñ‚¾‚ç€‚Ê
-        if (!m_dwellBlock)
-        {
-           base.Dead();
-        }
+        }    
     }
 
     protected void RotationToPlayer()

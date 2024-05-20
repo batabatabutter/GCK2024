@@ -158,6 +158,12 @@ public class Enemy : ObjectAffectLight
             //  –¾‚é‚³‚ªŸ‘æ
             obj.GetComponent<ObjectAffectLight>().BrightnessFlag = BrightnessFlag;
 
+            // ‰æ‘œ‚ğİ’è
+            if (obj.TryGetComponent(out SpriteRenderer sprite))
+            {
+                sprite.sprite = data.Sprite;
+            }
+
             // –¼‘O‚ğ•Ï‚¦‚é
             obj.name = "Material_" + dropItem.type.ToString();
 
