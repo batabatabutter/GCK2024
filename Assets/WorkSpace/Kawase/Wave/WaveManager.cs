@@ -12,6 +12,7 @@ public class WaveManager : MonoBehaviour
     {
         Attack,//UŒ‚
         Break,//‹xŒe
+        End   // I—¹
     }
 
     //ƒtƒF[ƒYŠÇ—
@@ -119,6 +120,13 @@ public class WaveManager : MonoBehaviour
 
     private void ChangeWave(WaveState state)
     {
+        if (!m_coreTr)
+        {
+            m_waveState = WaveState.End;
+        }
+
+        if (m_waveState == WaveState.End) return;
+
         //  ‹xŒeŠÔİ’è
         if(state == WaveState.Break && m_waveState != WaveState.Break) 
         {

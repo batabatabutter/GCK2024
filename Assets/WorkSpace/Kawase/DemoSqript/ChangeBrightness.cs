@@ -25,13 +25,14 @@ public class ChangeBrightness : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //白くする
-        ChangeWhite();
+        //黒くする
+        ChangeBlack();
 
         //  フラグオフなら処理しない
         if (m_affectLight)
             if (m_affectLight.BrightnessFlag == false)
             {
+                ChangeWhite();
                 Destroy(gameObject);
             }
     }

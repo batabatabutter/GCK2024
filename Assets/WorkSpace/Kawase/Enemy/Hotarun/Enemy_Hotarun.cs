@@ -25,6 +25,7 @@ public class Enemy_Hotarun : EnemyDwell
     protected override void Update()
     {
         //特殊な処理
+        base.Update();
 
         //プレイヤーの方向を向く。いたら
         if (base.Player != null)
