@@ -63,18 +63,34 @@ public class TestDungeonAttacker : MonoBehaviour
     [SerializeField] private float m_attackTime = 10.0f;
     private float m_attackTimer = 0.0f;
 
-    [Header("ランダム攻撃")]
-    [SerializeField] private bool m_random = false;
-
-    [Header("攻撃パターンのインデックス")]
-    [SerializeField] private int m_attackPatternIndex = 0;
-
     [Header("ダンジョンの攻撃パターン")]
     [SerializeField] private AttackPattern[] m_attackPattern;
     private readonly Dictionary<DungeonAttackData.AttackType, DungeonAttackBase> m_attacker = new();
 
+    [Header("---------- 攻撃状態 ----------")]
+    [Header("ランダム攻撃")]
+    [SerializeField] private bool m_random = false;
+
+    [Header("使用する攻撃テーブル")]
+    [SerializeField] private DungeonAttackData.AttackTablePattern m_attackTablePattern;
+    [Header("攻撃パターンのインデックス")]
+    [SerializeField] private readonly Dictionary<DungeonAttackData.AttackTablePattern, int> m_attackPatternIndex = new();
+
+    [Header("---------- 攻撃テーブル ----------")]
+    [Header("攻撃テーブルの判定範囲")]
+    [SerializeField] private float m_attackTableRange = 5.0f;
+
+    [Header("使用攻撃テーブルの閾値(割合)"), Range(0.0f, 1.0f), Tooltip("この数値より大きい場合は[FillTable]、小さい場合は[CavityTable]")]
+    [SerializeField] private float m_thresholdValueRate = 0.5f;
+
     [Header("ダンジョンの攻撃順")]
-    [SerializeField] private List<DungeonAttackData.AttackData> m_attackOrder = new();
+    [Header("FillTable")]
+    [SerializeField] private List<DungeonAttackData.AttackPattern> m_fillAttackOrder = new();
+    [Header("CavityTable")]
+    [SerializeField] private List<DungeonAttackData.AttackPattern> m_cavityAttackOrder = new();
+
+    // 使用する攻撃テーブル
+    private List<DungeonAttackData.AttackPattern> m_attackTable = new();
 
     // 攻撃の種類
 	private DungeonAttackData.AttackType m_type;
@@ -106,11 +122,19 @@ public class TestDungeonAttacker : MonoBehaviour
         // 停止時間を初期化
         m_stayTimer = m_stayTime;
 
+        // 仮でFillを使用攻撃テーブルとする
+        m_attackTable = m_fillAttackOrder;
         // 攻撃タイプの初期化
-        m_type = m_attackOrder[0].type;
+        m_type = m_attackTable[0].type;
 
-        // 開始時の距離を取得
-        if (m_target)
+        // 攻撃パターンのインデックス初期化
+        for (DungeonAttackData.AttackTablePattern i = (DungeonAttackData.AttackTablePattern)0; i < DungeonAttackData.AttackTablePattern.OVER; i++)
+        {
+            m_attackPatternIndex.Add(i, 0);
+        }
+
+		// 開始時の距離を取得
+		if (m_target)
         {
             m_coreDistance = Vector3.Distance(m_target.position, m_corePosition);
         }
@@ -133,17 +157,8 @@ public class TestDungeonAttacker : MonoBehaviour
 			// 攻撃ターン終了
 			if (m_attackTimer <= 0.0f)
 			{
-				// 攻撃を停止する
-				m_active = false;
-                // 停止時間の設定
-				m_stayTimer = m_stayTime;
-                // ランクアップ
-                m_attackRank++;
-                // 攻撃ランクが上限を超えないようにクランプ
-                m_attackRank = Mathf.Clamp(m_attackRank, 0, m_attackRankLimit);
-				// 次の攻撃タイプ決定
-				NextType();
-				Debug.Log("攻撃停止");
+                // 攻撃終了
+                EndAttack();
 			}
 		}
 		else
@@ -153,18 +168,8 @@ public class TestDungeonAttacker : MonoBehaviour
 			// 停止時間が過ぎた
 			if (m_stayTimer <= 0.0f)
 			{
-				// 攻撃を開始する
-				m_active = true;
-                // 攻撃ターンの時間設定
-				m_attackTimer = m_attackTime;
-				// 攻撃パターンが設定されていなければ処理しない
-				if (!m_attacker.ContainsKey(m_type))
-				{
-					Debug.Log(m_type.ToString() + " : 攻撃パターンが設定されてないよ");
-                    m_active = false;
-					return;
-				}
-				Debug.Log("攻撃開始 : " + m_type.ToString());
+                // 攻撃開始
+                BeginAttack();
 			}
 		}
     }
@@ -200,8 +205,41 @@ public class TestDungeonAttacker : MonoBehaviour
 
 	}
 
-    // コアとターゲットの距離に応じた攻撃間隔の取得
-    private float GetAttackGrade()
+    // 攻撃開始
+    private void BeginAttack()
+    {
+		// 攻撃を開始する
+		m_active = true;
+		// 攻撃ターンの時間設定
+		m_attackTimer = m_attackTime;
+		// 次の攻撃タイプ決定
+		NextType();
+		// 攻撃タイプが設定されていなければ処理しない
+		if (!m_attacker.ContainsKey(m_type))
+		{
+			Debug.Log(m_type.ToString() + " : 攻撃パターンが設定されてないよ");
+			m_active = false;
+			return;
+		}
+		Debug.Log("攻撃開始 : " + m_type.ToString());
+	}
+
+	// 攻撃終了
+	private void EndAttack()
+    {
+		// 攻撃を停止する
+		m_active = false;
+		// 停止時間の設定
+		m_stayTimer = m_stayTime;
+		// ランクアップ
+		m_attackRank++;
+		// 攻撃ランクが上限を超えないようにクランプ
+		m_attackRank = Mathf.Clamp(m_attackRank, 0, m_attackRankLimit);
+		Debug.Log("攻撃停止");
+	}
+
+	// コアとターゲットの距離に応じた攻撃間隔の取得
+	private float GetAttackGrade()
     {
 		// コアとターゲットの距離
 		float distance = Vector3.Distance(m_target.position, m_corePosition);
@@ -237,28 +275,53 @@ public class TestDungeonAttacker : MonoBehaviour
 	// 次の攻撃タイプ決定
 	private void NextType()
     {
+        // 攻撃テーブルの決定
+        DetermineAttackTable();
+
         // ランダム攻撃
         if (m_random)
         {
             // 次の攻撃のインデックスをランダムで取得
-            m_attackPatternIndex = Random.Range(0, m_attackOrder.Count);
+            m_attackPatternIndex[m_attackTablePattern] = Random.Range(0, m_attackTable.Count);
             return;
         }
         else
         {
             // インデックスのインクリメント
-            m_attackPatternIndex++;
+            m_attackPatternIndex[m_attackTablePattern]++;
             // 範囲外になった
-            if (m_attackPatternIndex >= m_attackOrder.Count)
+            if (m_attackPatternIndex[m_attackTablePattern] >= m_attackTable.Count)
             {
                 // 0 に戻す
-                m_attackPatternIndex = 0;
+                m_attackPatternIndex[m_attackTablePattern] = 0;
             }
         }
 
         // タイプの設定
-		m_type = m_attackOrder[m_attackPatternIndex].type;
+		m_type = m_attackTable[m_attackPatternIndex[m_attackTablePattern]].type;
 	}
+
+    // 攻撃テーブルを決定する
+    private void DetermineAttackTable()
+    {
+        // ターゲット周辺のブロックを取得
+        Collider2D[] blocks = Physics2D.OverlapCircleAll(m_target.position, m_attackTableRange, LayerMask.NameToLayer("Block"));
+
+        // 判定範囲から閾値となるブロックの個数を計算する
+        int thresholdValue = (int)(Mathf.Round(Mathf.PI * m_attackTableRange * m_attackTableRange) * m_thresholdValueRate);
+
+        // 攻撃テーブルを設定する
+        if (blocks.Length > thresholdValue)
+        {
+            // 周りがブロックで埋まってるときの攻撃テーブルを使用
+            m_attackTable = m_fillAttackOrder;
+        }
+        else
+        {
+            // 周りにブロックがない時の攻撃テーブルを使用
+            m_attackTable = m_cavityAttackOrder;
+        }
+    }
 
 	// 情報設定
 	private void SetAttackData()
@@ -278,12 +341,12 @@ public class TestDungeonAttacker : MonoBehaviour
         // ランダムフラグ設定
         m_random = m_attackData.IsRandom;
         // ダンジョンの攻撃順
-        m_attackOrder = new (m_attackData.AttackPattern);
+        m_attackTable = new (m_attackData.AttackPatternList);
     }
 
     private void SetCoolTime()
     {
-        foreach (DungeonAttackData.AttackData data in m_attackOrder)
+        foreach (DungeonAttackData.AttackPattern data in m_attackTable)
         {
             // 攻撃タイプ
             DungeonAttackData.AttackType type = data.type;
@@ -292,9 +355,9 @@ public class TestDungeonAttacker : MonoBehaviour
             if (m_attacker.ContainsKey(type))
             {
                 // 攻撃時間の設定
-                m_attacker[type].AttackTime = data.coolTime;
+                m_attacker[type].AttackTime = data.attackList[0].time;
                 // 攻撃範囲の設定
-                m_attacker[type].SetAttackRange(data.range);
+                m_attacker[type].SetAttackRange(data.attackList[0].range);
                 // ランク増加値の設定
                 m_attacker[type].SetRankValue(data.rankValue);
             }

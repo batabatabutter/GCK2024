@@ -208,7 +208,6 @@ MonoBehaviour:
     rateMax: 0.3
     noiseScale: 0.4
     offset: 100
-  m_light: 0
   m_player: {fileID: 738526308}
 --- !u!114 &75050971
 MonoBehaviour:
@@ -369,7 +368,7 @@ MonoBehaviour:
   m_stayTime: 10
   m_attackTime: 10
   m_random: 0
-  m_attackPatternIndex: 0
+  m_attackTablePattern: 0
   m_attackPattern:
   - type: 0
     attack: {fileID: 102538598}
@@ -377,11 +376,26 @@ MonoBehaviour:
     attack: {fileID: 102538599}
   - type: 2
     attack: {fileID: 102538600}
-  m_attackOrder:
+  m_attackTableRange: 5
+  m_thresholdValueRate: 0.5
+  m_fillAttackOrder:
+  - type: 0
+    coolTime: 5
+    rankValue: 0.5
+    range: 3
+  - type: 1
+    coolTime: 0.5
+    rankValue: 0.5
+    range: 3
+  m_cavityAttackOrder:
   - type: 2
     coolTime: 5
-    rankValue: 1
+    rankValue: 0.5
     range: 5
+  - type: 2
+    coolTime: 5
+    rankValue: 0.5
+    range: 10
 --- !u!114 &102538598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -471,8 +485,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8beeff47756d2a345992583b10fca279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_isBlockBrightness: 0
-  m_isGroundBrightness: 0
   m_dungeonDataBase: {fileID: 0}
   m_playerLength: 0
   m_player: {fileID: 6945831396311541013, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}

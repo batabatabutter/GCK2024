@@ -6,6 +6,16 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "DungeonAttackData_", menuName = "CreateDataBase/Dungeon/Attack")]
 public class DungeonAttackData : ScriptableObject
 {
+	// UŒ‚ƒe[ƒuƒ‹
+	[System.Serializable]
+	public enum AttackTablePattern
+	{
+		FILL,
+		CAVITY,
+
+		OVER,
+	}
+	// UŒ‚ƒ^ƒCƒv
 	[System.Serializable]
 	public enum AttackType
 	{
@@ -18,12 +28,18 @@ public class DungeonAttackData : ScriptableObject
 	}
 
 	[System.Serializable]
-	public struct AttackData
+	public struct AttackList
 	{
-		public AttackType type;	// UŒ‚‚Ìí—Ş
-		public float coolTime;	// UŒ‚”­¶‚ÌƒN[ƒ‹ƒ^ƒCƒ€
-		public float rankValue;		// UŒ‚ƒ‰ƒ“ƒN‚É‰‚¶‚½‘‰Á—Ê
-		public float range;		// UŒ‚”ÍˆÍ
+		public MyFunction.Direction direction;	// UŒ‚”­¶‚Ì•ûŒü
+		public float range;						// UŒ‚”ÍˆÍ
+		public float time;						// UŒ‚Œã‚ÌƒN[ƒ‹ƒ^ƒCƒ€
+	}
+	[System.Serializable]
+	public struct AttackPattern
+	{
+		public AttackType type;					// UŒ‚‚Ìí—Ş
+		public float rankValue;					// UŒ‚ƒ‰ƒ“ƒN‚É‰‚¶‚½‘‰Á—Ê
+		public List<AttackList> attackList;		// ×‚©‚ÈUŒ‚‡
 	}
 
 	[Header("UŒ‚’â~ŠÔ")]
@@ -34,12 +50,12 @@ public class DungeonAttackData : ScriptableObject
 	[Header("ƒ‰ƒ“ƒ_ƒ€‚ÈUŒ‚")]
 	[SerializeField] private bool isRandom = false;
 	[Header("UŒ‚ƒpƒ^[ƒ“")]
-	[SerializeField] private List<AttackData> attackData;
+	[SerializeField] private List<AttackPattern> attackPattern;
 
 
 	public float StayTime => stayTime;
 	public float AttackTime => attackTime;
 	public bool IsRandom => isRandom;
-	public List<AttackData> AttackPattern => attackData;
+	public List<AttackPattern> AttackPatternList => attackPattern;
 
 }

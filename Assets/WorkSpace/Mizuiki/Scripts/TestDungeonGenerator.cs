@@ -28,9 +28,6 @@ public class TestDungeonGenerator : MonoBehaviour
 	// インスペクターで設定したデータを辞書配列にする
 	private readonly Dictionary<BlockData.BlockType, DungeonGenerator.BlockGenerateData> m_blocks = new();
 
-	[Header("ライト付ける")]
-	[SerializeField] private bool m_light = true;
-
 	[Header("プレイヤー(トランスフォーム用)")]
 	[SerializeField] private GameObject m_player = null;
 
@@ -241,12 +238,6 @@ public class TestDungeonGenerator : MonoBehaviour
 		}
 	}
 
-
-	// ブロック
-	private BlockData.BlockType CreateBlock()
-	{
-		return BlockData.BlockType.STONE;
-	}
 
 	// 鉱石
 	private BlockData.BlockType CreateOre()
