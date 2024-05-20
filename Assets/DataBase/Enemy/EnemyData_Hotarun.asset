@@ -15,8 +15,8 @@ MonoBehaviour:
   prefab: {fileID: 4118630092216553469, guid: 4a796b78b24dfc148b7cf1798b5644ab, type: 3}
   system: 0
   hp: 0
-  coolTime: 7
-  radius: 7
+  coolTime: 12
+  radius: 6
   dropItems:
   - type: 1
     count: 5

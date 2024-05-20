@@ -125,7 +125,7 @@ MonoBehaviour:
   m_ground: {fileID: 6018421707374535805, guid: f1554866b93c910478350b8c6589feb9, type: 3}
   m_pross: {fileID: 4882576525383549920, guid: 131e4f56c090ccd4ea24d871dfcdab0b, type: 3}
   m_prossFlag: 1
-  m_isBrightness: 0
+  m_isBrightness: 1
   m_lightObject: {fileID: 798616751297926773, guid: 4eda6187e4dc8cc4ba1247a474ab6e76, type: 3}
 --- !u!114 &-1378431894499735817
 MonoBehaviour:
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_dungeonDataBase: {fileID: 11400000, guid: 0bf61c7eff449f24d9512881d58682a1, type: 2}
   m_enemyDataBase: {fileID: 11400000, guid: ca452888acf86a640a52ed7e456cb571, type: 2}
   m_playSceneManager: {fileID: 3469568166959932924}
-  m_spawnradius: 10
+  m_spawnradius: 7
   detectionLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -198,4 +198,3 @@ MonoBehaviour:
   WAVE_MAX_NUM: 0
   m_DungeonDataBase: {fileID: 11400000, guid: 0bf61c7eff449f24d9512881d58682a1, type: 2}
   m_dankaiFlag: 1
-  m_waveTime: 0
