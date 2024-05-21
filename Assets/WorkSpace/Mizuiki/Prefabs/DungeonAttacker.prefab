@@ -14,6 +14,9 @@ GameObject:
   - component: {fileID: 7616439521661238781}
   - component: {fileID: 7633149284019350377}
   - component: {fileID: 6764305495278839610}
+  - component: {fileID: 3892649588794377886}
+  - component: {fileID: 413805561393604662}
+  - component: {fileID: 4824775624701483599}
   m_Layer: 0
   m_Name: DungeonAttacker
   m_TagString: Untagged
@@ -64,6 +67,11 @@ MonoBehaviour:
     attack: {fileID: 7633149284019350377}
   - type: 100
     attack: {fileID: 6764305495278839610}
+  - type: 200
+    attack: {fileID: 3892649588794377886}
+  - type: 201
+    attack: {fileID: 413805561393604662}
+  m_attackerType: 201
 --- !u!114 &5586643501512867278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,3 +132,50 @@ MonoBehaviour:
   m_rollRockPrefab: {fileID: 796929451571866827, guid: e54c54e3e9cf6284b904d9e1c38277e3, type: 3}
   m_rollRockHighlight: {fileID: 5906353031345709085, guid: 1e3c7638253476640a9e522370a172fd, type: 3}
   m_targetDistance: 5
+--- !u!114 &3892649588794377886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2189642266553579207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c661f8115f23eb42b0d73f61ec05177, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_bankPrefab: {fileID: 6085554247375089227, guid: 1d29c80645233fb4c94bf95ca0e1b1f3, type: 3}
+  m_bankHighlight: {fileID: 1067109971471968558, guid: 29f861859c529b1498a780cee08eb5fb, type: 3}
+--- !u!114 &413805561393604662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2189642266553579207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d50c30be4f0989498cc3714061864f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_bankPrefab: {fileID: 6085554247375089227, guid: 1d29c80645233fb4c94bf95ca0e1b1f3, type: 3}
+  m_bankHighlight: {fileID: 1067109971471968558, guid: 29f861859c529b1498a780cee08eb5fb, type: 3}
+--- !u!114 &4824775624701483599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2189642266553579207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fcb0d63b65dbb743aee8129fa2afdeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_dungeonDataBase: {fileID: 11400000, guid: 0bf61c7eff449f24d9512881d58682a1, type: 2}
+  m_enemyDataBase: {fileID: 11400000, guid: ca452888acf86a640a52ed7e456cb571, type: 2}
+  m_playSceneManager: {fileID: 0}
+  m_spawnradius: 7
+  detectionLayer:
+    serializedVersion: 2
+    m_Bits: 8

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DA_GrowRock01 : MonoBehaviour
+public class DA_Enemy : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()

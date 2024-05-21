@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static DungeonAttackData;
 
-[CreateAssetMenu(fileName = "AttackPattern_", menuName = "CreateDataBase/Dungeon/Attack/AttackPattern")]
+[CreateAssetMenu(fileName = "AP_", menuName = "CreateDataBase/Dungeon/Attack/AttackPattern")]
 public class DungeonAttackPattern : ScriptableObject
 {
 	// ×‚©‚ÈUŒ‚î•ñ

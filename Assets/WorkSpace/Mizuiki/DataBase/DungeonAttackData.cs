@@ -19,11 +19,14 @@ public class DungeonAttackData : ScriptableObject
 	[System.Serializable]
 	public enum AttackType
 	{
-		FALL_ROCK_01,
+		FALL_ROCK_01 = 0,
 		FALL_ROCK_02,
 		FALL_ROCK_03,
 
 		ROLL_ROCK_01 = 100,
+
+		GROW_UP_ROCK_01 = 200,
+		GROW_UP_ROCK_02,
 
 		OVER,
 	}

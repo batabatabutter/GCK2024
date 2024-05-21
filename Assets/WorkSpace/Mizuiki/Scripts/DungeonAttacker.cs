@@ -68,8 +68,9 @@ public class DungeonAttacker : MonoBehaviour
 	[SerializeField] private AttackPattern[] m_attackPattern;
 	private readonly Dictionary<DungeonAttackData.AttackType, DungeonAttackBase> m_attacker = new();
 
-
-
+	[Header("========== デバッグ用 ==========")]
+	[Header("[P] で発動")]
+	[SerializeField] private DungeonAttackData.AttackType m_attackerType;
 
 
 	private void Start()
@@ -172,6 +173,11 @@ public class DungeonAttacker : MonoBehaviour
 				// 攻撃開始
 				BeginAttack();
 			}
+		}
+
+		if (Input.GetKeyDown(KeyCode.P))
+		{
+			m_attacker[m_attackerType].Attack(m_target, MyFunction.Direction.RANDOM, 5.0f, 0, m_attackRank);
 		}
 	}
 
