@@ -9,9 +9,7 @@ public class MyFunction
 	[System.Serializable]
 	public struct MinMax
 	{
-		[Min(0)]
 		public int min;
-		[Min(1)]
 		public int max;
 
 		public readonly bool Within(int val)
@@ -59,41 +57,26 @@ public class MyFunction
 	// 四捨五入
 	static public Vector2 RoundHalfUp(Vector2 value)
 	{
-		value.x = RoundHalfUp(value.x);
-		value.y = RoundHalfUp(value.y);
+		value.x = Mathf.Round(value.x);
+		value.y = Mathf.Round(value.y);
 
 		return value;
 	}
 	static public Vector3 RoundHalfUp(Vector3 value)
 	{
-		value.x = RoundHalfUp(value.x);
-		value.y = RoundHalfUp(value.y);
-		value.z = RoundHalfUp(value.z);
+		value.x = Mathf.Round(value.x);
+		value.y = Mathf.Round(value.y);
+		value.z = Mathf.Round(value.z);
 
 		return value;
-	}
-	static public float RoundHalfUp(float value)
-	{
-		// 小数点以下の取得
-		float fraction = value - MathF.Floor(value);
-
-		// 小数点以下が0.5未満
-		if (fraction < 0.5f)
-		{
-			// 切り捨てる
-			return MathF.Floor(value);
-		}
-		// 切り上げる
-		return MathF.Floor(value) + 1.0f;
-
 	}
 	// 四捨五入(int)
 	static public Vector2Int RoundHalfUpInt(Vector2 value)
 	{
 		Vector2Int val = new()
 		{
-			x = (int)RoundHalfUp(value.x),
-			y = (int)RoundHalfUp(value.y)
+			x = Mathf.RoundToInt(value.x),
+			y = Mathf.RoundToInt(value.y)
 		};
 
 		return val;

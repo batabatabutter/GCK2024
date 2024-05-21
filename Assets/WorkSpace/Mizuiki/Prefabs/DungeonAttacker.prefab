@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7528456396296654258}
   - component: {fileID: 5586643501512867278}
   - component: {fileID: 7616439521661238781}
+  - component: {fileID: 7633149284019350377}
   - component: {fileID: 6764305495278839610}
   m_Layer: 0
   m_Name: DungeonAttacker
@@ -60,6 +61,8 @@ MonoBehaviour:
   - type: 1
     attack: {fileID: 7616439521661238781}
   - type: 2
+    attack: {fileID: 7633149284019350377}
+  - type: 100
     attack: {fileID: 6764305495278839610}
 --- !u!114 &5586643501512867278
 MonoBehaviour:
@@ -86,6 +89,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e9d90d0625aad64d9b7da680691e40f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_fallRockPrefab: {fileID: 2940951798871330703, guid: 829d86242de0c674a8b178b0f249f289, type: 3}
+  m_fallRockHighlight: {fileID: 4708925638394852652, guid: 82994475c12be0f4da5df8587e7d4dec, type: 3}
+  m_rockHeight: 3
+--- !u!114 &7633149284019350377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2189642266553579207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2745aee0fff2847499446df274a0d8e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_fallRockPrefab: {fileID: 2940951798871330703, guid: 829d86242de0c674a8b178b0f249f289, type: 3}
