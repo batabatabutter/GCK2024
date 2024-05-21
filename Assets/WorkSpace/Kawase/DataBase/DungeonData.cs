@@ -56,6 +56,9 @@ public class DungeonData : ScriptableObject
     [Header("‹xŒeŠÔ")]
     [SerializeField] private List<DungeonRestTimeData> restTimeData;
 
+    [Header("UŒ‚‚Ìî•ñ")]
+    [SerializeField] private DungeonAttackData attackData;
+
     public Pattern DungeonPattern => pattern;
     public Vector2Int Size => size;
     public DungeonGenerator.BlockGenerateData[] BlockGenerateData => blockGenerateData;
@@ -63,4 +66,5 @@ public class DungeonData : ScriptableObject
     public float RestWaveTime => restWaveTime;
     public float RestWaveMaxRate => restWaveMaxRate;
     public List<DungeonRestTimeData> RestTimeData => restTimeData;
+    public DungeonAttackData AttackData => attackData;
 }

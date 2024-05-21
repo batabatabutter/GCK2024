@@ -343,4 +343,10 @@ public class DungeonGenerator : MonoBehaviour
             return true;
         }
     }
+
+	// ダンジョンデータ取得
+	public DungeonData GetDungeonData()
+	{
+		return m_dungeonDataBase.dungeonDatas[m_stageNum];
+	}
 }

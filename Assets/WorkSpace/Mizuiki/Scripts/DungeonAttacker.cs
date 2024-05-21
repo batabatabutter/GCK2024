@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DungeonAttacker : MonoBehaviour
 {
@@ -31,7 +33,6 @@ public class DungeonAttacker : MonoBehaviour
 	[Header("---------- データ設定するものたち ----------")]
 	[Header("攻撃の情報")]
 	[SerializeField] private DungeonAttackData m_attackData = null;
-	//[SerializeField] private bool m_useData = true;
 
 	// ランダム攻撃
 	private bool m_random = false;
@@ -73,6 +74,25 @@ public class DungeonAttacker : MonoBehaviour
 
 	private void Start()
 	{
+		// 親を持ってくる
+		GameObject parent = transform.parent.gameObject;
+		if (parent)
+		{
+			// 親からプレイシーンマネージャを取得
+			if (parent.TryGetComponent(out PlaySceneManager scene))
+			{
+				// プレイヤーを取得
+				m_target = scene.GetPlayer().transform;
+				// コアの位置を取得
+				m_corePosition = scene.GetCore().transform.position;
+			}
+			// 親からダンジョンジェネレータを取得
+			if (parent.TryGetComponent(out DungeonGenerator generator))
+			{
+				m_attackData = generator.GetDungeonData().AttackData;
+			}
+		}
+
 		// データの設定
 		SetAttackData();
 		// 攻撃パターン初期化
@@ -182,13 +202,6 @@ public class DungeonAttacker : MonoBehaviour
 			Debug.Log("攻撃データがないよ");
 			return;
 		}
-
-		//// データを使わない
-		//if (!m_useData)
-		//{
-		//	Debug.Log("データ未使用");
-		//	return;
-		//}
 
 		// 停止時間設定
 		m_stayTime = m_attackData.StayTime;

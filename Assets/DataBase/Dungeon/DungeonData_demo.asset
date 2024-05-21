@@ -14,15 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pattern: 0
   size: {x: 30, y: 30}
-  dungeonOdds:
-  - type: 0
-    odds: 66
-  - type: 1
-    odds: 33
-  dungeonAttackPattern: 
-  dungeonAttackCoolTime: 6
-  enemy: 03000000
-  enemySpawnTime: 5
+  blockGenerateData: []
   dungeonWaves:
   - dungeonATKPattern: 00000000
     dungeonATKCoolTime: 4
@@ -45,3 +37,6 @@ MonoBehaviour:
     generateEnemyNum: 3
     geterateEnemyInterval: 1
   restWaveTime: 10
+  restWaveMaxRate: 0
+  restTimeData: []
+  attackData: {fileID: 11400000, guid: 84e33d87ad14bc44bab3ca7e8f464fdc, type: 2}
