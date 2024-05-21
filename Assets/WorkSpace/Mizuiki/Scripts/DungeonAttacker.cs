@@ -12,13 +12,13 @@ public class DungeonAttacker : MonoBehaviour
 		public DungeonAttackBase attack;
 	}
 
+	[Header("---------- 攻撃状態 ----------")]
 	[Header("攻撃状態")]
 	[SerializeField] private bool m_active = false;
+	[Header("使用する攻撃テーブル")]
+	[SerializeField] private DungeonAttackData.AttackTableType m_attackTableType;
 	[Header("攻撃ランク")]
 	[SerializeField] private int m_attackRank = 0;
-	[Header("攻撃ランクの上限")]
-	[SerializeField] private int m_attackRankLimit = 10;
-
 
 	[Header("---------- コアとターゲットの距離 ----------")]
 	[Header("コアの位置")]
@@ -28,16 +28,18 @@ public class DungeonAttacker : MonoBehaviour
 	[Header("開始時のコアとターゲットの距離")]
 	[SerializeField] private float m_startCoreDistance = 0.0f;
 
-	[Header("距離に応じた攻撃段階")]
-	[SerializeField] private DungeonAttackData.AttackGrade m_attackGrade;
-	[Header("現在の攻撃のグレード(確認用)")]
-	[SerializeField] private float m_nowAttackGrade = 1.0f;
-
-
-	[Header("---------- 攻撃自体の情報 ----------")]
+	[Header("---------- データ設定するものたち ----------")]
 	[Header("攻撃の情報")]
 	[SerializeField] private DungeonAttackData m_attackData = null;
 	[SerializeField] private bool m_useData = true;
+
+	[Header("ランダム攻撃")]
+	[SerializeField] private bool m_random = false;
+	[Header("攻撃ランクの上限")]
+	[SerializeField] private int m_attackRankLimit = 10;
+
+	[Header("距離に応じた攻撃段階")]
+	[SerializeField] private DungeonAttackData.AttackGrade m_attackGrade;
 
 	[Header("攻撃停止時間")]
 	[SerializeField] private float m_stayTime = 10.0f;
@@ -46,15 +48,6 @@ public class DungeonAttacker : MonoBehaviour
 	[SerializeField] private float m_attackTime = 10.0f;
 	private float m_attackTimer = 0.0f;
 
-	[Header("ダンジョンの攻撃パターン")]
-	[SerializeField] private AttackPattern[] m_attackPattern;
-	private readonly Dictionary<DungeonAttackData.AttackType, DungeonAttackBase> m_attacker = new();
-
-	// ターン内の攻撃処理
-	private readonly DungeonAttackTurn m_turn = new();
-
-
-	[Header("---------- 攻撃テーブル ----------")]
 	[Header("攻撃テーブルの判定範囲")]
 	[SerializeField] private float m_attackTableRange = 5.0f;
 
@@ -65,13 +58,16 @@ public class DungeonAttacker : MonoBehaviour
 	[SerializeField] private List<DungeonAttackData.AttackTable> m_attackTableList = new();
 	private readonly Dictionary<DungeonAttackData.AttackTableType, DungeonAttackTable> m_attackTables = new();
 
+	// ターン内の攻撃処理
+	private readonly DungeonAttackTurn m_turn = new();
 
-	[Header("---------- 攻撃状態 ----------")]
-	[Header("ランダム攻撃")]
-	[SerializeField] private bool m_random = false;
 
-	[Header("使用する攻撃テーブル")]
-	[SerializeField] private DungeonAttackData.AttackTableType m_attackTableType;
+	[Header("---------- インスペクターで設定必須 ----------")]
+	[Header("ダンジョンの攻撃パターン")]
+	[SerializeField] private AttackPattern[] m_attackPattern;
+	private readonly Dictionary<DungeonAttackData.AttackType, DungeonAttackBase> m_attacker = new();
+
+
 
 
 
@@ -119,9 +115,6 @@ public class DungeonAttacker : MonoBehaviour
 		// 停止時間を初期化
 		m_stayTimer = m_stayTime;
 
-		//// 仮でFillを使用攻撃テーブルとする
-		//m_useAttackTable = m_attackTables[DungeonAttackData.AttackTableType.FILL].Table;
-
 		// 開始時の距離を取得
 		if (m_target)
 		{
@@ -167,6 +160,16 @@ public class DungeonAttacker : MonoBehaviour
 	{
 		set { m_corePosition = value; }
 	}
+	// ターゲットのトランスフォーム
+	public Transform Target
+	{
+		set { m_target = value; }
+	}
+	// 攻撃の情報
+	public DungeonAttackData AttackData
+	{
+		set { m_attackData = value; }
+	}
 
 
 
@@ -175,20 +178,34 @@ public class DungeonAttacker : MonoBehaviour
 	{
 		// データがない
 		if (m_attackData == null)
+		{
+			Debug.Log("攻撃データがないよ");
 			return;
+		}
 
 		// データを使わない
 		if (!m_useData)
+		{
+			Debug.Log("データ未使用");
 			return;
+		}
 
 		// 停止時間設定
 		m_stayTime = m_attackData.StayTime;
 		// 攻撃時間設定
 		m_attackTime = m_attackData.AttackTime;
+		// ランク上限
+		m_attackRankLimit = m_attackData.RankLimit;
 		// ランダムフラグ設定
 		m_random = m_attackData.IsRandom;
 		// ダンジョンの攻撃順
 		m_attackTableList = new(m_attackData.AttackTableList);
+		// テーブル決定の判断をする範囲
+		m_attackTableRange = m_attackData.AttackTableRange;
+		// 使用テーブルを分つ閾値
+		m_thresholdValueRate = m_attackData.ThresholdValueRate;
+		// 攻撃段階の設定
+		m_attackGrade = m_attackData.AttackGradeData;
 	}
 
 	// 攻撃
@@ -227,12 +244,10 @@ public class DungeonAttacker : MonoBehaviour
 		// 最終的な攻撃時間の割合を返す
 		if (m_attackGrade.attackGradeStep)
 		{
-			m_nowAttackGrade = attackGradeRank;
 			return Mathf.Lerp(m_attackGrade.attackGradeRange.min, m_attackGrade.attackGradeRange.max, attackGradeRank);
 		}
 		else
 		{
-			m_nowAttackGrade = attackGradeNormal;
 			return Mathf.Lerp(m_attackGrade.attackGradeRange.min, m_attackGrade.attackGradeRange.max, attackGradeNormal);
 		}
 	}

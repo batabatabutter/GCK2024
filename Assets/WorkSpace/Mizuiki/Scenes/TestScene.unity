@@ -306,7 +306,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 102538595}
-  - component: {fileID: 102538597}
   - component: {fileID: 102538601}
   - component: {fileID: 102538598}
   - component: {fileID: 102538599}
@@ -333,53 +332,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 75050969}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &102538597
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 102538594}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 836a6687cdbf921458752c596eb6d12a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_active: 0
-  m_attackRank: 0
-  m_attackRankLimit: 10
-  m_corePosition: {x: 50, y: 50, z: 0}
-  m_target: {fileID: 539302612}
-  m_attackGradeRange:
-    min: 0.1
-    max: 1
-  m_attackMaxDistance: 10
-  m_attackGradeStep: 0
-  m_attackGrade:
-  - distance: 0.5
-    grade: 0.1
-  - distance: 1
-    grade: 0.5
-  - distance: 0.7
-    grade: 0.4
-  m_nowAttackGrade: 1
-  m_attackCoolTime: 0
-  m_attackData: {fileID: 11400000, guid: 84e33d87ad14bc44bab3ca7e8f464fdc, type: 2}
-  m_useData: 1
-  m_stayTime: 10
-  m_attackTime: 10
-  m_attackPattern:
-  - type: 0
-    attack: {fileID: 102538598}
-  - type: 1
-    attack: {fileID: 102538599}
-  - type: 2
-    attack: {fileID: 102538600}
-  m_random: 0
-  m_attackTablePattern: 0
-  m_attackTableRange: 5
-  m_thresholdValueRate: 0.5
-  m_attackTableList: []
 --- !u!114 &102538598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -438,11 +390,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_active: 0
+  m_attackTableType: 0
   m_attackRank: 0
-  m_attackRankLimit: 10
   m_corePosition: {x: 50, y: 50, z: 0}
   m_target: {fileID: 539302612}
   m_startCoreDistance: 0
+  m_attackData: {fileID: 11400000, guid: 84e33d87ad14bc44bab3ca7e8f464fdc, type: 2}
+  m_useData: 1
+  m_random: 0
+  m_attackRankLimit: 10
   m_attackGrade:
     attackGradeStep: 0
     attackMaxDistance: 10
@@ -454,18 +410,8 @@ MonoBehaviour:
       magnification: 1.5
     - distance: 1
       magnification: 1
-  m_nowAttackGrade: 1
-  m_attackData: {fileID: 11400000, guid: 84e33d87ad14bc44bab3ca7e8f464fdc, type: 2}
-  m_useData: 0
   m_stayTime: 5
   m_attackTime: 10
-  m_attackPattern:
-  - type: 0
-    attack: {fileID: 102538598}
-  - type: 1
-    attack: {fileID: 102538599}
-  - type: 2
-    attack: {fileID: 102538600}
   m_attackTableRange: 5
   m_thresholdValueRate: 0.5
   m_attackTableList:
@@ -477,8 +423,13 @@ MonoBehaviour:
     pattern:
     - {fileID: 11400000, guid: 4afcaceda909e244ba966bfb048392f8, type: 2}
     - {fileID: 11400000, guid: 1e73b4da6947bfa4b844a8dabe768849, type: 2}
-  m_random: 0
-  m_attackTableType: 0
+  m_attackPattern:
+  - type: 0
+    attack: {fileID: 102538598}
+  - type: 1
+    attack: {fileID: 102538599}
+  - type: 2
+    attack: {fileID: 102538600}
 --- !u!224 &145493590 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5673070608454416527, guid: 565ea1613a295a746acd0e483db3e630, type: 3}

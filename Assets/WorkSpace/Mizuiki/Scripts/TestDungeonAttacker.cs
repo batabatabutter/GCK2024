@@ -46,11 +46,11 @@ public class TestDungeonAttacker : MonoBehaviour
     [SerializeField] private List<AttackGrade> m_attackGrade;
 
     [Header("現在の攻撃のグレード(確認用)")]
-    [SerializeField] private float m_nowAttackGrade = 1.0f;
+    //[SerializeField] private float m_nowAttackGrade = 1.0f;
 
     [Header("---------- 攻撃自体の情報 ----------")]
     [Header("攻撃のクールタイム(確認用)")]
-    [SerializeField] private float m_attackCoolTime = 0.0f;
+    //[SerializeField] private float m_attackCoolTime = 0.0f;
 
     [Header("攻撃の情報")]
     [SerializeField] private DungeonAttackData m_attackData = null;
@@ -268,12 +268,12 @@ public class TestDungeonAttacker : MonoBehaviour
         // 最終的な攻撃時間の割合を返す
         if (m_attackGradeStep)
         {
-            m_nowAttackGrade = attackGradeRank;
+            //m_nowAttackGrade = attackGradeRank;
             return Mathf.Lerp(m_attackGradeRange.min, m_attackGradeRange.max, attackGradeRank);
         }
         else
         {
-            m_nowAttackGrade = attackGradeNormal;
+            //m_nowAttackGrade = attackGradeNormal;
             return Mathf.Lerp(m_attackGradeRange.min, m_attackGradeRange.max, attackGradeNormal);
         }
 	}

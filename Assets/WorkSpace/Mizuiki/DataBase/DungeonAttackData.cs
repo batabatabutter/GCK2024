@@ -63,10 +63,18 @@ public class DungeonAttackData : ScriptableObject
 	[Header("攻撃時間")]
 	[SerializeField] private float attackTime = 10.0f;
 
+	[Header("攻撃ランクの上限")]
+	[SerializeField] private int rankLimit = 10;
+
 	[Header("ランダムな攻撃")]
 	[SerializeField] private bool isRandom = false;
-	[Header("攻撃パターン")]
+
+	[Header("攻撃テーブル")]
 	[SerializeField] private List<AttackTable> attackTableList;
+	[Header("攻撃テーブルの判定範囲")]
+	[SerializeField] private float attackTableRange = 5.0f;
+	[Header("使用攻撃テーブルの閾値(割合)"), Range(0.0f, 1.0f), Tooltip("この数値より大きい場合は[FillTable]、小さい場合は[CavityTable]")]
+	[SerializeField] private float thresholdValueRate = 0.5f;
 
 	[Header("攻撃段階")]
 	[SerializeField] private AttackGrade m_attackGradeData;
@@ -74,8 +82,11 @@ public class DungeonAttackData : ScriptableObject
 
 	public float StayTime => stayTime;
 	public float AttackTime => attackTime;
+	public int RankLimit => rankLimit;
 	public bool IsRandom => isRandom;
 	public List<AttackTable> AttackTableList => attackTableList;
+	public float AttackTableRange => attackTableRange;
+	public float ThresholdValueRate => thresholdValueRate;
 	public AttackGrade AttackGradeData => m_attackGradeData;
 
 }
