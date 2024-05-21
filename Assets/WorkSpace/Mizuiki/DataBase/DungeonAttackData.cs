@@ -40,12 +40,12 @@ public class DungeonAttackData : ScriptableObject
 	[System.Serializable]
 	public struct AttackGrade
 	{
-		[Header("ƒRƒA‚Æ‚Ì‹——£‚Ìæ‚è•û‚Ìí—Ş")]
-		public bool attackGradeStep;
 		[Header("UŒ‚‚ªÅ‘å‚É‚È‚é‹——£")]
 		public float attackMaxDistance;
 		[Header("UŒ‚’iŠK‚Ì”ÍˆÍ")]
 		public MyFunction.MinMaxFloat attackGradeRange;
+		[Header("ƒRƒA‚Æ‚Ì‹——£‚Ìæ‚è•û‚Ìí—Ş")]
+		public bool attackGradeStep;
 		[Header("‹——£‚É‰‚¶‚½UŒ‚’iŠK")]
 		public List<AttackPower> attackGrade;
 	}

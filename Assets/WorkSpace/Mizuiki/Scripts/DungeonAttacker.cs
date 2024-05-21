@@ -31,31 +31,31 @@ public class DungeonAttacker : MonoBehaviour
 	[Header("---------- データ設定するものたち ----------")]
 	[Header("攻撃の情報")]
 	[SerializeField] private DungeonAttackData m_attackData = null;
-	[SerializeField] private bool m_useData = true;
+	//[SerializeField] private bool m_useData = true;
 
-	[Header("ランダム攻撃")]
-	[SerializeField] private bool m_random = false;
-	[Header("攻撃ランクの上限")]
-	[SerializeField] private int m_attackRankLimit = 10;
+	// ランダム攻撃
+	private bool m_random = false;
+	// 攻撃ランクの上限
+	private int m_attackRankLimit = 10;
 
-	[Header("距離に応じた攻撃段階")]
-	[SerializeField] private DungeonAttackData.AttackGrade m_attackGrade;
+	// 距離に応じた攻撃段階
+	private DungeonAttackData.AttackGrade m_attackGrade;
 
-	[Header("攻撃停止時間")]
-	[SerializeField] private float m_stayTime = 10.0f;
+	// 攻撃停止時間
+	private float m_stayTime = 10.0f;
 	private float m_stayTimer = 0.0f;
-	[Header("攻撃発生時間")]
-	[SerializeField] private float m_attackTime = 10.0f;
+	// 攻撃発生時間
+	private float m_attackTime = 10.0f;
 	private float m_attackTimer = 0.0f;
 
-	[Header("攻撃テーブルの判定範囲")]
-	[SerializeField] private float m_attackTableRange = 5.0f;
+	// 攻撃テーブルの判定範囲
+	private float m_attackTableRange = 5.0f;
 
-	[Header("使用攻撃テーブルの閾値(割合)"), Range(0.0f, 1.0f), Tooltip("この数値より大きい場合は[FillTable]、小さい場合は[CavityTable]")]
-	[SerializeField] private float m_thresholdValueRate = 0.5f;
+	// 使用攻撃テーブルの閾値(割合)
+	private float m_thresholdValueRate = 0.5f;
 
-	[Header("ダンジョンの攻撃順")]
-	[SerializeField] private List<DungeonAttackData.AttackTable> m_attackTableList = new();
+	// ダンジョンの攻撃順
+	private List<DungeonAttackData.AttackTable> m_attackTableList = new();
 	private readonly Dictionary<DungeonAttackData.AttackTableType, DungeonAttackTable> m_attackTables = new();
 
 	// ターン内の攻撃処理
@@ -183,12 +183,12 @@ public class DungeonAttacker : MonoBehaviour
 			return;
 		}
 
-		// データを使わない
-		if (!m_useData)
-		{
-			Debug.Log("データ未使用");
-			return;
-		}
+		//// データを使わない
+		//if (!m_useData)
+		//{
+		//	Debug.Log("データ未使用");
+		//	return;
+		//}
 
 		// 停止時間設定
 		m_stayTime = m_attackData.StayTime;

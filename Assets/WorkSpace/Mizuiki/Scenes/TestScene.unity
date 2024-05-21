@@ -297,139 +297,11 @@ MonoBehaviour:
   m_mazeType: 1
   m_pathWidth: 2
   m_pathHeight: 3
---- !u!1 &102538594
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 102538595}
-  - component: {fileID: 102538601}
-  - component: {fileID: 102538598}
-  - component: {fileID: 102538599}
-  - component: {fileID: 102538600}
-  m_Layer: 0
-  m_Name: DungeonAttacker
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &102538595
+--- !u!4 &102538595 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 7924930004826067373, guid: 3c0037650f2f4a0499506b4d38ebc047, type: 3}
+  m_PrefabInstance: {fileID: 487532551130677825}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 102538594}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 75050969}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &102538598
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 102538594}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e6c69c651aaf214596df23b182dcc6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_fallRockPrefab: {fileID: 2940951798871330703, guid: 829d86242de0c674a8b178b0f249f289, type: 3}
-  m_fallRockHighlight: {fileID: 4708925638394852652, guid: 82994475c12be0f4da5df8587e7d4dec, type: 3}
-  m_rockHeight: 3
---- !u!114 &102538599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 102538594}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e9d90d0625aad64d9b7da680691e40f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_fallRockPrefab: {fileID: 2940951798871330703, guid: 829d86242de0c674a8b178b0f249f289, type: 3}
-  m_fallRockHighlight: {fileID: 4708925638394852652, guid: 82994475c12be0f4da5df8587e7d4dec, type: 3}
-  m_rockHeight: 3
---- !u!114 &102538600
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 102538594}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b35b61ef8dc5c414981e66999c8c1e9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_rollRockPrefab: {fileID: 796929451571866827, guid: e54c54e3e9cf6284b904d9e1c38277e3, type: 3}
-  m_rollRockHighlight: {fileID: 5906353031345709085, guid: 1e3c7638253476640a9e522370a172fd, type: 3}
-  m_targetDistance: 5
---- !u!114 &102538601
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 102538594}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afb7cdd9ba911574a9cc8edbdd379db5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_active: 0
-  m_attackTableType: 0
-  m_attackRank: 0
-  m_corePosition: {x: 50, y: 50, z: 0}
-  m_target: {fileID: 539302612}
-  m_startCoreDistance: 0
-  m_attackData: {fileID: 11400000, guid: 84e33d87ad14bc44bab3ca7e8f464fdc, type: 2}
-  m_useData: 1
-  m_random: 0
-  m_attackRankLimit: 10
-  m_attackGrade:
-    attackGradeStep: 0
-    attackMaxDistance: 10
-    attackGradeRange:
-      min: 0.1
-      max: 1
-    attackGrade:
-    - distance: 0.5
-      magnification: 1.5
-    - distance: 1
-      magnification: 1
-  m_stayTime: 5
-  m_attackTime: 10
-  m_attackTableRange: 5
-  m_thresholdValueRate: 0.5
-  m_attackTableList:
-  - type: 0
-    pattern:
-    - {fileID: 11400000, guid: 8ccac405280721c4a9ec115c4d2f627c, type: 2}
-    - {fileID: 11400000, guid: 792b17b51b1feff45b6751367ffa15d1, type: 2}
-  - type: 1
-    pattern:
-    - {fileID: 11400000, guid: 4afcaceda909e244ba966bfb048392f8, type: 2}
-    - {fileID: 11400000, guid: 1e73b4da6947bfa4b844a8dabe768849, type: 2}
-  m_attackPattern:
-  - type: 0
-    attack: {fileID: 102538598}
-  - type: 1
-    attack: {fileID: 102538599}
-  - type: 2
-    attack: {fileID: 102538600}
 --- !u!224 &145493590 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5673070608454416527, guid: 565ea1613a295a746acd0e483db3e630, type: 3}
@@ -9913,6 +9785,67 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1001 &487532551130677825
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 75050969}
+    m_Modifications:
+    - target: {fileID: 2189642266553579207, guid: 3c0037650f2f4a0499506b4d38ebc047, type: 3}
+      propertyPath: m_Name
+      value: DungeonAttacker
+      objectReference: {fileID: 0}
+    - target: {fileID: 7528456396296654258, guid: 3c0037650f2f4a0499506b4d38ebc047, type: 3}
+      propertyPath: m_target
+      value: 
+      objectReference: {fileID: 539302612}
+    - target: {fileID: 7924930004826067373, guid: 3c0037650f2f4a0499506b4d38ebc047, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7924930004826067373, guid: 3c0037650f2f4a0499506b4d38ebc047, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7924930004826067373, guid: 3c0037650f2f4a0499506b4d38ebc047, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7924930004826067373, guid: 3c0037650f2f4a0499506b4d38ebc047, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7924930004826067373, guid: 3c0037650f2f4a0499506b4d38ebc047, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7924930004826067373, guid: 3c0037650f2f4a0499506b4d38ebc047, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7924930004826067373, guid: 3c0037650f2f4a0499506b4d38ebc047, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7924930004826067373, guid: 3c0037650f2f4a0499506b4d38ebc047, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7924930004826067373, guid: 3c0037650f2f4a0499506b4d38ebc047, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7924930004826067373, guid: 3c0037650f2f4a0499506b4d38ebc047, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3c0037650f2f4a0499506b4d38ebc047, type: 3}
 --- !u!1001 &2200207741474195151
 PrefabInstance:
   m_ObjectHideFlags: 0

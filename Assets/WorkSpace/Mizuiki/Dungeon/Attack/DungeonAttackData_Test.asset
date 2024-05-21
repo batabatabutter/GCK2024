@@ -14,14 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stayTime: 10
   attackTime: 10
+  rankLimit: 10
   isRandom: 0
   attackTableList:
   - type: 0
     pattern:
     - {fileID: 11400000, guid: 8ccac405280721c4a9ec115c4d2f627c, type: 2}
+    - {fileID: 11400000, guid: 792b17b51b1feff45b6751367ffa15d1, type: 2}
   - type: 1
     pattern:
+    - {fileID: 11400000, guid: 4afcaceda909e244ba966bfb048392f8, type: 2}
     - {fileID: 11400000, guid: 1e73b4da6947bfa4b844a8dabe768849, type: 2}
+  attackTableRange: 5
+  thresholdValueRate: 0.5
   m_attackGradeData:
     attackGradeStep: 0
     attackMaxDistance: 10
