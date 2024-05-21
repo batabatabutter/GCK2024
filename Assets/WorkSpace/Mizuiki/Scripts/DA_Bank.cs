@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class DungeonAttackBank : DungeonAttackBase
+public class DA_Bank : DungeonAttackBase
 {
 	[Header("“yŽè")]
 	[SerializeField] GameObject m_bankPrefab;
@@ -23,7 +23,7 @@ public class DungeonAttackBank : DungeonAttackBase
 		}
 	}
 
-	public override void Attack(Transform target, int attackRank = 1)
+	public override void Attack(Transform target, MyFunction.Direction direction, float range, float rankValue, int attackRank = 1)
 	{
 		// ƒvƒŒƒnƒu‚ª‚È‚¢
 		if (m_bankPrefab == null)

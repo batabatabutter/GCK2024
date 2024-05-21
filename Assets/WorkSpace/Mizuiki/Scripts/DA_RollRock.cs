@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class DungeonAttackRollRock : DungeonAttackBase
+public class DA_RollRock : DungeonAttackBase
 {
 	[Header("“]‚ª‚éŠâ")]
 	[SerializeField] GameObject m_rollRockPrefab;

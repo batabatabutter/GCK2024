@@ -15,12 +15,21 @@ MonoBehaviour:
   stayTime: 10
   attackTime: 10
   isRandom: 0
-  attackData:
+  attackTableList:
   - type: 0
-    coolTime: 5
-    rankValue: 0.2
-    range: 3
+    pattern:
+    - {fileID: 11400000, guid: 8ccac405280721c4a9ec115c4d2f627c, type: 2}
   - type: 1
-    coolTime: 1
-    rankValue: 0
-    range: 3
+    pattern:
+    - {fileID: 11400000, guid: 1e73b4da6947bfa4b844a8dabe768849, type: 2}
+  m_attackGradeData:
+    attackGradeStep: 0
+    attackMaxDistance: 10
+    attackGradeRange:
+      min: 0.1
+      max: 1
+    attackGrade:
+    - distance: 0.5
+      magnification: 0.5
+    - distance: 0.2
+      magnification: 0.1

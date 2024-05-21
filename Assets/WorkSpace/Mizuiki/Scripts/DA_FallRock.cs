@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class DungeonAttackFallRock : DungeonAttackBase
+public class DA_FallRock : DungeonAttackBase
 {
 	//プレイヤーの下に出るハイライトの低さ
 	const float HEIGLIGHT_HEIGHT = 0.5f;

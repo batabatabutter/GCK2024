@@ -2,21 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DA_FallRock01 : DungeonAttackFallRock
+public class DA_FallRock01 : DA_FallRock
 {
-	[Header("塊の落石")]
+	//[Header("塊の落石")]
 
-	[Header("塊のサイズ")]
-	[SerializeField] private int m_massSize = 3;
+	//[Header("塊のサイズ")]
+	//[SerializeField] private int m_massSize = 3;
 
-	[Header("ランクの増加量")]
-	[SerializeField] private float m_rankValue = 1.0f;
+	//[Header("ランクの増加量")]
+	//[SerializeField] private float m_rankValue = 1.0f;
 
 
-	public override void Attack(Transform target, int attackRank = 1)
+	public override void Attack(Transform target, MyFunction.Direction direction, float range, float rankValue, int attackRank = 1)
 	{
 		// 塊のサイズ
-		int massSize = m_massSize + (int)(attackRank * m_rankValue);
+		int massSize = /*m_massSize*/(int)range + (int)(attackRank * rankValue);
 		int massRange = massSize / 2;
 		// ターゲットのグリッド取得
 		Vector2Int targetGrid = MyFunction.RoundHalfUpInt(target.position);
@@ -33,17 +33,17 @@ public class DA_FallRock01 : DungeonAttackFallRock
 		}
 	}
 
-	// 攻撃範囲の設定
-	public override void SetAttackRange(float range)
-	{
-		// 塊サイズの設定
-		m_massSize = (int)range;
-	}
+	//// 攻撃範囲の設定
+	//public override void SetAttackRange(float range)
+	//{
+	//	// 塊サイズの設定
+	//	m_massSize = (int)range;
+	//}
 
-	// ランク増加量の設定
-	public override void SetRankValue(float value)
-	{
-		m_rankValue = value;
-	}
+	//// ランク増加量の設定
+	//public override void SetRankValue(float value)
+	//{
+	//	m_rankValue = value;
+	//}
 
 }

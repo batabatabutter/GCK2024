@@ -146,6 +146,14 @@ public class MyFunction
 		// Enumで返す
 		return (Direction)rand;
 	}
+	static public Direction GetDirection(Direction direction)
+	{
+		if (direction == Direction.RANDOM)
+		{
+			return GetRandomDirection();
+		}
+		return direction;
+	}
 
 	// アイテムデータの取得
 	static public ItemData GetItemData(ItemDataBase dataBase, ItemData.ItemType type)

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName = "DungeonAttackData_", menuName = "CreateDataBase/Dungeon/Attack")]
+[CreateAssetMenu(fileName = "DungeonAttackData_", menuName = "CreateDataBase/Dungeon/Attack/AttackData")]
 public class DungeonAttackData : ScriptableObject
 {
 	// UŒ‚ƒe[ƒuƒ‹
 	[System.Serializable]
-	public enum AttackTablePattern
+	public enum AttackTableType
 	{
 		FILL,
 		CAVITY,
@@ -27,19 +27,35 @@ public class DungeonAttackData : ScriptableObject
 		OVER,
 	}
 
-	[System.Serializable]
-	public struct AttackList
+	// ‹——£‚É‰‚¶‚½UŒ‚’iŠK
+	[System.Serializable, Tooltip("distance ¸‡‚Éƒ\[ƒg")]
+	public struct AttackPower
 	{
-		public MyFunction.Direction direction;	// UŒ‚”­¶‚Ì•ûŒü
-		public float range;						// UŒ‚”ÍˆÍ
-		public float time;						// UŒ‚Œã‚ÌƒN[ƒ‹ƒ^ƒCƒ€
+		[Tooltip("ŠJn’n“_‚Ì distance ”{‚Ì‚Æ‚«(¬‚³‚¢‚Ù‚ÇƒRƒA‚É‹ß‚¢)")]
+		public float distance;
+		[Tooltip("UŒ‚‚Ì”­¶”{—¦(‘å‚«‚¢‚Ù‚Ç‚½‚­‚³‚ñUŒ‚‚ª—ˆ‚é)")]
+		public float magnification;
 	}
+	// UŒ‚’iŠK‚Ìƒf[ƒ^
 	[System.Serializable]
-	public struct AttackPattern
+	public struct AttackGrade
 	{
-		public AttackType type;					// UŒ‚‚Ìí—Ş
-		public float rankValue;					// UŒ‚ƒ‰ƒ“ƒN‚É‰‚¶‚½‘‰Á—Ê
-		public List<AttackList> attackList;		// ×‚©‚ÈUŒ‚‡
+		[Header("ƒRƒA‚Æ‚Ì‹——£‚Ìæ‚è•û‚Ìí—Ş")]
+		public bool attackGradeStep;
+		[Header("UŒ‚‚ªÅ‘å‚É‚È‚é‹——£")]
+		public float attackMaxDistance;
+		[Header("UŒ‚’iŠK‚Ì”ÍˆÍ")]
+		public MyFunction.MinMaxFloat attackGradeRange;
+		[Header("‹——£‚É‰‚¶‚½UŒ‚’iŠK")]
+		public List<AttackPower> attackGrade;
+	}
+
+	// UŒ‚ƒe[ƒuƒ‹‚ÆUŒ‚ƒpƒ^[ƒ“
+	[System.Serializable]
+	public struct AttackTable
+	{
+		public AttackTableType type;
+		public List<DungeonAttackPattern> pattern;
 	}
 
 	[Header("UŒ‚’â~ŠÔ")]
@@ -50,12 +66,16 @@ public class DungeonAttackData : ScriptableObject
 	[Header("ƒ‰ƒ“ƒ_ƒ€‚ÈUŒ‚")]
 	[SerializeField] private bool isRandom = false;
 	[Header("UŒ‚ƒpƒ^[ƒ“")]
-	[SerializeField] private List<AttackPattern> attackPattern;
+	[SerializeField] private List<AttackTable> attackTableList;
+
+	[Header("UŒ‚’iŠK")]
+	[SerializeField] private AttackGrade m_attackGradeData;
 
 
 	public float StayTime => stayTime;
 	public float AttackTime => attackTime;
 	public bool IsRandom => isRandom;
-	public List<AttackPattern> AttackPatternList => attackPattern;
+	public List<AttackTable> AttackTableList => attackTableList;
+	public AttackGrade AttackGradeData => m_attackGradeData;
 
 }
