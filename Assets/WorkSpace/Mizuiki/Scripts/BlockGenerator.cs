@@ -90,18 +90,15 @@ public class BlockGenerator : MonoBehaviour
             obj = CreateObject(parent, data.Prefab, position);
         }
 
-		// 画像の設定
-		if (data.Sprite)
-		{
-			if (obj.TryGetComponent(out SpriteRenderer sprite))
-			{
-				sprite.sprite = data.Sprite;
-			}
-		}
-
         // データの設定
         if (!obj.TryGetComponent(out Block block))
             return obj;
+
+		// 画像の設定
+		if (data.Sprite)
+		{
+            block.SetSprite(data.Sprite);
+		}
 
         // 名前の設定
         block.name = data.Type.ToString() + "_BLOCK";

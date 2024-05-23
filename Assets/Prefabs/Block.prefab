@@ -173,9 +173,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_lightLevel: 0
   m_receiveLightLevel: 0
-  m_spriteRenderer: {fileID: 0}
+  m_spriteRenderer: {fileID: 2704200739606498117}
   m_mapObject: {fileID: 0}
   m_blockEndurance: 0
   m_dontBroken: 0
+  m_canPossess: 0
   m_blockData: {fileID: 0}
   m_itemDataBase: {fileID: 11400000, guid: c534141616c2bbc4ba996d4d9f120330, type: 2}

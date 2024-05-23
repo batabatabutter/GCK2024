@@ -3438,6 +3438,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8304518256993672759, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
+      propertyPath: m_debug
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8304518256993672759, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
       propertyPath: m_miningValueBase.size
       value: 1
       objectReference: {fileID: 0}

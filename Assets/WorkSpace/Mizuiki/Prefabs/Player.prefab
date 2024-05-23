@@ -525,6 +525,7 @@ MonoBehaviour:
     criticalDamage: 1
     itemDrop: 1
   m_miningParticle: {fileID: 5990286150240372327, guid: df441b8dc84b25948bb836fc6aa98a2b, type: 3}
+  m_debug: 0
   m_debugMiningRange: {fileID: 2893017820186787880}
   m_debugMiningPoint: {fileID: 4010198376372952305}
 --- !u!114 &1547900350974240465

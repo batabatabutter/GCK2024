@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Block : ObjectAffectLight
 {
+    [Header("---------- ブロック ----------")]
     [Header("ブロックの耐久")]
     [SerializeField] private float m_blockEndurance = 100;
 
@@ -20,6 +22,9 @@ public class Block : ObjectAffectLight
     [Header("アイテムのデータベース")]
     [SerializeField] private ItemDataBase m_itemDataBase = null;
 
+    //[Header("子のスプライト")]
+    //[SerializeField] private SpriteRenderer m_childSprite = null;
+
     //  地面のライト情報
     private Ground m_ground = null;
 
@@ -34,6 +39,7 @@ public class Block : ObjectAffectLight
 		{
 			Debug.Log(gameObject.name + "のアイテムデータベースを設定してね");
 		}
+        //m_childSprite.sortingOrder = (int)(1000 - transform.position.y);
 	}
 
     // Update is called once per frame
@@ -145,8 +151,24 @@ public class Block : ObjectAffectLight
 	}
 
 
-    // 耐久力
-    public float Endurance
+    // スプライトの設定
+    public void SetSprite(Sprite sprite)
+    {
+        int order = (int)(1000 - transform.position.y);
+		if (TryGetComponent(out SpriteRenderer spriteRenderer))
+		{
+			spriteRenderer.sprite = sprite;
+			spriteRenderer.sortingOrder = order;
+		}
+        //if (m_childSprite)
+        //{
+        //    m_childSprite.sprite = sprite;
+        //    m_childSprite.sortingOrder = order;
+        //}
+	}
+
+	// 耐久力
+	public float Endurance
     {
         set { m_blockEndurance = value; }
     }
