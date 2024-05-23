@@ -20,6 +20,6 @@ MonoBehaviour:
   prefab: {fileID: 2452471199604090867, guid: f4631083fbfb5cd41bc74285e3d4c5bb, type: 3}
   itemMaterials:
   - typeStr: 0:STONE
-    count: 10
+    count: 15
   - typeStr: 1:COAL
-    count: 10
+    count: 15
