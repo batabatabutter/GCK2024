@@ -118,13 +118,13 @@ public class DungeonAttack : MonoBehaviour
         //タイマーセット
         m_attackCoolTime = m_keepCoolTime;
 
-        //アタックパターンの取得
-        List<AttackPattern> attackPatterns = m_dungeonDataBase.
-            dungeonDatas[GetComponent<DungeonGenerator>().GetStageNum()].
-            DungeonWaves[m_wave].dungeonATKPattern;
+        ////アタックパターンの取得
+        //List<AttackPattern> attackPatterns = m_dungeonDataBase.
+        //    dungeonDatas[GetComponent<DungeonGenerator>().GetStageNum()].
+        //    DungeonWaves[m_wave].dungeonATKPattern;
 
-        //bool値のせってい
-        SetAtkIs(attackPatterns);
+        ////bool値のせってい
+        //SetAtkIs(attackPatterns);
 
     }
 

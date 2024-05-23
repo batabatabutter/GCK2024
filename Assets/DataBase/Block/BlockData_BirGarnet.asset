@@ -16,6 +16,7 @@ MonoBehaviour:
   typeStr: 201:BIR_GARNET
   endurance: 1000
   dontBroken: 0
+  canPossess: 0
   lightLevel: 0
   prefab: {fileID: 3457520386420079125, guid: cbe61a2527b59f44ea88ed42d8cd8019, type: 3}
   sprite: {fileID: 0}

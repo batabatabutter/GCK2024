@@ -11,6 +11,9 @@ public class Block : ObjectAffectLight
     [Header("破壊不可")]
     [SerializeField] private bool m_dontBroken = false;
 
+    [Header("敵の憑りつき可能")]
+    [SerializeField] private bool m_canPossess = false;
+
     [Header("ブロックの情報")]
     [SerializeField] private BlockData m_blockData = null;
 
@@ -153,6 +156,13 @@ public class Block : ObjectAffectLight
     {
         get { return m_dontBroken; }
         set { m_dontBroken = value; }
+    }
+
+    // 憑依
+    public bool CanPossess
+    {
+        get { return m_canPossess; }
+        set { m_canPossess = value; }
     }
 
     // ブロックデータ

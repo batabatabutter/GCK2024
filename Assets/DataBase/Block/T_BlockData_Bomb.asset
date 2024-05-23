@@ -16,6 +16,7 @@ MonoBehaviour:
   typeStr: 1001:BOMB
   endurance: 1
   dontBroken: 0
+  canPossess: 0
   lightLevel: 0
   prefab: {fileID: 0}
   sprite: {fileID: 21300000, guid: 92266822cb345e743a0f64be6fce1a60, type: 3}

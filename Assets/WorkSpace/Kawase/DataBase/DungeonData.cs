@@ -18,10 +18,10 @@ public class DungeonData : ScriptableObject
     [System.Serializable]
     public struct DungeonWave
     {
-        [Header("ダンジョンの行動パターン"), SerializeField]
-        public List<DungeonAttack.AttackPattern> dungeonATKPattern;
-        [Header("ダンジョンの行動間隔"), SerializeField]
-        public float dungeonATKCoolTime;
+        //[Header("ダンジョンの行動パターン"), SerializeField]
+        //public List<DungeonAttack.AttackPattern> dungeonATKPattern;
+        //[Header("ダンジョンの行動間隔"), SerializeField]
+        //public float dungeonATKCoolTime;
         [Header("敵の種類"), SerializeField]
         public List<Enemy.Type> generateEnemyType;
         [Header("敵の生成数"), SerializeField]

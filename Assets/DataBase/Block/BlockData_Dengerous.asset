@@ -16,6 +16,7 @@ MonoBehaviour:
   typeStr: 503:DENGEROUS
   endurance: 100
   dontBroken: 0
+  canPossess: 1
   lightLevel: 3
   prefab: {fileID: 3584993475108489714, guid: 99a4ca81b58213f45bbdc5fdaf454c0a, type: 3}
   sprite: {fileID: 0}

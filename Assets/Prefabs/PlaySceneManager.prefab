@@ -143,10 +143,11 @@ MonoBehaviour:
   m_dungeonDataBase: {fileID: 11400000, guid: 0bf61c7eff449f24d9512881d58682a1, type: 2}
   m_enemyDataBase: {fileID: 11400000, guid: ca452888acf86a640a52ed7e456cb571, type: 2}
   m_playSceneManager: {fileID: 3469568166959932924}
-  m_spawnradius: 7
+  m_spawnRadius: 0
   detectionLayer:
     serializedVersion: 2
     m_Bits: 8
+  m_player: {fileID: 0}
 --- !u!114 &-618236753607932433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,7 +192,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1614570275442964}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 52d5111c37091394abac2534eef22e0d, type: 3}
   m_Name: 
@@ -211,6 +212,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DungeonAttacker
       objectReference: {fileID: 0}
+    - target: {fileID: 4824775624701483599, guid: 3c0037650f2f4a0499506b4d38ebc047, type: 3}
+      propertyPath: m_playSceneManager
+      value: 
+      objectReference: {fileID: 3469568166959932924}
     - target: {fileID: 7924930004826067373, guid: 3c0037650f2f4a0499506b4d38ebc047, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

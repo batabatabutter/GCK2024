@@ -53,38 +53,41 @@ public class BlockData : ScriptableObject
 		public float rate;
 	}
 
-	[Header("ブロック名"), SerializeField]
-	private string blockName = "";
-	[Header("ブロックの種類"), SerializeField, CustomEnum(typeof(BlockType))]
-	private string typeStr = "";
+	[Header("ブロック名")]
+	[SerializeField] private string blockName = "";
+	[Header("ブロックの種類"), CustomEnum(typeof(BlockType))]
+	[SerializeField] private string typeStr = "";
 	private BlockType type;
-	[Header("ブロックの耐久力"), SerializeField]
-	private float endurance = 100.0f;
-	[Header("破壊不可能"), SerializeField]
-	private bool dontBroken = false;
-	[Header("光源レベル"), SerializeField]
-	private int lightLevel = 0;
-	[Header("ブロックのプレハブ"), SerializeField]
-	private GameObject prefab = null;
-	[Header("ブロックの画像"), SerializeField]
-	private Sprite sprite = null;
+	[Header("ブロックの耐久力")]
+	[SerializeField] private float endurance = 100.0f;
+	[Header("破壊不可能")]
+	[SerializeField] private bool dontBroken = false;
+	[Header("憑依可能")]
+	[SerializeField] private bool canPossess = true;
+	[Header("光源レベル")]
+	[SerializeField] private int lightLevel = 0;
+	[Header("ブロックのプレハブ")]
+	[SerializeField] private GameObject prefab = null;
+	[Header("ブロックの画像")]
+	[SerializeField] private Sprite sprite = null;
 
-	[Header("ドロップアイテム"), SerializeField]
-	private DropItems[] dropItem;
+	[Header("ドロップアイテム")]
+	[SerializeField] private DropItems[] dropItem;
 
 	[Header("---マップ---")]
 
-	[Header("マップ表示の色"), SerializeField]
-	private Color color = Color.white;
-	[Header("表示順"), SerializeField]
-	private int order = 0;
-	[Header("マップ表示アイコン(あれば設定)"), SerializeField]
-	private Sprite mapIcon = null;
+	[Header("マップ表示の色")]
+	[SerializeField] private Color color = Color.white;
+	[Header("表示順")]
+	[SerializeField] private int order = 0;
+	[Header("マップ表示アイコン(あれば設定)")]
+	[SerializeField] private Sprite mapIcon = null;
 
 	public string Name => blockName;
 	public BlockType Type => type;
 	public float Endurance => endurance;
 	public bool DontBroken => dontBroken;
+	public bool CanPossess => canPossess;
 	public int LightLevel => lightLevel;
 	public GameObject Prefab => prefab;
 	public Sprite Sprite => sprite;

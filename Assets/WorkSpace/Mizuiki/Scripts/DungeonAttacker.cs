@@ -175,12 +175,20 @@ public class DungeonAttacker : MonoBehaviour
 			}
 		}
 
+
+
+		// お試し用
 		if (Input.GetKeyDown(KeyCode.P))
 		{
 			m_attacker[m_attackerType].Attack(m_target, MyFunction.Direction.RANDOM, 5.0f, 0, m_attackRank);
 		}
 	}
 
+	// 攻撃の状態
+	public bool Active
+	{
+		get { return m_active; }
+	}
 	// コアの位置
 	public Vector3 CorePosition
 	{

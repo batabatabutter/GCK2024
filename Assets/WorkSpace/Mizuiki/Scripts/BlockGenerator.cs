@@ -112,6 +112,8 @@ public class BlockGenerator : MonoBehaviour
         block.Endurance = data.Endurance;
         // ”j‰ó•s‰Â
         block.DontBroken = data.DontBroken;
+        // œßˆË‰Â”\
+        block.CanPossess = data.CanPossess;
         // ŒõŒ¹ƒŒƒxƒ‹
         block.LightLevel = data.LightLevel;
 
