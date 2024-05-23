@@ -9,6 +9,10 @@ public class DA_Enemy : DungeonAttackBase
 
 	[Header("敵の種類")]
 	[SerializeField] private Enemy.Type m_type;
+	[SerializeField] private bool m_isType;
+
+	[Header("半径指定")]
+	[SerializeField] private bool m_isRadius = false;
 
 
 	private void Start()
@@ -24,13 +28,29 @@ public class DA_Enemy : DungeonAttackBase
 
 	public override void AttackOne(Vector3 target, int attackRank = 1)
 	{
+		// エネミージェネレータがないから設定が必要
 		if (m_enemyGenerator == null)
 		{
 			Debug.Log("DA_Enemy : m_enemyGenerator を設定してね");
 			return;
 		}
-		// 指定タイプの敵を生成する
+
+		// タイプ指定
+		if (m_isType)
+		{
+			m_enemyGenerator.Spawn(m_type, target);
+			return;
+		}
+
+		// 半径指定
+		if (m_isRadius)
+		{
+			m_enemyGenerator.Spawn(attackRank);
+		}
+
+		// ランダム生成
 		m_enemyGenerator.Spawn();
+
 	}
 
 
@@ -42,5 +62,13 @@ public class DA_Enemy : DungeonAttackBase
 	{
 		set { m_type = value; }
 	}
-
+	public bool IsType
+	{
+		set { m_isType = value; }
+	}
+	public bool IsRadius
+	{
+		set { m_isRadius = value; }
+	}
 }
+

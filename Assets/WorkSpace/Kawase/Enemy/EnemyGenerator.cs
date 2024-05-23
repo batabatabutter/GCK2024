@@ -169,78 +169,121 @@ public class EnemyGenerator : MonoBehaviour
 
     public void Spawn()
     {
-        // 念のため例外を生まないかチェック
-        if (!CheckEnableEnemy())
-        {
-            Debug.Log("敵が生成できないよ。生成範囲を見直してね");
-            return;
-        }
         // タイプを指定してスポーン
-        Spawn(m_spawnList[Random.Range(0, m_spawnList.Count)]);
+        Spawn(GetSpawnType());
     }
 	public void Spawn(Enemy.Type type)
 	{
         Spawn(type, m_spawnRadius);
 	}
+    //public void Spawn(Vector3 position)
+    //{
+    //    Spawn(GetSpawnType(), position);
+    //}
+    public void Spawn(Transform block)
+    {
+        Spawn(GetSpawnType(), block);
+    }
+    public void Spawn(float radius)
+    {
+        Spawn(GetSpawnType(), radius);
+    }
 	public void Spawn(Enemy.Type type, float radius)
     {
-        // 敵の種類が範囲外だった場合は生成しなおす
-        if (type == Enemy.Type.OverID)
-        {
-            Spawn();
+        // 指定レイヤーのオブジェクトを検知
+		Collider2D[] colliders = Physics2D.OverlapCircleAll(m_player.transform.position, radius, m_detectionLayer);
+        // コライダー配列をリストにする
+		List<Collider2D> collidersList = new(colliders);
+
+		// 条件に合わない要素を削除
+		collidersList.RemoveAll(collider => !ShouldKeepCollider(collider));
+
+        if (collidersList.Count <= 0)
+		{
+			Debug.Log("宿り先ブロックがない");
             return;
-        }
+		}
 
-        switch (m_enemyDataBase.enemyDatas[(int)type].system)
-        {
-            case Enemy.System.Dwell:
-                // ブロック憑依型
+		// 検知したオブジェクトからランダムに一つ選ぶ
+		Collider2D randomCollider = collidersList[Random.Range(0, collidersList.Count)];
+        // ブロックに敵を憑依させる
+        Spawn(type, randomCollider.transform);
 
-                Collider2D[] colliders = Physics2D.OverlapCircleAll(m_player.transform.position, radius, m_detectionLayer);
-
-                List<Collider2D> collidersList = new(colliders);
-
-                // 条件に合わない要素を削除
-                collidersList.RemoveAll(collider => !ShouldKeepCollider(collider));
-
-                if (collidersList.Count > 0)
-                {
-                    // 検知したオブジェクトからランダムに一つ選ぶ
-                    Collider2D randomCollider = collidersList[Random.Range(0, collidersList.Count)];
-
-                    // 選択されたオブジェクトに対する処理を行う
-
-                    Vector3 spawnPos = randomCollider.transform.position;
-
-                    GameObject enemy = Instantiate(m_enemyDataBase.enemyDatas[(int)type].prefab, spawnPos, Quaternion.identity, m_parent.transform);
-
-                    enemy.GetComponent<EnemyDwell>().DwellBlock = randomCollider.gameObject;
-
-                    // ブロックを憑依済みにする == 憑依不可能状態にする
-                    randomCollider.GetComponent<Block>().CanPossess = false;
-                }
-                else
-                {
-                    Debug.Log("宿り先ブロックがない");
-                }
-                break;
-
-            case Enemy.System.Mob:
-                // 自立型(後で消すと思う)
-
-
-
-            default:
-                break;
-        }
     }
+    public void Spawn(Enemy.Type type, Vector3 position)
+    {
+        // position の位置にあるブロック取得
+        Collider2D collider = Physics2D.OverlapCircle(MyFunction.RoundHalfUp(position), 0, m_detectionLayer);
+
+        // ブロックなんてなかったんだ
+        if (collider == null)
+        {
+			Debug.Log("宿り先ブロックがない");
+			return;
+        }
+
+        // ブロックに敵を憑依させる
+        Spawn(type, collider.transform);
+    }
+    public void Spawn(Enemy.Type type, Transform block)
+    {
+		// 念のため例外を生まないかチェック
+		if (!CheckEnableEnemy())
+		{
+			Debug.Log("敵が生成できないよ。生成範囲を見直してね");
+			return;
+		}
+		// 敵の種類が範囲外だった場合は生成しなおす
+		if (type == Enemy.Type.OverID)
+		{
+			Spawn(block);
+			return;
+		}
+
+		switch (m_enemyDataBase.enemyDatas[(int)type].system)
+		{
+			case Enemy.System.Dwell:
+				// ブロック憑依型
+
+				if (block != null)
+				{
+					// 選択されたオブジェクトに対する処理を行う
+
+					Vector3 spawnPos = block.position;
+
+					GameObject enemy = Instantiate(m_enemyDataBase.enemyDatas[(int)type].prefab, spawnPos, Quaternion.identity, m_parent.transform);
+
+					enemy.GetComponent<EnemyDwell>().DwellBlock = block.gameObject;
+
+					// ブロックを憑依済みにする == 憑依不可能状態にする
+					block.GetComponent<Block>().CanPossess = false;
+				}
+				else
+				{
+					Debug.Log("宿り先ブロックがない");
+				}
+				break;
+
+			case Enemy.System.Mob:
+			// 自立型(後で消すと思う)
 
 
 
+			default:
+				break;
+		}
+
+	}
 
 
-    // リストの中に生成範囲の敵がいるか確認
-    private bool CheckEnableEnemy()
+
+    private Enemy.Type GetSpawnType()
+    {
+        return m_spawnList[Random.Range(0, m_spawnList.Count)];
+	}
+
+	// リストの中に生成範囲の敵がいるか確認
+	private bool CheckEnableEnemy()
     {
         foreach (Enemy.Type type in m_spawnList)
         {

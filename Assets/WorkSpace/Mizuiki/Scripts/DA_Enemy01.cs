@@ -16,7 +16,5 @@ public class DA_Enemy01 : DA_Enemy
 		{
 			AttackOne(target.position, attackRank);
 		}
-
-
 	}
 }

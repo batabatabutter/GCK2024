@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 3892649588794377886}
   - component: {fileID: 413805561393604662}
   - component: {fileID: 8572922578657399962}
+  - component: {fileID: 8476528595951536149}
   - component: {fileID: 4824775624701483599}
   m_Layer: 0
   m_Name: DungeonAttacker
@@ -74,6 +75,8 @@ MonoBehaviour:
     attack: {fileID: 413805561393604662}
   - type: 1000
     attack: {fileID: 8572922578657399962}
+  - type: 1001
+    attack: {fileID: 8476528595951536149}
   m_attackerType: 1000
 --- !u!114 &5586643501512867278
 MonoBehaviour:
@@ -176,6 +179,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_enemyGenerator: {fileID: 0}
+  m_type: 0
+--- !u!114 &8476528595951536149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2189642266553579207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6510af33907a7f44b002e98531fd6db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_enemyGenerator: {fileID: 4824775624701483599}
   m_type: 0
 --- !u!114 &4824775624701483599
 MonoBehaviour:

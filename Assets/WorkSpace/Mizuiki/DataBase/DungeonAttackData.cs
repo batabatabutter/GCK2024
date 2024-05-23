@@ -29,6 +29,7 @@ public class DungeonAttackData : ScriptableObject
 		GROW_UP_ROCK_02,
 
 		ENEMY_01 = 1000,
+		ENEMY_02,
 
 		OVER,
 	}
