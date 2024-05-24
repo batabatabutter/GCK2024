@@ -7,6 +7,7 @@ public class DA_Enemy03 : DA_Enemy
 	private void Start()
 	{
 		// タイプ指定アリ
+		Type = Enemy.Type.Iwarun;
 		IsType = true;
 	}
 

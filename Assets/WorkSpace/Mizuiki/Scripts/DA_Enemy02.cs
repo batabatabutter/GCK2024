@@ -11,6 +11,7 @@ public class DA_Enemy02 : DA_Enemy
 	private void Start()
 	{
 		// タイプ指定アリ
+		Type = Enemy.Type.Dorinoko;
 		IsType = true;
 	}
 
