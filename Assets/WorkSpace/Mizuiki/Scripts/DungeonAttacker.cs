@@ -53,7 +53,7 @@ public class DungeonAttacker : MonoBehaviour
 	private float m_attackTableRange = 5.0f;
 
 	// 使用攻撃テーブルの閾値(割合)
-	private float m_thresholdValueRate = 0.5f;
+	//private float m_thresholdValueRate = 0.5f;
 
 	// ダンジョンの攻撃順
 	private List<DungeonAttackData.AttackTable> m_attackTableList = new();
@@ -230,7 +230,7 @@ public class DungeonAttacker : MonoBehaviour
 		// テーブル決定の判断をする範囲
 		m_attackTableRange = m_attackData.AttackTableRange;
 		// 使用テーブルを分つ閾値
-		m_thresholdValueRate = m_attackData.ThresholdValueRate;
+		//m_thresholdValueRate = m_attackData.ThresholdValueRate;
 		// 攻撃段階の設定
 		m_attackGrade = m_attackData.AttackGradeData;
 	}
@@ -342,20 +342,35 @@ public class DungeonAttacker : MonoBehaviour
 		// ターゲット周辺のブロックを取得
 		Collider2D[] blocks = Physics2D.OverlapCircleAll(m_target.position, m_attackTableRange, LayerMask.NameToLayer("Block"));
 
-		// 判定範囲から閾値となるブロックの個数を計算する
-		int thresholdValue = (int)(Mathf.Round(Mathf.PI * m_attackTableRange * m_attackTableRange) * m_thresholdValueRate);
+		// 判定範囲のブロックの割合を取得
+		float blockRate = blocks.Length / (int)Mathf.Round(Mathf.PI * m_attackTableRange * m_attackTableRange);
 
-		// 攻撃テーブルを設定する
-		if (blocks.Length > thresholdValue)
+		foreach (DungeonAttackData.AttackTable attackTable in m_attackTableList)
 		{
-			// 周りがブロックで埋まってるときの攻撃テーブルを使用
-			m_attackTableType = DungeonAttackData.AttackTableType.FILL;
+			// ブロックが決められた割合以上
+			if (attackTable.overNum < blockRate)
+			{
+				m_attackTableType = attackTable.type;
+				return;
+			}
 		}
-		else
-		{
-			// 周りにブロックがない時の攻撃テーブルを使用
-			m_attackTableType = DungeonAttackData.AttackTableType.CAVITY;
-		}
+
+		m_attackTableType = DungeonAttackData.AttackTableType.CAVITY;
+
+		//// 判定範囲から閾値となるブロックの個数を計算する
+		//int thresholdValue = (int)(Mathf.Round(Mathf.PI * m_attackTableRange * m_attackTableRange) * m_thresholdValueRate);
+
+		//// 攻撃テーブルを設定する
+		//if (blocks.Length > thresholdValue)
+		//{
+		//	// 周りがブロックで埋まってるときの攻撃テーブルを使用
+		//	m_attackTableType = DungeonAttackData.AttackTableType.FILL;
+		//}
+		//else
+		//{
+		//	// 周りにブロックがない時の攻撃テーブルを使用
+		//	m_attackTableType = DungeonAttackData.AttackTableType.CAVITY;
+		//}
 	}
 
 

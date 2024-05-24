@@ -32,6 +32,7 @@ public class DungeonAttackData : ScriptableObject
 		ENEMY_02,
 		ENEMY_03,
 		ENEMY_04,
+		ENEMY_05,
 
 		OVER,
 	}
@@ -64,6 +65,7 @@ public class DungeonAttackData : ScriptableObject
 	public struct AttackTable
 	{
 		public AttackTableType type;
+		public float overNum;
 		public List<DungeonAttackPattern> pattern;
 	}
 
@@ -82,8 +84,8 @@ public class DungeonAttackData : ScriptableObject
 	[SerializeField] private List<AttackTable> attackTableList;
 	[Header("攻撃テーブルの判定範囲")]
 	[SerializeField] private float attackTableRange = 5.0f;
-	[Header("使用攻撃テーブルの閾値(割合)"), Range(0.0f, 1.0f), Tooltip("この数値より大きい場合は[FillTable]、小さい場合は[CavityTable]")]
-	[SerializeField] private float thresholdValueRate = 0.5f;
+	//[Header("使用攻撃テーブルの閾値(割合)"), Range(0.0f, 1.0f), Tooltip("この数値より大きい場合は[FillTable]、小さい場合は[CavityTable]")]
+	//[SerializeField] private float thresholdValueRate = 0.5f;
 
 	[Header("攻撃段階")]
 	[SerializeField] private AttackGrade m_attackGradeData;
@@ -95,7 +97,7 @@ public class DungeonAttackData : ScriptableObject
 	public bool IsRandom => isRandom;
 	public List<AttackTable> AttackTableList => attackTableList;
 	public float AttackTableRange => attackTableRange;
-	public float ThresholdValueRate => thresholdValueRate;
+	//public float ThresholdValueRate => thresholdValueRate;
 	public AttackGrade AttackGradeData => m_attackGradeData;
 
 }

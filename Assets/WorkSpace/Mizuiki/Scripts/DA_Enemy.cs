@@ -12,6 +12,7 @@ public class DA_Enemy : DungeonAttackBase
 	[SerializeField] private bool m_isType;
 
 	[Header("半径指定")]
+	[SerializeField] private float m_radius = 5.0f;
 	[SerializeField] private bool m_isRadius = false;
 
 
@@ -35,6 +36,13 @@ public class DA_Enemy : DungeonAttackBase
 			return;
 		}
 
+		// タイプと半径両方指定アリ
+		if (m_isType && m_isRadius)
+		{
+			m_enemyGenerator.Spawn(m_type, m_radius);
+			return;
+		}
+
 		// タイプ指定
 		if (m_isType)
 		{
@@ -45,7 +53,7 @@ public class DA_Enemy : DungeonAttackBase
 		// 半径指定
 		if (m_isRadius)
 		{
-			m_enemyGenerator.Spawn(attackRank);
+			m_enemyGenerator.Spawn(m_radius);
 		}
 
 		// ランダム生成
