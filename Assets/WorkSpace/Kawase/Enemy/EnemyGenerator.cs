@@ -221,9 +221,15 @@ public class EnemyGenerator : MonoBehaviour
 			Debug.Log("宿り先ブロックがない");
 			return;
         }
+        // 憑依できないな
+        if (!ShouldKeepCollider(collider))
+        {
+			Debug.Log("宿り先ブロックがない");
+			return;
+		}
 
-        // ブロックに敵を憑依させる
-        Spawn(type, collider.transform);
+		// ブロックに敵を憑依させる
+		Spawn(type, collider.transform);
     }
     public void Spawn(Enemy.Type type, Transform block)
     {
