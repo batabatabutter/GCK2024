@@ -22,7 +22,7 @@ MonoBehaviour:
     rateMin: 1
     rateMax: 1
     noiseScale: 0
-    offset: 0.2516393
+    offset: 0.8967619
   - blockType: 101
     range:
       min: 0
@@ -30,7 +30,7 @@ MonoBehaviour:
     rateMin: 0.3
     rateMax: 0.42
     noiseScale: 0.2
-    offset: 0.1638173
+    offset: 0.95393467
   - blockType: 207
     range:
       min: 0
@@ -38,7 +38,7 @@ MonoBehaviour:
     rateMin: 0.02
     rateMax: 0.05
     noiseScale: 0.4
-    offset: 0.4975322
+    offset: 0.44467062
   - blockType: 209
     range:
       min: 0
@@ -46,21 +46,15 @@ MonoBehaviour:
     rateMin: 0.02
     rateMax: 0.05
     noiseScale: 0.4
-    offset: 0.12783016
+    offset: 0.8259351
   dungeonWaves:
-  - dungeonATKPattern: 00000000
-    dungeonATKCoolTime: 2
-    generateEnemyType: 0000000001000000
+  - generateEnemyType: 0000000001000000
     generateEnemyNum: 3
     geterateEnemyInterval: 5
-  - dungeonATKPattern: 0000000001000000
-    dungeonATKCoolTime: 1
-    generateEnemyType: 0000000001000000
+  - generateEnemyType: 0000000001000000
     generateEnemyNum: 5
     geterateEnemyInterval: 3
-  - dungeonATKPattern: 0000000001000000
-    dungeonATKCoolTime: 0.7
-    generateEnemyType: 0000000002000000
+  - generateEnemyType: 0000000002000000
     generateEnemyNum: 7
     geterateEnemyInterval: 5
   restWaveTime: 20
@@ -72,7 +66,7 @@ MonoBehaviour:
     restTimeRate: 0.5
   - distanceRate: 1
     restTimeRate: 1
-  attackData: {fileID: 11400000, guid: 84e33d87ad14bc44bab3ca7e8f464fdc, type: 2}
+  attackData: {fileID: 11400000, guid: 4a03b3e4b662c404a969652c139966a9, type: 2}
   dungeonCSV:
   - {fileID: 4900000, guid: 0e35215235d219d46be3f40a33eaba2e, type: 3}
   - {fileID: 4900000, guid: 6961f29b4be0e05478a47f0aea956a73, type: 3}

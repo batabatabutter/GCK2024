@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d3370d2922863c4e8dcd18c8ebaf0c8, type: 3}
+  m_Name: DungeonAttackData_1
+  m_EditorClassIdentifier: 
+  stayTime: 3
+  attackTime: 10
+  rankLimit: 10
+  isRandom: 0
+  attackTableList:
+  - type: 0
+    pattern:
+    - {fileID: 11400000, guid: 4afcaceda909e244ba966bfb048392f8, type: 2}
+  attackTableRange: 5
+  thresholdValueRate: 0.5
+  m_attackGradeData:
+    attackMaxDistance: 6
+    attackGradeRange:
+      min: 0.1
+      max: 1
+    attackGradeStep: 0
+    attackGrade:
+    - distance: 0.2
+      magnification: 0.1
