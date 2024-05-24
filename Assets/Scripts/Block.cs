@@ -79,6 +79,30 @@ public class Block : ObjectAffectLight
         return true;
     }
 
+	/// <summary>
+	/// ブロックを破壊
+	/// </summary>
+	/// <returns>ブロックが壊れた</returns>
+	public bool BrokenBlock(int dropCount = 1)
+	{
+		// 破壊不可能ブロックの場合は処理しない
+		if (m_dontBroken)
+			return false;
+
+		// すでに破壊されている
+		if (m_isBroken)
+			return false;
+
+		// アイテムドロップ
+		DropItem(dropCount);
+
+		// 自身を削除
+		Destroy(gameObject);
+		m_isBroken = true;
+
+		return true;
+	}
+
 	// アイテムドロップ
 	public virtual void DropItem(int dropCount = 1)
 	{
@@ -125,30 +149,6 @@ public class Block : ObjectAffectLight
 	}
 
 
-
-	/// <summary>
-	/// ブロックを破壊
-	/// </summary>
-	/// <returns>ブロックが壊れた</returns>
-	public bool BrokenBlock(int dropCount = 1)
-	{
-		// 破壊不可能ブロックの場合は処理しない
-		if (m_dontBroken)
-			return false;
-
-        // すでに破壊されている
-        if (m_isBroken)
-            return false;
-
-		// アイテムドロップ
-		DropItem(dropCount);
-
-		// 自身を削除
-		Destroy(gameObject);
-        m_isBroken = true;
-
-        return true;
-	}
 
 
     // スプライトの設定

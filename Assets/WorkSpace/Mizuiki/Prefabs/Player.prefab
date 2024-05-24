@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2966160091434227250}
   - component: {fileID: 3803866444855446353}
   m_Layer: 6
-  m_Name: Circle
+  m_Name: MapCircle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -276,7 +276,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4010198376372952305}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 2, y: 0, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 1
@@ -376,16 +376,16 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 175831865547988031}
   - {fileID: 7078709291802619136}
-  - {fileID: 6163492376843781196}
-  - {fileID: 4775494179588686869}
-  - {fileID: 9047098877226502140}
   - {fileID: 210355958265930519}
-  - {fileID: 2966160091434227250}
   - {fileID: 5891700570865311142}
+  - {fileID: 9047098877226502140}
+  - {fileID: 175831865547988031}
+  - {fileID: 2966160091434227250}
   - {fileID: 5214480923896703183}
   - {fileID: 6397593326201400586}
+  - {fileID: 4775494179588686869}
+  - {fileID: 6163492376843781196}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6250682384534612557
@@ -769,7 +769,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 8
+  orthographic size: 4
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

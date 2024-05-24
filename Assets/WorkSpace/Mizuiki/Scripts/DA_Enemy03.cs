@@ -4,14 +4,46 @@ using UnityEngine;
 
 public class DA_Enemy03 : DA_Enemy
 {
+	private void Start()
+	{
+		// タイプ指定アリ
+		IsType = true;
+	}
+
 	public override void Attack(Transform target, MyFunction.Direction direction, float range, float rankValue, int attackRank = 1)
 	{
 		// 攻撃位置
 		Vector3 attackPos = target.position;
+		attackPos.x -= range / 2;
+		attackPos.y -= range / 2;
 
-		for (int i = 0; i < (int)range; i++)
+		if (range < 3.0f)
 		{
+			return;
+		}
 
+		Vector2Int randomEmpty = new(Random.Range(0 + 1, (int)range - 1), Random.Range(0 + 1, (int)range - 1));
+
+		for (int y = 0; y < (int)range; y++)
+		{
+			for (int x = 0; x < (int)range; x++)
+			{
+				// 端っこじゃない
+				if (x != 0 && x != range - 1 &&
+					y != 0 && y != range - 1)
+					continue;
+
+				// 四隅は生成しない
+				if (x == y || Mathf.Abs(x - y) == (int)range - 1)
+					continue;
+
+				// 生成しない位置だった
+				if (x == randomEmpty.x || y == randomEmpty.y)
+					continue;
+
+				// 敵生成
+				AttackOne(attackPos + new Vector3(x, y), attackRank);
+			}
 		}
 
 	}

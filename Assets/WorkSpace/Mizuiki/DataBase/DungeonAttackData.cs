@@ -30,6 +30,7 @@ public class DungeonAttackData : ScriptableObject
 
 		ENEMY_01 = 1000,
 		ENEMY_02,
+		ENEMY_03,
 
 		OVER,
 	}
