@@ -331,6 +331,7 @@ MonoBehaviour:
   m_mapObject: {fileID: 0}
   m_blockEndurance: 100
   m_dontBroken: 0
+  m_canPossess: 0
   m_blockData: {fileID: 0}
   m_itemDataBase: {fileID: 0}
   m_stageNumObj: {fileID: 11400000, guid: 0ddb2feb839c39a4b8711c3b2833423a, type: 2}

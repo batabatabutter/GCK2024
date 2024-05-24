@@ -29,6 +29,9 @@ public class BlockBomb : Block
     [Header("破壊の方式(ダメージ方式/確定破壊)")]
     [SerializeField] private bool m_damage = true;
 
+    [Header("ブロック破壊時のアイテムドロップ倍率")]
+    [SerializeField] private int m_itemDropRate = 0;
+
     [Header("爆破状態")]
     [SerializeField] private BombState m_state = BombState.STAY;
     //[SerializeField] private bool m_detonate = false;
@@ -139,7 +142,7 @@ public class BlockBomb : Block
                 // ダメージ方式
                 if (m_damage)
                 {
-                    block.AddMiningDamage(m_blockExplosionPower);
+                    block.AddMiningDamage(m_blockExplosionPower, m_itemDropRate);
                 }
                 // 破壊方式
                 else

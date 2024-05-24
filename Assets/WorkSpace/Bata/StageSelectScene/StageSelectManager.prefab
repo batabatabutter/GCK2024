@@ -47,3 +47,8 @@ MonoBehaviour:
   m_stageSelectBlock: {fileID: 7878608174691198015, guid: d8a5f2104ce0cd242867548293e9382a, type: 3}
   m_dungeonDataBase: {fileID: 11400000, guid: 0bf61c7eff449f24d9512881d58682a1, type: 2}
   m_offset: {x: 0.5, y: 0, z: 0}
+  m_groundObj: {fileID: 7840984241627169481, guid: 37062edcfffd02b47885d7a3b0638724, type: 3}
+  m_borderObj: {fileID: 8560757638102828729, guid: d1d6587241761b24f8aec65a7079f095, type: 3}
+  m_minPos: {x: -30, y: -30, z: 0}
+  m_maxPos: {x: 30, y: 30, z: 0}
+  m_borderOffset: 15
