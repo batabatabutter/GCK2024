@@ -149,6 +149,7 @@ MonoBehaviour:
   m_mapObject: {fileID: 0}
   m_blockEndurance: 100
   m_dontBroken: 0
+  m_canPossess: 0
   m_blockData: {fileID: 11400000, guid: e8355ac22db923c44adf486803772450, type: 2}
   m_itemDataBase: {fileID: 11400000, guid: c534141616c2bbc4ba996d4d9f120330, type: 2}
   m_blockExplosionPower: 1000
@@ -156,5 +157,6 @@ MonoBehaviour:
   m_explosionRange: 5
   m_timeToExplosion: 3
   m_damage: 0
+  m_itemDropRate: 1
   m_state: 1
   m_detonateBlock: {fileID: 2201125515662036576, guid: 41fb87af326b1aa4088fb371add4c842, type: 3}
