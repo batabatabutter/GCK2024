@@ -177,7 +177,7 @@ MonoBehaviour:
   m_dungeonData: {fileID: 0}
   m_dungeonSize: {x: 100, y: 100}
   m_blockGenerator: {fileID: 75050971}
-  m_dungeonIndex: 0
+  m_dungeonIndex: 2
   m_dungeonGenerators:
   - {fileID: 75050973}
   - {fileID: 75050974}
@@ -295,8 +295,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_mazeType: 1
-  m_pathWidth: 2
-  m_pathHeight: 3
+  m_wallWidth: 10
+  m_wallHeight: 3
+  m_pathWidth: 1
+  m_pathHeight: 1
 --- !u!4 &102538595 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7924930004826067373, guid: 3c0037650f2f4a0499506b4d38ebc047, type: 3}

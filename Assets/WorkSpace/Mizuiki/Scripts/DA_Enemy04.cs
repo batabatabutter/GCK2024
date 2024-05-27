@@ -14,9 +14,9 @@ public class DA_Enemy04 : DA_Enemy
 	public override void Attack(Transform target, MyFunction.Direction direction, float range, float distance, float rankValue, int attackRank = 1)
 	{
 		// Ç∆ÇËÇ†Ç¶Ç∏4ï˚å¸Ç…èoÇ∑
-		AttackOne(target.position + (Vector3.up * range), attackRank);
-		AttackOne(target.position + (Vector3.down * range), attackRank);
-		AttackOne(target.position + (Vector3.left * range), attackRank);
-		AttackOne(target.position + (Vector3.right * range), attackRank);
+		AttackOne(target.position + (Vector3.up * distance), attackRank);
+		AttackOne(target.position + (Vector3.down * distance), attackRank);
+		AttackOne(target.position + (Vector3.left * distance), attackRank);
+		AttackOne(target.position + (Vector3.right * distance), attackRank);
 	}
 }

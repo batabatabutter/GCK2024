@@ -17,12 +17,20 @@ public class DungeonDataMaze : DungeonData
 	[Header("–À˜H‚ÌŽí—Þ")]
 	[SerializeField] private string strType;
 	private MazeType type;
-	[Header("’Ê˜H‚Ì•"), Min(1)]
-	[SerializeField] private int pathWidth = 1;
+	[Header("•Ç‚Ì•")]
+	[SerializeField, Min(1)] private int wallWidth = 1;
+	[SerializeField, Min(1)] private int wallHeight = 1;
+
+	[Header("’Ê˜H‚Ì•")]
+	[SerializeField, Min(1)] private int pathWidth = 1;
+	[SerializeField, Min(1)] private int pathHeight = 1;
 
 
 	public MazeType Type => type;
+	public int WallWidth => wallWidth;
+	public int WallHeight => wallHeight;
 	public int PathWidth => pathWidth;
+	public int PathHeight => pathHeight;
 
 
 	private void OnEnable()

@@ -9,6 +9,10 @@ public class DungeonGeneratorMaze : DungeonGeneratorBase
 	[Header("生成の種類")]
 	[SerializeField] private DungeonDataMaze.MazeType m_mazeType;
 
+	[Header("壁の幅")]
+	[SerializeField, Min(1)] private int m_wallWidth = 1;
+	[SerializeField, Min(1)] private int m_wallHeight = 1;
+
 	[Header("通路の幅")]
 	[SerializeField, Min(1)] private int m_pathWidth = 1;
 	[SerializeField, Min(1)] private int m_pathHeight = 1;
@@ -54,8 +58,8 @@ public class DungeonGeneratorMaze : DungeonGeneratorBase
 		}
 
 		// マップのサイズ取得
-		m_mapSize.x = size.x / m_pathWidth;
-		m_mapSize.y = size.y / m_pathHeight;
+		m_mapSize.x = size.x / ((m_pathWidth + m_wallWidth) / 2);
+		m_mapSize.y = size.y / ((m_pathHeight + m_wallHeight) / 2);
 
 		// 偶数サイズの場合は奇数にする
 		if (m_mapSize.x % 2 == 0)
@@ -102,8 +106,12 @@ public class DungeonGeneratorMaze : DungeonGeneratorBase
 	{
 		// 生成タイプ
 		m_mazeType = dungeonData.Type;
+		// 壁の幅
+		m_wallWidth = dungeonData.WallWidth;
+		m_wallHeight = dungeonData.WallHeight;
 		// 通路の幅
 		m_pathWidth = dungeonData.PathWidth;
+		m_pathHeight = dungeonData.PathHeight;
 	}
 
 	// 棒倒し法
@@ -367,37 +375,120 @@ public class DungeonGeneratorMaze : DungeonGeneratorBase
 	// 迷路をもとにマップを作る
 	private void CreateMazeMap()
 	{
-		int height = 0;
-		// マップの行
-		for (int y = 0; y < m_mapList.Count; y++)
+		// 生成ブロック数
+		Vector2Int count = Vector2Int.zero;
+		// 端っこの壁の幅
+		Vector2Int edgeWall = new()
 		{
-			// 最初の行ははじいて、通路幅の倍数のときに高さを加算
-			if (y % m_pathHeight == 0 && y != 0)
+			x = m_mapList[0].Count / m_mazeList[0].Count,
+			y = m_mapList.Count / m_mazeList.Count,
+		};
+
+		for (int y = 0; y < m_mazeList.Count; y++)
+		{
+			int height;
+			// y が偶数の場合は壁の幅
+			if (y % 2 == 0)
 			{
-				height++;
+				height = m_wallHeight;
 			}
-			// 迷路のサイズ外になったらループを終了する
-			if (height >= m_mapSize.y)
+			// 偶数の場合は通路の幅
+			else
 			{
+				height = m_pathHeight;
+			}
+
+			// 端っこ
+			if (y == 0)
+			{
+				height = edgeWall.y;
+			}
+
+			// x のカウント初期化
+			count.x = 0;
+
+			for (int x = 0; x < m_mazeList[y].Count; x++)
+			{
+				int width;
+				// x が偶数の場合は壁の幅で生成
+				if (x % 2 == 0)
+				{
+					width = m_wallWidth;
+				}
+				// 奇数の場合は通路の幅で生成
+				else
+				{
+					width = m_pathHeight;
+				}
+
+				// 端っこ
+				if (x == 0)
+				{
+					width = edgeWall.x;
+				}
+
+				// ブロックの情報生成
+				CreateBlocks(count, width, height, m_mazeList[y][x]);
+				// カウント加算
+				count.x += width;
+			}
+			// カウント加算
+			count.y += height;
+		}
+
+
+		//int height = 0;
+		//// マップの行
+		//for (int y = 0; y < m_mapList.Count; y++)
+		//{
+		//	// 最初の行ははじいて、通路幅の倍数のときに高さを加算
+		//	if (y % m_pathHeight == 0 && y != 0)
+		//	{
+		//		height++;
+		//	}
+		//	// 迷路のサイズ外になったらループを終了する
+		//	if (height >= m_mapSize.y)
+		//	{
+		//		break;
+		//	}
+		//	// 幅の宣言
+		//	int width = 0;
+		//	// マップの列
+		//	for (int x = 0; x < m_mapList[y].Count; x++)
+		//	{
+		//		// 最初の列をはじいて、通路の幅の倍数のときに幅を加算
+		//		if (x % m_pathWidth == 0 && x != 0)
+		//		{
+		//			width++;
+		//		}
+		//		// 迷路のサイズ外になったらループを抜ける
+		//		if (width >= m_mapSize.x)
+		//		{
+		//			break;
+		//		}
+		//		// マップに迷路の情報を代入
+		//		m_mapList[y][x] = m_mazeList[height][width];
+		//	}
+		//}
+	}
+
+	// 迷路の一グリッド分のブロックを生成する
+	private void CreateBlocks(Vector2Int start, int width, int height, string maze)
+	{
+		for (int y = 0; y < height; y++)
+		{
+			// 配列範囲外
+			if (start.y + y >= m_mapList.Count)
 				break;
-			}
-			// 幅の宣言
-			int width = 0;
-			// マップの列
-			for (int x = 0; x < m_mapList[y].Count; x++)
+
+			for (int x = 0; x < width; x++)
 			{
-				// 最初の列をはじいて、通路の幅の倍数のときに幅を加算
-				if (x % m_pathWidth == 0 && x != 0)
-				{
-					width++;
-				}
-				// 迷路のサイズ外になったらループを抜ける
-				if (width >= m_mapSize.x)
-				{
+				// 配列範囲外
+				if (start.x + x >= m_mapList[start.y + y].Count)
 					break;
-				}
-				// マップに迷路の情報を代入
-				m_mapList[y][x] = m_mazeList[height][width];
+
+				// 迷路の情報を入れる
+				m_mapList[start.y + y][start.x + x] = maze;
 			}
 		}
 	}
