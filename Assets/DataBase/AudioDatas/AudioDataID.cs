@@ -18,6 +18,7 @@ public enum AudioDataID
     //  ƒVƒXƒeƒ€
     Select,
     Correct,
+    Change,
     
 
     OverID
