@@ -145,20 +145,20 @@ public class PlayerAction : MonoBehaviour
 	public void ChangeTool(int val)
 	{
 		m_playerTool.ChangeTool(val);
-
+		AudioManager.Instance.PlaySE(AudioDataID.Select);
 	}
 
 	// ツールの切り替え
 	public void SwitchTool()
 	{
 		m_playerTool.SwitchTool();
+        AudioManager.Instance.PlaySE(AudioDataID.Change);
+    }
 
-	}
 
 
-
-	// 選択ツールの取得
-	public ToolData.ToolType ToolType
+    // 選択ツールの取得
+    public ToolData.ToolType ToolType
 	{
 		get { return m_playerTool.ToolType; }
 	}
