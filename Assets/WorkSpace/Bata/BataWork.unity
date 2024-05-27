@@ -237,6 +237,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioClip: {fileID: 8300000, guid: 087200b9a2e607948a00e34d83e3e30c, type: 3}
   pos: {x: 5, y: 0}
+  audioDataID: 4
 --- !u!114 &816587856 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3469568166959932924, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
@@ -345,7 +346,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
---- !u!1001 &1271738776
+--- !u!1001 &1443959914
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -407,6 +408,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 345871246}
+  - {fileID: 1443959914}
   - {fileID: 1028730863}
-  - {fileID: 1271738776}
   - {fileID: 801219090}

@@ -6,6 +6,7 @@ public class audioKKK : MonoBehaviour
 {
     [SerializeField] AudioClip audioClip;
     [SerializeField] Vector2 pos;
+    [SerializeField] AudioDataID audioDataID;
 
     // Update is called once per frame
     void Update()
@@ -13,12 +14,12 @@ public class audioKKK : MonoBehaviour
         if(Input.GetKeyUp(KeyCode.Space))
         {
             // IDÇ©ÇÁçƒê∂
-            AudioManager.Instance.PlaySE(AudioClipID.Dig);
+            AudioManager.Instance.PlaySE(audioDataID);
         }
         if (Input.GetKeyUp(KeyCode.B))
         {
             //  IDÇ©ÇÁçƒê∂+à íuéwíË
-            AudioManager.Instance.PlaySE(AudioClipID.Put, pos);
+            AudioManager.Instance.PlaySE(audioDataID, pos);
         }
         if (Input.GetKeyUp(KeyCode.P))
         {

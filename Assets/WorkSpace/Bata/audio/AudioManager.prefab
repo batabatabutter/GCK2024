@@ -45,9 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c6039d4ae1a1874ebebc30da69d503b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefabPath: AudioManager
   m_audioDataBase: {fileID: 11400000, guid: 9d6bbd3599f00224d9d17a6e94419f37, type: 2}
-  m_seSource: {fileID: -7566950439212062463}
+  m_audioSource: {fileID: -7566950439212062463}
   m_seObj: {fileID: 7699451764407953380, guid: 33495b0c14776be4782bb99c2c3acb12, type: 3}
+  m_audioVol: 0.5
   m_seVol: 1
 --- !u!82 &-7566950439212062463
 AudioSource:
