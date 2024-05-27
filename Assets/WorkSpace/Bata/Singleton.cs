@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Singleton<T> : MonoBehaviour where T : Component
 {
+    [SerializeField] private static GameObject prefab;
+
     private static T instance;
     public static T Instance
     {
@@ -9,11 +11,7 @@ public class Singleton<T> : MonoBehaviour where T : Component
         {
             if (instance == null)
             {
-                instance = (T)FindObjectOfType(typeof(T));
-                if (instance == null)
-                {
-                    SetupInstance();
-                }
+                SetupInstance();
             }
             return instance;
         }
@@ -28,7 +26,7 @@ public class Singleton<T> : MonoBehaviour where T : Component
         instance = (T)FindObjectOfType(typeof(T));
         if (instance == null)
         {
-            GameObject gameObj = new GameObject();
+            GameObject gameObj = prefab;
             gameObj.name = typeof(T).Name;
             instance = gameObj.AddComponent<T>();
             DontDestroyOnLoad(gameObj);

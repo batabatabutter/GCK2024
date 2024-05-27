@@ -12,10 +12,22 @@ public class audioKKK : MonoBehaviour
     {
         if(Input.GetKeyUp(KeyCode.Space))
         {
+            // IDから再生
+            AudioManager.Instance.PlaySE(AudioClipID.Dig);
+        }
+        if (Input.GetKeyUp(KeyCode.B))
+        {
+            //  IDから再生+位置指定
+            AudioManager.Instance.PlaySE(AudioClipID.Put, pos);
+        }
+        if (Input.GetKeyUp(KeyCode.P))
+        {
+            //  クリップから再生
             AudioManager.Instance.PlaySE(audioClip);
         }
-        if(Input.GetKeyUp(KeyCode.P))
+        if (Input.GetKeyUp(KeyCode.O))
         {
+            //  クリップから再生+位置指定
             AudioManager.Instance.PlaySE(audioClip, pos);
         }
     }
