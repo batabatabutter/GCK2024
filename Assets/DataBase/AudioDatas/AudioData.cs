@@ -11,7 +11,7 @@ public class AudioData : ScriptableObject
     public AudioClip AudioClip => audioClip;
 
     [Header("‰¹ºID")]
-    [SerializeField][CustomEnum(typeof(AudioClipID))] private string audioClipID;
-    public AudioClipID AudioClipID => SerializeUtil.Restore<AudioClipID>(audioClipID);
+    [SerializeField][CustomEnum(typeof(AudioDataID))] private string audioDataID;
+    public AudioDataID AudioDataID => SerializeUtil.Restore<AudioDataID>(audioDataID);
 
 }

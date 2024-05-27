@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: AudioData_Put
   m_EditorClassIdentifier: 
   audioClip: {fileID: 8300000, guid: 087200b9a2e607948a00e34d83e3e30c, type: 3}
-  audioClipID: 0:Put
+  audioDataID: 0:Put

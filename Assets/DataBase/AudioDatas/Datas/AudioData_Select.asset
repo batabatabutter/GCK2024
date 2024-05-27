@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 335152639262bf941a05a4ef3fddeb8c, type: 3}
-  m_Name: AudioData_Digg
+  m_Name: AudioData_Select
   m_EditorClassIdentifier: 
-  audioClip: {fileID: 8300000, guid: 6f49dea70e787fe4d84f99f492dc3cda, type: 3}
-  audioDataID: 1:Dig
+  audioClip: {fileID: 8300000, guid: bac1877b39baaba4e99cd73d5f1715a4, type: 3}
+  audioDataID: 8:Select

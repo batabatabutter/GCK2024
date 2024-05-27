@@ -20,12 +20,12 @@ public class AudioDataBase : ScriptableObject
     }
 
     //  オーディオデータ取得
-    public AudioData GetAudioData(AudioClipID id)
+    public AudioData GetAudioData(AudioDataID id)
     {
         AudioData aD = null;
 
         //  IDが一致しているものを返す
-        foreach (AudioData audioData in audioDataSet.Where(x => x.AudioClipID == id))
+        foreach (AudioData audioData in audioDataSet.Where(x => x.AudioDataID == id))
         {
             aD = audioData;
         }
