@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 6764305495278839610}
   - component: {fileID: 3892649588794377886}
   - component: {fileID: 413805561393604662}
+  - component: {fileID: 3586781371931110904}
   - component: {fileID: 8572922578657399962}
   - component: {fileID: 8476528595951536149}
   - component: {fileID: 1856188598382497778}
@@ -76,15 +77,17 @@ MonoBehaviour:
     attack: {fileID: 3892649588794377886}
   - type: 201
     attack: {fileID: 413805561393604662}
+  - type: 202
+    attack: {fileID: 3586781371931110904}
   - type: 1000
     attack: {fileID: 8572922578657399962}
-  - type: 1001
+  - type: 1100
     attack: {fileID: 8476528595951536149}
-  - type: 1002
+  - type: 1200
     attack: {fileID: 1856188598382497778}
-  - type: 1003
+  - type: 1300
     attack: {fileID: 633032808813562138}
-  - type: 1004
+  - type: 1400
     attack: {fileID: 4352466032776867748}
   m_attackerType: 0
 --- !u!114 &5586643501512867278
@@ -175,6 +178,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_bankPrefab: {fileID: 6085554247375089227, guid: 1d29c80645233fb4c94bf95ca0e1b1f3, type: 3}
   m_bankHighlight: {fileID: 1067109971471968558, guid: 29f861859c529b1498a780cee08eb5fb, type: 3}
+--- !u!114 &3586781371931110904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2189642266553579207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fcf13ab666117344b12407615725306, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_bankPrefab: {fileID: 6085554247375089227, guid: 1d29c80645233fb4c94bf95ca0e1b1f3, type: 3}
+  m_bankHighlight: {fileID: 1067109971471968558, guid: 29f861859c529b1498a780cee08eb5fb, type: 3}
+  m_growUpRock02: {fileID: 413805561393604662}
+  m_loomingTime: 0.5
+  m_range: 5
+  m_rank: 0
+  m_rankValue: 1
+  m_direction: 0
+  m_targetPosition: {x: 0, y: 0, z: 0}
+  m_distance: 0
 --- !u!114 &8572922578657399962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,6 +215,7 @@ MonoBehaviour:
   m_enemyGenerator: {fileID: 0}
   m_type: 0
   m_isType: 0
+  m_radius: 5
   m_isRadius: 0
 --- !u!114 &8476528595951536149
 MonoBehaviour:
@@ -206,6 +232,7 @@ MonoBehaviour:
   m_enemyGenerator: {fileID: 4824775624701483599}
   m_type: 0
   m_isType: 0
+  m_radius: 5
   m_isRadius: 0
   m_distance: 3
 --- !u!114 &1856188598382497778
@@ -223,6 +250,7 @@ MonoBehaviour:
   m_enemyGenerator: {fileID: 4824775624701483599}
   m_type: 1
   m_isType: 1
+  m_radius: 5
   m_isRadius: 0
 --- !u!114 &633032808813562138
 MonoBehaviour:
@@ -239,6 +267,7 @@ MonoBehaviour:
   m_enemyGenerator: {fileID: 4824775624701483599}
   m_type: 2
   m_isType: 1
+  m_radius: 5
   m_isRadius: 0
 --- !u!114 &4352466032776867748
 MonoBehaviour:
@@ -255,6 +284,7 @@ MonoBehaviour:
   m_enemyGenerator: {fileID: 4824775624701483599}
   m_type: 3
   m_isType: 1
+  m_radius: 5
   m_isRadius: 0
 --- !u!114 &4824775624701483599
 MonoBehaviour:

@@ -13,23 +13,27 @@ MonoBehaviour:
   m_Name: AP_RollRock01-2
   m_EditorClassIdentifier: 
   attackList:
-  - type: 2
+  - type: 100
     direction: 1
     rankValue: 0
     range: 5
+    distance: 0
     time: 2
-  - type: 2
+  - type: 100
     direction: 2
     rankValue: 0
     range: 5
+    distance: 0
     time: 2
-  - type: 2
+  - type: 100
     direction: 3
     rankValue: 0
     range: 5
+    distance: 0
     time: 2
-  - type: 2
+  - type: 100
     direction: 0
     rankValue: 0
     range: 5
+    distance: 0
     time: 2

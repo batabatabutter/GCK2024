@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DA_Enemy03 : DA_Enemy
+public class DA_EnemyIwa01 : DA_Enemy
 {
 	private void Start()
 	{

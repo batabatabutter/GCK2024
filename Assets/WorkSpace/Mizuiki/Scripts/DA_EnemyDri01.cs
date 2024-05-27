@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DA_Enemy02 : DA_Enemy
+public class DA_EnemyDri01 : DA_Enemy
 {
 	[Header("---------- ドリノコサンド ----------")]
 	[Header("サンド距離")]

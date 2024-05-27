@@ -33,7 +33,7 @@ public class DungeonAttackTurn
 			// 攻撃パターン取得
 			DungeonAttackPattern.AttackPattern attack = m_attackPattern.AttackList[m_attackIndex];
 			// 攻撃発生
-			m_attacker[attack.type].Attack(target, attack.direction, attack.range, attack.rankValue, attackRank);
+			m_attacker[attack.type].Attack(target, attack.direction, attack.range, attack.distance, attack.rankValue, attackRank);
 			// クールタイム設定
 			m_timer = attack.time * attackGrade;
 			// インデックスのインクリメント

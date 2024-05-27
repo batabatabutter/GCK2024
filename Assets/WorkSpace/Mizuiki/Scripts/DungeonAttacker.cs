@@ -180,7 +180,7 @@ public class DungeonAttacker : MonoBehaviour
 		// お試し用
 		if (Input.GetKeyDown(KeyCode.P))
 		{
-			m_attacker[m_attackerType].Attack(m_target, MyFunction.Direction.RANDOM, 5.0f, 0, m_attackRank);
+			m_attacker[m_attackerType].Attack(m_target, MyFunction.Direction.RANDOM, 5.0f, 5.0f, 0, m_attackRank);
 		}
 	}
 
@@ -293,7 +293,7 @@ public class DungeonAttacker : MonoBehaviour
 		// 攻撃パターンを設定する
 		m_turn.AttackPattern = data.Table.pattern[data.PatternIndex];
 
-		Debug.Log("攻撃開始 : " + m_attackTableType);
+		Debug.Log("攻撃開始 : " + m_attackTableType + ", " + data.Table.pattern[data.PatternIndex]);
 	}
 
 	// 攻撃終了
