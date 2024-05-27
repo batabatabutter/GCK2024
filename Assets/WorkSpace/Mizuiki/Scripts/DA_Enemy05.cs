@@ -14,7 +14,7 @@ public class DA_Enemy05 : DA_Enemy
 		IsRadius = true;
 	}
 
-	public override void Attack(Transform target, MyFunction.Direction direction, float range, float rankValue, int attackRank = 1)
+	public override void Attack(Transform target, MyFunction.Direction direction, float range, float distance, float rankValue, int attackRank = 1)
 	{
 		for (int i = 0; i < (int)range; i++)
 		{

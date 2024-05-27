@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DA_FallRock03 : DA_FallRock
 {
-	public override void Attack(Transform target, MyFunction.Direction direction, float range, float rankValue, int attackRank = 1)
+	public override void Attack(Transform target, MyFunction.Direction direction, float range, float distance, float rankValue, int attackRank = 1)
 	{
 		// âÚÇÃÉTÉCÉY
 		int massSize = (int)range + (int)(attackRank * rankValue);

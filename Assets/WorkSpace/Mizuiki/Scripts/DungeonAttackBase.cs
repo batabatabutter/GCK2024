@@ -9,7 +9,7 @@ public class DungeonAttackBase : MonoBehaviour
 
 
     // çUåÇÇ∑ÇÈ
-    virtual public void Attack(Transform target, MyFunction.Direction direction, float range, float rankValue, int attackRank = 1)
+    virtual public void Attack(Transform target, MyFunction.Direction direction, float range, float distance, float rankValue, int attackRank = 1)
     {
     }
 

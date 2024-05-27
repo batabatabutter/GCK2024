@@ -14,6 +14,7 @@ public class DungeonAttackPattern : ScriptableObject
 		public MyFunction.Direction direction;  // UŒ‚”­¶‚Ì•ûŒü
 		public float rankValue;                 // UŒ‚ƒ‰ƒ“ƒN‚É‰‚¶‚½‘‰Á—Ê
 		public float range;                     // UŒ‚”ÍˆÍ
+		public float distance;					// UŒ‚”­¶‹——£
 		public float time;                      // UŒ‚Œã‚ÌƒN[ƒ‹ƒ^ƒCƒ€
 	}
 

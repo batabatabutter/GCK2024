@@ -22,7 +22,7 @@ public class DA_Enemy : DungeonAttackBase
 		m_enemyGenerator = GetComponent<EnemyGenerator>();
 	}
 
-	public override void Attack(Transform target, MyFunction.Direction direction, float range, float rankValue, int attackRank = 1)
+	public override void Attack(Transform target, MyFunction.Direction direction, float range, float distance, float rankValue, int attackRank = 1)
 	{
 		AttackOne(target.position, attackRank);
 	}

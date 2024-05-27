@@ -11,7 +11,7 @@ public class DA_Enemy03 : DA_Enemy
 		IsType = true;
 	}
 
-	public override void Attack(Transform target, MyFunction.Direction direction, float range, float rankValue, int attackRank = 1)
+	public override void Attack(Transform target, MyFunction.Direction direction, float range, float distance, float rankValue, int attackRank = 1)
 	{
 		// çUåÇà íu
 		Vector3 attackPos = target.position;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DA_GrowUpRock01 : DA_GrowUpRock
 {
-	public override void Attack(Transform target, MyFunction.Direction direction, float range, float rankValue, int attackRank = 1)
+	public override void Attack(Transform target, MyFunction.Direction direction, float range, float distance, float rankValue, int attackRank = 1)
 	{
 		// UŒ‚‚Ì’†S
 		Vector2Int center = new ((int)range / 2, (int)range / 2);

@@ -23,7 +23,7 @@ public class DA_GrowUpRock : DungeonAttackBase
 		}
 	}
 
-	public override void Attack(Transform target, MyFunction.Direction direction, float range, float rankValue, int attackRank = 1)
+	public override void Attack(Transform target, MyFunction.Direction direction, float range, float distance, float rankValue, int attackRank = 1)
 	{
 		// ƒvƒŒƒnƒu‚ª‚È‚¢
 		if (m_bankPrefab == null)

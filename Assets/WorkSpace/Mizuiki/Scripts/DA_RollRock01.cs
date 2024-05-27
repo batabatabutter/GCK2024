@@ -14,7 +14,7 @@ public class DA_RollRock01 : DA_RollRock
 
 
 	// UŒ‚ŠJn
-	public override void Attack(Transform target, MyFunction.Direction direction, float range, float rankValue, int attackRank = 1)
+	public override void Attack(Transform target, MyFunction.Direction direction, float range, float distance, float rankValue, int attackRank = 1)
 	{
 		// “]‚ª‚é•ûŒü‚ÌŒˆ’è
 		int dir = (int)MyFunction.GetDirection(direction);

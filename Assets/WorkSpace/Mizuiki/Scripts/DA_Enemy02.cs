@@ -16,7 +16,7 @@ public class DA_Enemy02 : DA_Enemy
 	}
 
 	// ドリノコサンド
-	public override void Attack(Transform target, MyFunction.Direction direction, float range, float rankValue, int attackRank = 1)
+	public override void Attack(Transform target, MyFunction.Direction direction, float range, float distance, float rankValue, int attackRank = 1)
 	{
 		// サンド方向取得
 		MyFunction.Direction dir = MyFunction.GetDirection(direction);
@@ -25,7 +25,7 @@ public class DA_Enemy02 : DA_Enemy
 		bool horizontal = (int)dir % 2 == 1;
 
 		// ターゲットからの距離
-		Vector3 distance = Vector3.zero;
+		Vector3 targetDistance = Vector3.zero;
 		// 加算量
 		Vector3 add = Vector3.zero;
 		// 攻撃位置
@@ -34,14 +34,14 @@ public class DA_Enemy02 : DA_Enemy
 		// 横サンド
 		if (horizontal)
 		{
-			distance.x = m_distance;
+			targetDistance.x = m_distance;
 			add.y = 1;
 			attackPos.y -= Mathf.Round(range / 2);
 		}
 		// 縦サンド
 		else
 		{
-			distance.y = m_distance;
+			targetDistance.y = m_distance;
 			add.x = 1;
 			attackPos.x -= Mathf.Round(range / 2);
 		}
@@ -49,8 +49,8 @@ public class DA_Enemy02 : DA_Enemy
 		for (int i = 0; i < (int)range; i++)
 		{
 			// 攻撃位置に敵を生成
-			AttackOne(attackPos + distance, attackRank);
-			AttackOne(attackPos - distance, attackRank);
+			AttackOne(attackPos + targetDistance, attackRank);
+			AttackOne(attackPos - targetDistance, attackRank);
 			attackPos += add;
 		}
 

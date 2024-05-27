@@ -13,7 +13,7 @@ public class DA_FallRock01 : DA_FallRock
 	//[SerializeField] private float m_rankValue = 1.0f;
 
 
-	public override void Attack(Transform target, MyFunction.Direction direction, float range, float rankValue, int attackRank = 1)
+	public override void Attack(Transform target, MyFunction.Direction direction, float range, float distance, float rankValue, int attackRank = 1)
 	{
 		// âÚÇÃÉTÉCÉY
 		int massSize = /*m_massSize*/(int)range + (int)(attackRank * rankValue);

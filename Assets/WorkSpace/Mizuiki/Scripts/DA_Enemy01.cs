@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DA_Enemy01 : DA_Enemy
 {
-	public override void Attack(Transform target, MyFunction.Direction direction, float range, float rankValue, int attackRank = 1)
+	public override void Attack(Transform target, MyFunction.Direction direction, float range, float distance, float rankValue, int attackRank = 1)
 	{
 		// ƒ‰ƒ“ƒ_ƒ€‚È“G‚ÌŽí—Þ‚ðŽæ“¾
 		Enemy.Type type = (Enemy.Type)Random.Range(0, (int)Enemy.Type.OverID);

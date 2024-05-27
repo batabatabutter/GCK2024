@@ -11,7 +11,7 @@ public class DA_FallRock02 : DA_FallRock
 	//[SerializeField, Min(0.0f)] private float m_fallRockRange = 5.0f;
 
 
-	public override void Attack(Transform target, MyFunction.Direction direction, float range, float rankValue, int attackRank = 1)
+	public override void Attack(Transform target, MyFunction.Direction direction, float range, float distance, float rankValue, int attackRank = 1)
 	{
 		// —Î‚Ì”­¶ˆÊ’u‚ğƒ‰ƒ“ƒ_ƒ€‚ÉŒˆ‚ß‚é
 		Vector3 random = new(Random.Range(-/*m_fallRockRange*/range, /*m_fallRockRange*/range), Random.Range(-/*m_fallRockRange*/range, /*m_fallRockRange*/range), 0.0f);
