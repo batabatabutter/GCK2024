@@ -11,6 +11,8 @@ public class RollRock : MonoBehaviour
     [SerializeField] float destroyTime = 10.0f;
     [Header("速度（m/s）")]
     [SerializeField] float speed = 5.0f;
+    [Header("回転スケール")]
+    [SerializeField] private float m_scale = 1.0f;
     [Header("攻撃力")]
     public int damage = 1;
 
@@ -41,7 +43,7 @@ public class RollRock : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (transform.lossyScale.x < 1.0f)
+        if (transform.lossyScale.x < m_scale)
         {
             scale += Time.deltaTime * 0.5f;
         }
@@ -83,13 +85,25 @@ public class RollRock : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player" && !collision.isTrigger)
+        // トリガーは処理しない
+        if (collision.isTrigger == true)
+            return;
+
+        // プレイヤーに当たった
+        if (collision.CompareTag("Player"))
         {
             collision.GetComponent<Player>().AddDamage(damage);
 
             Destroy(gameObject);
+            return;
         }
 
+        // ブロックに当たった
+        if (collision.CompareTag("Block"))
+        {
+            Destroy(gameObject);
+            return;
+        }
 
     }
 
