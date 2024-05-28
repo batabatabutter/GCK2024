@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class DungeonAttackBase : MonoBehaviour
 {
-    //[Header("UŒ‚ŠÔ")]
-    //[SerializeField] private float m_attackTime = 5.0f;
-
-
     // UŒ‚‚·‚é
     virtual public void Attack(Transform target, MyFunction.Direction direction, float range, float distance, float rankValue, int attackRank = 1)
     {
@@ -29,11 +25,5 @@ public class DungeonAttackBase : MonoBehaviour
     {
     }
 
-
-	//public float AttackTime
- //   {
- //       get { return m_attackTime; }
- //       set { m_attackTime = value; }
- //   }
 
 }

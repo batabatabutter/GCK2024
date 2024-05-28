@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
 public class DungeonAttacker : MonoBehaviour
@@ -18,7 +19,7 @@ public class DungeonAttacker : MonoBehaviour
 	[Header("攻撃状態")]
 	[SerializeField] private bool m_active = false;
 	[Header("使用する攻撃テーブル")]
-	[SerializeField] private DungeonAttackData.AttackTableType m_attackTableType;
+	[SerializeField] private int m_attackTableIndex = 0;
 	[Header("攻撃ランク")]
 	[SerializeField] private int m_attackRank = 0;
 
@@ -57,7 +58,9 @@ public class DungeonAttacker : MonoBehaviour
 
 	// ダンジョンの攻撃順
 	private List<DungeonAttackData.AttackTable> m_attackTableList = new();
-	private readonly Dictionary<DungeonAttackData.AttackTableType, DungeonAttackTable> m_attackTables = new();
+
+	// 実行中のダンジョンの攻撃順
+	private readonly List<DungeonAttackTable> m_attackTables = new();
 
 	// ターン内の攻撃処理
 	private readonly DungeonAttackTurn m_turn = new();
@@ -110,24 +113,20 @@ public class DungeonAttacker : MonoBehaviour
 			m_attacker[type] = m_attackPattern[i].attack;
 		}
 
+		// 攻撃テーブルのリストを閾値の大きい順に並び変え
+		m_attackTableList.Sort((lhs, rhs) => rhs.overNum.CompareTo(lhs.overNum));
+
 		// 攻撃テーブル初期化
 		for (int i = 0; i < m_attackTableList.Count; i++)
 		{
-			// タイプの取得
-			DungeonAttackData.AttackTableType type = m_attackTableList[i].type;
-			// 辞書の上書き防止
-			if (m_attackTables.ContainsKey(type))
-			{
-				continue;
-			}
 			// 新たなデータを作成
 			DungeonAttackTable data = new()
 			{
-				PatternIndex = 0,				// 攻撃インデックスの初期化
-				Table = m_attackTableList[i]	// 攻撃テーブルの設定
+				PatternIndex = 0,               // 攻撃インデックスの初期化
+				Table = m_attackTableList[i]    // 攻撃テーブルの設定
 			};
-			// 辞書に追加
-			m_attackTables[type] = data;
+			// リストに追加
+			m_attackTables.Add(data);
 		}
 
 		// ターン処理の初期設定
@@ -289,11 +288,11 @@ public class DungeonAttacker : MonoBehaviour
 		// 攻撃テーブルの決定
 		DetermineAttackTable();
 		// 攻撃テーブル取得
-		DungeonAttackTable data = m_attackTables[m_attackTableType];
+		DungeonAttackTable data = m_attackTables[m_attackTableIndex];
 		// 攻撃パターンを設定する
 		m_turn.AttackPattern = data.Table.pattern[data.PatternIndex];
 
-		Debug.Log("攻撃開始 : " + m_attackTableType + ", " + data.Table.pattern[data.PatternIndex]);
+		Debug.Log("攻撃開始 : " + m_attackTableList[m_attackTableIndex].name + ", " + data.Table.pattern[data.PatternIndex]);
 	}
 
 	// 攻撃終了
@@ -320,18 +319,18 @@ public class DungeonAttacker : MonoBehaviour
 		if (m_random)
 		{
 			// 次の攻撃のインデックスをランダムで取得
-			m_attackTables[m_attackTableType].PatternIndex = Random.Range(0, m_attackTables[m_attackTableType].Table.pattern.Count);
+			m_attackTables[m_attackTableIndex].PatternIndex = Random.Range(0, m_attackTables[m_attackTableIndex].Table.pattern.Count);
 			return;
 		}
 		else
 		{
 			// インデックスのインクリメント
-			m_attackTables[m_attackTableType].PatternIndex++;
+			m_attackTables[m_attackTableIndex].PatternIndex++;
 			// 範囲外になった
-			if (m_attackTables[m_attackTableType].PatternIndex >= m_attackTables[m_attackTableType].Table.pattern.Count)
+			if (m_attackTables[m_attackTableIndex].PatternIndex >= m_attackTables[m_attackTableIndex].Table.pattern.Count)
 			{
 				// 0 に戻す
-				m_attackTables[m_attackTableType].PatternIndex = 0;
+				m_attackTables[m_attackTableIndex].PatternIndex = 0;
 			}
 		}
 	}
@@ -341,37 +340,23 @@ public class DungeonAttacker : MonoBehaviour
 	{
 		// ターゲット周辺のブロックを取得
 		Collider2D[] blocks = Physics2D.OverlapCircleAll(m_target.position, m_attackTableRange, LayerMask.GetMask("Block"));
-		Debug.Log(blocks.Length);
 
 		// 判定範囲のブロックの割合を取得
-		float blockRate = blocks.Length / (int)Mathf.Round(Mathf.PI * m_attackTableRange * m_attackTableRange);
+		float blockRate = blocks.Length / Mathf.Round(Mathf.PI * m_attackTableRange * m_attackTableRange);
 
-		foreach (DungeonAttackData.AttackTable attackTable in m_attackTableList)
+		//foreach (DungeonAttackData.AttackTable attackTable in m_attackTableList)
+		for (int i = 0; i < m_attackTableList.Count; i++)
 		{
 			// ブロックが決められた割合以上
-			if (attackTable.overNum < blockRate)
+			if (m_attackTableList[i].overNum < blockRate)
 			{
-				m_attackTableType = attackTable.type;
+				m_attackTableIndex = i;
 				return;
 			}
 		}
 
-		m_attackTableType = DungeonAttackData.AttackTableType.CAVITY;
+		m_attackTableIndex = m_attackTableList.Count - 1;
 
-		//// 判定範囲から閾値となるブロックの個数を計算する
-		//int thresholdValue = (int)(Mathf.Round(Mathf.PI * m_attackTableRange * m_attackTableRange) * m_thresholdValueRate);
-
-		//// 攻撃テーブルを設定する
-		//if (blocks.Length > thresholdValue)
-		//{
-		//	// 周りがブロックで埋まってるときの攻撃テーブルを使用
-		//	m_attackTableType = DungeonAttackData.AttackTableType.FILL;
-		//}
-		//else
-		//{
-		//	// 周りにブロックがない時の攻撃テーブルを使用
-		//	m_attackTableType = DungeonAttackData.AttackTableType.CAVITY;
-		//}
 	}
 
 

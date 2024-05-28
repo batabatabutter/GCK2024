@@ -79,10 +79,13 @@ public class DA_RollRock : DungeonAttackBase
 				rollingRotation = 90;
 				break;
 		}
+		// ブロックと並ぶ位置に決定
+		rollingPos = MyFunction.RoundHalfUp(rollingPos);
+
 		// 転がる岩の生成
-		Instantiate(m_rollRockPrefab, MyFunction.RoundHalfUp(rollingPos), Quaternion.Euler(0, 0, rollingRotation));
+		Instantiate(m_rollRockPrefab, rollingPos, Quaternion.Euler(0, 0, rollingRotation));
 		// ハイライトの生成
-		Instantiate(m_rollRockHighlight, MyFunction.RoundHalfUp(rollingPos), Quaternion.Euler(0, 0, rollingRotation));
+		Instantiate(m_rollRockHighlight, rollingPos, Quaternion.Euler(0, 0, rollingRotation));
 	}
 
 

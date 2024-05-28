@@ -6,15 +6,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "DungeonAttackData_", menuName = "CreateDataBase/Dungeon/Attack/AttackData")]
 public class DungeonAttackData : ScriptableObject
 {
-	// 攻撃テーブル
-	[System.Serializable]
-	public enum AttackTableType
-	{
-		FILL,
-		CAVITY,
-
-		OVER,
-	}
 	// 攻撃タイプ
 	[System.Serializable]
 	public enum AttackType
@@ -69,9 +60,9 @@ public class DungeonAttackData : ScriptableObject
 	[System.Serializable]
 	public struct AttackTable
 	{
-		public AttackTableType type;
-		public float overNum;
-		public List<DungeonAttackPattern> pattern;
+		public string name;							// 攻撃テーブル名
+		public float overNum;						// 閾値
+		public List<DungeonAttackPattern> pattern;	// パターン
 	}
 
 	[Header("攻撃停止時間")]
@@ -100,7 +91,6 @@ public class DungeonAttackData : ScriptableObject
 	public bool IsRandom => isRandom;
 	public List<AttackTable> AttackTableList => attackTableList;
 	public float AttackTableRange => attackTableRange;
-	//public float ThresholdValueRate => thresholdValueRate;
 	public AttackGrade AttackGradeData => m_attackGradeData;
 
 }

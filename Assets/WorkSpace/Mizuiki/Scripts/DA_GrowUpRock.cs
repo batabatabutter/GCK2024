@@ -46,6 +46,9 @@ public class DA_GrowUpRock : DungeonAttackBase
 
 	public override void AttackOne(Vector3 target, int attackRank = 1)
 	{
+		// 生成位置確定
+		target = MyFunction.RoundHalfUp(target);
+
 		// ターゲットの位置に攻撃を出す
 		// 攻撃生成
 		Instantiate(m_bankPrefab, new Vector3(target.x, target.y, 0), Quaternion.identity);

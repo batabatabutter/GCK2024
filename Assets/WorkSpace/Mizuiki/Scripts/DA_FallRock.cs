@@ -49,11 +49,14 @@ public class DA_FallRock : DungeonAttackBase
 		target = MyFunction.RoundHalfUp(target);
 
 		Collider2D col = Physics2D.OverlapCircle(target, 0, LayerMask.GetMask("Block"));
-		// 落下予定地にブロックがある
+		// 落下予定地にオブジェクトがある
 		if (col)
 		{
-			//Debug.Log("落石生成取りやめ : " + col);
-			return;
+			// ブロックタグが付いてる
+			if (col.CompareTag("Block"))
+			{
+				return;
+			}
 		}
 
 		// 岩の落ちる位置
