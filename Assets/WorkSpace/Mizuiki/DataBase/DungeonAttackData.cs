@@ -56,14 +56,14 @@ public class DungeonAttackData : ScriptableObject
 		public List<AttackPower> attackGrade;
 	}
 
-	// 攻撃テーブルと攻撃パターン
-	[System.Serializable]
-	public struct AttackTable
-	{
-		public string name;							// 攻撃テーブル名
-		public float overNum;						// 閾値
-		public List<DungeonAttackPattern> pattern;	// パターン
-	}
+	//// 攻撃テーブルと攻撃パターン
+	//[System.Serializable]
+	//public struct AttackTable
+	//{
+	//	public string name;							// 攻撃テーブル名
+	//	public float overNum;						// 閾値
+	//	public List<DungeonAttackPattern> pattern;	// パターン
+	//}
 
 	[Header("攻撃停止時間")]
 	[SerializeField] private float stayTime = 10.0f;
@@ -77,7 +77,7 @@ public class DungeonAttackData : ScriptableObject
 	[SerializeField] private bool isRandom = false;
 
 	[Header("攻撃テーブル")]
-	[SerializeField] private List<AttackTable> attackTableList;
+	[SerializeField] private List<DungeonAttackTableData> attackTableList;
 	[Header("攻撃テーブルの判定範囲")]
 	[SerializeField] private float attackTableRange = 5.0f;
 
@@ -89,7 +89,7 @@ public class DungeonAttackData : ScriptableObject
 	public float AttackTime => attackTime;
 	public int RankLimit => rankLimit;
 	public bool IsRandom => isRandom;
-	public List<AttackTable> AttackTableList => attackTableList;
+	public List<DungeonAttackTableData> AttackTableList => attackTableList;
 	public float AttackTableRange => attackTableRange;
 	public AttackGrade AttackGradeData => m_attackGradeData;
 

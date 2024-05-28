@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_active: 0
-  m_attackTableType: 0
+  m_attackTableIndex: 0
   m_attackRank: 0
   m_corePosition: {x: 50, y: 50, z: 0}
   m_target: {fileID: 0}
@@ -193,6 +193,7 @@ MonoBehaviour:
   m_bankPrefab: {fileID: 6085554247375089227, guid: 1d29c80645233fb4c94bf95ca0e1b1f3, type: 3}
   m_bankHighlight: {fileID: 1067109971471968558, guid: 29f861859c529b1498a780cee08eb5fb, type: 3}
   m_growUpRock02: {fileID: 413805561393604662}
+  m_attack: 0
   m_loomingTime: 0.5
   m_range: 5
   m_rank: 0
@@ -212,7 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c66743d03bb0e9646b198cff797db3c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_enemyGenerator: {fileID: 0}
+  m_enemyGenerator: {fileID: 4824775624701483599}
   m_type: 0
   m_isType: 0
   m_radius: 5

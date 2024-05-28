@@ -8,7 +8,7 @@ public class DungeonAttackTable
 	private int m_patternIndex;
 
 	// UŒ‚ƒe[ƒuƒ‹
-	private DungeonAttackData.AttackTable m_table;
+	private DungeonAttackTableData m_table;
 
 
 	public int PatternIndex
@@ -16,7 +16,7 @@ public class DungeonAttackTable
 		get { return m_patternIndex; }
 		set { m_patternIndex = value; }
 	}
-	public DungeonAttackData.AttackTable Table
+	public DungeonAttackTableData Table
 	{
 		get { return m_table; }
 		set { m_table = value; }

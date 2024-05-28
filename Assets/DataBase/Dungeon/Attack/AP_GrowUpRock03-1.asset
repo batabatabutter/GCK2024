@@ -10,24 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc9fc4c5ea3752541986747c409dfa53, type: 3}
-  m_Name: AP_FallRock03-1
+  m_Name: AP_GrowUpRock03-1
   m_EditorClassIdentifier: 
-  attackList:
-  - type: 2
-    direction: 4
-    rankValue: 0.2
-    range: 1
-    distance: 0
-    time: 5
-  - type: 2
-    direction: 4
-    rankValue: 0.2
-    range: 3
-    distance: 0
-    time: 5
-  - type: 2
-    direction: 4
-    rankValue: 0.2
-    range: 5
-    distance: 0
-    time: 5
+  attackList: []

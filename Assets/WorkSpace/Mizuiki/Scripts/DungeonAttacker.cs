@@ -57,7 +57,7 @@ public class DungeonAttacker : MonoBehaviour
 	//private float m_thresholdValueRate = 0.5f;
 
 	// ダンジョンの攻撃順
-	private List<DungeonAttackData.AttackTable> m_attackTableList = new();
+	private List<DungeonAttackTableData> m_attackTableList = new();
 
 	// 実行中のダンジョンの攻撃順
 	private readonly List<DungeonAttackTable> m_attackTables = new();
@@ -114,7 +114,7 @@ public class DungeonAttacker : MonoBehaviour
 		}
 
 		// 攻撃テーブルのリストを閾値の大きい順に並び変え
-		m_attackTableList.Sort((lhs, rhs) => rhs.overNum.CompareTo(lhs.overNum));
+		m_attackTableList.Sort((lhs, rhs) => rhs.OverNum.CompareTo(lhs.OverNum));
 
 		// 攻撃テーブル初期化
 		for (int i = 0; i < m_attackTableList.Count; i++)
@@ -290,9 +290,9 @@ public class DungeonAttacker : MonoBehaviour
 		// 攻撃テーブル取得
 		DungeonAttackTable data = m_attackTables[m_attackTableIndex];
 		// 攻撃パターンを設定する
-		m_turn.AttackPattern = data.Table.pattern[data.PatternIndex];
+		m_turn.AttackPattern = data.Table.Pattern[data.PatternIndex];
 
-		Debug.Log("攻撃開始 : " + m_attackTableList[m_attackTableIndex].name + ", " + data.Table.pattern[data.PatternIndex]);
+		Debug.Log("攻撃開始 : " + m_attackTableList[m_attackTableIndex].name + ", " + data.Table.Pattern[data.PatternIndex]);
 	}
 
 	// 攻撃終了
@@ -319,7 +319,7 @@ public class DungeonAttacker : MonoBehaviour
 		if (m_random)
 		{
 			// 次の攻撃のインデックスをランダムで取得
-			m_attackTables[m_attackTableIndex].PatternIndex = Random.Range(0, m_attackTables[m_attackTableIndex].Table.pattern.Count);
+			m_attackTables[m_attackTableIndex].PatternIndex = Random.Range(0, m_attackTables[m_attackTableIndex].Table.Pattern.Count);
 			return;
 		}
 		else
@@ -327,7 +327,7 @@ public class DungeonAttacker : MonoBehaviour
 			// インデックスのインクリメント
 			m_attackTables[m_attackTableIndex].PatternIndex++;
 			// 範囲外になった
-			if (m_attackTables[m_attackTableIndex].PatternIndex >= m_attackTables[m_attackTableIndex].Table.pattern.Count)
+			if (m_attackTables[m_attackTableIndex].PatternIndex >= m_attackTables[m_attackTableIndex].Table.Pattern.Count)
 			{
 				// 0 に戻す
 				m_attackTables[m_attackTableIndex].PatternIndex = 0;
@@ -348,7 +348,7 @@ public class DungeonAttacker : MonoBehaviour
 		for (int i = 0; i < m_attackTableList.Count; i++)
 		{
 			// ブロックが決められた割合以上
-			if (m_attackTableList[i].overNum < blockRate)
+			if (m_attackTableList[i].OverNum < blockRate)
 			{
 				m_attackTableIndex = i;
 				return;

@@ -12,23 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d3370d2922863c4e8dcd18c8ebaf0c8, type: 3}
   m_Name: DungeonAttackData_1
   m_EditorClassIdentifier: 
-  stayTime: 3
+  stayTime: 30
   attackTime: 10
   rankLimit: 10
   isRandom: 0
   attackTableList:
-  - type: 0
-    overNum: 0.5
-    pattern:
-    - {fileID: 11400000, guid: 8ccac405280721c4a9ec115c4d2f627c, type: 2}
-    - {fileID: 11400000, guid: 792b17b51b1feff45b6751367ffa15d1, type: 2}
-    - {fileID: 11400000, guid: 430b6838008c3044aa94b8275832e676, type: 2}
-  - type: 1
-    overNum: 0
-    pattern:
-    - {fileID: 11400000, guid: 4afcaceda909e244ba966bfb048392f8, type: 2}
-    - {fileID: 11400000, guid: 1e73b4da6947bfa4b844a8dabe768849, type: 2}
-    - {fileID: 11400000, guid: 15bafa99ef44fe6438307424b06303ba, type: 2}
+  - {fileID: 11400000, guid: 5661e3514020c9044a8e58b23666091a, type: 2}
+  - {fileID: 11400000, guid: 68c43fb3737b6fb4b89015dcb11603af, type: 2}
+  - {fileID: 11400000, guid: a71f05f953954ea4fb05ed7aeee7f90b, type: 2}
   attackTableRange: 5
   m_attackGradeData:
     attackMaxDistance: 6

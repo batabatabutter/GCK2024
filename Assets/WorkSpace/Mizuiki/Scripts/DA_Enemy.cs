@@ -74,6 +74,10 @@ public class DA_Enemy : DungeonAttackBase
 	{
 		set { m_isType = value; }
 	}
+	public float Radius
+	{
+		set { m_radius = value; }
+	}
 	public bool IsRadius
 	{
 		set { m_isRadius = value; }

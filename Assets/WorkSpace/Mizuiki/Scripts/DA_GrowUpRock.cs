@@ -49,6 +49,17 @@ public class DA_GrowUpRock : DungeonAttackBase
 		// 生成位置確定
 		target = MyFunction.RoundHalfUp(target);
 
+		Collider2D col = Physics2D.OverlapCircle(target, 0, LayerMask.GetMask("Block"));
+		// 落下予定地にオブジェクトがある
+		if (col)
+		{
+			// ブロックタグが付いてる
+			if (col.CompareTag("Block"))
+			{
+				return;
+			}
+		}
+
 		// ターゲットの位置に攻撃を出す
 		// 攻撃生成
 		Instantiate(m_bankPrefab, new Vector3(target.x, target.y, 0), Quaternion.identity);

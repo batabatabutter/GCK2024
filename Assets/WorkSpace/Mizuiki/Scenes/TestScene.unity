@@ -3435,18 +3435,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 8304518256993672759, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
-      propertyPath: m_miningValueBase.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8304518256993672759, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
-      propertyPath: m_miningValueBase.power
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 8304518256993672759, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
-      propertyPath: m_miningValueBase.speed
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 8429125128454659071, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
       propertyPath: stopAction
       value: 2
@@ -9782,6 +9770,10 @@ PrefabInstance:
       propertyPath: m_target
       value: 
       objectReference: {fileID: 539302612}
+    - target: {fileID: 7528456396296654258, guid: 3c0037650f2f4a0499506b4d38ebc047, type: 3}
+      propertyPath: m_attackData
+      value: 
+      objectReference: {fileID: 11400000, guid: 4a03b3e4b662c404a969652c139966a9, type: 2}
     - target: {fileID: 7528456396296654258, guid: 3c0037650f2f4a0499506b4d38ebc047, type: 3}
       propertyPath: m_attackerType
       value: 202
