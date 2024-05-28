@@ -340,7 +340,8 @@ public class DungeonAttacker : MonoBehaviour
 	private void DetermineAttackTable()
 	{
 		// ターゲット周辺のブロックを取得
-		Collider2D[] blocks = Physics2D.OverlapCircleAll(m_target.position, m_attackTableRange, LayerMask.NameToLayer("Block"));
+		Collider2D[] blocks = Physics2D.OverlapCircleAll(m_target.position, m_attackTableRange, LayerMask.GetMask("Block"));
+		Debug.Log(blocks.Length);
 
 		// 判定範囲のブロックの割合を取得
 		float blockRate = blocks.Length / (int)Mathf.Round(Mathf.PI * m_attackTableRange * m_attackTableRange);

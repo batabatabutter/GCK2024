@@ -87,7 +87,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1614570275442964}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 056d818782ba6374eb284482fdafcf01, type: 3}
   m_Name: 
@@ -135,7 +135,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1614570275442964}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6fcb0d63b65dbb743aee8129fa2afdeb, type: 3}
   m_Name: 
@@ -144,10 +144,11 @@ MonoBehaviour:
   m_enemyDataBase: {fileID: 11400000, guid: ca452888acf86a640a52ed7e456cb571, type: 2}
   m_playSceneManager: {fileID: 3469568166959932924}
   m_spawnRadius: 0
-  detectionLayer:
+  m_detectionLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 0
   m_player: {fileID: 0}
+  m_dungeonAttacker: {fileID: 0}
 --- !u!114 &-618236753607932433
 MonoBehaviour:
   m_ObjectHideFlags: 0

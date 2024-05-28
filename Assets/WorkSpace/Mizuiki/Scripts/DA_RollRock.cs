@@ -51,7 +51,6 @@ public class DA_RollRock : DungeonAttackBase
 		float rollingRotation = 0.0f;
 
 		//4’Ê‚è‚¾‚©‚ç‚O`‚R
-		//MyFunction.Direction direction = MyFunction.GetRandomDirection();
 		MyFunction.Direction direction = (MyFunction.Direction)attackRank;
 		// w’è•ûŒü‚©‚çUŒ‚
 		switch (direction)
@@ -84,6 +83,13 @@ public class DA_RollRock : DungeonAttackBase
 		Instantiate(m_rollRockPrefab, MyFunction.RoundHalfUp(rollingPos), Quaternion.Euler(0, 0, rollingRotation));
 		// ƒnƒCƒ‰ƒCƒg‚Ì¶¬
 		Instantiate(m_rollRockHighlight, MyFunction.RoundHalfUp(rollingPos), Quaternion.Euler(0, 0, rollingRotation));
+	}
+
+
+
+	public float TargetDistance
+	{
+		set { m_targetDistance = value; }
 	}
 
 }

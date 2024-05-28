@@ -45,13 +45,24 @@ public class DA_FallRock : DungeonAttackBase
 			return;
 		}
 
+		// ブロックの位置に決定
+		target = MyFunction.RoundHalfUp(target);
+
+		Collider2D col = Physics2D.OverlapCircle(target, 0, LayerMask.GetMask("Block"));
+		// 落下予定地にブロックがある
+		if (col)
+		{
+			//Debug.Log("落石生成取りやめ : " + col);
+			return;
+		}
+
 		// 岩の落ちる位置
 		Vector3 rockfallPos = new(target.x, target.y + m_rockHeight, 0);
 		// 岩の生成
 		Instantiate(m_fallRockPrefab, rockfallPos, Quaternion.identity);
 
 		// ハイライトの出現位置
-		Vector3 highlightPos = new(target.x, target.y - HEIGLIGHT_HEIGHT, 0);
+		Vector3 highlightPos = new(target.x, target.y, 0);
 		// ハイライトの生成
 		Instantiate(m_fallRockHighlight, highlightPos, Quaternion.identity);
 	}

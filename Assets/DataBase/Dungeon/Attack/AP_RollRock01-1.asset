@@ -17,5 +17,5 @@ MonoBehaviour:
     direction: 4
     rankValue: 0.3
     range: 5
-    distance: 0
+    distance: 5
     time: 5

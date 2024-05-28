@@ -4,15 +4,6 @@ using UnityEngine;
 
 public class DA_RollRock01 : DA_RollRock
 {
-	//[Header("並ぶ岩")]
-
-	//[Header("横に並ぶ数")]
-	//[SerializeField] private int m_lineUpCount = 5;
-
-	//[Header("ランク増加量")]
-	//[SerializeField] private float m_rankValue = 0.5f;
-
-
 	// 攻撃開始
 	public override void Attack(Transform target, MyFunction.Direction direction, float range, float distance, float rankValue, int attackRank = 1)
 	{
@@ -23,7 +14,7 @@ public class DA_RollRock01 : DA_RollRock
 		bool horizon = dir % 2 == 1;
 
 		// 岩の生成数
-		int rockCount = /*m_lineUpCount*/(int)range + ((int)(attackRank * rankValue));
+		int rockCount = (int)range + ((int)(attackRank * rankValue));
 
 		// 攻撃位置
 		Vector3 pos = target.position;
@@ -42,6 +33,9 @@ public class DA_RollRock01 : DA_RollRock
 			pos.x = target.position.x - (rockCount / 2);
 			addPos = Vector3.right;
 		}
+
+		// 距離の設定
+		TargetDistance = distance;
 
         // 並んだ岩を生成する
         for (int i = 0; i < rockCount; i++)
