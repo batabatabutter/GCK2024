@@ -8,7 +8,8 @@ public class PlayerItem : MonoBehaviour
 	[Header("所持品")]
 	[SerializeField] private Dictionary<ItemData.ItemType, int> m_items = new();
 	[Header("最大数")]
-	[SerializeField] private int m_maxCount = 99;
+	[SerializeField] private int m_maxNormalCount = 99;
+	[SerializeField] private int m_maxRareCount = 1;
 
 	[Header("アイテムの検知範囲(半径)")]
 	[SerializeField] private float m_detectionRange = 3.0f;
@@ -38,7 +39,7 @@ public class PlayerItem : MonoBehaviour
 			// デバッグがオンになっていたら所持数をカンストさせる
 			if (m_debug)
 			{
-				m_items[itemData.Type] = m_maxCount;
+				m_items[itemData.Type] = GetMaxCount(itemData.Type);
 			}
 
 		}
@@ -91,13 +92,30 @@ public class PlayerItem : MonoBehaviour
 	// 拾えるか確認
 	public bool CheckAcquirable(ItemData.ItemType itemType)
 	{
+		// 最大所持数
+		int maxCount = GetMaxCount(itemType);
+
 		// 所持数が最大数に達していない
-		if (m_items[itemType] < m_maxCount)
+		if (m_items[itemType] < maxCount)
 		{
 			return true;
 		}
 
 		return false;
+	}
+	// アイテムの最大数を取得
+	public int GetMaxCount(ItemData.ItemType itemType)
+	{
+		// 通常アイテム
+		if (itemType < ItemData.ItemType.BIRTHDAY_STONE)
+		{
+			return m_maxNormalCount;
+		}
+		// レアアイテム
+		else
+		{
+			return m_maxRareCount;
+		}
 	}
 
 	/// <summary>
@@ -109,11 +127,11 @@ public class PlayerItem : MonoBehaviour
 	public int PicUp(ItemData.ItemType type, int count)
 	{
 		// 所持数が最大
-		if (m_items[type] >= m_maxCount)
+		if (m_items[type] >= m_maxNormalCount)
 			return 0;
 
 		// 拾う数
-		int picCount = m_maxCount - m_items[type];
+		int picCount = m_maxNormalCount - m_items[type];
 
 		// 拾える数がアイテムのスタック数より大きい
 		if (picCount > count)

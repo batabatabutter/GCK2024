@@ -952,7 +952,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a9d926cb15805c48b22efb89e761211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_maxCount: 9999
+  m_maxNormalCount: 9999
+  m_maxRareCount: 99
   m_detectionRange: 5
   m_itemDataBase: {fileID: 11400000, guid: c534141616c2bbc4ba996d4d9f120330, type: 2}
   m_debug: 1

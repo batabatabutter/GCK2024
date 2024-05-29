@@ -195,8 +195,8 @@ MonoBehaviour:
   - blockType: 101
     range:
       min: 0
-      max: 50
-    rateMin: 0.3
+      max: 100
+    rateMin: 0.2
     rateMax: 0.4
     noiseScale: 0.2
     offset: 0
@@ -226,7 +226,7 @@ MonoBehaviour:
   m_ground: {fileID: 6018421707374535805, guid: f1554866b93c910478350b8c6589feb9, type: 3}
   m_pross: {fileID: 4882576525383549920, guid: 131e4f56c090ccd4ea24d871dfcdab0b, type: 3}
   m_prossFlag: 1
-  m_isBrightness: 0
+  m_isBrightness: 1
   m_lightObject: {fileID: 798616751297926773, guid: 4eda6187e4dc8cc4ba1247a474ab6e76, type: 3}
 --- !u!114 &75050972
 MonoBehaviour:
