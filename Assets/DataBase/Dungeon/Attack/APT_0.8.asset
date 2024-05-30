@@ -16,5 +16,4 @@ MonoBehaviour:
   overNum: 0.8
   pattern:
   - {fileID: 11400000, guid: 8ccac405280721c4a9ec115c4d2f627c, type: 2}
-  - {fileID: 11400000, guid: 60f34d4db44fb114396d7d5054425e68, type: 2}
   - {fileID: 11400000, guid: 38520aa60e3cc624fb8accc557b98dc9, type: 2}

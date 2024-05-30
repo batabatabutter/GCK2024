@@ -11,6 +11,10 @@ public class TestDungeonGenerator : MonoBehaviour
 
 	[Header("ダンジョンのサイズ")]
 	[SerializeField] private Vector2Int m_dungeonSize;
+	[Header("チャンクのサイズ")]
+	[SerializeField] private int m_chunkSize = 10;
+	[Header("表示チャンク数")]
+	[SerializeField] private int m_activeChunk = 5;
 
 	[Header("ブロックジェネレータ")]
 	[SerializeField] private BlockGenerator m_blockGenerator;
@@ -36,6 +40,9 @@ public class TestDungeonGenerator : MonoBehaviour
 
 	// 生成したブロックの情報
 	private readonly List<Block> m_objectBlock = new();
+
+	// チャンクの二次元配列
+	private List<List<GameObject>> m_chunk = new();
 
 
 	// Start is called before the first frame update
@@ -82,6 +89,38 @@ public class TestDungeonGenerator : MonoBehaviour
 		{
 			search.SetSearchBlocks(m_objectBlock);
 		}
+	}
+
+	private void Update()
+	{
+		Vector2Int playerChunk = new((int)m_player.transform.position.x / m_chunkSize, (int)m_player.transform.position.y / m_chunkSize);
+
+		for (int y = 0; y < m_chunk.Count; y++)
+		{
+			for (int x = 0; x < m_chunk[y].Count; x++)
+			{
+				// プレイヤーチャンクとの距離
+				float distance = Vector2Int.Distance(playerChunk, new Vector2Int(x, y));
+
+				// 表示チャンク内
+				if (distance < m_activeChunk)
+				{
+					if (m_chunk[y][x].activeSelf == false)
+					{
+						m_chunk[y][x].SetActive(true);
+					}
+				}
+				// 表示チャンク外
+				else
+				{
+					if (m_chunk[y][x].activeSelf == true)
+					{
+						m_chunk[y][x].SetActive(false);
+					}
+				}
+			}
+		}
+
 	}
 
 	// ブロックの種類設定
@@ -141,6 +180,16 @@ public class TestDungeonGenerator : MonoBehaviour
 	// ダンジョンの生成
 	private void Generate(List<List<BlockData.BlockType>> mapList)
 	{
+		// チャンクの生成
+		for (int y = 0; y < mapList.Count / m_chunkSize; y++)
+		{
+			m_chunk.Add(new());
+			for (int x = 0; x < mapList[y].Count / m_chunkSize; x++)
+			{
+				m_chunk[y].Add(new GameObject("(" + x + ", " + y + ")"));
+			}
+		}
+
 		// 読みだしたデータをもとにダンジョン生成をする
 		for (int y = 0; y < mapList.Count; y++)
 		{
@@ -152,7 +201,7 @@ public class TestDungeonGenerator : MonoBehaviour
 				Vector3 pos = new(x, y, 0.0f);
 
 				// ブロックの生成
-				GameObject obj = m_blockGenerator.GenerateBlock(name, pos, null);
+				GameObject obj = m_blockGenerator.GenerateBlock(name, pos, m_chunk[y / m_chunkSize][x / m_chunkSize].transform);
 
 				// ブロックがあれば追加
 				if (obj.TryGetComponent(out Block block))

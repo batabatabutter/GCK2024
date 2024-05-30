@@ -25,6 +25,9 @@ public class PlayerTool : MonoBehaviour
 	[Header("ツール格納用オブジェクト")]
 	[SerializeField] private GameObject m_toolContainer = null;
 
+	// 生成ブロックの配列
+	private DungeonGenerator.BlockGenerateData[] m_blockGenerateData = null;
+
 	// ツール更新用のオブジェクト
 	private Dictionary<ToolData.ToolType, Tool> m_toolScripts = new();
 
@@ -59,6 +62,9 @@ public class PlayerTool : MonoBehaviour
 		{
 			// ツールの種類
 			ToolData.ToolType type = toolData.Type;
+
+			// ステージで無効なツール
+
 
 			// 上書き防止
 			if (m_tools.ContainsKey(type))
@@ -411,6 +417,12 @@ public class PlayerTool : MonoBehaviour
 	public bool IsRareTool
 	{
 		get { return m_rare; }
+	}
+
+	// 生成ブロック配列
+	public DungeonGenerator.BlockGenerateData[] BlockGenerateDatas
+	{
+		set { m_blockGenerateData = value; }
 	}
 
 	// ツールのリキャスト時間の取得
