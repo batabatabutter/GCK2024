@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d3370d2922863c4e8dcd18c8ebaf0c8, type: 3}
   m_Name: DungeonAttackData_1
   m_EditorClassIdentifier: 
-  stayTime: 30
+  stayTime: 20
   attackTime: 10
   rankLimit: 10
   isRandom: 0
