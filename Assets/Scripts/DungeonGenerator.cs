@@ -303,13 +303,16 @@ public class DungeonGenerator : MonoBehaviour
 		{
 			for (int x = 0; x < mapList[y].Count; x++)
 			{
+				// チャンク取得
+				Transform chunk = m_chunk[y / m_chunkSize][x / m_chunkSize].transform;
+
 				// 生成する座標
 				Vector2 position = new(x, y);
 				//プレイヤー
 				if ((int)m_playerPos.x == x && (int)m_playerPos.y == y)
 				{
 					// 空のブロックを生成
-					m_blocks[y,x] = m_blockGenerator.GenerateBlock(BlockData.BlockType.OVER, position, m_chunk[y][x].transform);
+					m_blocks[y,x] = m_blockGenerator.GenerateBlock(BlockData.BlockType.OVER, position, chunk);
 					continue;
 				}
 				//コアを生成
@@ -323,14 +326,14 @@ public class DungeonGenerator : MonoBehaviour
 					// 生成するブロックの種類
 					BlockData.BlockType type = CreateBlockType(blockGenerateData, new Vector2(x, y));
 					// ブロック生成
-					m_blocks[y, x] = m_blockGenerator.GenerateBlock(type, position, m_chunk[y / m_chunkSize][x / m_chunkSize].transform);
+					m_blocks[y, x] = m_blockGenerator.GenerateBlock(type, position, chunk);
 					// ブロックリストに追加
 					m_blocksList.Add(m_blocks[y, x].GetComponent<Block>());
 				}
 				else
 				{
 					// 空のブロックを生成
-					m_blocks[y, x] = m_blockGenerator.GenerateBlock(BlockData.BlockType.OVER, position, m_chunk[y][x].transform);
+					m_blocks[y, x] = m_blockGenerator.GenerateBlock(BlockData.BlockType.OVER, position, chunk);
 				}
 			}
 		}
