@@ -6,12 +6,19 @@ using UnityEngine.UI;
 
 public class PlayerTool : MonoBehaviour
 {
+	// ツールの更新情報
 	public class ToolContainer
 	{
 		public ToolData data = null;		// ツールの情報
 		public bool available	= true;		// 使用可能
 		public bool isRecast	= false;	// リキャスト中
 		public float recastTime = 0.0f;     // リキャスト時間
+	}
+	// ブロックに応じたツール
+	public struct BlockTool
+	{
+		public BlockData.BlockType blockType;
+		public List<ToolData.ToolType> toolTypes;
 	}
 
 	[Header("ツールのデータベース")]
@@ -26,7 +33,8 @@ public class PlayerTool : MonoBehaviour
 	[SerializeField] private GameObject m_toolContainer = null;
 
 	// 生成ブロックの配列
-	private DungeonGenerator.BlockGenerateData[] m_blockGenerateData = null;
+	[SerializeField] private List<BlockTool> m_blockTool = new();
+	private Dictionary<BlockData.BlockType, List<ItemData.ItemType>> m_blockTools = new();
 
 	// ツール更新用のオブジェクト
 	private Dictionary<ToolData.ToolType, Tool> m_toolScripts = new();
@@ -417,12 +425,6 @@ public class PlayerTool : MonoBehaviour
 	public bool IsRareTool
 	{
 		get { return m_rare; }
-	}
-
-	// 生成ブロック配列
-	public DungeonGenerator.BlockGenerateData[] BlockGenerateDatas
-	{
-		set { m_blockGenerateData = value; }
 	}
 
 	// ツールのリキャスト時間の取得

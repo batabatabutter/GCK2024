@@ -97,10 +97,31 @@ public class DungeonGenerator : MonoBehaviour
 
 	private void Start()
 	{
-		// サーチにブロックを設定する
+		// サーチの設定
 		if (m_playSceneManager.GetPlayer().TryGetComponent(out SearchBlock search))
-		{			
+		{
+			// サーチにブロックを設定する
 			search.SetSearchBlocks(m_blocksList);
+			// サーチ範囲を設定
+			Vector2Int size = m_dungeonDataBase.dungeonDatas[m_stageNum].Size;
+			search.MarkerMaxScale = Mathf.Max(size.x, size.y) / 2.0f;
+		}
+		// アイテムの設定
+		if (m_playSceneManager.GetPlayer().TryGetComponent(out PlayerTool tool))
+		{
+			// 生成ブロックの情報
+			BlockGenerateData[] blockData = m_dungeonDataBase.dungeonDatas[m_stageNum].BlockGenerateData;
+			for (int i = 0; i < blockData.Length; i++)
+			{
+				// レア鉱石じゃない
+				if (blockData[i].blockType < BlockData.BlockType.BIRTHDAY)
+				{
+					continue;
+				}
+
+			}
+			// ダンジョンに存在するブロック
+			//item.PossibleItems = 
 		}
 	}
 

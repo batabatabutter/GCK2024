@@ -26,7 +26,7 @@ public class SearchBlock : MonoBehaviour
 
     [Header("マーカーの有効時間(秒)")]
     [SerializeField] private float m_markerLifeTime = 1.0f;
-    [Header("マーカーの最大範囲(半径)")]
+    [Header("マーカーの表示範囲(半径)")]
     [SerializeField] private float m_markerMaxScale = 50.0f;
 
     [Header("開始時にサーチ")]
@@ -193,5 +193,20 @@ public class SearchBlock : MonoBehaviour
             marker.MaxScale = m_markerMaxScale * 2.0f;
 		}
     }
+
+
+
+    // マーカーの生存時間
+    public float MarkerLifeTime
+    {
+        set { m_markerLifeTime = value; }
+    }
+
+    // マーカーの表示範囲
+    public float MarkerMaxScale
+    {
+        set { m_markerMaxScale = value; }
+    }
+
 
 }

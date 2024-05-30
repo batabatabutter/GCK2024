@@ -47,6 +47,8 @@ public class DungeonData : ScriptableObject
     [Header("ダンジョンの生成確率")]
     [SerializeField] private DungeonGenerator.BlockGenerateData[] blockGenerateData;
 
+    [Header("出現ツール情報")]
+
     [Header("ウェーブ情報")]
     [SerializeField] private List<DungeonWave> dungeonWaves;
     [Header("休憩ウェーブ時間")]

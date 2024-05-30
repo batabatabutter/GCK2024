@@ -350,11 +350,11 @@ public class PlayerMining : MonoBehaviour
         }
 
         // 採掘サイズが 1 以下
-        if (m_miningValue.size <= 0.5f)
+        if (m_miningValue.size <= 1.0f)
             return;
 
         // ブロックの取得
-        Collider2D[] blocks = Physics2D.OverlapCircleAll(center, m_miningValue.size, LayerMask.GetMask("Block"));
+        Collider2D[] blocks = Physics2D.OverlapCircleAll(center, m_miningValue.size / 2.0f, LayerMask.GetMask("Block"));
 
         foreach(Collider2D block in blocks)
         {

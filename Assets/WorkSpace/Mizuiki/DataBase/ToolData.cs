@@ -15,23 +15,27 @@ public class ToolData : ScriptableObject
 
 		NORMAL_NUM,		//	現在のツール数
 
-		RARE	= 100,		// ここからレアツール
+		RARE	= 200,		// ここからレアツール
 
-		HOLY_TOACH,				// 聖火
-		RANGE_DESTROYER,		// 範囲破壊つるはし
-		SHIELD,					// シールド
-
-		DRILL,					// ドリル
-		DENGEROUS_BOMB,         // 危険爆弾
-		HEAVY_ARMOR,			// 重鎧
-
+		// エメラルド : 5月
 		HEALING_TOACH,			// 癒しの松明
 		DOUBLE_PICAXE,			// 倍増つるはし
 		LIMIT_TOTEM,			// 制限のトーテム
 
+		// ルビー : 7月
+		DRILL,					// ドリル
+		DENGEROUS_BOMB,         // 危険爆弾
+		HEAVY_ARMOR,			// 重鎧
+
+		// サファイア : 9月
 		HAMMER,					// ハンマー
 		MINING_BOMB,			// 採掘爆弾
 		HEALING_AURA,			// 癒しのオーラ
+
+		// トパーズ : 11月
+		HOLY_TOACH,				// 聖火
+		RANGE_DESTROYER,		// 範囲破壊つるはし
+		SHIELD,					// シールド
 
 		OVER
 	}

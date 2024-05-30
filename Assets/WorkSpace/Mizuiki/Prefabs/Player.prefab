@@ -503,7 +503,7 @@ MonoBehaviour:
     m_Bits: 8
   m_miningValueBase:
     range: 3
-    size: 0.3
+    size: 1
     power: 50
     speed: 2
     critical: 0
@@ -637,7 +637,8 @@ MonoBehaviour:
   m_searchAll: 1
   m_markerObject: {fileID: 3933631991742298871, guid: 1ea2d53b05f86694e9e5eda9c8a07d80, type: 3}
   m_markerLifeTime: 10
-  m_awake: 0
+  m_markerMaxScale: 50
+  m_awake: 1
 --- !u!58 &1341152067951338783
 CircleCollider2D:
   m_ObjectHideFlags: 0
