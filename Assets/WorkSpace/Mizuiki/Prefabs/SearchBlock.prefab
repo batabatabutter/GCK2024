@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2728532183037607872}
   - component: {fileID: 3512536480321443913}
   m_Layer: 0
-  m_Name: Tool_SearchBlock
+  m_Name: SearchBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60990446ae9c775409836eed1b4f4243, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_seachBlockType: 0
+  m_searchBlockType: 0:STONE
   m_searchRange: 0
   m_hitCount: 1
   m_searchAll: 1
+  m_markerObject: {fileID: 3933631991742298871, guid: 1ea2d53b05f86694e9e5eda9c8a07d80, type: 3}
+  m_markerLifeTime: 10
+  m_awake: 0

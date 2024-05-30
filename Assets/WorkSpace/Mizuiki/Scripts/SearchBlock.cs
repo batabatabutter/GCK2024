@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ToolSearchBlock : MonoBehaviour
+public class SearchBlock : MonoBehaviour
 {
     [Header("サーチ対象")]
     [SerializeField, CustomEnum(typeof(BlockData.BlockType))] private string m_searchBlockType;
     private BlockData.BlockType m_blockType;
 
 	// サーチ対象ブロックのゲームオブジェクトオブジェクト
-	private readonly List<Transform> m_searchBlocks = new();
+	private readonly Dictionary<BlockData.BlockType, List<Transform>> m_searchBlocks = new();
     // ターゲットのブロックのゲームオブジェクト
     private List<Transform> m_targetBlocks = new();
 
@@ -23,9 +23,11 @@ public class ToolSearchBlock : MonoBehaviour
 
     [Header("ターゲットの位置を示すマーカー")]
     [SerializeField] private SearchMarker m_markerObject = null;
-    [Header("マーカーの有効時間")]
+    [Header("マーカーの有効時間(秒)")]
     [SerializeField] private float m_markerLifeTime = 1.0f;
 
+    [Header("開始時にサーチ")]
+    [SerializeField] private bool m_awake = false;
 
 
 	private void Awake()
@@ -36,21 +38,24 @@ public class ToolSearchBlock : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
-        
-    }
+        // 開始と同時にサーチする
+        if (m_awake)
+        {
+            SearchOne(BlockData.BlockType.CORE);
+		}
+	}
 
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.O))
         {
-            SearchOne();
-            CreateSearchMarker();
+            SearchOne(m_blockType);
         }
     }
 
     // 最も近いブロック
-    public void SearchOne()
+    public void SearchOne(BlockData.BlockType type)
     {
         // ターゲットを空にする
         m_targetBlocks.Clear();
@@ -63,29 +68,20 @@ public class ToolSearchBlock : MonoBehaviour
         }
 
         // 近いブロック
-        Transform nearBlock = m_searchBlocks[0];
-        // 近いブロックの距離
-        float nearDistance = Vector2.Distance(transform.position, m_searchBlocks[0].transform.position);
-
-        foreach (Transform block in m_searchBlocks)
-        {
-            float distance = Vector2.Distance(transform.position, block.transform.position);
-
-            // より近い
-            if (distance < nearDistance)
-            {
-                nearDistance = distance;
-                nearBlock = block;
-            }
-        }
+        List<Transform> nearBlock = m_searchBlocks[type];
+        // 近い順にソート
+        nearBlock.Sort((lhs, rhs) => Vector2.Distance(transform.position, lhs.position).CompareTo(Vector2.Distance(transform.position, rhs.position)));
 
         // 最も近いブロックをサーチ対象として追加
-        m_targetBlocks.Add(nearBlock);
+        m_targetBlocks.Add(nearBlock[0]);
 
-    }
+        // マーカーの作成
+		CreateSearchMarker();
 
-    // 範囲内のすべてのブロック
-    public void SearchAll()
+	}
+
+	// 範囲内のすべてのブロック
+	public void SearchAll(BlockData.BlockType type)
     {
         // ターゲットを空にする
         m_targetBlocks.Clear();
@@ -97,10 +93,10 @@ public class ToolSearchBlock : MonoBehaviour
 			return;
 		}
 
-        foreach (Transform block in m_searchBlocks)
+        foreach (Transform block in m_searchBlocks[type])
         {
             // プレイヤーからの距離
-            float distance = Vector2.Distance(transform.position, block.transform.position);
+            float distance = Vector2.Distance(transform.position, block.position);
 
             // すべてがサーチ範囲
             if (m_searchAll)
@@ -115,10 +111,14 @@ public class ToolSearchBlock : MonoBehaviour
                 m_targetBlocks.Add(block);
             }
         }
+
+		// マーカーの作成
+		CreateSearchMarker();
+
 	}
 
-    // インスペクターで設定された個数のブロック
-    public void Search()
+	// インスペクターで設定された個数のブロック
+	public void SearchCount(BlockData.BlockType type, int count)
     {
 		// ターゲットを空にする
 		m_targetBlocks.Clear();
@@ -131,9 +131,9 @@ public class ToolSearchBlock : MonoBehaviour
 		}
 
         // コピー渡し
-        m_targetBlocks = new (m_searchBlocks);
+        m_targetBlocks = new(m_searchBlocks[type]);
 
-        // 削除条件
+        // サーチ範囲外は削除
         m_targetBlocks.RemoveAll(b => Vector2.Distance(transform.position, b.transform.position) > m_searchRange);
 
         // 距離の近い順にソート
@@ -145,22 +145,30 @@ public class ToolSearchBlock : MonoBehaviour
             m_targetBlocks.RemoveAt(m_targetBlocks.Count - 1);
         }
 
+		// マーカーの作成
+		CreateSearchMarker();
+
 	}
 
-    // ブロックの設定
-    public void SetSearchBlocks(List<Block> blocks)
+	// ブロックの設定
+	public void SetSearchBlocks(List<Block> blocks)
     {
         foreach (Block block in blocks)
         {
             if (block.BlockData == null)
                 continue;
 
-            // サーチ対象のブロックである
-            if (block.BlockData.Type == m_blockType)
+            // ブロックの種類取得
+            BlockData.BlockType type = block.BlockData.Type;
+
+            // キーが存在しない
+            if(!m_searchBlocks.ContainsKey(type))
             {
-                // トランスフォームの追加
-                m_searchBlocks.Add(block.transform);
+                m_searchBlocks[type] = new();
             }
+
+            // ブロックの追加
+            m_searchBlocks[type].Add(block.transform);
         }
     }
 
@@ -178,7 +186,7 @@ public class ToolSearchBlock : MonoBehaviour
         foreach (Transform target in m_targetBlocks)
         {
             // マーカーを生成
-            Instantiate(m_markerObject, target).LifeTime = m_markerLifeTime;
+            Instantiate(m_markerObject, target.position, Quaternion.identity).LifeTime = m_markerLifeTime;
         }
     }
 

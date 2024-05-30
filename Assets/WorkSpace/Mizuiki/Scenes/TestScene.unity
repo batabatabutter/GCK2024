@@ -160,7 +160,6 @@ Transform:
   m_Children:
   - {fileID: 539302612}
   - {fileID: 102538595}
-  - {fileID: 1370910747}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &75050970
@@ -177,6 +176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_dungeonData: {fileID: 0}
   m_dungeonSize: {x: 100, y: 100}
+  m_isChunk: 1
   m_chunkSize: 10
   m_activeChunk: 5
   m_blockGenerator: {fileID: 75050971}
@@ -3504,7 +3504,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 75050969}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 148273863345651571, guid: 10b5371f416b6a64894f9c64a4e77b15, type: 3}
       propertyPath: m_Name
@@ -3555,11 +3555,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10b5371f416b6a64894f9c64a4e77b15, type: 3}
---- !u!4 &1370910747 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8125378280389937118, guid: 10b5371f416b6a64894f9c64a4e77b15, type: 3}
-  m_PrefabInstance: {fileID: 1370910746}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1447297712
 GameObject:
   m_ObjectHideFlags: 0
@@ -4794,12 +4789,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60990446ae9c775409836eed1b4f4243, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_searchBlockType: 101:COAL
+  m_searchBlockType: 501:CORE
   m_searchRange: 0
   m_hitCount: 1
-  m_searchAll: 0
+  m_searchAll: 1
   m_markerObject: {fileID: 3933631991742298871, guid: 1ea2d53b05f86694e9e5eda9c8a07d80, type: 3}
-  m_markerLifeTime: 100
+  m_markerLifeTime: 300
+  m_awake: 1
 --- !u!1 &1912286056
 GameObject:
   m_ObjectHideFlags: 0
@@ -10002,3 +9998,4 @@ SceneRoots:
   - {fileID: 425261723}
   - {fileID: 1621739907}
   - {fileID: 2098726196}
+  - {fileID: 1370910746}

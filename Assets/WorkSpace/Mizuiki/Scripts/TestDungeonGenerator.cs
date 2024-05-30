@@ -11,6 +11,9 @@ public class TestDungeonGenerator : MonoBehaviour
 
 	[Header("ダンジョンのサイズ")]
 	[SerializeField] private Vector2Int m_dungeonSize;
+
+	[Header("チャンク機能有効")]
+	[SerializeField] private bool m_isChunk = true;
 	[Header("チャンクのサイズ")]
 	[SerializeField] private int m_chunkSize = 10;
 	[Header("表示チャンク数")]
@@ -45,7 +48,7 @@ public class TestDungeonGenerator : MonoBehaviour
 	private List<List<GameObject>> m_chunk = new();
 
 
-	// Start is called before the first frame update
+
 	void Start()
 	{
 		// ブロックの設定
@@ -85,7 +88,7 @@ public class TestDungeonGenerator : MonoBehaviour
 		SetBlockType(mapList);
 		Generate(m_blockTypes);
 
-		if (m_player.TryGetComponent(out ToolSearchBlock search))
+		if (m_player.TryGetComponent(out SearchBlock search))
 		{
 			search.SetSearchBlocks(m_objectBlock);
 		}
@@ -93,6 +96,12 @@ public class TestDungeonGenerator : MonoBehaviour
 
 	private void Update()
 	{
+		// チャンク機能無効
+		if (m_isChunk == false)
+		{
+			return;
+		}
+
 		Vector2Int playerChunk = new((int)m_player.transform.position.x / m_chunkSize, (int)m_player.transform.position.y / m_chunkSize);
 
 		for (int y = 0; y < m_chunk.Count; y++)
@@ -200,8 +209,19 @@ public class TestDungeonGenerator : MonoBehaviour
 				// 生成座標
 				Vector3 pos = new(x, y, 0.0f);
 
+				GameObject obj;
+
+				// コアの生成
+				if (new Vector2Int(x, y) == m_corePosition)
+				{
+					obj = m_blockGenerator.GenerateBlock(BlockData.BlockType.CORE, pos, m_chunk[y / m_chunkSize][x / m_chunkSize].transform);
+
+				}
 				// ブロックの生成
-				GameObject obj = m_blockGenerator.GenerateBlock(name, pos, m_chunk[y / m_chunkSize][x / m_chunkSize].transform);
+				else
+				{
+					obj = m_blockGenerator.GenerateBlock(name, pos, m_chunk[y / m_chunkSize][x / m_chunkSize].transform);
+				}
 
 				// ブロックがあれば追加
 				if (obj.TryGetComponent(out Block block))

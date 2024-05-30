@@ -49,7 +49,7 @@ public class DungeonGenerator : MonoBehaviour
 	[Header("核からプレイヤーの出現しない距離")]
     [SerializeField] private int m_playerLength = 35;
     [Header("プレイヤー")]
-    [SerializeField] private GameObject m_player;
+    [SerializeField] private GameObject m_playerPrefab;
     [Header("プレイシーンマネージャー")]
     [SerializeField] private PlaySceneManager m_playSceneManager;
 
@@ -94,6 +94,15 @@ public class DungeonGenerator : MonoBehaviour
 			m_dungeonGenerators[generator.pattern] = generator.generator;
 		}
     }
+
+	private void Start()
+	{
+		// サーチにブロックを設定する
+		if (m_playSceneManager.GetPlayer().TryGetComponent(out SearchBlock search))
+		{			
+			search.SetSearchBlocks(m_blocksList);
+		}
+	}
 
 	private void Update()
 	{
@@ -183,11 +192,13 @@ public class DungeonGenerator : MonoBehaviour
 		);
 
 		//  プレイヤーの生成
-		GameObject pl = Instantiate(m_player, m_playerPos, Quaternion.identity);
+		GameObject pl = Instantiate(m_playerPrefab, m_playerPos, Quaternion.identity);
 		m_blockGenerator.SetPlayerTransform(pl.transform);
 
 		// coreの生成
 		GameObject co = m_blockGenerator.GenerateBlock(BlockData.BlockType.CORE, new Vector3(m_corePos.x, m_corePos.y), null);
+		// ブロックリストに追加
+		m_blocksList.Add(co.GetComponent<Block>());
 
 
 		//  プレイシーンマネージャーが無かったら格納しない

@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class SearchMarker : MonoBehaviour
 {
-    [Header("マーカーの表示時間")]
+	// 一秒で広がる距離
+	const float PARTICLE_RANGE = 5.0f;
+
+	[Header("マーカーの表示時間")]
     [SerializeField] private float m_lifeTime = 1.0f;
     private float m_time = 0.0f;
 
@@ -16,6 +19,7 @@ public class SearchMarker : MonoBehaviour
     void Start()
     {
         m_time = m_lifeTime;
+        m_particleSystem.Simulate(m_lifeTime);
         m_particleSystem.Play();
 
     }
