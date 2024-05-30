@@ -323,7 +323,7 @@ public class DungeonGenerator : MonoBehaviour
 					// 生成するブロックの種類
 					BlockData.BlockType type = CreateBlockType(blockGenerateData, new Vector2(x, y));
 					// ブロック生成
-					m_blocks[y, x] = m_blockGenerator.GenerateBlock(type, position, m_chunk[y][x].transform);
+					m_blocks[y, x] = m_blockGenerator.GenerateBlock(type, position, m_chunk[y / m_chunkSize][x / m_chunkSize].transform);
 					// ブロックリストに追加
 					m_blocksList.Add(m_blocks[y, x].GetComponent<Block>());
 				}
