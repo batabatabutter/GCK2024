@@ -23,8 +23,11 @@ public class SearchBlock : MonoBehaviour
 
     [Header("ターゲットの位置を示すマーカー")]
     [SerializeField] private SearchMarker m_markerObject = null;
+
     [Header("マーカーの有効時間(秒)")]
     [SerializeField] private float m_markerLifeTime = 1.0f;
+    [Header("マーカーの最大範囲(半径)")]
+    [SerializeField] private float m_markerMaxScale = 50.0f;
 
     [Header("開始時にサーチ")]
     [SerializeField] private bool m_awake = false;
@@ -33,16 +36,6 @@ public class SearchBlock : MonoBehaviour
 	private void Awake()
 	{
         m_blockType = SerializeUtil.Restore<BlockData.BlockType>(m_searchBlockType);
-	}
-
-	// Start is called before the first frame update
-	void Start()
-    {
-        // 開始と同時にサーチする
-        if (m_awake)
-        {
-            SearchOne(BlockData.BlockType.CORE);
-		}
 	}
 
     // Update is called once per frame
@@ -170,11 +163,18 @@ public class SearchBlock : MonoBehaviour
             // ブロックの追加
             m_searchBlocks[type].Add(block.transform);
         }
-    }
+
+		// 開始と同時にサーチする
+		if (m_awake)
+		{
+			SearchOne(BlockData.BlockType.CORE);
+		}
+
+	}
 
 
 
-    private void CreateSearchMarker()
+	private void CreateSearchMarker()
     {
         // マーカーがない
         if (m_markerObject == null)
@@ -186,8 +186,12 @@ public class SearchBlock : MonoBehaviour
         foreach (Transform target in m_targetBlocks)
         {
             // マーカーを生成
-            Instantiate(m_markerObject, target.position, Quaternion.identity).LifeTime = m_markerLifeTime;
-        }
+            SearchMarker marker = Instantiate(m_markerObject, target.position, Quaternion.identity);
+            // 生存時間設定
+            marker.LifeTime = m_markerLifeTime;
+            // 最大サイズ設定
+            marker.MaxScale = m_markerMaxScale * 2.0f;
+		}
     }
 
 }

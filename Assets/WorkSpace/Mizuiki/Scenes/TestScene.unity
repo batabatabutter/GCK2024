@@ -144,7 +144,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &75050969
 Transform:
   m_ObjectHideFlags: 0
@@ -347,7 +347,7 @@ MonoBehaviour:
   m_chunkSize: 10
   m_activeChunk: 3
   m_playerLength: 0
-  m_player: {fileID: 6945831396311541013, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
+  m_playerPrefab: {fileID: 0}
   m_playSceneManager: {fileID: 0}
   m_ground: {fileID: 0}
   m_generators: []
@@ -3376,6 +3376,10 @@ PrefabInstance:
       propertyPath: m_debug
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2176857556641392338, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
+      propertyPath: m_awake
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2274965954909220427, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3447,10 +3451,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6945831396311541013, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1847183018}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
 --- !u!1 &1177904969
 GameObject:
@@ -4600,7 +4601,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1614570275442964, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 792408576829412996, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
       propertyPath: m_blockCore
@@ -4777,25 +4778,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68eefbd3aac9bd3489c4f851d45c4b6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1847183018
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 738526308}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60990446ae9c775409836eed1b4f4243, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_searchBlockType: 501:CORE
-  m_searchRange: 0
-  m_hitCount: 1
-  m_searchAll: 1
-  m_markerObject: {fileID: 3933631991742298871, guid: 1ea2d53b05f86694e9e5eda9c8a07d80, type: 3}
-  m_markerLifeTime: 300
-  m_awake: 1
 --- !u!1 &1912286056
 GameObject:
   m_ObjectHideFlags: 0

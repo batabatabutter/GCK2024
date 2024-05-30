@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class SearchMarker : MonoBehaviour
 {
-	// 一秒で広がる距離
-	const float PARTICLE_RANGE = 5.0f;
-
 	[Header("マーカーの表示時間")]
     [SerializeField] private float m_lifeTime = 1.0f;
     private float m_time = 0.0f;
+
+    [Header("マーカーの表示範囲(直径)")]
+    [SerializeField] private float m_maxScale = 100.0f;
 
     [Header("パーティクル")]
     [SerializeField] private ParticleSystem m_particleSystem = null;
@@ -18,8 +18,15 @@ public class SearchMarker : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_time = m_lifeTime;
-        m_particleSystem.Simulate(m_lifeTime);
+        // オブジェクト自体の生存時間
+        m_time = m_lifeTime * 2.0f;
+        // パーティクルの生存時間設定
+        ParticleSystem.MainModule main = m_particleSystem.main;
+        main.startLifetimeMultiplier = m_lifeTime;
+        // 最大サイズ設定
+        ParticleSystem.SizeOverLifetimeModule size = m_particleSystem.sizeOverLifetime;
+        size.xMultiplier = m_maxScale;
+        // パーティクル再生開始
         m_particleSystem.Play();
 
     }
@@ -40,5 +47,10 @@ public class SearchMarker : MonoBehaviour
     public float LifeTime
     {
         set { m_lifeTime = value; }
+    }
+
+    public float MaxScale
+    {
+        set { m_maxScale = value; }
     }
 }
