@@ -56,7 +56,7 @@ public class BlockGenerator : MonoBehaviour
         }
 
         // 地面を生成
-        GameObject ground = Instantiate(m_ground, parent);
+        GameObject ground = Instantiate(m_ground, position, Quaternion.identity, parent);
         ground.GetComponent<ObjectAffectLight>().BrightnessFlag = m_isBrightness;
 
         // ブロックのデータ取得

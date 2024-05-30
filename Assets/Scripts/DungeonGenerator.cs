@@ -98,7 +98,8 @@ public class DungeonGenerator : MonoBehaviour
 	private void Update()
 	{
 		// プレイヤーのいるチャンク
-		Vector2Int playerChunk = new((int)m_player.transform.position.x / m_chunkSize, (int)m_player.transform.position.y / m_chunkSize);
+		var pl = m_playSceneManager.GetPlayer();
+		Vector2Int playerChunk = new((int)pl.transform.position.x / m_chunkSize, (int)pl.transform.position.y / m_chunkSize);
 
 		for (int y = 0; y < m_chunk.Count; y++)
 		{

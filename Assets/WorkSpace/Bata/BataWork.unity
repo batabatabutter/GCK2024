@@ -266,6 +266,10 @@ PrefabInstance:
       value: PlaySceneManager
       objectReference: {fileID: 0}
     - target: {fileID: 792408576829412996, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
+      propertyPath: m_activeChunk
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 792408576829412996, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
       propertyPath: m_isBrightness
       value: 1
       objectReference: {fileID: 0}
@@ -283,7 +287,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1500174390285807772, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
       propertyPath: m_prossFlag
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1500174390285807772, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
       propertyPath: m_isBrightness
@@ -291,7 +295,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3469568166959932924, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
       propertyPath: m_uiFlag
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3469568166959932924, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
       propertyPath: m_debugFlag
