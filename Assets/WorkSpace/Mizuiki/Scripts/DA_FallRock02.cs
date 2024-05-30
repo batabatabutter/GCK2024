@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class DA_FallRock02 : DA_FallRock
