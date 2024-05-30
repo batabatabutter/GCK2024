@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.PlayerSettings;
 
 public class ItemUI : MonoBehaviour
 {
@@ -54,11 +55,24 @@ public class ItemUI : MonoBehaviour
     void Update()
     {
         //  アイテム数更新
+        int graphNum = 0;
         for(int i = 0; i < m_data.item.Count; i++) 
         {
             //  アイテム数設定
-            m_itemObjects[i].GetComponent<ItemFrame>().SetNum(
-                m_player.transform.Find("Item").gameObject.GetComponent<PlayerItem>().Items[m_data.item[i].Type]);
+            var num = m_player.transform.Find("Item").gameObject.GetComponent<PlayerItem>().Items[m_data.item[i].Type];
+            if (num == 0)
+            {
+                m_itemObjects[i].SetActive(false);
+            }
+            else
+            {
+                m_itemObjects[i].SetActive(true);
+                Vector2 size = m_itemFrame.GetComponent<RectTransform>().sizeDelta;
+                Vector3 pos = new Vector3(0.0f, -(size.y + m_offset.y) * graphNum) + transform.position;
+                m_itemObjects[i].GetComponent<ItemFrame>().SetNum(num);
+                m_itemObjects[i].transform.position = pos;
+                graphNum++;
+            }
         }
     }
 
