@@ -13,6 +13,7 @@ public class DungeonAttackData : ScriptableObject
 		FALL_ROCK_01 = 0,
 		FALL_ROCK_02,
 		FALL_ROCK_03,
+		FALL_ROCK_04,
 
 		ROLL_ROCK_01 = 100,
 

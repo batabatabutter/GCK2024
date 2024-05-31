@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5586643501512867278}
   - component: {fileID: 7616439521661238781}
   - component: {fileID: 7633149284019350377}
+  - component: {fileID: 7428838591270954479}
   - component: {fileID: 6764305495278839610}
   - component: {fileID: 3892649588794377886}
   - component: {fileID: 413805561393604662}
@@ -71,6 +72,8 @@ MonoBehaviour:
     attack: {fileID: 7616439521661238781}
   - type: 2
     attack: {fileID: 7633149284019350377}
+  - type: 3
+    attack: {fileID: 7428838591270954479}
   - type: 100
     attack: {fileID: 6764305495278839610}
   - type: 200
@@ -135,6 +138,29 @@ MonoBehaviour:
   m_fallRockPrefab: {fileID: 2940951798871330703, guid: 829d86242de0c674a8b178b0f249f289, type: 3}
   m_fallRockHighlight: {fileID: 4708925638394852652, guid: 82994475c12be0f4da5df8587e7d4dec, type: 3}
   m_rockHeight: 3
+--- !u!114 &7428838591270954479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2189642266553579207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d720e735162d344cb2cb946bf6c0207, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_fallRockPrefab: {fileID: 2940951798871330703, guid: 829d86242de0c674a8b178b0f249f289, type: 3}
+  m_fallRockHighlight: {fileID: 4708925638394852652, guid: 82994475c12be0f4da5df8587e7d4dec, type: 3}
+  m_rockHeight: 3
+  m_fallRock03: {fileID: 7633149284019350377}
+  m_attack: 0
+  m_fallTime: 0.5
+  m_range: 5
+  m_attackSize: 1
+  m_rank: 0
+  m_rankValue: 1
+  m_targetPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &6764305495278839610
 MonoBehaviour:
   m_ObjectHideFlags: 0

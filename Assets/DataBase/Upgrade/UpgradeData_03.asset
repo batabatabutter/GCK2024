@@ -22,4 +22,4 @@ MonoBehaviour:
     itemDrop: 0
   cost:
   - typeStr: 0:STONE
-    count: 50
+    count: 150

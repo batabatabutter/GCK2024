@@ -1,16 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class DA_FallRock03 : DA_FallRock
 {
 	public override void Attack(Transform target, MyFunction.Direction direction, float range, float distance, float rankValue, int attackRank = 1)
 	{
+		// 塊攻撃
+		AttackLump(target.position, range, rankValue, attackRank);
+
+	}
+
+	public void AttackLump(Vector3 pos, float range, float rankValue, int attackRank = 1)
+	{
 		// 塊のサイズ
 		int massSize = (int)range + (int)(attackRank * rankValue);
 		int massRange = massSize / 2;
 		// ターゲットのグリッド取得
-		Vector2 targetGrid = MyFunction.RoundHalfUp(target.position);
+		Vector2 targetGrid = MyFunction.RoundHalfUp(pos);
 		Vector2 startPos = new(targetGrid.x - massRange, targetGrid.y - massRange);
 		// パターンその2
 		for (int y = 0; y < massSize; y++)
@@ -27,5 +35,7 @@ public class DA_FallRock03 : DA_FallRock
 				AttackOne(attackPos);
 			}
 		}
+
 	}
+
 }
