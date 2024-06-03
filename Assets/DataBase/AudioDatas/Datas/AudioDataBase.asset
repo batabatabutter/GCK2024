@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: AudioDataBase
   m_EditorClassIdentifier: 
   audioDatas:
-  - {fileID: 11400000, guid: 8c3c4d9bb7aaeeb4297d131c26582da2, type: 2}
   - {fileID: 11400000, guid: 1c05196639db34e418fb564019babd5d, type: 2}
   - {fileID: 11400000, guid: 7a8147d99cb141d46b7b3ced233c86ee, type: 2}
   - {fileID: 11400000, guid: 06ae062f3b22e7141b36fca6c6a0a4de, type: 2}
