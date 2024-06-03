@@ -352,8 +352,8 @@ GameObject:
   - component: {fileID: 1547900350974240465}
   - component: {fileID: 410641304151498657}
   - component: {fileID: -2061430852416345224}
-  - component: {fileID: 2176857556641392338}
   - component: {fileID: 589769455237743653}
+  - component: {fileID: 2176857556641392338}
   - component: {fileID: 1341152067951338783}
   - component: {fileID: 5339453787166087908}
   - component: {fileID: 8149388465791082304}
@@ -589,26 +589,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4b676267e7baf434ebc80f61ec65b1e1, type: 2}
   m_upgradeStageValue: []
   m_upgradeRank: 0
---- !u!114 &2176857556641392338
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6945831396311541013}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60990446ae9c775409836eed1b4f4243, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_searchBlockType: 501:CORE
-  m_searchRange: 0
-  m_hitCount: 1
-  m_searchAll: 1
-  m_markerObject: {fileID: 3933631991742298871, guid: 1ea2d53b05f86694e9e5eda9c8a07d80, type: 3}
-  m_markerLifeTime: 10
-  m_markerMaxScale: 50
-  m_awake: 1
 --- !u!114 &589769455237743653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -639,6 +619,26 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &2176857556641392338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6945831396311541013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60990446ae9c775409836eed1b4f4243, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_searchBlockType: 501:CORE
+  m_searchRange: 0
+  m_hitCount: 1
+  m_searchAll: 1
+  m_markerObject: {fileID: 3933631991742298871, guid: 1ea2d53b05f86694e9e5eda9c8a07d80, type: 3}
+  m_markerLifeTime: 10
+  m_markerMaxScale: 50
+  m_awake: 1
 --- !u!58 &1341152067951338783
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -977,7 +977,7 @@ MonoBehaviour:
   m_maxRareCount: 99
   m_detectionRange: 5
   m_itemDataBase: {fileID: 11400000, guid: c534141616c2bbc4ba996d4d9f120330, type: 2}
-  m_debug: 0
+  m_debug: 1
   m_text: {fileID: 0}
 --- !u!1001 &2750775056017063556
 PrefabInstance:

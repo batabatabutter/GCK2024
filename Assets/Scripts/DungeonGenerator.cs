@@ -215,8 +215,6 @@ public class DungeonGenerator : MonoBehaviour
 		//  プレイヤーの生成
 		GameObject pl = Instantiate(m_playerPrefab, m_playerPos, Quaternion.identity);
 		m_blockGenerator.SetPlayerTransform(pl.transform);
-		// 使用しないツールの設定
-		pl.GetComponent<PlayerTool>().SetIgnoreTool(dungeonData.BlockGenerateData);
 
 		// coreの生成
 		GameObject co = m_blockGenerator.GenerateBlock(BlockData.BlockType.CORE, new Vector3(m_corePos.x, m_corePos.y), null);

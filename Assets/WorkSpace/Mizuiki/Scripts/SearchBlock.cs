@@ -190,9 +190,7 @@ public class SearchBlock : MonoBehaviour
             // 生存時間設定
             marker.LifeTime = m_markerLifeTime;
             // 最大サイズ設定
-            marker.MaxScale = m_markerMaxScale;
-            // プレイヤー
-            marker.Player = transform;
+            marker.MaxScale = m_markerMaxScale * 2.0f;
 		}
     }
 
