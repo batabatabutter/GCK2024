@@ -14,12 +14,6 @@ public class PlayerTool : MonoBehaviour
 		public bool isRecast	= false;	// リキャスト中
 		public float recastTime = 0.0f;     // リキャスト時間
 	}
-	// ブロックに応じたツール
-	public struct BlockTool
-	{
-		public BlockData.BlockType blockType;
-		public List<ToolData.ToolType> toolTypes;
-	}
 
 	[Header("ツールのデータベース")]
 	[SerializeField] private ToolDataBase m_dataBase = null;
@@ -27,17 +21,17 @@ public class PlayerTool : MonoBehaviour
 	[Header("アイテム")]
 	[SerializeField] private PlayerItem m_playerItem;
 
-	[Header("ツール")]
-	[SerializeField] private Dictionary<ToolData.ToolType, ToolContainer> m_tools = new();
 	[Header("ツール格納用オブジェクト")]
 	[SerializeField] private GameObject m_toolContainer = null;
 
-	// 生成ブロックの配列
-	[SerializeField] private List<BlockTool> m_blockTool = new();
-	private Dictionary<BlockData.BlockType, List<ItemData.ItemType>> m_blockTools = new();
+	// 使用ツール
+	private readonly Dictionary<ToolData.ToolType, ToolContainer> m_tools = new();
+
+	// ステージで使用しないツール
+	private readonly List<ToolData.ToolType> m_ignoreTool = new();
 
 	// ツール更新用のオブジェクト
-	private Dictionary<ToolData.ToolType, Tool> m_toolScripts = new();
+	private readonly Dictionary<ToolData.ToolType, Tool> m_toolScripts = new();
 
 	// レアツールを選択
 	private bool m_rare = false;
@@ -72,7 +66,8 @@ public class PlayerTool : MonoBehaviour
 			ToolData.ToolType type = toolData.Type;
 
 			// ステージで無効なツール
-
+			if (m_ignoreTool.Contains(type))
+				continue;
 
 			// 上書き防止
 			if (m_tools.ContainsKey(type))
@@ -411,7 +406,39 @@ public class PlayerTool : MonoBehaviour
 		m_playerItem.ConsumeMaterials(items, value);
 	}
 
+	// 使用不可能ツールの設定
+	public void SetIgnoreTool(DungeonGenerator.BlockGenerateData[] blockGenerateData)
+	{
+		// リスト初期化
+		foreach (ToolData tool in m_dataBase.tool)
+		{
+			// 通常ツールの場合はリストに入れない
+			if (tool.Type < ToolData.ToolType.RARE)
+				continue;
 
+			m_ignoreTool.Add(tool.Type);
+		}
+
+		// 使用するものはリストから除外
+		foreach (DungeonGenerator.BlockGenerateData block in blockGenerateData)
+		{
+			// ブロックの種類ツールと互換性のある数値に変換
+			int blockType = (int)block.blockType;
+			// 3種類のツールをリストから除外
+			m_ignoreTool.Remove((ToolData.ToolType)blockType);
+			m_ignoreTool.Remove((ToolData.ToolType)blockType++);
+			m_ignoreTool.Remove((ToolData.ToolType)blockType++);
+		}
+
+	}
+
+
+
+	// 使用ツール取得
+	public Dictionary<ToolData.ToolType, ToolContainer> Tools
+	{
+		get { return m_tools; }
+	}
 	// 選択ツール取得
 	public ToolData.ToolType ToolType
 	{

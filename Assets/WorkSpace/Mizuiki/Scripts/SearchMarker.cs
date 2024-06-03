@@ -14,6 +14,9 @@ public class SearchMarker : MonoBehaviour
     [Header("パーティクル")]
     [SerializeField] private ParticleSystem m_particleSystem = null;
 
+    [Header("プレイヤー")]
+    [SerializeField] private Transform m_player = null;
+
 
     // Start is called before the first frame update
     void Start()
@@ -41,7 +44,19 @@ public class SearchMarker : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
+
+        // マーカーとプレイヤーの距離
+        float distance = Vector3.Distance(transform.position, m_player.position);
+
+		// パーティクルがプレイヤーに近づいたら最大サイズを変える
+		if (distance < m_maxScale / 2.0f)
+        {
+			// 最大サイズ設定
+			ParticleSystem.SizeOverLifetimeModule size = m_particleSystem.sizeOverLifetime;
+			size.xMultiplier = distance;
+
+		}
+	}
 
 
     public float LifeTime
@@ -52,5 +67,10 @@ public class SearchMarker : MonoBehaviour
     public float MaxScale
     {
         set { m_maxScale = value; }
+    }
+
+    public Transform Player
+    {
+        set { m_player = value; }
     }
 }

@@ -22,7 +22,7 @@ MonoBehaviour:
     rateMin: 1
     rateMax: 1
     noiseScale: 0
-    offset: 0.49813753
+    offset: 0.13759936
   - blockType: 101
     range:
       min: 0
@@ -30,23 +30,23 @@ MonoBehaviour:
     rateMin: 0.3
     rateMax: 0.42
     noiseScale: 0.2
-    offset: 0.8766037
-  - blockType: 207
+    offset: 0.3204966
+  - blockType: 1070
     range:
       min: 0
       max: 100
     rateMin: 0.02
     rateMax: 0.05
     noiseScale: 0.4
-    offset: 0.28633836
-  - blockType: 209
+    offset: 0.4909293
+  - blockType: 1090
     range:
       min: 0
       max: 100
     rateMin: 0.02
     rateMax: 0.05
     noiseScale: 0.4
-    offset: 0.24819413
+    offset: 0.057299383
   dungeonWaves:
   - generateEnemyType: 0000000001000000
     generateEnemyNum: 3

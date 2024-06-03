@@ -39,7 +39,7 @@ MonoBehaviour:
     rateMax: 0.12
     noiseScale: 0.2
     offset: 0.41934615
-  - blockType: 211
+  - blockType: 1110
     range:
       min: 0
       max: 100
@@ -56,19 +56,13 @@ MonoBehaviour:
     noiseScale: 0.2
     offset: 0.28480878
   dungeonWaves:
-  - dungeonATKPattern: 02000000
-    dungeonATKCoolTime: 2
-    generateEnemyType: 02000000
+  - generateEnemyType: 02000000
     generateEnemyNum: 2
     geterateEnemyInterval: 5
-  - dungeonATKPattern: 0000000002000000
-    dungeonATKCoolTime: 2
-    generateEnemyType: 0300000002000000
+  - generateEnemyType: 0300000002000000
     generateEnemyNum: 3
     geterateEnemyInterval: 5
-  - dungeonATKPattern: 000000000100000002000000
-    dungeonATKCoolTime: 1
-    generateEnemyType: 0200000003000000
+  - generateEnemyType: 0200000003000000
     generateEnemyNum: 5
     geterateEnemyInterval: 5
   restWaveTime: 30

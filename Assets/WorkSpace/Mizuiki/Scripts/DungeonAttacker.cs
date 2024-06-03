@@ -177,7 +177,7 @@ public class DungeonAttacker : MonoBehaviour
 
 
 		// ‚¨ŽŽ‚µ—p
-		if (Input.GetKeyDown(KeyCode.P))
+		if (Input.GetKeyDown(KeyCode.K))
 		{
 			m_attacker[m_attackerType].Attack(m_target, MyFunction.Direction.RANDOM, 5.0f, 5.0f, 0, m_attackRank);
 		}

@@ -31,7 +31,7 @@ MonoBehaviour:
     rateMax: 0.3
     noiseScale: 0.2
     offset: 0.99419236
-  - blockType: 207
+  - blockType: 1070
     range:
       min: 0
       max: 100
@@ -39,7 +39,7 @@ MonoBehaviour:
     rateMax: 0.1
     noiseScale: 0.4
     offset: 0.37941784
-  - blockType: 209
+  - blockType: 1090
     range:
       min: 0
       max: 100
