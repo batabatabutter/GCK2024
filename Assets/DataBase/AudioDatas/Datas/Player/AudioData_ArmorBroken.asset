@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 335152639262bf941a05a4ef3fddeb8c, type: 3}
-  m_Name: AudioData_Put
+  m_Name: AudioData_ArmorBroken
   m_EditorClassIdentifier: 
-  audioClip: {fileID: 8300000, guid: 087200b9a2e607948a00e34d83e3e30c, type: 3}
-  audioDataID: 0:Put
+  audioClip: {fileID: 8300000, guid: c7e8b5de78094944286b2c58ce973a0d, type: 3}
+  audioDataID: 7:BreakArmor

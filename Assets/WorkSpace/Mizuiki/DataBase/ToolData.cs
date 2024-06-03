@@ -59,6 +59,8 @@ public class ToolData : ScriptableObject
 	private ToolCategory category = ToolCategory.SUPPORT;
 	[Header("ツールのアイコン画像"), SerializeField]
 	private Sprite icon = null;
+	[Header("ツールの使用時音声"), SerializeField]
+	private AudioClip useSE = null;
 	[Header("リキャスト時間"), SerializeField]
 	private float recastTime = 0.0f;
 	[Header("ツールのプレハブ"), SerializeField]
@@ -71,6 +73,7 @@ public class ToolData : ScriptableObject
 	public ToolType Type => type;
 	public ToolCategory Category => category;
 	public Sprite Icon => icon;
+	public AudioClip UseSE => useSE;
 	public float RecastTime => recastTime;
 	public GameObject Prefab => prefab;
 	public Items[] ItemMaterials => itemMaterials;

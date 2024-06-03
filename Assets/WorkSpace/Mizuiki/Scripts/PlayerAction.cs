@@ -132,7 +132,7 @@ public class PlayerAction : MonoBehaviour
 		// アイテムが設置できない
 		if (!m_canPut)
 		{
-			Debug.Log("すでにツールがある");
+            Debug.Log("すでにツールがある");
 			return;
 		}
 
@@ -144,14 +144,14 @@ public class PlayerAction : MonoBehaviour
 	// ツール変更
 	public void ChangeTool(int val)
 	{
-		m_playerTool.ChangeTool(val);
+        m_playerTool.ChangeTool(val);
 		AudioManager.Instance.PlaySE(AudioDataID.Select);
-	}
+    }
 
-	// ツールの切り替え
-	public void SwitchTool()
+    // ツールの切り替え
+    public void SwitchTool()
 	{
-		m_playerTool.SwitchTool();
+        m_playerTool.SwitchTool();
         AudioManager.Instance.PlaySE(AudioDataID.Change);
     }
 

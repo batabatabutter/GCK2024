@@ -48,11 +48,15 @@ public class Player : MonoBehaviour
         {
             // アーマーを1つ削る
             m_armor--;
+            if (m_armor == 0) AudioManager.Instance.PlaySE(AudioDataID.BreakArmor);
+            else AudioManager.Instance.PlaySE(AudioDataID.GetDamageArmor);
             return;
         }
 
         // 体力減少
         m_life -= damage;
+        if (m_life < 0) AudioManager.Instance.PlaySE(AudioDataID.DeadPlayer);
+        else AudioManager.Instance.PlaySE(AudioDataID.GetDamage);
 
         // 無敵時間の設定
         m_invincible = m_invincibleTime;
