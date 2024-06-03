@@ -11,22 +11,22 @@ public class audioKKK : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             // IDから再生
             AudioManager.Instance.PlaySE(audioDataID);
         }
-        if (Input.GetKeyUp(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.B))
         {
             //  IDから再生+位置指定
             AudioManager.Instance.PlaySE(audioDataID, pos);
         }
-        if (Input.GetKeyUp(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             //  クリップから再生
             AudioManager.Instance.PlaySE(audioClip);
         }
-        if (Input.GetKeyUp(KeyCode.O))
+        if (Input.GetKeyDown(KeyCode.O))
         {
             //  クリップから再生+位置指定
             AudioManager.Instance.PlaySE(audioClip, pos);
