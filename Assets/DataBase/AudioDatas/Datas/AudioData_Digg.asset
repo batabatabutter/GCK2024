@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: AudioData_Digg
   m_EditorClassIdentifier: 
   audioClip: {fileID: 8300000, guid: 6f49dea70e787fe4d84f99f492dc3cda, type: 3}
-  audioDataID: 1:Dig
+  audioDataID: 0:Dig

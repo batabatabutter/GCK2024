@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ToolFrame : MonoBehaviour
 {
     //  画像
-    [SerializeField] private UnityEngine.UI.Image m_image;
+    [SerializeField] private Image m_image;
     //  フレーム色
     [SerializeField] private Image m_frameColor;
     //  背景色

@@ -16,6 +16,7 @@ MonoBehaviour:
   typeStr: 1:BOMB
   category: 0
   icon: {fileID: 21300000, guid: c260df85054b5f645a25f5d51db198e1, type: 3}
+  useSE: {fileID: 8300000, guid: ec8ff59e258da9e4cb56bfa2feab6032, type: 3}
   recastTime: 1
   prefab: {fileID: 2452471199604090867, guid: f4631083fbfb5cd41bc74285e3d4c5bb, type: 3}
   itemMaterials:

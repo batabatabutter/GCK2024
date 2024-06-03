@@ -299,8 +299,11 @@ public class PlayerTool : MonoBehaviour
 				break;
 		}
 
-		// ‘fŞ‚ğÁ”ï‚·‚é
-		m_playerItem.ConsumeMaterials(data);
+        //	‰¹‚ğ–Â‚ç‚·
+        AudioManager.Instance.PlaySE(data.UseSE);
+
+        // ‘fŞ‚ğÁ”ï‚·‚é
+        m_playerItem.ConsumeMaterials(data);
 
 	}
 
