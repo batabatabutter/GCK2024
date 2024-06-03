@@ -15,27 +15,27 @@ public class ToolData : ScriptableObject
 
 		NORMAL_NUM,		//	現在のツール数
 
-		RARE	= 200,		// ここからレアツール
+		RARE	= ItemData.ItemType.BIRTHDAY_STONE,		// ここからレアツール
 
 		// エメラルド : 5月
-		HEALING_TOACH,			// 癒しの松明
-		DOUBLE_PICAXE,			// 倍増つるはし
-		LIMIT_TOTEM,			// 制限のトーテム
+		HEALING_TOACH = ItemData.ItemType.BIR_EMERALD,	// 癒しの松明
+		DOUBLE_PICAXE,									// 倍増つるはし
+		LIMIT_TOTEM,									// 制限のトーテム
 
 		// ルビー : 7月
-		DRILL,					// ドリル
-		DENGEROUS_BOMB,         // 危険爆弾
-		HEAVY_ARMOR,			// 重鎧
+		DRILL = ItemData.ItemType.BIR_RUBY,				// ドリル
+		DENGEROUS_BOMB,									// 危険爆弾
+		HEAVY_ARMOR,									// 重鎧
 
 		// サファイア : 9月
-		HAMMER,					// ハンマー
-		MINING_BOMB,			// 採掘爆弾
-		HEALING_AURA,			// 癒しのオーラ
+		HAMMER = ItemData.ItemType.BIR_SAPPHIRE,		// ハンマー
+		MINING_BOMB,									// 採掘爆弾
+		HEALING_AURA,									// 癒しのオーラ
 
 		// トパーズ : 11月
-		HOLY_TOACH,				// 聖火
-		RANGE_DESTROYER,		// 範囲破壊つるはし
-		SHIELD,					// シールド
+		HOLY_TOACH = ItemData.ItemType.BIR_TOPAZ,		// 聖火
+		RANGE_DESTROYER,								// 範囲破壊つるはし
+		SHIELD,											// シールド
 
 		OVER
 	}
