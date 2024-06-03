@@ -178,9 +178,9 @@ MonoBehaviour:
   m_dungeonSize: {x: 100, y: 100}
   m_isChunk: 1
   m_chunkSize: 10
-  m_activeChunk: 5
+  m_activeChunk: 3
   m_blockGenerator: {fileID: 75050971}
-  m_dungeonIndex: 0
+  m_dungeonIndex: 1
   m_dungeonGenerators:
   - {fileID: 75050973}
   - {fileID: 75050974}
@@ -3376,10 +3376,6 @@ PrefabInstance:
       propertyPath: m_debug
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2176857556641392338, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
-      propertyPath: m_awake
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2274965954909220427, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 45
@@ -3443,14 +3439,6 @@ PrefabInstance:
     - target: {fileID: 6945831396311541013, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 8304518256993672759, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
-      propertyPath: m_miningValueBase.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8304518256993672759, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
-      propertyPath: m_miningValueBase.power
-      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 8429125128454659071, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
       propertyPath: stopAction
@@ -9713,7 +9701,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2116144918
 MonoBehaviour:
   m_ObjectHideFlags: 0

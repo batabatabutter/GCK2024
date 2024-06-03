@@ -12,10 +12,10 @@ public class DungeonDataMaze : DungeonData
 		Dig,		// ŒŠŒ@‚è–@
 	}
 
-	[Header("Maze")]
+	[Header("---------- Maze ----------")]
 
-	[Header("–À˜H‚Ìí—Ş")]
-	[SerializeField] private string strType;
+	[Header("–À˜H‚Ìí—Ş"), CustomEnum(typeof(MazeType))]
+	[SerializeField] private string typeStr;
 	private MazeType type;
 	[Header("•Ç‚Ì•")]
 	[SerializeField, Min(1)] private int wallWidth = 1;
@@ -35,7 +35,7 @@ public class DungeonDataMaze : DungeonData
 
 	private void OnEnable()
 	{
-		type = SerializeUtil.Restore<MazeType>(strType);
+		type = SerializeUtil.Restore<MazeType>(typeStr);
 	}
 
 }

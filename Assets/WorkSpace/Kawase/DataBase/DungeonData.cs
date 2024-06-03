@@ -40,10 +40,11 @@ public class DungeonData : ScriptableObject
         [SerializeField] public float restTimeRate;
     }
 
-	[Header("ダンジョンの生成パターン")]
-    [SerializeField] private Pattern pattern;
+	[Header("ダンジョンの生成パターン"), CustomEnum(typeof(Pattern))]
+    [SerializeField] private string patternStr;
+    private Pattern pattern;
     [Header("ダンジョンのサイズ")]
-	[SerializeField] private Vector2Int size;
+	[SerializeField] private Vector2Int size = new(50, 50);
     [Header("ダンジョンの生成確率")]
     [SerializeField] private DungeonGenerator.BlockGenerateData[] blockGenerateData;
 
@@ -52,9 +53,9 @@ public class DungeonData : ScriptableObject
     [Header("ウェーブ情報")]
     [SerializeField] private List<DungeonWave> dungeonWaves;
     [Header("休憩ウェーブ時間")]
-    [SerializeField] private float restWaveTime;
+    [SerializeField] private float restWaveTime = 10.0f;
     [Header("休憩時間の倍率")]
-    [SerializeField] private float restWaveMaxRate;
+    [SerializeField] private float restWaveMaxRate = 10.0f;
     [Header("休憩時間")]
     [SerializeField] private List<DungeonRestTimeData> restTimeData;
 
@@ -69,4 +70,11 @@ public class DungeonData : ScriptableObject
     public float RestWaveMaxRate => restWaveMaxRate;
     public List<DungeonRestTimeData> RestTimeData => restTimeData;
     public DungeonAttackData AttackData => attackData;
+
+
+	private void OnEnable()
+	{
+		pattern = SerializeUtil.Restore<Pattern>(patternStr);
+	}
+
 }

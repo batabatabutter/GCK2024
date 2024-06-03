@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa84212b9e0b7d545bfe8d5a76ca7050, type: 3}
   m_Name: DunegonData_3
   m_EditorClassIdentifier: 
-  pattern: 0
+  patternStr: 0:TEN_X_TEN
   size: {x: 65, y: 65}
   blockGenerateData:
   - blockType: 0

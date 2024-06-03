@@ -12,28 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c6b8fc460f885c438a933dce6da20c1, type: 3}
   m_Name: DungeonData_demo
   m_EditorClassIdentifier: 
-  pattern: 0
+  patternStr: 0:TEN_X_TEN
   size: {x: 30, y: 30}
   blockGenerateData: []
   dungeonWaves:
-  - dungeonATKPattern: 00000000
-    dungeonATKCoolTime: 4
-    generateEnemyType: 00000000
+  - generateEnemyType: 00000000
     generateEnemyNum: 3
     geterateEnemyInterval: 4
-  - dungeonATKPattern: 01000000
-    dungeonATKCoolTime: 2
-    generateEnemyType: 01000000
+  - generateEnemyType: 01000000
     generateEnemyNum: 3
     geterateEnemyInterval: 1
-  - dungeonATKPattern: 02000000
-    dungeonATKCoolTime: 2
-    generateEnemyType: 02000000
+  - generateEnemyType: 02000000
     generateEnemyNum: 3
     geterateEnemyInterval: 1
-  - dungeonATKPattern: 00000000
-    dungeonATKCoolTime: 2
-    generateEnemyType: 03000000
+  - generateEnemyType: 03000000
     generateEnemyNum: 3
     geterateEnemyInterval: 1
   restWaveTime: 10
