@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: AudioData_Dead
   m_EditorClassIdentifier: 
   audioClip: {fileID: 8300000, guid: 4ece5f52ab5e4054698ddcc0b35454d6, type: 3}
-  audioDataID: 8:DeadPlayer
+  audioDataID: 5:DeadPlayer

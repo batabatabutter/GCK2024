@@ -70,11 +70,15 @@ public class Block : ObjectAffectLight
         // 採掘ダメージ加算
         m_blockEndurance -= power;
 
+
         // 耐久が0になった
         if (m_blockEndurance <= 0.0f)
         {
             BrokenBlock(dropCount);
         }
+        else
+            //  採掘音発生
+            AudioManager.Instance.PlaySE(m_blockData.MiningSE);
 
         return true;
     }
@@ -93,11 +97,14 @@ public class Block : ObjectAffectLight
 		if (m_isBroken)
 			return false;
 
-		// アイテムドロップ
-		DropItem(dropCount);
+        //  破壊音発生
+        AudioManager.Instance.PlaySE(m_blockData.DestroySE);
 
-		// 自身を削除
-		Destroy(gameObject);
+        // アイテムドロップ
+        DropItem(dropCount);
+
+        // 自身を削除
+        Destroy(gameObject);
 		m_isBroken = true;
 
 		return true;

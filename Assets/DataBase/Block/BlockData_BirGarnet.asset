@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlockData_BirGarnet
   m_EditorClassIdentifier: 
   blockName: "\u30AC\u30FC\u30CD\u30C3\u30C8"
-  typeStr: 201:BIR_GARNET
+  typeStr: 1010:BIR_GARNET
   endurance: 1000
   dontBroken: 0
   canPossess: 0

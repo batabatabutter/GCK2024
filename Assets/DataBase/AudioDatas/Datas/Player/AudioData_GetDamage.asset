@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: AudioData_GetDamage
   m_EditorClassIdentifier: 
   audioClip: {fileID: 8300000, guid: 92887528fb1d8784582a85ef7eddf648, type: 3}
-  audioDataID: 5:GetDamage
+  audioDataID: 2:GetDamage

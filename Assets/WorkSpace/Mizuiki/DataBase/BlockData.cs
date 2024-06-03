@@ -36,7 +36,7 @@ public class BlockData : ScriptableObject
 		BEDROCK,        // 岩盤
 		DENGEROUS,      // 危険物
 
-		TOACH = 1000,   // 松明
+		TOACH = 10000,   // 松明
 		BOMB,           // 爆弾
 
 		OVER
@@ -70,8 +70,12 @@ public class BlockData : ScriptableObject
 	[SerializeField] private GameObject prefab = null;
 	[Header("ブロックの画像")]
 	[SerializeField] private Sprite sprite = null;
+	[Header("採掘音")]
+    [SerializeField] private AudioClip miningSE = null;
+    [Header("破壊音")]
+    [SerializeField] private AudioClip destroySE = null;
 
-	[Header("ドロップアイテム")]
+    [Header("ドロップアイテム")]
 	[SerializeField] private DropItems[] dropItem;
 
 	[Header("---マップ---")]
@@ -91,6 +95,8 @@ public class BlockData : ScriptableObject
 	public int LightLevel => lightLevel;
 	public GameObject Prefab => prefab;
 	public Sprite Sprite => sprite;
+	public AudioClip MiningSE => miningSE;
+	public AudioClip DestroySE => destroySE;
 	public DropItems[] DropItem => dropItem;
 	public Color Color => color;
 	public int Order => order;
