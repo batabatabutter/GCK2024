@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SearchMarker : MonoBehaviour
@@ -16,6 +17,10 @@ public class SearchMarker : MonoBehaviour
 
     [Header("プレイヤー")]
     [SerializeField] private Transform m_player = null;
+
+    // マーカーの強制フェード
+    private bool m_fade = false;
+
 
 
     // Start is called before the first frame update
@@ -45,15 +50,35 @@ public class SearchMarker : MonoBehaviour
             Destroy(gameObject);
         }
 
+        // 強制フェード発生済み
+        if (m_fade)
+        {
+            return;
+        }
+
         // マーカーとプレイヤーの距離
         float distance = Vector3.Distance(transform.position, m_player.position);
 
+        // 時間
+        float t = m_particleSystem.time / m_lifeTime;
+
 		// パーティクルがプレイヤーに近づいたら最大サイズを変える
-		if (distance < m_maxScale / 2.0f)
+		if (distance < (m_maxScale / 2.0f) * t)
         {
-			// 最大サイズ設定
-			ParticleSystem.SizeOverLifetimeModule size = m_particleSystem.sizeOverLifetime;
-			size.xMultiplier = distance;
+            // 透明度の設定
+            ParticleSystem.ColorOverLifetimeModule color = m_particleSystem.colorOverLifetime;
+            Gradient gradient = color.color.gradient;
+
+            Gradient grad = new();
+            grad.SetKeys(
+             new GradientColorKey[] {
+                  gradient.colorKeys[0], gradient.colorKeys[1] },
+             new GradientAlphaKey[] {
+                  new (gradient.alphaKeys[0].alpha, t), new(gradient.alphaKeys[1].alpha, t + 0.1f) });
+            color.color = grad;
+
+            // 強制フェード発生
+            m_fade = true;
 
 		}
 	}

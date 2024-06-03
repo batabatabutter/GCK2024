@@ -102,6 +102,7 @@ MonoBehaviour:
   m_lifeTime: 10
   m_maxScale: 100
   m_particleSystem: {fileID: -9014254714441587094}
+  m_player: {fileID: 0}
 --- !u!199 &1613241103361940332
 ParticleSystemRenderer:
   serializedVersion: 6

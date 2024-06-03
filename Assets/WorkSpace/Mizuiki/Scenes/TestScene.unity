@@ -3382,11 +3382,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2274965954909220427, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 2274965954909220427, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 2274965954909220427, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3443,6 +3443,14 @@ PrefabInstance:
     - target: {fileID: 6945831396311541013, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8304518256993672759, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
+      propertyPath: m_miningValueBase.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8304518256993672759, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
+      propertyPath: m_miningValueBase.power
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 8429125128454659071, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
       propertyPath: stopAction
