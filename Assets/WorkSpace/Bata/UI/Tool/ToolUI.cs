@@ -77,24 +77,17 @@ public class ToolUI : MonoBehaviour
 
         //  ID
         List<ToolData.ToolType> useToolTypes = new List<ToolData.ToolType>(m_plTool.Tools.Keys);
-        //int minID = 0;
-        //int maxID = 0;
         //  レアツールなら
         if (m_plTool.IsRareTool)
         {
-            //minID = (int)ToolData.ToolType.RARE + 1;
-            //maxID = m_toolDataBase.toolRareData.Count + (int)ToolData.ToolType.RARE;
             playerToolType = m_plTool.ToolTypeRare;
+            useToolTypes.RemoveAll(x => x < ToolData.ToolType.RARE);
         }
         else
         {
-            //minID = 0;
-            //maxID = m_toolDataBase.toolNormalData.Count - 1;
             playerToolType = m_plTool.ToolType;
+            useToolTypes.RemoveAll(x => x >= ToolData.ToolType.RARE);
         }
-
-        //  ツールを番号に変換
-        //int playerToolNum = (int)playerToolType;
 
         //  現在の番号取得
         int nowNum = 0;
@@ -112,14 +105,6 @@ public class ToolUI : MonoBehaviour
         {
             //  フレーム
             var toolFrame = m_toolObjects[i].GetComponent<ToolFrame>();
-
-            ////  対応ツール
-            //int thisToolID = playerToolNum - (centerNum - i);
-            ////  オーバーしてたら修正
-            //if (thisToolID < minID) thisToolID = (maxID + 1) - minID + thisToolID;
-            //else if (thisToolID > maxID) thisToolID = thisToolID - (maxID + 1) + minID;
-            ////  タイプに変換
-            //ToolData.ToolType thisToolType = (ToolData.ToolType)thisToolID;
 
             //  対応ツール
             int thisToolID = nowNum - (centerNum - i);

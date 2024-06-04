@@ -130,6 +130,7 @@ MonoBehaviour:
   m_itemDropRate: 0
   m_state: 1
   m_detonateBlock: {fileID: 2201125515662036576, guid: 41fb87af326b1aa4088fb371add4c842, type: 3}
+  m_bombSE: {fileID: 8300000, guid: 46457fe4022c34f408222c3c88628c35, type: 3}
 --- !u!61 &7930838379485859346
 BoxCollider2D:
   m_ObjectHideFlags: 0

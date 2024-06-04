@@ -143,11 +143,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9474868ea8711d4b9b895789ee7b879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_blockEndurance: 100
-  m_dontBroken: 0
   m_lightLevel: 3
   m_receiveLightLevel: 0
   m_spriteRenderer: {fileID: 0}
+  m_mapObject: {fileID: 0}
+  m_blockEndurance: 100
+  m_dontBroken: 0
+  m_canPossess: 0
   m_blockData: {fileID: 11400000, guid: e8355ac22db923c44adf486803772450, type: 2}
   m_itemDataBase: {fileID: 11400000, guid: c534141616c2bbc4ba996d4d9f120330, type: 2}
   m_blockExplosionPower: 1000
@@ -155,5 +157,7 @@ MonoBehaviour:
   m_explosionRange: 7
   m_timeToExplosion: 3
   m_damage: 0
+  m_itemDropRate: 0
   m_state: 1
   m_detonateBlock: {fileID: 2201125515662036576, guid: 41fb87af326b1aa4088fb371add4c842, type: 3}
+  m_bombSE: {fileID: 8300000, guid: a6356f702957aeb41a1d679848bd181f, type: 3}

@@ -39,6 +39,9 @@ public class BlockBomb : Block
     [Header("爆発させる用のブロック")]
     [SerializeField] private GameObject m_detonateBlock = null;
 
+    [Header("爆発音声")]
+    [SerializeField] private AudioClip m_bombSE = null;
+
     //// 爆破可能か
     //private bool m_canExplosion = false;
     //// 爆発しているか
@@ -84,6 +87,9 @@ public class BlockBomb : Block
 				{
 					// 起爆ブロックの生成
 					Instantiate(m_detonateBlock, transform.position, Quaternion.identity);
+
+                    //  爆発音
+                    AudioManager.Instance.PlaySE(m_bombSE, transform.position);
 
 					// 一回生成したら null にする
 					m_detonateBlock = null;

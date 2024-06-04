@@ -20,7 +20,11 @@ public class EnemyData : ScriptableObject
     [Header("攻撃範囲の半径")]
     public float radius;
 
+    [Header("生成時音声")]
+    [SerializeField] private AudioClip genereateSE;
+
     //[Header("ドロップアイテム")]
     public List<BlockData.DropItems> dropItems;
 
+    public AudioClip GenerateSE => genereateSE;
 }

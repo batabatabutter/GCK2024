@@ -86,7 +86,8 @@ public class Enemy : ObjectAffectLight
             GetComponent<CircleCollider2D>().radius = m_enemyData.radius;
         }
 
-
+        //  ê∂ê¨éûâπê∫
+        AudioManager.Instance.PlaySE(m_enemyData.GenerateSE, transform.position);
     }
 
     // Update is called once per frame

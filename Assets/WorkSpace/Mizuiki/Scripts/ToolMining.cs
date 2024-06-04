@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using static BlockData;
 
 public class ToolMining : Tool
 {
-	[Header("ツールの種類")]
-	[SerializeField] private ToolData.ToolType m_toolType = ToolData.ToolType.DRILL;
+    [Header("ツールの種類"), CustomEnum(typeof(ToolData.ToolType))]
+    [SerializeField] private string toolTypeStr = "";
+	private ToolData.ToolType m_toolType => SerializeUtil.Restore<ToolData.ToolType>(toolTypeStr);
 
 	[Header("強化する値(n倍)")]
 	[SerializeField] private PlayerMining.MiningValue m_boost = new();

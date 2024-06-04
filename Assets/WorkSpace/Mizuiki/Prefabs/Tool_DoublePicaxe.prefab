@@ -44,9 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd8a29c577fa6a04a8a7a00301e0b625, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_toolType: 108
+  toolTypeStr: 1051:DOUBLE_PICAXE
   m_boost:
     range: 0
+    size: 0
     power: 0
     speed: 0
     critical: 0

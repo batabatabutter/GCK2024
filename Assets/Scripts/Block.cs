@@ -78,7 +78,7 @@ public class Block : ObjectAffectLight
         }
         else
             //  採掘音発生
-            AudioManager.Instance.PlaySE(m_blockData.MiningSE);
+            AudioManager.Instance.PlaySE(m_blockData.MiningSE, transform.position);
 
         return true;
     }
@@ -98,7 +98,7 @@ public class Block : ObjectAffectLight
 			return false;
 
         //  破壊音発生
-        AudioManager.Instance.PlaySE(m_blockData.DestroySE);
+        AudioManager.Instance.PlaySE(m_blockData.DestroySE, transform.position);
 
         // アイテムドロップ
         DropItem(dropCount);
