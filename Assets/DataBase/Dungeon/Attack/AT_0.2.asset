@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a360f0c488e10645ab79dac0e0d15c3, type: 3}
-  m_Name: APT_0.8
+  m_Name: AT_0.2
   m_EditorClassIdentifier: 
-  tableName: "\u307B\u3068\u3093\u3069\u30D6\u30ED\u30C3\u30AF"
-  overNum: 0.8
+  tableName: "\u305D\u3053\u305D\u3053\u30D6\u30ED\u30C3\u30AF"
+  overNum: 0.2
   pattern:
-  - {fileID: 11400000, guid: 8ccac405280721c4a9ec115c4d2f627c, type: 2}
-  - {fileID: 11400000, guid: 38520aa60e3cc624fb8accc557b98dc9, type: 2}
+  - {fileID: 11400000, guid: 792b17b51b1feff45b6751367ffa15d1, type: 2}
+  - {fileID: 11400000, guid: 430b6838008c3044aa94b8275832e676, type: 2}

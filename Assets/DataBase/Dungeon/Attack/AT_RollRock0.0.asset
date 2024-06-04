@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a360f0c488e10645ab79dac0e0d15c3, type: 3}
-  m_Name: APT_0.0
+  m_Name: AT_RollRock0.0
   m_EditorClassIdentifier: 
-  tableName: "\u307B\u3068\u3093\u3069\u5730\u9762"
+  tableName: "\u3053\u308D\u3053\u308D"
   overNum: 0
   pattern:
+  - {fileID: 11400000, guid: 4afcaceda909e244ba966bfb048392f8, type: 2}
   - {fileID: 11400000, guid: 1e73b4da6947bfa4b844a8dabe768849, type: 2}
-  - {fileID: 11400000, guid: 60b1fb60747416a47a5ad5162d14444d, type: 2}

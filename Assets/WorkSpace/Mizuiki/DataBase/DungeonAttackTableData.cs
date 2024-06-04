@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "APT_", menuName = "CreateDataBase/Dungeon/Attack/AttackTable")]
+[CreateAssetMenu(fileName = "AT_", menuName = "CreateDataBase/Dungeon/Attack/AttackTable")]
 public class DungeonAttackTableData : ScriptableObject
 {
 	[Header("UŒ‚ƒe[ƒuƒ‹–¼")]

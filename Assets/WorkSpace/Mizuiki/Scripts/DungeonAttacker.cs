@@ -25,7 +25,7 @@ public class DungeonAttacker : MonoBehaviour
 
 	[Header("---------- コアとターゲットの距離 ----------")]
 	[Header("コアの位置")]
-	[SerializeField] private Vector3 m_corePosition = Vector3.zero;
+	[SerializeField] private Transform m_corePosition = null;
 	[Header("攻撃対象")]
 	[SerializeField] private Transform m_target = null;
 	[Header("開始時のコアとターゲットの距離")]
@@ -88,7 +88,7 @@ public class DungeonAttacker : MonoBehaviour
 				// プレイヤーを取得
 				m_target = scene.GetPlayer().transform;
 				// コアの位置を取得
-				m_corePosition = scene.GetCore().transform.position;
+				m_corePosition = scene.GetCore().transform;
 			}
 			// 親からダンジョンジェネレータを取得
 			if (parent.TryGetComponent(out DungeonGenerator generator))
@@ -138,7 +138,7 @@ public class DungeonAttacker : MonoBehaviour
 		// 開始時の距離を取得
 		if (m_target)
 		{
-			m_startCoreDistance = Vector3.Distance(m_target.position, m_corePosition);
+			m_startCoreDistance = Vector3.Distance(m_target.position, m_corePosition.position);
 		}
 
 		// distance の昇順にソート
@@ -189,7 +189,7 @@ public class DungeonAttacker : MonoBehaviour
 		get { return m_active; }
 	}
 	// コアの位置
-	public Vector3 CorePosition
+	public Transform CorePosition
 	{
 		set { m_corePosition = value; }
 	}
@@ -250,7 +250,7 @@ public class DungeonAttacker : MonoBehaviour
 	private float GetAttackGrade()
 	{
 		// コアとターゲットの距離
-		float distance = Vector3.Distance(m_target.position, m_corePosition);
+		float distance = Vector3.Distance(m_target.position, m_corePosition.position);
 
 		// コアとの距離に応じた攻撃段階(0 ~ 1)
 		float attackGradeNormal = Mathf.InverseLerp(m_attackGrade.attackMaxDistance, m_startCoreDistance, distance);

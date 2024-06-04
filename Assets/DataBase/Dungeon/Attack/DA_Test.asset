@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d3370d2922863c4e8dcd18c8ebaf0c8, type: 3}
-  m_Name: DungeonAttackData_Test
+  m_Name: DA_Test
   m_EditorClassIdentifier: 
   stayTime: 10
   attackTime: 10

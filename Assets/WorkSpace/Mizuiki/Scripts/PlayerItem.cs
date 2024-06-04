@@ -48,19 +48,16 @@ public class PlayerItem : MonoBehaviour
 	// Update is called once per frame
 	void Update()
     {
-        if (m_debug)
+		// テキストがある
+		if (m_text != null)
 		{
-			// テキストがある
-			if (m_text != null)
+			m_text.text = "";
+
+			foreach(KeyValuePair<ItemData.ItemType, int> item in m_items)
 			{
-				m_text.text = "";
-
-				foreach(KeyValuePair<ItemData.ItemType, int> item in m_items)
-				{
-					m_text.text += item.Key.ToString() + " : " + item.Value.ToString() + "\n";
-				}
-
+				m_text.text += item.Key.ToString() + " : " + item.Value.ToString() + "\n";
 			}
+
 		}
     }
 

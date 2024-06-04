@@ -32,11 +32,12 @@ public class TestDungeonGenerator : MonoBehaviour
 
 	[Header("各ブロックの生成情報")]
 	[SerializeField] private DungeonGenerator.BlockGenerateData[] m_generateBlocks;
-	// インスペクターで設定したデータを辞書配列にする
-	private readonly Dictionary<BlockData.BlockType, DungeonGenerator.BlockGenerateData> m_blocks = new();
 
 	[Header("プレイヤー(トランスフォーム用)")]
 	[SerializeField] private GameObject m_player = null;
+
+	[Header("ダンジョンアタッカー(コア設定用)")]
+	[SerializeField] private DungeonAttacker m_dungeonAttacker = null;
 
 	// 生成するブロックの種類行列
 	private List<List<BlockData.BlockType>> m_blockTypes = new();
@@ -45,25 +46,12 @@ public class TestDungeonGenerator : MonoBehaviour
 	private readonly List<Block> m_objectBlock = new();
 
 	// チャンクの二次元配列
-	private List<List<GameObject>> m_chunk = new();
+	private readonly List<List<GameObject>> m_chunk = new();
 
 
 
 	void Start()
 	{
-		// ブロックの設定
-		for (int i = 0; i < m_generateBlocks.Length; i++)
-		{
-			DungeonGenerator.BlockGenerateData block = m_generateBlocks[i];
-
-			// 上書き防止
-			if (m_blocks.ContainsKey(block.blockType))
-				continue;
-
-			// ブロックの種類設定
-			m_blocks[block.blockType] = block;
-		}
-
 		// プレイヤーが設定されていれば生成
 		if (m_player != null)
 		{
@@ -135,7 +123,14 @@ public class TestDungeonGenerator : MonoBehaviour
 	// ブロックの種類設定
 	private void SetBlockType(List<List<string>> mapList)
 	{
+		// ブロックの種類のリスト
 		List<List<BlockData.BlockType>> typeLists = new();
+
+		// ブロック生成用のランダムなオフセット設定
+		for (int i = 0; i < m_generateBlocks.Length; i++)
+		{
+			m_generateBlocks[i].offset = Random.value;
+		}
 
 		for (int y = 0; y < mapList.Count; y++)
 		{
@@ -156,7 +151,7 @@ public class TestDungeonGenerator : MonoBehaviour
 					// 生成するブロックの種類
 					BlockData.BlockType type = BlockData.BlockType.STONE;
 					// 生成ブロック種類分ループ
-					foreach (DungeonGenerator.BlockGenerateData blocks in m_blocks.Values)
+					foreach (DungeonGenerator.BlockGenerateData blocks in m_generateBlocks)
 					{
 						// ブロックを生成する
 						if (GenerateBlock(new Vector2(x, y), blocks))
@@ -215,7 +210,7 @@ public class TestDungeonGenerator : MonoBehaviour
 				if (new Vector2Int(x, y) == m_corePosition)
 				{
 					obj = m_blockGenerator.GenerateBlock(BlockData.BlockType.CORE, pos, m_chunk[y / m_chunkSize][x / m_chunkSize].transform);
-
+					m_dungeonAttacker.CorePosition = obj.transform;
 				}
 				// ブロックの生成
 				else
@@ -277,7 +272,7 @@ public class TestDungeonGenerator : MonoBehaviour
 		if (data.range.Within(dis))
 		{
 			// ノイズの取得
-			float noise = Mathf.PerlinNoise(pos.x * data.noiseScale, pos.y * data.noiseScale);
+			float noise = Mathf.PerlinNoise((pos.x * data.noiseScale) + data.offset, (pos.y * data.noiseScale) + data.offset);
 			// 生成範囲の中央値
 			float center = (data.range.min + data.range.max) / 2.0f;
 			// 生成範囲の中央からの距離

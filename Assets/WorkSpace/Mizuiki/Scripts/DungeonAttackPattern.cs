@@ -21,6 +21,8 @@ public class DungeonAttackPattern : ScriptableObject
 	[Header("UŒ‚î•ñ‚ÌƒŠƒXƒg")]
 	[SerializeField] private List<AttackPattern> attackList;
 
+	[Header("à–¾")]
+	[SerializeField, TextArea(1, 3)] private string memo;
 
 	public List<AttackPattern> AttackList => attackList;
 }

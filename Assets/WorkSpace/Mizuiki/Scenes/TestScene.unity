@@ -212,6 +212,7 @@ MonoBehaviour:
     noiseScale: 0.4
     offset: 100
   m_player: {fileID: 738526308}
+  m_dungeonAttacker: {fileID: 2029813667}
 --- !u!114 &75050971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3378,11 +3379,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2274965954909220427, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 45
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 2274965954909220427, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 45
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 2274965954909220427, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3430,7 +3431,7 @@ PrefabInstance:
       objectReference: {fileID: 624597835}
     - target: {fileID: 6054228071190134199, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
       propertyPath: m_debug
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6054228071190134199, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
       propertyPath: m_maxCount
@@ -9814,7 +9815,7 @@ PrefabInstance:
     - target: {fileID: 7528456396296654258, guid: 3c0037650f2f4a0499506b4d38ebc047, type: 3}
       propertyPath: m_attackData
       value: 
-      objectReference: {fileID: 11400000, guid: 4a03b3e4b662c404a969652c139966a9, type: 2}
+      objectReference: {fileID: 11400000, guid: c1962d2a85a51e340bafd2114314fba7, type: 2}
     - target: {fileID: 7528456396296654258, guid: 3c0037650f2f4a0499506b4d38ebc047, type: 3}
       propertyPath: m_attackerType
       value: 3

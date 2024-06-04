@@ -17,4 +17,6 @@ MonoBehaviour:
     direction: 4
     rankValue: 0.5
     range: 3
+    distance: 0
     time: 0.5
+  memo: "\u30BF\u30FC\u30B2\u30C3\u30C8\u306E\u5468\u8FBA\u306B\u30E9\u30F3\u30C0\u30E0\u306B\u77F3\u3092\u964D\u3089\u305B\u308B"

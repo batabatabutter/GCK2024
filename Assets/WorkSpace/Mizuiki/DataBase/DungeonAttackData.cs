@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName = "DungeonAttackData_", menuName = "CreateDataBase/Dungeon/Attack/AttackData")]
+[CreateAssetMenu(fileName = "DA_", menuName = "CreateDataBase/Dungeon/Attack/AttackData")]
 public class DungeonAttackData : ScriptableObject
 {
 	// UŒ‚ƒ^ƒCƒv
@@ -47,24 +47,15 @@ public class DungeonAttackData : ScriptableObject
 	[System.Serializable]
 	public struct AttackGrade
 	{
-		[Header("UŒ‚‚ªÅ‘å‚É‚È‚é‹——£")]
+		[Header("UŒ‚‚ªÅ‘å‚É‚È‚é‹——£(•¨—‹——£)"), Min(0.0f)]
 		public float attackMaxDistance;
-		[Header("UŒ‚’iŠK‚Ì”ÍˆÍ")]
+		[Header("UŒ‚’iŠK‚Ì”ÍˆÍ"), Tooltip("UŒ‚ŠÔŠu‚ÌŠÔ‚ÉŠ|‚¯‚é”{—¦")]
 		public MyFunction.MinMaxFloat attackGradeRange;
 		[Header("ƒRƒA‚Æ‚Ì‹——£‚Ìæ‚è•û‚Ìí—Ş")]
 		public bool attackGradeStep;
 		[Header("‹——£‚É‰‚¶‚½UŒ‚’iŠK")]
 		public List<AttackPower> attackGrade;
 	}
-
-	//// UŒ‚ƒe[ƒuƒ‹‚ÆUŒ‚ƒpƒ^[ƒ“
-	//[System.Serializable]
-	//public struct AttackTable
-	//{
-	//	public string name;							// UŒ‚ƒe[ƒuƒ‹–¼
-	//	public float overNum;						// è‡’l
-	//	public List<DungeonAttackPattern> pattern;	// ƒpƒ^[ƒ“
-	//}
 
 	[Header("UŒ‚’â~ŠÔ")]
 	[SerializeField] private float stayTime = 10.0f;

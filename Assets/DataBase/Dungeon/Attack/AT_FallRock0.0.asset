@@ -9,14 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc9fc4c5ea3752541986747c409dfa53, type: 3}
-  m_Name: AP_FallRock01-1
+  m_Script: {fileID: 11500000, guid: 1a360f0c488e10645ab79dac0e0d15c3, type: 3}
+  m_Name: AT_FallRock0.0
   m_EditorClassIdentifier: 
-  attackList:
-  - type: 0
-    direction: 4
-    rankValue: 0.2
-    range: 3
-    distance: 0
-    time: 5
-  memo: "\u584A\u3067\u843D\u3061\u3066\u304F\u308B"
+  tableName: "\u843D\u77F3\u5E83\u3005"
+  overNum: 0
+  pattern:
+  - {fileID: 11400000, guid: 77dbb4159db57b74eabc0fb365bc8f9b, type: 2}
