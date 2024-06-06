@@ -113,6 +113,8 @@ public class BlockGenerator : MonoBehaviour
         block.CanPossess = data.CanPossess;
         // ŒõŒ¹ƒŒƒxƒ‹
         block.LightLevel = data.LightLevel;
+        // F
+        block.Color = data.Color;
 
         //  ŒõŒ¹ˆ—
         // ŒõŒ¹‚Ìİ’è

@@ -19,7 +19,7 @@ MonoBehaviour:
   canPossess: 1
   lightLevel: 0
   prefab: {fileID: 3457520386420079125, guid: cbe61a2527b59f44ea88ed42d8cd8019, type: 3}
-  sprite: {fileID: 21300000, guid: 12153932601e8cc4b86662554fe983fa, type: 3}
+  sprite: {fileID: 21300000, guid: 75542868f8899b542becdada3674adcc, type: 3}
   miningSE: {fileID: 8300000, guid: 68acdab7ffb731343ac2f2d7e2415fbc, type: 3}
   destroySE: {fileID: 8300000, guid: 09be74ac67edb24468f01c341f1499a0, type: 3}
   dropItem:

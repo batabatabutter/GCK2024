@@ -11,7 +11,9 @@ public class StageSelectManager : MonoBehaviour
     [SerializeField] private DungeonDataBase m_dungeonDataBase;
 
     [Header("ブロック間の隙間")]
-    [SerializeField] private Vector3 m_offset;
+    [SerializeField] private float m_offset;
+    [Header("ブロックの中心")]
+    [SerializeField] private Vector3 m_blockCenter = Vector3.zero;
 
     [Header("地面画像")]
     [SerializeField] private GameObject m_groundObj;
@@ -61,14 +63,27 @@ public class StageSelectManager : MonoBehaviour
 
         //  親作成
         parent = new GameObject("StageSelectBlock");
+        // 一つ分の角度
+        float degree = 360.0f / m_dungeonDataBase.dungeonDatas.Count;
         //  ダンジョン数分ブロック生成
         for (int i = 0; i < m_dungeonDataBase.dungeonDatas.Count; i++)
         {
+            // 選択肢生成
             var bl = Instantiate(m_stageSelectBlock, parent.transform);
+            // ステージ番号設定
             bl.GetComponent<StageSelectBlock>().SetStageNum(i);
-            Vector3 pos = bl.transform.position;
-            pos.x = i * bl.transform.localScale.x;
-            bl.transform.position = pos + m_offset * i;
+            // 角度(右回りにするためにマイナスをつける)
+            float angle = -degree * i * Mathf.Deg2Rad;
+            // 配置場所
+            Vector3 current = Vector3.up * m_offset;
+            Vector3 pos = Vector3.zero;
+            // ステージ分の角度回転
+            pos.x = (current.x * Mathf.Cos(angle)) - (current.y * Mathf.Sin(angle));
+            pos.y = (current.x * Mathf.Sin(angle)) + (current.y * Mathf.Cos(angle));
+            // 中心座標分移動
+            pos += m_blockCenter;
+            // 座標設定
+            bl.transform.position = MyFunction.RoundHalfUp(pos);
         }
     }
 

@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: GroundData_Normal
   m_EditorClassIdentifier: 
   blockName: "\u5730\u9762"
-  typeStr: 1002:OVER
+  typeStr: 10002:OVER
   endurance: 0
   dontBroken: 0
+  canPossess: 0
   lightLevel: 0
   prefab: {fileID: 0}
   sprite: {fileID: 0}
+  miningSE: {fileID: 0}
+  destroySE: {fileID: 0}
   dropItem: []
   color: {r: 0, g: 0, b: 0, a: 0}
   order: 0
