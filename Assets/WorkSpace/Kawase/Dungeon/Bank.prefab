@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7315658871951717153}
   - component: {fileID: 6698413495793321945}
   - component: {fileID: 8729730232650947482}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: FallRockText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 2209251746974316650}
   - component: {fileID: 4208464381774891707}
   - component: {fileID: 1573246164805788213}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Bank
   m_TagString: Untagged
   m_Icon: {fileID: 0}

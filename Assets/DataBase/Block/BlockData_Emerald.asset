@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlockData_Emerald
   m_EditorClassIdentifier: 
   blockName: "\u30A8\u30E1\u30E9\u30EB\u30C9"
-  typeStr: 1070:BIR_RUBY
+  typeStr: 1050:BIR_EMERALD
   endurance: 700
   dontBroken: 0
   canPossess: 0

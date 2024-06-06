@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 181616485328629231}
   - component: {fileID: 5067466797843133355}
   - component: {fileID: 1725173205252730279}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: RollRock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 81513944488393814}
   - component: {fileID: 2908022642950883632}
   - component: {fileID: 4181912024369832911}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: RollRockText
   m_TagString: Untagged
   m_Icon: {fileID: 0}

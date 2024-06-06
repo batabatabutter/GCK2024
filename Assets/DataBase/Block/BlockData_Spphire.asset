@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlockData_Spphire
   m_EditorClassIdentifier: 
   blockName: "\u30B5\u30D5\u30A1\u30A4\u30A2"
-  typeStr: 1070:BIR_RUBY
+  typeStr: 1090:BIR_SAPPHIRE
   endurance: 700
   dontBroken: 0
   canPossess: 0

@@ -77,8 +77,13 @@ public class Block : ObjectAffectLight
             BrokenBlock(dropCount);
         }
         else
-            //  採掘音発生
-            AudioManager.Instance.PlaySE(m_blockData.MiningSE, transform.position);
+        {
+            if (m_blockData)
+            {
+				//  採掘音発生
+				AudioManager.Instance.PlaySE(m_blockData.MiningSE, transform.position);
+			}
+		}
 
         return true;
     }
@@ -97,11 +102,13 @@ public class Block : ObjectAffectLight
 		if (m_isBroken)
 			return false;
 
-        //  破壊音発生
-        AudioManager.Instance.PlaySE(m_blockData.DestroySE, transform.position);
-
-        // アイテムドロップ
-        DropItem(dropCount);
+        if (m_blockData)
+        {
+            //  破壊音発生
+            AudioManager.Instance.PlaySE(m_blockData.DestroySE, transform.position);
+        }
+		// アイテムドロップ
+		DropItem(dropCount);
 
         // 自身を削除
         Destroy(gameObject);

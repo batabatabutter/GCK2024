@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlockData_Topaz
   m_EditorClassIdentifier: 
   blockName: "\u30C8\u30D1\u30FC\u30BA"
-  typeStr: 1070:BIR_RUBY
+  typeStr: 1110:BIR_TOPAZ
   endurance: 700
   dontBroken: 0
   canPossess: 1

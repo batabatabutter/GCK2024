@@ -15,7 +15,7 @@ public class DungeonGenerator : MonoBehaviour
 	[Header("表示チャンク数")]
 	[SerializeField] private int m_activeChunk = 3;
 
-	private GameObject[,] m_blocks = null;
+	//private GameObject[,] m_blocks = null;
 	// ブロックのリスト
 	private List<Block> m_blocksList = new();
 
@@ -332,7 +332,7 @@ public class DungeonGenerator : MonoBehaviour
 		}
 
 		// 生成ブロック配列
-		m_blocks = new GameObject[mapList.Count, mapList[0].Count];
+		//m_blocks = new GameObject[mapList.Count, mapList[0].Count];
 
 		for (int y = 0; y < mapList.Count; y++)
 		{
@@ -347,7 +347,7 @@ public class DungeonGenerator : MonoBehaviour
 				if ((int)m_playerPos.x == x && (int)m_playerPos.y == y)
 				{
 					// 空のブロックを生成
-					m_blocks[y,x] = m_blockGenerator.GenerateBlock(BlockData.BlockType.OVER, position, chunk);
+					/*m_blocks[y, x] = */m_blockGenerator.GenerateBlock(BlockData.BlockType.OVER, position, chunk);
 					continue;
 				}
 				//コアを生成
@@ -361,14 +361,16 @@ public class DungeonGenerator : MonoBehaviour
 					// 生成するブロックの種類
 					BlockData.BlockType type = CreateBlockType(blockGenerateData, new Vector2(x, y));
 					// ブロック生成
-					m_blocks[y, x] = m_blockGenerator.GenerateBlock(type, position, chunk);
+					GameObject block = m_blockGenerator.GenerateBlock(type, position, chunk);
 					// ブロックリストに追加
-					m_blocksList.Add(m_blocks[y, x].GetComponent<Block>());
+					m_blocksList.Add(block.GetComponent<Block>());
+					// ブロック配列に追加
+					//m_blocks[y, x] = block;
 				}
 				else
 				{
 					// 空のブロックを生成
-					m_blocks[y, x] = m_blockGenerator.GenerateBlock(BlockData.BlockType.OVER, position, chunk);
+					/*m_blocks[y, x] = */m_blockGenerator.GenerateBlock(BlockData.BlockType.OVER, position, chunk);
 				}
 			}
 		}
