@@ -130,6 +130,7 @@ public class Enemy : ObjectAffectLight
     {
         DropItem();
 
+        AudioManager.Instance.PlaySE(m_enemyData.DeathSE, transform.position);
         Destroy(gameObject);
     }
 
