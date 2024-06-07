@@ -115,7 +115,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -143,10 +143,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9474868ea8711d4b9b895789ee7b879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_lightLevel: 3
-  m_receiveLightLevel: 0
-  m_spriteRenderer: {fileID: 0}
-  m_mapObject: {fileID: 0}
   m_blockEndurance: 100
   m_dontBroken: 0
   m_canPossess: 0
@@ -160,3 +156,4 @@ MonoBehaviour:
   m_itemDropRate: 1
   m_state: 1
   m_detonateBlock: {fileID: 2201125515662036576, guid: 41fb87af326b1aa4088fb371add4c842, type: 3}
+  m_bombSE: {fileID: 0}

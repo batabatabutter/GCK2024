@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements.Experimental;
 
-public class Item : ObjectAffectLight
+public class Item : MonoBehaviour
 {
     [Header("ƒAƒCƒeƒ€‚ÌŽí—Þ")]
     [SerializeField] private ItemData.ItemType m_itemType;
