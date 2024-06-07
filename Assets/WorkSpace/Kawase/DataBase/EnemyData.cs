@@ -22,9 +22,12 @@ public class EnemyData : ScriptableObject
 
     [Header("生成時音声")]
     [SerializeField] private AudioClip genereateSE;
+    [Header("死亡時音声")]
+    [SerializeField] private AudioClip deathSE;
 
     //[Header("ドロップアイテム")]
     public List<BlockData.DropItems> dropItems;
 
     public AudioClip GenerateSE => genereateSE;
+    public AudioClip DeathSE => deathSE;
 }
