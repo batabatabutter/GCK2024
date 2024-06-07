@@ -62,8 +62,6 @@ public class Enemy : ObjectAffectLight
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        m_spriteRenderer = GetComponent<SpriteRenderer>();
-
         m_attackCoolTime = m_enemyData.coolTime;
 
         m_dropItems = m_enemyData.dropItems;

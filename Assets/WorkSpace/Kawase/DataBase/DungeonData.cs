@@ -40,6 +40,11 @@ public class DungeonData : ScriptableObject
         [SerializeField] public float restTimeRate;
     }
 
+    [Header("コアの画像")]
+    [SerializeField] private Sprite coreSprite = null;
+    [Header("ステージの色")]
+    [SerializeField] private Color stageColor = Color.white;
+
 	[Header("ダンジョンの生成パターン"), CustomEnum(typeof(Pattern))]
     [SerializeField] private string patternStr;
     private Pattern pattern;
@@ -62,6 +67,8 @@ public class DungeonData : ScriptableObject
     [Header("攻撃の情報")]
     [SerializeField] private DungeonAttackData attackData;
 
+    public Sprite CoreSprite => coreSprite;
+    public Color StageColor => stageColor;
     public Pattern DungeonPattern => pattern;
     public Vector2Int Size => size;
     public DungeonGenerator.BlockGenerateData[] BlockGenerateData => blockGenerateData;

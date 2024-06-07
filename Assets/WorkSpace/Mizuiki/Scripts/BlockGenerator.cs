@@ -52,6 +52,7 @@ public class BlockGenerator : MonoBehaviour
         m_blockParent = new GameObject("Block");
         // âeÇÃêeê∂ê¨
         m_shadowParent = new GameObject("Shadow");
+        m_shadowParent.SetActive(false);
 	}
 
     /// <summary>

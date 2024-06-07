@@ -6,20 +6,14 @@ public class ObjectAffectLight : MonoBehaviour
 {
 	[Header("自分自身の発する光源レベル")]
 	[SerializeField] private int m_lightLevel = 0;
+
 	[Header("受けている光源レベル")]
 	[SerializeField] private int m_receiveLightLevel = 0;
-	private float m_receiveLightValue = 1.0f;    // 明度
+	// 明度
+	private float m_receiveLightValue = 1.0f;
+
 	[Header("スプライトレンダー")]
-	[SerializeField] protected SpriteRenderer m_spriteRenderer;
-
-	//[Header("オブジェクトの色")]
-	//[SerializeField] private Color m_color = Color.white;
-
-	//[Header("子のマップオブジェクト")]
-	//[SerializeField] private MapObject m_mapObject = null;
-
-	////	光処理
-	//private bool m_brightness = true;
+	[SerializeField] private SpriteRenderer m_spriteRenderer;
 
 
 
@@ -31,8 +25,6 @@ public class ObjectAffectLight : MonoBehaviour
 		{
 			m_spriteRenderer = GetComponent<SpriteRenderer>();
 		}
-		// 光源初期化
-		//ReceiveLightLevel = 0;
 	}
 
 	// 自身の持つ光源レベル
@@ -48,9 +40,6 @@ public class ObjectAffectLight : MonoBehaviour
 		get { return m_receiveLightLevel; }
 		set
 		{
-			//// 光源レベルが変わっていない
-			//if (m_receiveLightLevel == value)
-			//	return;
 			// 明るさレベルの設定(受けている光源レベルと自身の光源レベルを比較して大きいほうの明るさになる)
 			m_receiveLightLevel = Mathf.Max(value, m_lightLevel);
 			// 明度を計算
@@ -59,31 +48,10 @@ public class ObjectAffectLight : MonoBehaviour
 			m_receiveLightValue = Mathf.Clamp(m_receiveLightValue, 0.0f, 1.0f);
 			// 透明度を設定
 			if (m_spriteRenderer)
+			{
 				m_spriteRenderer.color = new (1.0f, 1.0f, 1.0f, 1.0f - m_receiveLightValue);
-			//// マップオブジェクトの明度を設定
-			//if (m_mapObject)
-			//{
-			//	m_mapObject.SetValue(m_receiveLightValue);
-			//}
+			}
 		}
 	}
 
-	//// マップオブジェクト
-	//public MapObject MapObject
-	//{
-	//	set { m_mapObject = value; }
-	//}
-
-	//// 色
-	//public Color Color
-	//{
-	//	set { m_color = value; }
-	//}
-
-	////	光処理フラグ
-	//public bool BrightnessFlag
-	//{
-	//	get { return m_brightness; }
-	//	set { m_brightness = value; }
-	//}
 }

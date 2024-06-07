@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1200
   m_Sprite: {fileID: 21300000, guid: fec262378cb86d04782f6c6c095565f7, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -102,7 +102,6 @@ MonoBehaviour:
   m_lightLevel: 0
   m_receiveLightLevel: 0
   m_spriteRenderer: {fileID: 0}
-  m_mapObject: {fileID: 0}
   m_enemyData: {fileID: 11400000, guid: 113b525e8be9cdf438212f0df16b25ad, type: 2}
   m_itemDataBase: {fileID: 11400000, guid: c534141616c2bbc4ba996d4d9f120330, type: 2}
   m_blockLayer:
