@@ -51,6 +51,6 @@ MonoBehaviour:
   m_toolFrame: {fileID: 2693671464973395065, guid: 775ce40a587776d42a96e2bf83247310, type: 3}
   m_offset: {x: 15, y: 0}
   m_toolDataBase: {fileID: 11400000, guid: afce66780e8e60b4da8ff5a866b73c33, type: 2}
-  m_graphToolNum: 5
+  m_graphToolNum: 3
   m_graphScaleDeg: 0.666
   m_debug: 0

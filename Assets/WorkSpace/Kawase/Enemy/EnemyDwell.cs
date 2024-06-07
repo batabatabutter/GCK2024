@@ -7,6 +7,12 @@ using UnityEngine;
 public class EnemyDwell : Enemy
 {
     GameObject m_dwellBlock;
+
+    //  透明遷移時間
+    public static readonly float FADE_TAKE_TIME = 1.0f;
+    //  透明時間
+    private float m_fadeTime = 0.0f;
+
     // プロパティ
     public GameObject DwellBlock
     {
@@ -25,6 +31,9 @@ public class EnemyDwell : Enemy
     {
         base.Start();
 
+        //  透明度設定
+        //m_colorAlpha = 0.0f;
+
         if (m_dwellBlock)
             if (m_dwellBlock.TryGetComponent(out ObjectAffectLight light))
             {
@@ -36,6 +45,17 @@ public class EnemyDwell : Enemy
     protected override void Update()
     {
         base.Update();
+
+        //  最初のスー
+        if (m_fadeTime < FADE_TAKE_TIME)
+        {
+            m_fadeTime += Time.deltaTime;
+            //m_colorAlpha = m_fadeTime / FADE_TAKE_TIME;
+            if (m_fadeTime >= FADE_TAKE_TIME)
+            {
+                //m_colorAlpha = 1.0f;
+            }
+        }
 
         //宿り先が死んだら死ぬ
         if (!m_dwellBlock)
