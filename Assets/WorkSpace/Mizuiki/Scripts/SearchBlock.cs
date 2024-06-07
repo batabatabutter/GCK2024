@@ -148,6 +148,9 @@ public class SearchBlock : MonoBehaviour
     {
         foreach (Block block in blocks)
         {
+            //  nullならスキップ
+            if (!block) continue;
+
             if (block.BlockData == null)
                 continue;
 
