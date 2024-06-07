@@ -12,13 +12,6 @@ public class TestDungeonGenerator : MonoBehaviour
 	[Header("ダンジョンのサイズ")]
 	[SerializeField] private Vector2Int m_dungeonSize;
 
-	[Header("チャンク機能有効")]
-	[SerializeField] private bool m_isChunk = true;
-	[Header("チャンクのサイズ")]
-	[SerializeField] private int m_chunkSize = 10;
-	[Header("表示チャンク数")]
-	[SerializeField] private int m_activeChunk = 5;
-
 	[Header("ブロックジェネレータ")]
 	[SerializeField] private BlockGenerator m_blockGenerator;
 
@@ -45,17 +38,13 @@ public class TestDungeonGenerator : MonoBehaviour
 	// 生成したブロックの情報
 	private readonly List<Block> m_objectBlock = new();
 
-	// チャンクの二次元配列
-	private readonly List<List<GameObject>> m_chunk = new();
-
 
 
 	void Start()
 	{
-		// プレイヤーが設定されていれば生成
+		// プレイヤーのトランスフォーム設定
 		if (m_player != null)
 		{
-			//Instantiate(m_player);
 			m_blockGenerator.SetPlayerTransform(m_player.transform);
 		}
 
@@ -80,44 +69,6 @@ public class TestDungeonGenerator : MonoBehaviour
 		{
 			search.SetSearchBlocks(m_objectBlock);
 		}
-	}
-
-	private void Update()
-	{
-		// チャンク機能無効
-		if (m_isChunk == false)
-		{
-			return;
-		}
-
-		Vector2Int playerChunk = new((int)m_player.transform.position.x / m_chunkSize, (int)m_player.transform.position.y / m_chunkSize);
-
-		for (int y = 0; y < m_chunk.Count; y++)
-		{
-			for (int x = 0; x < m_chunk[y].Count; x++)
-			{
-				// プレイヤーチャンクとの距離
-				float distance = Vector2Int.Distance(playerChunk, new Vector2Int(x, y));
-
-				// 表示チャンク内
-				if (distance < m_activeChunk)
-				{
-					if (m_chunk[y][x].activeSelf == false)
-					{
-						m_chunk[y][x].SetActive(true);
-					}
-				}
-				// 表示チャンク外
-				else
-				{
-					if (m_chunk[y][x].activeSelf == true)
-					{
-						m_chunk[y][x].SetActive(false);
-					}
-				}
-			}
-		}
-
 	}
 
 	// ブロックの種類設定
@@ -184,16 +135,6 @@ public class TestDungeonGenerator : MonoBehaviour
 	// ダンジョンの生成
 	private void Generate(List<List<BlockData.BlockType>> mapList)
 	{
-		// チャンクの生成
-		for (int y = 0; y < mapList.Count / m_chunkSize; y++)
-		{
-			m_chunk.Add(new());
-			for (int x = 0; x < mapList[y].Count / m_chunkSize; x++)
-			{
-				m_chunk[y].Add(new GameObject("(" + x + ", " + y + ")"));
-			}
-		}
-
 		// 読みだしたデータをもとにダンジョン生成をする
 		for (int y = 0; y < mapList.Count; y++)
 		{
@@ -209,13 +150,13 @@ public class TestDungeonGenerator : MonoBehaviour
 				// コアの生成
 				if (new Vector2Int(x, y) == m_corePosition)
 				{
-					obj = m_blockGenerator.GenerateBlock(BlockData.BlockType.CORE, pos, m_chunk[y / m_chunkSize][x / m_chunkSize].transform);
+					obj = m_blockGenerator.GenerateBlock(BlockData.BlockType.CORE, pos);
 					m_dungeonAttacker.CorePosition = obj.transform;
 				}
 				// ブロックの生成
 				else
 				{
-					obj = m_blockGenerator.GenerateBlock(name, pos, m_chunk[y / m_chunkSize][x / m_chunkSize].transform);
+					obj = m_blockGenerator.GenerateBlock(name, pos);
 				}
 
 				// ブロックがあれば追加

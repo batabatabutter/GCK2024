@@ -16,8 +16,8 @@ public class ChangeBrightness : MonoBehaviour
     //LightList
     public HashSet<ObjectLight> m_lights = new HashSet<ObjectLight>();
 
-    //  プレイヤーの座標
-    private Transform m_playerTr;
+    ////  プレイヤーの座標
+    //private Transform m_playerTr;
 
     [Header("ブロック")]
     [SerializeField] private ObjectAffectLight m_affectLight;
@@ -28,13 +28,13 @@ public class ChangeBrightness : MonoBehaviour
         //黒くする
         ChangeBlack();
 
-        //  フラグオフなら処理しない
-        if (m_affectLight)
-            if (m_affectLight.BrightnessFlag == false)
-            {
-                ChangeWhite();
-                Destroy(gameObject);
-            }
+        ////  フラグオフなら処理しない
+        //if (m_affectLight)
+        //    if (m_affectLight.BrightnessFlag == false)
+        //    {
+        //        ChangeWhite();
+        //        Destroy(gameObject);
+        //    }
     }
 
     // Update is called once per frame
@@ -47,7 +47,8 @@ public class ChangeBrightness : MonoBehaviour
             return;
         }
 
-        List<ObjectLight> removeList = new List<ObjectLight>();
+        // 存在していない光源をリストから削除する
+        List<ObjectLight> removeList = new();
         foreach (var light in m_lights)
         {
             if (light == null || light.IsDestroyed())
@@ -59,6 +60,7 @@ public class ChangeBrightness : MonoBehaviour
         }
         removeList.Clear();
 
+        // 自身の色を変更
         ChangeColor();
     }
 
@@ -122,11 +124,13 @@ public class ChangeBrightness : MonoBehaviour
 
         // ブロックが存在するなら
         if (m_affectLight)
-            if (!m_affectLight.IsDestroyed())
-            {
-                m_affectLight.ReceiveLightLevel = receiveLightLv;
-            }
-    }
+        {
+			if (!m_affectLight.IsDestroyed())
+			{
+				m_affectLight.ReceiveLightLevel = receiveLightLv;
+			}
+		}
+	}
 
     // 自身を暗くする
     private void ChangeBlack()
@@ -164,13 +168,13 @@ public class ChangeBrightness : MonoBehaviour
     //    return false;
     //}
 
-    //  プレイヤー座標系設定
-    public void SetPlayerTransform(Transform tr) { m_playerTr = tr; }
-    public Transform GetPlayerTransform() { return m_playerTr; }
+    ////  プレイヤー座標系設定
+    //public void SetPlayerTransform(Transform tr) { m_playerTr = tr; }
+    //public Transform GetPlayerTransform() { return m_playerTr; }
 
-    public /*Block*/ObjectAffectLight AffectLight
-    {
-        get { return m_affectLight; }
-        set { m_affectLight = value; }
-    }
+    //public /*Block*/ObjectAffectLight AffectLight
+    //{
+    //    get { return m_affectLight; }
+    //    set { m_affectLight = value; }
+    //}
 }

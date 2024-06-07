@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Block : ObjectAffectLight
+public class Block : /*ObjectAffectLight*/MonoBehaviour
 {
     [Header("---------- ブロック ----------")]
     [Header("ブロックの耐久")]
@@ -51,9 +51,9 @@ public class Block : ObjectAffectLight
             Destroy(gameObject);
         }
 
-        //  光源処理
-        if (Ground)
-            ReceiveLightLevel = m_ground.ReceiveLightLevel;
+        ////  光源処理
+        //if (Ground)
+        //    ReceiveLightLevel = m_ground.ReceiveLightLevel;
     }
 
 	/// <summary>
@@ -151,8 +151,8 @@ public class Block : ObjectAffectLight
                 item.Drop(dropItem.count * dropCount);
             }
 
-            //  明るさが次第
-            obj.GetComponent<ObjectAffectLight>().BrightnessFlag = BrightnessFlag;
+            ////  明るさが次第
+            //obj.GetComponent<ObjectAffectLight>().BrightnessFlag = BrightnessFlag;
 
             // 画像を設定
             if (obj.TryGetComponent(out SpriteRenderer sprite))

@@ -156,8 +156,8 @@ public class Enemy : ObjectAffectLight
             // アイテムのゲームオブジェクトを生成
             GameObject obj = Instantiate(data.Prefab, transform.position, Quaternion.identity);
 
-            //  明るさが次第
-            obj.GetComponent<ObjectAffectLight>().BrightnessFlag = BrightnessFlag;
+            ////  明るさが次第
+            //obj.GetComponent<ObjectAffectLight>().BrightnessFlag = BrightnessFlag;
 
             // 画像を設定
             if (obj.TryGetComponent(out SpriteRenderer sprite))

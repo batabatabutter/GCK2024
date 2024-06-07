@@ -34,11 +34,11 @@ public class EnemyDwell : Enemy
         //  ìßñæìxê›íË
         //m_colorAlpha = 0.0f;
 
-        if (m_dwellBlock)
-            if (m_dwellBlock.TryGetComponent(out ObjectAffectLight light))
-            {
-                BrightnessFlag = light.BrightnessFlag;
-            }
+        //if (m_dwellBlock)
+        //    if (m_dwellBlock.TryGetComponent(out ObjectAffectLight light))
+        //    {
+        //        BrightnessFlag = light.BrightnessFlag;
+        //    }
     }
 
     // Update is called once per frame
@@ -64,9 +64,9 @@ public class EnemyDwell : Enemy
             return;
         }
 
-        //  ñæÇÈÇ≥éÊìæ
-        if (BrightnessFlag)
-            ReceiveLightLevel = m_dwellBlock.GetComponent<ObjectAffectLight>().ReceiveLightLevel;
+        ////  ñæÇÈÇ≥éÊìæ
+        //if (BrightnessFlag)
+        //    ReceiveLightLevel = m_dwellBlock.GetComponent<ObjectAffectLight>().ReceiveLightLevel;
 
         if (base.Player != null)
         {

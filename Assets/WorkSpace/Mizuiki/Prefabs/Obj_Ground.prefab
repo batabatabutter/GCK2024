@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6841600883943898201}
   - component: {fileID: 1177589818946404616}
-  - component: {fileID: 7840619066121981032}
   - component: {fileID: 5075732777367063382}
   m_Layer: 0
   m_Name: Obj_Ground
@@ -32,8 +31,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8630305410573822415}
   - {fileID: 1737686920779112408}
+  - {fileID: 8630305410573822415}
   - {fileID: 4308620846564027511}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -78,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: 2aae02b4b77b2e648bdbccdba0c0c8a0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 06ae3a6b7abbbe44388e7803b4962e7e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -89,22 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7840619066121981032
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6018421707374535805}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39b21a9573624934fa35c1796e35d15e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_lightLevel: 0
-  m_receiveLightLevel: 0
-  m_spriteRenderer: {fileID: 0}
-  m_mapObject: {fileID: 5341136679893137157}
 --- !u!61 &5075732777367063382
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -112,7 +95,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6018421707374535805}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -260,13 +243,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3508179262573489276, guid: 308949abc3786fe45a75b5aced3af51b, type: 3}
-      propertyPath: m_affectLight
-      value: 
-      objectReference: {fileID: 7840619066121981032}
     - target: {fileID: 4892406469851432756, guid: 308949abc3786fe45a75b5aced3af51b, type: 3}
       propertyPath: m_Name
       value: RecieveLight
+      objectReference: {fileID: 0}
+    - target: {fileID: 4892406469851432756, guid: 308949abc3786fe45a75b5aced3af51b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -289,18 +272,6 @@ PrefabInstance:
     - target: {fileID: 1862195980944505719, guid: 6626405694a3a3e4191b6cfe03fe79e8, type: 3}
       propertyPath: m_Name
       value: Map_Object
-      objectReference: {fileID: 0}
-    - target: {fileID: 3400363934103720657, guid: 6626405694a3a3e4191b6cfe03fe79e8, type: 3}
-      propertyPath: m_blockColor.b
-      value: 0.20534708
-      objectReference: {fileID: 0}
-    - target: {fileID: 3400363934103720657, guid: 6626405694a3a3e4191b6cfe03fe79e8, type: 3}
-      propertyPath: m_blockColor.g
-      value: 0.4157203
-      objectReference: {fileID: 0}
-    - target: {fileID: 3400363934103720657, guid: 6626405694a3a3e4191b6cfe03fe79e8, type: 3}
-      propertyPath: m_blockColor.r
-      value: 0.5698112
       objectReference: {fileID: 0}
     - target: {fileID: 3400363934103720657, guid: 6626405694a3a3e4191b6cfe03fe79e8, type: 3}
       propertyPath: m_parentSprite
@@ -360,14 +331,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9021416439671306764, guid: 6626405694a3a3e4191b6cfe03fe79e8, type: 3}
   m_PrefabInstance: {fileID: 7291050137455666644}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5341136679893137157 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3400363934103720657, guid: 6626405694a3a3e4191b6cfe03fe79e8, type: 3}
-  m_PrefabInstance: {fileID: 7291050137455666644}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea3b76bfd80649945af45fd9df97c156, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

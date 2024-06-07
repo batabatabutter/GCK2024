@@ -12,19 +12,16 @@ public class ObjectAffectLight : MonoBehaviour
 	[Header("スプライトレンダー")]
 	[SerializeField] protected SpriteRenderer m_spriteRenderer;
 
-	[Header("オブジェクトの色")]
-	[SerializeField] private Color m_color = Color.white;
+	//[Header("オブジェクトの色")]
+	//[SerializeField] private Color m_color = Color.white;
 
-	[Header("子のマップオブジェクト")]
-	[SerializeField] private MapObject m_mapObject = null;
+	//[Header("子のマップオブジェクト")]
+	//[SerializeField] private MapObject m_mapObject = null;
 
-	//	光処理
-	private bool m_brightness = true;
+	////	光処理
+	//private bool m_brightness = true;
 
 
-	private void Awake()
-	{
-	}
 
 	// Start is called before the first frame update
 	void Start()
@@ -60,33 +57,33 @@ public class ObjectAffectLight : MonoBehaviour
 			m_receiveLightValue = m_receiveLightLevel / 7.0f;
 			// 明度の値を 0 ~ 1 にクランプ
 			m_receiveLightValue = Mathf.Clamp(m_receiveLightValue, 0.0f, 1.0f);
-			// 色を設定
+			// 透明度を設定
 			if (m_spriteRenderer)
-				m_spriteRenderer.color = m_color * new Color(m_receiveLightValue, m_receiveLightValue, m_receiveLightValue, 1.0f);
-			// マップオブジェクトの明度を設定
-			if (m_mapObject)
-			{
-				m_mapObject.SetValue(m_receiveLightValue);
-			}
+				m_spriteRenderer.color = new (1.0f, 1.0f, 1.0f, 1.0f - m_receiveLightValue);
+			//// マップオブジェクトの明度を設定
+			//if (m_mapObject)
+			//{
+			//	m_mapObject.SetValue(m_receiveLightValue);
+			//}
 		}
 	}
 
-	// マップオブジェクト
-	public MapObject MapObject
-	{
-		set { m_mapObject = value; }
-	}
+	//// マップオブジェクト
+	//public MapObject MapObject
+	//{
+	//	set { m_mapObject = value; }
+	//}
 
-	// 色
-	public Color Color
-	{
-		set { m_color = value; }
-	}
+	//// 色
+	//public Color Color
+	//{
+	//	set { m_color = value; }
+	//}
 
-	//	光処理フラグ
-	public bool BrightnessFlag
-	{
-		get { return m_brightness; }
-		set { m_brightness = value; }
-	}
+	////	光処理フラグ
+	//public bool BrightnessFlag
+	//{
+	//	get { return m_brightness; }
+	//	set { m_brightness = value; }
+	//}
 }

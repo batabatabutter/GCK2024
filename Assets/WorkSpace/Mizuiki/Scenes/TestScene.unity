@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 75050969}
   - component: {fileID: 75050970}
+  - component: {fileID: 75050976}
   - component: {fileID: 75050971}
   - component: {fileID: 75050973}
   - component: {fileID: 75050974}
@@ -158,8 +159,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 539302612}
   - {fileID: 102538595}
+  - {fileID: 539302612}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &75050970
@@ -176,9 +177,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_dungeonData: {fileID: 0}
   m_dungeonSize: {x: 100, y: 100}
-  m_isChunk: 1
-  m_chunkSize: 10
-  m_activeChunk: 3
   m_blockGenerator: {fileID: 75050971}
   m_dungeonIndex: 1
   m_dungeonGenerators:
@@ -225,13 +223,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5067d1a84e7c8a4cb2246f9f7dfc60b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_chunkManager: {fileID: 75050976}
   m_blockDataBase: {fileID: 11400000, guid: c2edababa67c99348a73038833ee0dbc, type: 2}
   m_mapObject: {fileID: 1862195980944505719, guid: 6626405694a3a3e4191b6cfe03fe79e8, type: 3}
   m_ground: {fileID: 6018421707374535805, guid: f1554866b93c910478350b8c6589feb9, type: 3}
-  m_pross: {fileID: 4882576525383549920, guid: 131e4f56c090ccd4ea24d871dfcdab0b, type: 3}
-  m_prossFlag: 1
-  m_isBrightness: 1
-  m_lightObject: {fileID: 798616751297926773, guid: 4eda6187e4dc8cc4ba1247a474ab6e76, type: 3}
+  m_shadow: {fileID: 4151829515997944762, guid: d739ecd7c677e87429938deda263ea01, type: 3}
 --- !u!114 &75050972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -303,6 +299,21 @@ MonoBehaviour:
   m_wallHeight: 3
   m_pathWidth: 1
   m_pathHeight: 1
+--- !u!114 &75050976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 75050967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44e6379bab36a954f8977b9e468293b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_player: {fileID: 0}
+  m_chunkSize: 10
+  m_activeChunk: 3
 --- !u!4 &102538595 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7924930004826067373, guid: 3c0037650f2f4a0499506b4d38ebc047, type: 3}
@@ -345,8 +356,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_dungeonDataBase: {fileID: 0}
-  m_chunkSize: 10
-  m_activeChunk: 3
+  m_blockGenerator: {fileID: 0}
   m_playerLength: 0
   m_playerPrefab: {fileID: 0}
   m_playSceneManager: {fileID: 0}
@@ -3383,7 +3393,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2274965954909220427, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 2274965954909220427, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3417,6 +3427,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2593161553353214206, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2763225802546617854, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
       propertyPath: m_playerUpgrade
       value: 
@@ -3429,10 +3443,6 @@ PrefabInstance:
       propertyPath: m_text
       value: 
       objectReference: {fileID: 624597835}
-    - target: {fileID: 6054228071190134199, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
-      propertyPath: m_debug
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6054228071190134199, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
       propertyPath: m_maxCount
       value: 999
@@ -9956,10 +9966,6 @@ PrefabInstance:
     - target: {fileID: 7437164427373383340, guid: 565ea1613a295a746acd0e483db3e630, type: 3}
       propertyPath: m_Name
       value: MinMapImage
-      objectReference: {fileID: 0}
-    - target: {fileID: 7437164427373383340, guid: 565ea1613a295a746acd0e483db3e630, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -10,12 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 4028424752848547877}
   - component: {fileID: 3469568166959932924}
-  - component: {fileID: 792408576829412996}
-  - component: {fileID: -4963957752362924521}
+  - component: {fileID: 267348905874033331}
   - component: {fileID: 1500174390285807772}
-  - component: {fileID: -1378431894499735817}
+  - component: {fileID: 792408576829412996}
   - component: {fileID: -618236753607932433}
   - component: {fileID: -600300867920135826}
+  - component: {fileID: -4963957752362924521}
+  - component: {fileID: -1378431894499735817}
   - component: {fileID: 1479931723885810416}
   m_Layer: 0
   m_Name: PlaySceneManager
@@ -58,6 +59,38 @@ MonoBehaviour:
   m_debugFlag: 0
   m_debugStageNum: 0
   m_uiFlag: 1
+--- !u!114 &267348905874033331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1614570275442964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44e6379bab36a954f8977b9e468293b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_player: {fileID: 0}
+  m_chunkSize: 10
+  m_activeChunk: 3
+--- !u!114 &1500174390285807772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1614570275442964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5067d1a84e7c8a4cb2246f9f7dfc60b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_chunkManager: {fileID: 267348905874033331}
+  m_blockDataBase: {fileID: 11400000, guid: c2edababa67c99348a73038833ee0dbc, type: 2}
+  m_mapObject: {fileID: 1862195980944505719, guid: 6626405694a3a3e4191b6cfe03fe79e8, type: 3}
+  m_ground: {fileID: 6018421707374535805, guid: f1554866b93c910478350b8c6589feb9, type: 3}
+  m_shadow: {fileID: 4151829515997944762, guid: d739ecd7c677e87429938deda263ea01, type: 3}
 --- !u!114 &792408576829412996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71,8 +104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_dungeonDataBase: {fileID: 11400000, guid: 0bf61c7eff449f24d9512881d58682a1, type: 2}
-  m_chunkSize: 10
-  m_activeChunk: 3
+  m_blockGenerator: {fileID: 0}
   m_playerLength: 20
   m_playerPrefab: {fileID: 6945831396311541013, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
   m_playSceneManager: {fileID: 3469568166959932924}
@@ -82,75 +114,6 @@ MonoBehaviour:
     generator: {fileID: -618236753607932433}
   - pattern: 1
     generator: {fileID: -600300867920135826}
---- !u!114 &-4963957752362924521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1614570275442964}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 056d818782ba6374eb284482fdafcf01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_dungeonDataBase: {fileID: 11400000, guid: 0bf61c7eff449f24d9512881d58682a1, type: 2}
-  m_attackLength: 20
-  m_sceneManager: {fileID: 3469568166959932924}
-  m_fallRock: {fileID: 2940951798871330703, guid: 829d86242de0c674a8b178b0f249f289, type: 3}
-  m_fallRockHighlight: {fileID: 4708925638394852652, guid: 82994475c12be0f4da5df8587e7d4dec, type: 3}
-  heightRock: 3
-  m_fallTime: 4
-  m_rollRock: {fileID: 796929451571866827, guid: e54c54e3e9cf6284b904d9e1c38277e3, type: 3}
-  m_rollRockhighlight: {fileID: 5906353031345709085, guid: 1e3c7638253476640a9e522370a172fd, type: 3}
-  m_up: 5
-  m_right: 5
-  m_down: 5
-  m_left: 5
-  m_rollTime: 7
-  m_bank: {fileID: 6085554247375089227, guid: 1d29c80645233fb4c94bf95ca0e1b1f3, type: 3}
-  m_bankHighlight: {fileID: 1067109971471968558, guid: 29f861859c529b1498a780cee08eb5fb, type: 3}
-  m_bankTime: 4
---- !u!114 &1500174390285807772
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1614570275442964}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5067d1a84e7c8a4cb2246f9f7dfc60b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_blockDataBase: {fileID: 11400000, guid: c2edababa67c99348a73038833ee0dbc, type: 2}
-  m_mapObject: {fileID: 1862195980944505719, guid: 6626405694a3a3e4191b6cfe03fe79e8, type: 3}
-  m_ground: {fileID: 6018421707374535805, guid: f1554866b93c910478350b8c6589feb9, type: 3}
-  m_pross: {fileID: 4882576525383549920, guid: 131e4f56c090ccd4ea24d871dfcdab0b, type: 3}
-  m_prossFlag: 0
-  m_isBrightness: 1
-  m_lightObject: {fileID: 798616751297926773, guid: 4eda6187e4dc8cc4ba1247a474ab6e76, type: 3}
---- !u!114 &-1378431894499735817
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1614570275442964}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fcb0d63b65dbb743aee8129fa2afdeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_dungeonDataBase: {fileID: 11400000, guid: 0bf61c7eff449f24d9512881d58682a1, type: 2}
-  m_enemyDataBase: {fileID: 11400000, guid: ca452888acf86a640a52ed7e456cb571, type: 2}
-  m_playSceneManager: {fileID: 3469568166959932924}
-  m_spawnRadius: 0
-  m_detectionLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  m_player: {fileID: 0}
-  m_dungeonAttacker: {fileID: 0}
 --- !u!114 &-618236753607932433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,6 +151,56 @@ MonoBehaviour:
   m_roomOreChunkCount:
     min: 0
     max: 0
+--- !u!114 &-4963957752362924521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1614570275442964}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 056d818782ba6374eb284482fdafcf01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_dungeonDataBase: {fileID: 11400000, guid: 0bf61c7eff449f24d9512881d58682a1, type: 2}
+  m_attackLength: 20
+  m_sceneManager: {fileID: 3469568166959932924}
+  m_fallRock: {fileID: 2940951798871330703, guid: 829d86242de0c674a8b178b0f249f289, type: 3}
+  m_fallRockHighlight: {fileID: 4708925638394852652, guid: 82994475c12be0f4da5df8587e7d4dec, type: 3}
+  heightRock: 3
+  m_fallTime: 4
+  m_rollRock: {fileID: 796929451571866827, guid: e54c54e3e9cf6284b904d9e1c38277e3, type: 3}
+  m_rollRockhighlight: {fileID: 5906353031345709085, guid: 1e3c7638253476640a9e522370a172fd, type: 3}
+  m_up: 5
+  m_right: 5
+  m_down: 5
+  m_left: 5
+  m_rollTime: 7
+  m_bank: {fileID: 6085554247375089227, guid: 1d29c80645233fb4c94bf95ca0e1b1f3, type: 3}
+  m_bankHighlight: {fileID: 1067109971471968558, guid: 29f861859c529b1498a780cee08eb5fb, type: 3}
+  m_bankTime: 4
+--- !u!114 &-1378431894499735817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1614570275442964}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fcb0d63b65dbb743aee8129fa2afdeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_dungeonDataBase: {fileID: 11400000, guid: 0bf61c7eff449f24d9512881d58682a1, type: 2}
+  m_enemyDataBase: {fileID: 11400000, guid: ca452888acf86a640a52ed7e456cb571, type: 2}
+  m_playSceneManager: {fileID: 3469568166959932924}
+  m_spawnRadius: 0
+  m_detectionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  m_player: {fileID: 0}
+  m_dungeonAttacker: {fileID: 0}
 --- !u!114 &1479931723885810416
 MonoBehaviour:
   m_ObjectHideFlags: 0
