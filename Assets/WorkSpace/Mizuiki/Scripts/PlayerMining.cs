@@ -204,8 +204,6 @@ public class PlayerMining : MonoBehaviour
 			{
 				// 当たった位置を採掘ポイントにする
                 miningPoint = rayCast.point;
-				//m_debugMiningPoint.transform.position = rayCast.point;
-				//m_circularSaw.transform.position = rayCast.point;
 				hit = true;
 				break;
 			}
@@ -217,8 +215,6 @@ public class PlayerMining : MonoBehaviour
 				if (MyFunction.CheckSameGrid(rayCast.transform.position, mousePos))
 				{
                     miningPoint = rayCast.transform.position;
-					//m_debugMiningPoint.transform.position = rayCast.transform.position;
-					//m_circularSaw.transform.position = rayCast.transform.position;
 					hit = true;
 					break;
 				}
@@ -229,8 +225,6 @@ public class PlayerMining : MonoBehaviour
 		{
 			// 採掘ポイント
             miningPoint = miningRay.origin + (miningRay.direction * miningRay.length);
-			//m_debugMiningPoint.transform.position = miningRay.origin + (miningRay.direction * miningRay.length);
-			//m_circularSaw.transform.position = miningRay.origin + (miningRay.direction * miningRay.length);
 		}
 
         // 採掘ポイント設定
@@ -249,59 +243,69 @@ public class PlayerMining : MonoBehaviour
         if (m_miningCoolTime > 0.0f)
             return;
 
-		//// マウスの位置を取得
-		//Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-		//// 採掘用のRay取得
-		//MiningRay miningRay = GetMiningPoint(mousePos);
-
-  //      // プレイヤーから採掘方向へのRayCast
-  //      RaycastHit2D[] rayCasts = Physics2D.RaycastAll(miningRay.origin, miningRay.direction, miningRay.length, m_layerMask);
-  //      // ダメージを与えたブロックの位置
-  //      Transform blockTransform = null;
-  //      foreach (RaycastHit2D rayCast in rayCasts)
-  //      {
-  //          // タグが Block
-  //          if (rayCast.transform.CompareTag("Block"))
-  //          {
-  //              // ブロックにダメージを与える
-  //              if (CauseDamageToBlock(rayCast.transform))
-  //              {
-  //                  // ダメージを与えたブロック
-  //                  blockTransform = rayCast.transform;
-
-  //                  break;
-  //              }
-
-  //              continue;
-  //          }
-  //          // タグが Tool
-  //          if (rayCast.transform.CompareTag("Tool"))
-  //          {
-  //              // マウスカーソルと同じグリッド
-  //              if (MyFunction.CheckSameGrid(rayCast.transform.position, mousePos))
-		//		{
-  //                  // ツールにダメージを与える
-  //                  CauseDamageToBlock(rayCast.transform);
-
-		//			// ダメージを与えたブロック
-		//			blockTransform = rayCast.transform;
-
-		//			break;
-		//		}
-		//	}
-		//}
         // 範囲採掘
-        MiningOfRange(/*blockTransform, miningRay.MiningPos()*/m_circularSaw.transform.position);
+        MiningOfRange(m_circularSaw.transform.position);
 
 		// クールタイム設定
 		m_miningCoolTime = 1.0f / m_miningValue.speed;
 
 	}
 
+    // 採掘ベクトルの取得
+    public Vector2 GetMiningVector()
+    {
+        return m_circularSaw.transform.position - transform.position;
+    }
 
 
-    private MiningRay GetMiningPoint(Vector2 mousePos)
+    // 基礎値
+    public MiningValue MiningValueBase
+	{
+		get { return m_miningValueBase; }
+		set { m_miningValueBase = value; }
+	}
+	// 倍率
+	public MiningValue MiningValueRate
+	{
+		get { return m_miningValueRate; }
+		set { m_miningValueRate = value; }
+	}
+	// 強化値
+	public MiningValue MiningValueBoost
+	{
+		get { return m_miningValueBoost; }
+		set { m_miningValueBoost = value; }
+    }
+
+    // 採掘範囲
+    public float MiningRange
+    {
+        get { return m_miningValue.range; }
+    }
+    // 採掘力
+    public float MiningPower
+	{
+		get { return m_miningValue.power; }
+	}
+
+	// 採掘回数
+	public int MiningCount
+	{
+		get { return m_miningCount; }
+		set { m_miningCount = value; }
+	}
+	// 与えたダメージ
+	public float TakenDamage
+	{
+		get { return m_takenDamage; }
+	}
+
+
+
+
+
+
+	private MiningRay GetMiningPoint(Vector2 mousePos)
     {
 		// プレイヤーの位置
 		Vector2 playerPos = transform.position;
@@ -361,27 +365,13 @@ public class PlayerMining : MonoBehaviour
 	}
 
     // 広範囲の採掘
-    private void MiningOfRange(/*Transform hit, */Vector2 center)
+    private void MiningOfRange(Vector2 center)
     {
-        //// トランスフォームがある
-        //if (hit)
-        //{
-        //    center = hit.position;
-        //}
-
-        //// 採掘サイズが 1 以下
-        //if (m_miningValue.size <= 1.0f)
-        //    return;
-
         // ブロックの取得
         Collider2D[] blocks = Physics2D.OverlapCircleAll(center, m_miningValue.size / 2.0f, LayerMask.GetMask("Block"));
 
         foreach(Collider2D block in blocks)
         {
-            //// 中心のブロックは除外
-            //if (hit == block.transform)
-            //    continue;
-
 			// ダメージ
 			// タグが Block
 			if (block.transform.CompareTag("Block"))
@@ -425,42 +415,5 @@ public class PlayerMining : MonoBehaviour
         return power;
     }
 
-
-    // 基礎値
-    public MiningValue MiningValueBase
-    {
-        get { return m_miningValueBase; }
-        set { m_miningValueBase = value; }
-    }
-    // 倍率
-    public MiningValue MiningValueRate
-    {
-        get { return m_miningValueRate; }
-        set { m_miningValueRate = value; }
-    }
-    // 強化値
-    public MiningValue MiningValueBoost
-    {
-        get { return m_miningValueBoost; }
-        set { m_miningValueBoost = value; }
-    }
-
-    // 採掘力
-    public float MiningPower
-    {
-        get { return m_miningValue.power; }
-    }
-
-    // 採掘回数
-    public int MiningCount
-    {
-        get { return m_miningCount; }
-        set { m_miningCount = value; }
-    }
-    // 与えたダメージ
-    public float TakenDamage
-    {
-        get { return m_takenDamage; }
-    }
 
 }
