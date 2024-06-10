@@ -22,7 +22,7 @@ MonoBehaviour:
     rateMin: 1
     rateMax: 1
     noiseScale: 0
-    offset: 0.49813753
+    offset: 0.16802348
   - blockType: 101
     range:
       min: 0
@@ -30,7 +30,7 @@ MonoBehaviour:
     rateMin: 0.3
     rateMax: 0.42
     noiseScale: 0.2
-    offset: 0.8766037
+    offset: 0.532144
   - blockType: 1070
     range:
       min: 0
@@ -38,7 +38,7 @@ MonoBehaviour:
     rateMin: 0.02
     rateMax: 0.05
     noiseScale: 0.4
-    offset: 0.28633836
+    offset: 0.64909965
   - blockType: 1090
     range:
       min: 0
@@ -46,7 +46,7 @@ MonoBehaviour:
     rateMin: 0.02
     rateMax: 0.05
     noiseScale: 0.4
-    offset: 0.24819413
+    offset: 0.6881301
   dungeonWaves:
   - generateEnemyType: 0000000001000000
     generateEnemyNum: 3
@@ -66,7 +66,7 @@ MonoBehaviour:
     restTimeRate: 0.5
   - distanceRate: 1
     restTimeRate: 1
-  attackData: {fileID: 11400000, guid: 4a03b3e4b662c404a969652c139966a9, type: 2}
+  attackData: {fileID: 11400000, guid: ba3414a0788b3b3449bc702c4b4ac14e, type: 2}
   dungeonCSV:
   - {fileID: 4900000, guid: 0e35215235d219d46be3f40a33eaba2e, type: 3}
   - {fileID: 4900000, guid: 6961f29b4be0e05478a47f0aea956a73, type: 3}

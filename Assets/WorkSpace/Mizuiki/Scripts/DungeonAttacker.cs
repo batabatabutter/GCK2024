@@ -249,6 +249,9 @@ public class DungeonAttacker : MonoBehaviour
 	// コアとターゲットの距離に応じた攻撃間隔の取得
 	private float GetAttackGrade()
 	{
+		//	返す
+		if (!m_corePosition || !m_target) return 0.0f;
+
 		// コアとターゲットの距離
 		float distance = Vector3.Distance(m_target.position, m_corePosition.position);
 
