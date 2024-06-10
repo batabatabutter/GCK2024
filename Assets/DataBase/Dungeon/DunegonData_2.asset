@@ -76,7 +76,7 @@ MonoBehaviour:
     restTimeRate: 0.5
   - distanceRate: 1
     restTimeRate: 1
-  attackData: {fileID: 11400000, guid: 84e33d87ad14bc44bab3ca7e8f464fdc, type: 2}
+  attackData: {fileID: 11400000, guid: 37675ecda9f75dd49a7ad3e42e909617, type: 2}
   dungeonCSV:
   - {fileID: 4900000, guid: 0e35215235d219d46be3f40a33eaba2e, type: 3}
   - {fileID: 4900000, guid: 6961f29b4be0e05478a47f0aea956a73, type: 3}
