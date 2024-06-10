@@ -693,7 +693,7 @@ MonoBehaviour:
     m_Bits: 8
   m_miningValueBase:
     range: 3
-    size: 1
+    size: 0
     power: 50
     speed: 2
     critical: 0

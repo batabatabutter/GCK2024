@@ -170,7 +170,7 @@ public class PlayerMining : MonoBehaviour
 		}
 
         // 丸のこのサイズ設定
-        m_circularSaw.transform.localScale = Vector3.one * m_miningValueBase.size;
+        SetCircularSawScale();
 	}
 
     // Update is called once per frame
@@ -227,8 +227,12 @@ public class PlayerMining : MonoBehaviour
             miningPoint = miningRay.origin + (miningRay.direction * miningRay.length);
 		}
 
-        // 採掘ポイント設定
-        m_circularSaw.transform.position = miningPoint;
+		// 丸のこのサイズ設定
+		SetCircularSawScale();
+
+		// 採掘ポイント設定
+		m_circularSaw.transform.position = miningPoint;
+
         if (m_debug)
         {
             m_debugMiningPoint.transform.position = miningPoint;
@@ -415,5 +419,15 @@ public class PlayerMining : MonoBehaviour
         return power;
     }
 
+    // 丸のこのサイズ設定
+    private void SetCircularSawScale()
+    {
+        // スケール
+        float scale = Mathf.Max(m_miningValue.size, 1.0f);
+
+		// 丸のこのサイズ設定
+		m_circularSaw.transform.localScale = Vector3.one * scale;
+
+	}
 
 }

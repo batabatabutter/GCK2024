@@ -35,7 +35,7 @@ public class Enemy_AttackBall : MonoBehaviour
         if (collision.gameObject.CompareTag("Block") && collision.gameObject != m_dwellBlock)
         {
             //ブロックにダメージを与える
-            collision.gameObject.GetComponent<Block>().AddMiningDamage(m_blockDamage);
+            collision.gameObject.GetComponent<Block>().AddMiningDamage(m_blockDamage, 0);
 
             // オブジェクトを破壊する
             DestroyThis();
