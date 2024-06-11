@@ -121,6 +121,8 @@ public class PlayerMining : MonoBehaviour
     [SerializeField] private GameObject m_circularSaw = null;
     [Header("ŠÛ‚Ì‚±‚ÌˆÚ“®‘¬“x")]
     [SerializeField] private float m_circularSawSpeed = 1.0f;
+    [Header("ŠÛ‚Ì‚±‚Ì‰ñ“]‘¬“x")]
+    [SerializeField] private float m_circularSawRotate = 100.0f;
 
     [Header("ƒŒƒCƒ„[ƒ}ƒXƒN")]
     [SerializeField] private LayerMask m_layerMask;
@@ -245,6 +247,9 @@ public class PlayerMining : MonoBehaviour
 	// ÌŒ@‚·‚é
 	public void Mining()
     {
+        // ‰ñ“]‚³‚¹‚é
+        m_circularSaw.transform.localEulerAngles += Vector3.back * Time.deltaTime * m_circularSawRotate * m_miningValue.speed;
+
         // ÌŒ@ƒN[ƒ‹ƒ^ƒCƒ€’†
         if (m_miningCoolTime > 0.0f)
             return;

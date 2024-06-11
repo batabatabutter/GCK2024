@@ -454,7 +454,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4775494179588686869
 Transform:
   m_ObjectHideFlags: 0
@@ -689,12 +689,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_circularSaw: {fileID: 1753217405747691204}
   m_circularSawSpeed: 10
+  m_circularSawRotate: 100
   m_layerMask:
     serializedVersion: 2
     m_Bits: 8
   m_miningValueBase:
     range: 3
-    size: 0
+    size: 0.01
     power: 50
     speed: 2
     critical: 0
@@ -1109,15 +1110,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 1, b: 0, a: 0.5019608}
+  m_Sprite: {fileID: 21300000, guid: baaa862b68f4a3044b91ea2f66bc8c28, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5019608}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &9159316578527027042

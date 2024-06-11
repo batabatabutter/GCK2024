@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class MyFunction
 {
+	static public float BLOCK_WEAK => 0.8f;
+
 	// ”ÍˆÍ
 	[System.Serializable]
 	public struct MinMax

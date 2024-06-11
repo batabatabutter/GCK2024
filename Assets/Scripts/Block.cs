@@ -11,10 +11,13 @@ public class Block : /*ObjectAffectLight*/MonoBehaviour
     [SerializeField] private float m_blockEndurance = 100;
 
     [Header("破壊不可")]
-    [SerializeField] private bool m_dontBroken = false;
+    [SerializeField] private bool m_isntBroken = false;
 
     [Header("敵の憑りつき可能")]
-    [SerializeField] private bool m_canPossess = false;
+    [SerializeField] private bool m_isPossessEnemy = false;
+
+    [Header("弱体化")]
+    [SerializeField] private bool m_isWeak = false;
 
     [Header("ブロックの情報")]
     [SerializeField] private BlockData m_blockData = null;
@@ -64,7 +67,7 @@ public class Block : /*ObjectAffectLight*/MonoBehaviour
 	public virtual bool AddMiningDamage(float power, int dropCount = 1)
     {
         // 破壊不可能ブロックの場合は処理しない
-        if (m_dontBroken)
+        if (m_isntBroken)
             return false;
 
         // 採掘ダメージ加算
@@ -95,7 +98,7 @@ public class Block : /*ObjectAffectLight*/MonoBehaviour
 	public bool BrokenBlock(int dropCount = 1)
 	{
 		// 破壊不可能ブロックの場合は処理しない
-		if (m_dontBroken)
+		if (m_isntBroken)
 			return false;
 
 		// すでに破壊されている
@@ -162,9 +165,6 @@ public class Block : /*ObjectAffectLight*/MonoBehaviour
         }
 	}
 
-
-
-
     // スプライトの設定
     public void SetSprite(Sprite sprite)
     {
@@ -181,6 +181,22 @@ public class Block : /*ObjectAffectLight*/MonoBehaviour
         //}
 	}
 
+    // 弱体化させる
+    public void Weaken()
+    {
+        // すでに弱体化している
+        if (m_isWeak)
+            return;
+
+        // 弱体化を設定
+        m_isWeak = true;
+        
+        // 耐久を減らす
+        m_blockEndurance *= MyFunction.BLOCK_WEAK;
+    }
+
+
+
 	// 耐久力
 	public float Endurance
     {
@@ -190,15 +206,15 @@ public class Block : /*ObjectAffectLight*/MonoBehaviour
     // 破壊不可能か
     public bool DontBroken
     {
-        get { return m_dontBroken; }
-        set { m_dontBroken = value; }
+        get { return m_isntBroken; }
+        set { m_isntBroken = value; }
     }
 
     // 憑依
     public bool CanPossess
     {
-        get { return m_canPossess; }
-        set { m_canPossess = value; }
+        get { return m_isPossessEnemy; }
+        set { m_isPossessEnemy = value; }
     }
 
     // ブロックデータ
