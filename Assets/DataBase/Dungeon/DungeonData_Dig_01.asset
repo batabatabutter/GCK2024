@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82a82efb7a028c246a3f184825fdc42f, type: 3}
   m_Name: DungeonData_Dig_01
   m_EditorClassIdentifier: 
+  coreSprite: {fileID: 21300000, guid: 5b0a43a3d658e004db95257e742d0179, type: 3}
+  stageColor: {r: 1, g: 1, b: 1, a: 1}
   patternStr: 0:TEN_X_TEN
   size: {x: 50, y: 50}
   blockGenerateData:

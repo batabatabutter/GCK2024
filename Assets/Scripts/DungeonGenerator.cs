@@ -104,22 +104,6 @@ public class DungeonGenerator : MonoBehaviour
 			Vector2Int size = m_dungeonDataBase.dungeonDatas[m_stageNum].Size;
 			search.MarkerMaxScale = Mathf.Max(size.x, size.y) / 2.0f;
 		}
-		//// アイテムの設定
-		//if (m_playSceneManager.GetPlayer().TryGetComponent(out PlayerTool tool))
-		//{
-		//	// 生成ブロックの情報
-		//	BlockGenerateData[] blockData = m_dungeonDataBase.dungeonDatas[m_stageNum].BlockGenerateData;
-		//	for (int i = 0; i < blockData.Length; i++)
-		//	{
-		//		// レア鉱石じゃない
-		//		if (blockData[i].blockType < BlockData.BlockType.BIRTHDAY)
-		//		{
-		//			continue;
-		//		}
-		//	}
-		//	// ダンジョンに存在するブロック
-		//	//item.PossibleItems = 
-		//}
 	}
 
 	//private void Update()
@@ -213,6 +197,8 @@ public class DungeonGenerator : MonoBehaviour
 
 		// coreの生成
 		GameObject co = m_blockGenerator.GenerateBlock(BlockData.BlockType.CORE, new Vector3(m_corePos.x, m_corePos.y));
+		// スプライトの設定
+		co.GetComponent<SpriteRenderer>().sprite = dungeonData.CoreSprite;
 		// ブロックリストに追加
 		m_blocksList.Add(co.GetComponent<Block>());
 

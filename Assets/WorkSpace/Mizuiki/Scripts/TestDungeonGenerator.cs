@@ -22,6 +22,9 @@ public class TestDungeonGenerator : MonoBehaviour
 
 	[Header("コアの座標")]
 	[SerializeField] private Vector2Int m_corePosition = Vector2Int.zero;
+	[Header("コアのスプライト")]
+	[SerializeField] private Sprite m_coreSprite = null;
+
 
 	[Header("各ブロックの生成情報")]
 	[SerializeField] private DungeonGenerator.BlockGenerateData[] m_generateBlocks;
@@ -152,6 +155,8 @@ public class TestDungeonGenerator : MonoBehaviour
 				{
 					obj = m_blockGenerator.GenerateBlock(BlockData.BlockType.CORE, pos);
 					m_dungeonAttacker.CorePosition = obj.transform;
+					// コアのスプライト設定
+					obj.GetComponent<SpriteRenderer>().sprite = m_coreSprite;
 				}
 				// ブロックの生成
 				else

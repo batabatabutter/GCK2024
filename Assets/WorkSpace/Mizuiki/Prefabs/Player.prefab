@@ -688,6 +688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_circularSaw: {fileID: 1753217405747691204}
+  m_circularSawSpeed: 10
   m_layerMask:
     serializedVersion: 2
     m_Bits: 8

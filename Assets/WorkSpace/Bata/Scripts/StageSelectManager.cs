@@ -72,6 +72,8 @@ public class StageSelectManager : MonoBehaviour
             var bl = Instantiate(m_stageSelectBlock, parent.transform);
             // ステージ番号設定
             bl.GetComponent<StageSelectBlock>().SetStageNum(i);
+            // コアのスプライト設定
+            bl.GetComponent<SpriteRenderer>().sprite = m_dungeonDataBase.dungeonDatas[i].CoreSprite;
             // 角度(右回りにするためにマイナスをつける)
             float angle = -degree * i * Mathf.Deg2Rad;
             // 配置場所

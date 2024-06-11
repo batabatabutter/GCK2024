@@ -119,6 +119,8 @@ public class PlayerMining : MonoBehaviour
 
     [Header("丸のこ(見た目)")]
     [SerializeField] private GameObject m_circularSaw = null;
+    [Header("丸のこの移動速度")]
+    [SerializeField] private float m_circularSawSpeed = 1.0f;
 
     [Header("レイヤーマスク")]
     [SerializeField] private LayerMask m_layerMask;
@@ -231,7 +233,7 @@ public class PlayerMining : MonoBehaviour
 		SetCircularSawScale();
 
 		// 採掘ポイント設定
-		m_circularSaw.transform.position = miningPoint;
+		m_circularSaw.transform.position = GetCircularSawPosition(miningPoint);
 
         if (m_debug)
         {
@@ -429,5 +431,23 @@ public class PlayerMining : MonoBehaviour
 		m_circularSaw.transform.localScale = Vector3.one * scale;
 
 	}
+    // 丸のこの位置取得
+    private Vector3 GetCircularSawPosition(Vector3 miningPoint)
+    {
+        // 丸のこから採掘位置へのベクトル
+        Vector3 circularSawToMining = miningPoint - m_circularSaw.transform.position;
+        // 丸のこと採掘位置の距離
+        float distance = circularSawToMining.magnitude;
+
+        // 距離が 1f の移動量以内ならそのまま採掘地点を返す
+        if (distance <= m_circularSawSpeed * Time.deltaTime)
+            return miningPoint;
+
+        // 採掘位置へのベクトル正規化
+        circularSawToMining.Normalize();
+
+        // 丸のこの位置を返す
+        return m_circularSaw.transform.position + (circularSawToMining * Time.deltaTime * m_circularSawSpeed);
+    }
 
 }

@@ -184,6 +184,7 @@ MonoBehaviour:
   - {fileID: 75050974}
   - {fileID: 75050975}
   m_corePosition: {x: 50, y: 50}
+  m_coreSprite: {fileID: 21300000, guid: 9024f2996932c9b48a15e22fbae1be9b, type: 3}
   m_generateBlocks:
   - blockType: 0
     range:
