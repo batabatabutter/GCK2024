@@ -14,6 +14,9 @@ public class EnemyGenerator : MonoBehaviour
     [Header("プレイシーンマネージャー")]
     [SerializeField] PlaySceneManager m_playSceneManager;
 
+    [Header("エネミーマネージャー")]
+    [SerializeField] private EnemyManager m_enemyManager = null;
+
     [Header("プレイヤー中心で敵が沸く範囲"),Min(0)]
     [SerializeField] float m_spawnRadius;
 
@@ -53,11 +56,6 @@ public class EnemyGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //if(m_waveManager == null)
-        //{
-        //    m_waveManager = GetComponent<WaveManager>();
-        //}
-
         int stageNum = 0;
 		if (m_playSceneManager)
         {
@@ -77,8 +75,6 @@ public class EnemyGenerator : MonoBehaviour
             m_dungeonAttacker = GetComponent<DungeonAttacker>();
         }
 
-		//現在のウェーブ数の取得
-		//m_wave = m_waveManager.WaveNum;
         //ウェーブごとの情報
         DungeonData.DungeonWave dungeonData = m_dungeonDataBase.dungeonDatas[stageNum].DungeonWaves[m_wave];
         //出現数のせってい
@@ -114,11 +110,8 @@ public class EnemyGenerator : MonoBehaviour
             }
         }
 
-        //if(m_player == null)
-        {
-            //親
-            m_parent = new GameObject("Enemies");
-        }
+        //親
+        m_parent = new GameObject("Enemies");
 
     }
 
@@ -143,7 +136,6 @@ public class EnemyGenerator : MonoBehaviour
         else
         {
             // 攻撃状態の場合はタイマー減算
-            //if(m_waveManager.waveState == WaveState.Attack)
             if (m_dungeonAttacker.Active)
             {
                 m_timer -= Time.deltaTime;
@@ -153,14 +145,7 @@ public class EnemyGenerator : MonoBehaviour
 
         if(m_spawnEnemyNum <= 0)
         {
-            //m_waveManager.waveState = WaveState.Break;
-            ////ウェーブ上限じゃない場合かさん
-            //if ( m_waveManager.WaveNum < m_waveManager.WAVE_MAX_NUM - 1)
-            //{
-
-            //    m_waveManager.WaveNum++;
-
-            //}
+            // 次の敵を生成
             Start();
 
         }
@@ -176,10 +161,6 @@ public class EnemyGenerator : MonoBehaviour
 	{
         Spawn(type, m_spawnRadius);
 	}
-    //public void Spawn(Vector3 position)
-    //{
-    //    Spawn(GetSpawnType(), position);
-    //}
     public void Spawn(Transform block)
     {
         Spawn(GetSpawnType(), block);
@@ -251,16 +232,17 @@ public class EnemyGenerator : MonoBehaviour
 			case Enemy.System.Dwell:
 				// ブロック憑依型
 
+				// 選択されたオブジェクトに対する処理を行う
 				if (block != null)
 				{
-					// 選択されたオブジェクトに対する処理を行う
-
+                    // スポーン位置
 					Vector3 spawnPos = block.position;
-
+                    // 敵を生成
 					GameObject enemy = Instantiate(m_enemyDataBase.enemyDatas[(int)type].prefab, spawnPos, Quaternion.identity, m_parent.transform);
-
+                    // エネミーマネージャーに追加
+                    m_enemyManager.AddEnemy(enemy.GetComponent<Enemy>());
+                    // 宿り先ブロックの登録
 					enemy.GetComponent<EnemyDwell>().DwellBlock = block.gameObject;
-
 					// ブロックを憑依済みにする == 憑依不可能状態にする
 					block.GetComponent<Block>().CanPossess = false;
 				}

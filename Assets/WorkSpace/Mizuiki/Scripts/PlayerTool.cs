@@ -24,6 +24,9 @@ public class PlayerTool : MonoBehaviour
 	[Header("ツール格納用オブジェクト")]
 	[SerializeField] private GameObject m_toolContainer = null;
 
+	[Header("ツールマネージャ")]
+	[SerializeField] private ToolManager m_toolManager = null;
+
 	// 使用ツール
 	private readonly Dictionary<ToolData.ToolType, ToolContainer> m_tools = new();
 
@@ -85,7 +88,12 @@ public class PlayerTool : MonoBehaviour
 			{
 				if (toolData.Prefab)
 				{
-					m_toolScripts[type] = Instantiate(toolData.Prefab.GetComponent<Tool>(), m_toolContainer.transform);
+					// サポートツールの更新を行うためのオブジェクトを生成
+					Tool tool = Instantiate(toolData.Prefab.GetComponent<Tool>(), m_toolContainer.transform);
+					// 使用時に設定できるようにリストに追加
+					m_toolScripts[type] = tool;
+					// ツールマネージャーにも追加
+					m_toolManager.AddTool(tool);
 				}
 			}
 		}
@@ -308,7 +316,7 @@ public class PlayerTool : MonoBehaviour
 	}
 
 	// 設置する
-	public void Put(ToolData data, Vector3 position, bool con = false)
+	public void Put(ToolData data, Vector3 position)
 	{
 		// プレハブが設定されていなければ返す
 		if (!data.Prefab)
@@ -318,17 +326,8 @@ public class PlayerTool : MonoBehaviour
 		GameObject tool = Instantiate(data.Prefab, position, Quaternion.identity);
 		// アクティブにする(念のため)
 		tool.SetActive(true);
-
-		////	ブロックスクリプトがあるならplayer座標取得
-		//var br = tool.GetComponent<ChangeBrightness>();
-		//if (br) br.SetPlayerTransform(transform);
-
-        // 素材を消費する
-        if (con)
-		{
-			m_playerItem.ConsumeMaterials(data);
-		}
-
+		// マネージャーに追加
+		m_toolManager.AddTool(gameObject.GetComponent<Tool>());
 	}
 
 	// ツールを作成できるかチェック

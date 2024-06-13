@@ -30,8 +30,9 @@ public class StageSelectManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //  親作成
+        //  地面の親作成
         GameObject parent = new GameObject("Grounds");
+        parent.transform.parent = transform;
         for (int x = (int)(m_minPos.x - m_borderOffset); x < (int)(m_maxPos.x + m_borderOffset); x++)
         {
             for (int y = (int)(m_minPos.y - m_borderOffset); y < (int)(m_maxPos.y + m_borderOffset); y++)
@@ -42,9 +43,10 @@ public class StageSelectManager : MonoBehaviour
             }
         }
 
-        //  親作成
+        //  範囲枠の親作成
         parent = new GameObject("Borders");
-        for (int x = (int)m_minPos.x; x < (int)m_maxPos.x; x++)
+		parent.transform.parent = transform;
+		for (int x = (int)m_minPos.x; x < (int)m_maxPos.x; x++)
         {
             //  生成
             GameObject br = Instantiate(m_borderObj, parent.transform);
@@ -61,10 +63,11 @@ public class StageSelectManager : MonoBehaviour
             br.transform.position = new Vector3(m_maxPos.x, y, 0);
         }
 
-        //  親作成
+        //  選択項目の親作成
         parent = new GameObject("StageSelectBlock");
-        // 一つ分の角度
-        float degree = 360.0f / m_dungeonDataBase.dungeonDatas.Count;
+		parent.transform.parent = transform;
+		// 一つ分の角度
+		float degree = 360.0f / m_dungeonDataBase.dungeonDatas.Count;
         //  ダンジョン数分ブロック生成
         for (int i = 0; i < m_dungeonDataBase.dungeonDatas.Count; i++)
         {

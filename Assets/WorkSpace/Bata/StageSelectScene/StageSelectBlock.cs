@@ -18,7 +18,12 @@ public class StageSelectBlock : Block
     //  ステージ番号
     [SerializeField] int m_stageNum;
 
-    public void SetStageNum(int num)
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+		
+	}
+
+	public void SetStageNum(int num)
     {
         m_stageNum = num;
         m_stageText.text = "Stage: " + (m_stageNum + 1).ToString();
@@ -29,4 +34,11 @@ public class StageSelectBlock : Block
         m_stageNumObj.stageNum = m_stageNum;
         SceneManager.LoadScene("PlayScene");
     }
+
+    private void ChangeScene()
+    {
+		m_stageNumObj.stageNum = m_stageNum;
+		SceneManager.LoadScene("PlayScene");
+	}
+
 }
