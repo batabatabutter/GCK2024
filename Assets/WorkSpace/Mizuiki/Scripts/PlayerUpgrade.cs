@@ -11,9 +11,6 @@ public class PlayerUpgrade : MonoBehaviour
     [Header("プレイヤーのツールスクリプト")]
     [SerializeField] private PlayerTool m_playerTool = null;
 
-    //[Header("採掘強化")]
-    //[SerializeField] private ToolData m_upgradeData = null;
-
     [Header("強化段階の区切り")]
     [SerializeField] private int m_stageDelimiter = 10;
 
@@ -24,7 +21,7 @@ public class PlayerUpgrade : MonoBehaviour
     public struct UpgradeStageValue
     {
         public int stage;                       // 増加し始める強化段階
-        public PlayerMining.MiningValue value;  // 強化量
+        public MiningData.MiningValue value;  // 強化量
     }
     [Header("強化段階ごとの増加量"), Tooltip("[stage] の段階から1段階上がるごとに[value]の数値が加算される")]
     [SerializeField] private UpgradeStageValue[] m_upgradeStageValue;
@@ -74,7 +71,7 @@ public class PlayerUpgrade : MonoBehaviour
 
         // 強化値
         UpgradeData upgradeValue = GetValue();
-        PlayerMining.MiningValue upgradeStageValue = GetStageValue(m_upgradeRank - value, m_upgradeRank);
+        MiningData.MiningValue upgradeStageValue = GetStageValue(m_upgradeRank - value, m_upgradeRank);
 
         // 強化
         m_playerMining.MiningValueBase += upgradeValue.Value * value;
@@ -121,7 +118,7 @@ public class PlayerUpgrade : MonoBehaviour
 	}
 
 	// 強化値の取得(段階ごと)
-	private PlayerMining.MiningValue GetStageValue(int beforeRank, int afterRank)
+	private MiningData.MiningValue GetStageValue(int beforeRank, int afterRank)
     {
         // 強化前の段階
         int beforeStage = GetStage(beforeRank);
@@ -130,10 +127,10 @@ public class PlayerUpgrade : MonoBehaviour
 
         // 強化段階が上がっていない
         if (beforeStage >= afterStage)
-            return PlayerMining.MiningValue.Zero();
+            return MiningData.MiningValue.Zero();
 
         // 強化量
-        PlayerMining.MiningValue val = PlayerMining.MiningValue.Zero();
+        MiningData.MiningValue val = MiningData.MiningValue.Zero();
         foreach (UpgradeStageValue stageValue in m_upgradeStageValue)
         {
             // 増加開始段階

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53565c71b8637da49ae9481120e82243, type: 3}
+  m_Name: MiningData_Balance
+  m_EditorClassIdentifier: 
+  typeStr: 0:BALANCE
+  miningValue:
+    range: 3
+    size: 0
+    power: 50
+    speed: 2
+    critical: 0
+    criticalDamage: 200
+    itemDrop: 100
+  upgradeData:
+  - {fileID: 11400000, guid: fd7e1cf44378e9f438ea19b5b7059570, type: 2}
+  - {fileID: 11400000, guid: 2975198c7e3b0f94fbaab6fdba4eed37, type: 2}
+  - {fileID: 11400000, guid: 2ff32ce5450641d48b3d8b769f65126b, type: 2}
+  - {fileID: 11400000, guid: a43869f39314345488fc74bcbb5a388a, type: 2}
+  - {fileID: 11400000, guid: 48720468d946883489ad89c22fdcb03b, type: 2}
+  - {fileID: 11400000, guid: 4b676267e7baf434ebc80f61ec65b1e1, type: 2}

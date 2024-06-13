@@ -5,10 +5,10 @@ using UnityEngine;
 public class UpgradeData : ScriptableObject
 {
 	[Header("‘‰Á—Ê")]
-	[SerializeField] private PlayerMining.MiningValue value = PlayerMining.MiningValue.Zero();
+	[SerializeField] private MiningData.MiningValue value = MiningData.MiningValue.Zero();
 	[Header("•K—v‘fÞ")]
 	[SerializeField] private Items[] cost;
 
-	public PlayerMining.MiningValue Value => value;
+	public MiningData.MiningValue Value => value;
 	public Items[] Cost => cost;
 }

@@ -54,27 +54,27 @@ public class RollRock : MonoBehaviour
             {
                 //è„Ç…çsÇ≠
                 m_rb.velocity = new Vector3(0, m_speed, 0);
+                transform.localEulerAngles -= m_speed * (360.0f / Mathf.PI) * Time.deltaTime * Vector3.back;
             }
             else if(m_rotate == 90)
             {
                 //ç∂
                 m_rb.velocity = new Vector3(-m_speed, 0, 0);
-
-
-            }
-            else if(m_rotate == 180)
+				transform.localEulerAngles -= m_speed * (360.0f / Mathf.PI) * Time.deltaTime * Vector3.back;
+			}
+			else if(m_rotate == 180)
             {
                 //â∫
                 m_rb.velocity = new Vector3(0, -m_speed, 0);
-
-            }
-            else
+				transform.localEulerAngles += m_speed * (360.0f / Mathf.PI) * Time.deltaTime * Vector3.back;
+			}
+			else
             {
                 //âE
                 m_rb.velocity = new Vector3(m_speed, 0, 0);
-
-            }
-        }
+				transform.localEulerAngles += m_speed * (360.0f / Mathf.PI) * Time.deltaTime * Vector3.back;
+			}
+		}
         else
         {
             transform.localScale = new Vector3(m_scale, m_scale, m_scale);

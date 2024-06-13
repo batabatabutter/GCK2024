@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 633032808813562138}
   - component: {fileID: 4352466032776867748}
   - component: {fileID: 4824775624701483599}
+  - component: {fileID: 1597414855661764655}
   m_Layer: 0
   m_Name: DungeonAttacker
   m_TagString: Untagged
@@ -61,10 +62,11 @@ MonoBehaviour:
   m_active: 0
   m_attackTableIndex: 0
   m_attackRank: 0
-  m_corePosition: {x: 50, y: 50, z: 0}
+  m_corePosition: {fileID: 0}
   m_target: {fileID: 0}
   m_startCoreDistance: 0
   m_attackData: {fileID: 11400000, guid: 84e33d87ad14bc44bab3ca7e8f464fdc, type: 2}
+  m_dungeonLevel: 1
   m_attackPattern:
   - type: 0
     attack: {fileID: 5586643501512867278}
@@ -328,9 +330,23 @@ MonoBehaviour:
   m_dungeonDataBase: {fileID: 11400000, guid: 0bf61c7eff449f24d9512881d58682a1, type: 2}
   m_enemyDataBase: {fileID: 11400000, guid: ca452888acf86a640a52ed7e456cb571, type: 2}
   m_playSceneManager: {fileID: 0}
+  m_enemyManager: {fileID: 1597414855661764655}
   m_spawnRadius: 5
   m_detectionLayer:
     serializedVersion: 2
     m_Bits: 8
   m_player: {fileID: 0}
   m_dungeonAttacker: {fileID: 0}
+--- !u!114 &1597414855661764655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2189642266553579207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77bb888ec8e863f43b018ca90f9e39d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_enemies: []

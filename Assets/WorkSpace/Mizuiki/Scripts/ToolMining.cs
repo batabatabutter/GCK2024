@@ -11,7 +11,7 @@ public class ToolMining : Tool
 	private ToolData.ToolType m_toolType => SerializeUtil.Restore<ToolData.ToolType>(toolTypeStr);
 
 	[Header("強化する値(n倍)")]
-	[SerializeField] private PlayerMining.MiningValue m_boost = new();
+	[SerializeField] private MiningData.MiningValue m_boost = new();
 
 	[Header("採掘力の n 倍で効果が切れる")]
 	[SerializeField] private float m_boostAmountValue = 2.0f;

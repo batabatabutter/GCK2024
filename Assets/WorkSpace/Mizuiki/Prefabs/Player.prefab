@@ -755,6 +755,7 @@ MonoBehaviour:
   m_dataBase: {fileID: 11400000, guid: afce66780e8e60b4da8ff5a866b73c33, type: 2}
   m_playerItem: {fileID: 6054228071190134199}
   m_toolContainer: {fileID: 8316746430363442631}
+  m_toolManager: {fileID: 8470617474418996794}
   m_debug: 0
   m_text: {fileID: 0}
 --- !u!114 &-2061430852416345224
@@ -1015,6 +1016,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5891700570865311142}
+  - component: {fileID: 8470617474418996794}
   m_Layer: 0
   m_Name: Tool
   m_TagString: Untagged
@@ -1037,6 +1039,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2274965954909220427}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8470617474418996794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8316746430363442631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b98139b24822c1e4c90cd985e459fffc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_tools: []
 --- !u!1 &9022864137368774731
 GameObject:
   m_ObjectHideFlags: 0

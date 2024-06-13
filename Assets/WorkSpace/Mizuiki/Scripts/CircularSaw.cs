@@ -5,26 +5,19 @@ using UnityEngine;
 public class CircularSaw : MonoBehaviour
 {
 	[System.Serializable]
-	public enum MiningType
-	{
-		NORMAL,		// バランス型
-		RANGE,		// 範囲型
-		POWER,		// パワー型
-		SPEED,		// スピード型
-		CRITICAL,	// クリティカル型
-		DROP,		// ドロップ型
-
-		OVER,
-	}
-
-	[System.Serializable]
 	public struct CircularSawSprite
 	{
-
+		public MiningData.MiningType type;
+		public Sprite sprite;
 	}
 
+	[Header("丸のこの移動速度")]
+	[SerializeField] private float m_circularSawSpeed = 1.0f;
+	[Header("丸のこの回転速度")]
+	[SerializeField] private float m_circularSawRotate = 100.0f;
+
 	[Header("丸のこの画像")]
-	[SerializeField] private List<Sprite> m_sprites = new();
+	[SerializeField] private List<CircularSawSprite> m_sprites = new();
 
 	[Header("スプライトの設定先")]
 	[SerializeField] private SpriteRenderer m_spriteRenderer = null;
@@ -41,8 +34,33 @@ public class CircularSaw : MonoBehaviour
 
 	}
 
+	// 回す
+	public void Rotate(float speed)
+	{
+		transform.localEulerAngles += m_circularSawRotate * speed * Time.deltaTime * Vector3.back;
+	}
+
+	// 丸のこの位置取得
+	public Vector3 SetPosition(Vector3 miningPoint)
+	{
+		// 丸のこから採掘位置へのベクトル
+		Vector3 circularSawToMining = miningPoint - transform.position;
+		// 丸のこと採掘位置の距離
+		float distance = circularSawToMining.magnitude;
+
+		// 距離が 1f の移動量以内ならそのまま採掘地点を返す
+		if (distance <= m_circularSawSpeed * Time.deltaTime)
+			return miningPoint;
+
+		// 採掘位置へのベクトル正規化
+		circularSawToMining.Normalize();
+
+		// 丸のこの位置を返す
+		return transform.position + (circularSawToMining * Time.deltaTime * m_circularSawSpeed);
+	}
+
 	// のこの種類設定
-	public void SetType(MiningType type)
+	public void SetType(MiningData.MiningType type)
 	{
 
 	}
