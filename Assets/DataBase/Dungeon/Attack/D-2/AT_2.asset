@@ -15,5 +15,5 @@ MonoBehaviour:
   tableName: "\u5730\u9762\u5BC4\u308A"
   overNum: 0.1
   pattern:
+  - {fileID: 11400000, guid: 85301d7cbaca6304a97cd59b7fc629bc, type: 2}
   - {fileID: 11400000, guid: 386bffc2811d6f9409fd37378ccd724d, type: 2}
-  - {fileID: 11400000, guid: d8365a213c766e24da5264b80d54e923, type: 2}
