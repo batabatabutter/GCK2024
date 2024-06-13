@@ -17,7 +17,7 @@ MonoBehaviour:
   hp: 0
   coolTime: 3.5
   radius: 4
-  genereateSE: {fileID: 8300000, guid: 087200b9a2e607948a00e34d83e3e30c, type: 3}
+  genereateSE: {fileID: 8300000, guid: 6f49dea70e787fe4d84f99f492dc3cda, type: 3}
   deathSE: {fileID: 8300000, guid: 7911f39feb5263d42a867b91735fb8c7, type: 3}
   dropItems:
   - type: 0

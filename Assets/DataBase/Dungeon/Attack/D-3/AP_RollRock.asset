@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc9fc4c5ea3752541986747c409dfa53, type: 3}
-  m_Name: AP_FallRockKa
+  m_Name: AP_RollRock
   m_EditorClassIdentifier: 
   attackList:
-  - type: 0
+  - type: 100
     direction: 4
-    rankValue: 5
+    rankValue: 1
     range: 3
-    distance: 2
+    distance: 4
     time: 3
-  memo: "\u584A"
+  memo: 
