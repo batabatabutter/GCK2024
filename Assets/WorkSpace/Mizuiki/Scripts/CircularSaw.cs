@@ -118,7 +118,7 @@ public class CircularSaw : MonoBehaviour
 			value += miningData.Upgrades[rank].Value * lv;
 
 			// ランクが強化段階以上
-			if (rank >= miningData.Upgrades.Length)
+			if (rank >= miningData.Upgrades.Length - 1)
 				continue;
 
 			// ランクアップ

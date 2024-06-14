@@ -22,4 +22,5 @@ MonoBehaviour:
     critical: 0
     criticalDamage: 200
     itemDrop: 100
-  upgradeData: []
+  upgradeData:
+  - {fileID: 11400000, guid: de44e5f077d4b754eadfeeb0ed5bd30b, type: 2}
