@@ -60,7 +60,10 @@ public class SaveDataReadWrite : MonoBehaviour
 
 		// ファイルが存在する場合は読み込んでおく
 		if (File.Exists(m_filePath))
+		{
 			Read();
+			return;
+		}
 
 		Debug.Log("ファイルがないよ");
 
@@ -123,6 +126,18 @@ public class SaveDataReadWrite : MonoBehaviour
 	{
 		get { return m_miningLevels; }
 		set { m_miningLevels = value; }
+	}
+	// ダンジョンのレベル
+	public int[] DungeonLevel
+	{
+		get { return m_dungeonLevel; }
+		set { m_dungeonLevel = value; }
+	}
+	// ダンジョンのクリア状況
+	public bool[] DungeonClear
+	{
+		get { return m_dungeonClear; }
+		set { m_dungeonClear = value; }
 	}
 
 

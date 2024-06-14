@@ -21,20 +21,12 @@ public class PlayerMining : MonoBehaviour
         }
     }
 
-    //[Header("ŠÛ‚Ì‚±(Œ©‚½–Ú)")]
-    //[SerializeField] private GameObject m_circularSaw = null;
-    //[Header("ŠÛ‚Ì‚±‚ÌˆÚ“®‘¬“x")]
-    //[SerializeField] private float m_circularSawSpeed = 1.0f;
-    //[Header("ŠÛ‚Ì‚±‚Ì‰ñ“]‘¬“x")]
-    //[SerializeField] private float m_circularSawRotate = 100.0f;
     [Header("ŠÛ‚Ì‚±")]
     [SerializeField] private CircularSaw m_circularSaw = null;
 
     [Header("ƒŒƒCƒ„[ƒ}ƒXƒN")]
     [SerializeField] private LayerMask m_layerMask;
 
-    [Header("Šî‘b’l")]
-    [SerializeField] private MiningData.MiningValue m_miningValueBase;
     [Header("”{—¦")]
     [SerializeField] private MiningData.MiningValue m_miningValueRate;
     [Header("‹­‰»’l")]
@@ -64,7 +56,7 @@ public class PlayerMining : MonoBehaviour
     void Start()
     {
         // ÌŒ@’l‚ÌŒvŽZ
-        m_miningValue = m_miningValueBase * m_miningValueRate * m_miningValueBoost;
+        m_miningValue = m_circularSaw.GetMiningValue() * m_miningValueRate * m_miningValueBoost;
 
         if (m_debug)
         {
@@ -87,7 +79,7 @@ public class PlayerMining : MonoBehaviour
     void Update()
     {
         // ÌŒ@’l‚ÌŒvŽZ
-        m_miningValue = m_miningValueBase * m_miningValueRate * m_miningValueBoost;
+        m_miningValue = m_circularSaw.GetMiningValue() * m_miningValueRate * m_miningValueBoost;
 
         // ÌŒ@ƒN[ƒ‹ƒ^ƒCƒ€
         if (m_miningCoolTime > 0.0f)
@@ -175,12 +167,6 @@ public class PlayerMining : MonoBehaviour
     }
 
 
-    // Šî‘b’l
-    public MiningData.MiningValue MiningValueBase
-    {
-        get { return m_miningValueBase; }
-        set { m_miningValueBase = value; }
-    }
     // ”{—¦
     public MiningData.MiningValue MiningValueRate
     {

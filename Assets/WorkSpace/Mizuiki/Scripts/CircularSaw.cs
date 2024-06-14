@@ -26,7 +26,7 @@ public class CircularSaw : MonoBehaviour
 
 	[Header("採掘データベース")]
 	[SerializeField] private MiningDataBase m_dataBase = null;
-	private Dictionary<MiningData.MiningType, MiningData> m_miningDatas = new();
+	private readonly Dictionary<MiningData.MiningType, MiningData> m_miningDatas = new();
 
 	[Header("ツールのレベル")]
 	[SerializeField] private ToolLevel[] m_toolLevel = null;
@@ -35,7 +35,7 @@ public class CircularSaw : MonoBehaviour
 
 
 
-	private void Start()
+	private void Awake()
 	{
 		// スプライトレンダーがなければ設定
 		if (m_spriteRenderer == null)
@@ -64,9 +64,7 @@ public class CircularSaw : MonoBehaviour
 
 				m_toolLevels[toolLevel.type] = toolLevel.level;
 			}
-
 		}
-
 	}
 
 	// 回す
@@ -90,12 +88,14 @@ public class CircularSaw : MonoBehaviour
 		// 採掘位置へのベクトル正規化
 		circularSawToMining.Normalize();
 
+		transform.position += m_circularSawSpeed * Time.deltaTime * circularSawToMining;
+
 		// 丸のこの位置を返す
-		return transform.position + (circularSawToMining * Time.deltaTime * m_circularSawSpeed);
+		return transform.position + (m_circularSawSpeed * Time.deltaTime * circularSawToMining);
 	}
 
 	// 採掘値取得
-	public MiningData.MiningValue GetMiningData()
+	public MiningData.MiningValue GetMiningValue()
 	{
 		// 基本データ取得
 		MiningData miningData = m_miningDatas[m_type];
@@ -107,11 +107,12 @@ public class CircularSaw : MonoBehaviour
 		// 強化ランク
 		int rank = 0;
 
-		while (true)
+		// 強化ランクが 0 より大きい間ループ
+		while (m_stageDelimiter <= 0)
 		{
 			// 加算量
 			int lv = level % m_stageDelimiter;
-			level /= m_stageDelimiter;
+			level -= m_stageDelimiter;
 
 			// 採掘値加算
 			value += miningData.Upgrades[rank].Value * lv;
@@ -124,6 +125,7 @@ public class CircularSaw : MonoBehaviour
 			rank++;
 		}
 
+		return value;
 	}
 
 	// 強化レベルアップ
@@ -135,7 +137,17 @@ public class CircularSaw : MonoBehaviour
 	// のこの種類設定
 	public void SetType(MiningData.MiningType type)
 	{
+		// 種類の設定
+		m_type = type;
+		// スプライトの設定
+		m_spriteRenderer.sprite = m_miningDatas[type].Sprite;
+	}
 
+
+	// レベル設定
+	public Dictionary<MiningData.MiningType, int> MiningLevels
+	{
+		set { m_toolLevels = value; }
 	}
 
 }
