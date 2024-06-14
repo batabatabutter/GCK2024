@@ -252,7 +252,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3469568166959932924, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
       propertyPath: m_debugStageNum
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4028424752848547877, guid: 249fd76a2964f1547aef014d0220d7e3, type: 3}
       propertyPath: m_LocalPosition.x

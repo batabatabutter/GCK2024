@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d3370d2922863c4e8dcd18c8ebaf0c8, type: 3}
+  m_Name: DA_Stage5
+  m_EditorClassIdentifier: 
+  stayTime: 15
+  attackTime: 15
+  rankLimit: 10
+  isRandom: 1
+  attackTableList:
+  - {fileID: 11400000, guid: 05a9749e3f14a2a4c869862aec90d806, type: 2}
+  - {fileID: 11400000, guid: 03ab50cb57c7ce9428d8bbb7d8db2c0d, type: 2}
+  - {fileID: 11400000, guid: 91cd444fbf10c6f47992cb694af0ce1b, type: 2}
+  attackTableRange: 7
+  m_attackGradeData:
+    attackMaxDistance: 15
+    attackGradeRange:
+      min: 0.75
+      max: 1
+    attackGradeStep: 0
+    attackGrade:
+    - distance: 0.2
+      magnification: 1.3

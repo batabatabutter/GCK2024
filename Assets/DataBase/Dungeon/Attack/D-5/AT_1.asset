@@ -12,8 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a360f0c488e10645ab79dac0e0d15c3, type: 3}
   m_Name: AT_1
   m_EditorClassIdentifier: 
-  tableName: "\u30D6\u30ED\u30C3\u30AF\u5BC4\u308A"
-  overNum: 0.5
-  pattern:
-  - {fileID: 11400000, guid: 4a0f1faac6fc39e4caded3573eba25ae, type: 2}
-  - {fileID: 11400000, guid: 12a4db04ff98ab44e81e1cb2d1889dbc, type: 2}
+  tableName: "\u307B\u307C\u30D6\u30ED\u30C3\u30AF"
+  overNum: 0.65
+  pattern: []
