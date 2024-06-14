@@ -19,8 +19,8 @@ public class PlayerAction : MonoBehaviour
 
 	[Header("ツールスクリプト")]
 	[SerializeField] private PlayerTool m_playerTool = null;
-	[Header("アップグレードスクリプト")]
-	[SerializeField] private PlayerUpgrade m_playerUpgrade = null;
+	//[Header("アップグレードスクリプト")]
+	//[SerializeField] private PlayerUpgrade m_playerUpgrade = null;
 
 	// ツール設置可能
 	private bool m_canPut = true;
@@ -35,11 +35,11 @@ public class PlayerAction : MonoBehaviour
 			m_playerTool = GetComponent<PlayerTool>();
 		}
 
-		// アップグレードがなければ取得
-		if (m_playerUpgrade == null)
-		{
-			m_playerUpgrade = GetComponent<PlayerUpgrade>();
-		}
+		//// アップグレードがなければ取得
+		//if (m_playerUpgrade == null)
+		//{
+		//	m_playerUpgrade = GetComponent<PlayerUpgrade>();
+		//}
 
     }
 
@@ -120,11 +120,11 @@ public class PlayerAction : MonoBehaviour
 
 	}
 
-	// 強化
-	public void Upgrade()
-	{
-		m_playerUpgrade.Upgrade();
-	}
+	//// 強化
+	//public void Upgrade()
+	//{
+	//	m_playerUpgrade.Upgrade();
+	//}
 
 	// ツールの使用
 	public void UseTool()

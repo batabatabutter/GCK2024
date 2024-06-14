@@ -120,6 +120,9 @@ public class MiningData : ScriptableObject
 	[SerializeField, CustomEnum(typeof(MiningType))] private string typeStr;
 	private MiningType type;
 
+	[Header("ŠÛ‚Ì‚±‚Ì‰æ‘œ")]
+	[SerializeField] private Sprite sprite = null;
+
 	[Header("ÌŒ@’l")]
 	[SerializeField] private MiningValue miningValue;
 
@@ -129,7 +132,9 @@ public class MiningData : ScriptableObject
 
 
 	public MiningType Type => type;
+	public Sprite Sprite => sprite;
 	public MiningValue Value => miningValue;
+	public UpgradeData[] Upgrades => upgradeData;
 
 	private void OnEnable()
 	{

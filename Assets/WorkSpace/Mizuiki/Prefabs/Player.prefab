@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1439712292249558668}
   - component: {fileID: 1390017517930639458}
+  - component: {fileID: 5256686776641540133}
   m_Layer: 0
   m_Name: CircularSaw
   m_TagString: Untagged
@@ -168,6 +169,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5256686776641540133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1753217405747691204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a86ce1bdbdee85f4f842c8d5eea23de8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_type: 0
+  m_circularSawSpeed: 1
+  m_circularSawRotate: 100
+  m_stageDelimiter: 10
+  m_spriteRenderer: {fileID: 1390017517930639458}
+  m_dataBase: {fileID: 11400000, guid: 22a84cf4c24eea245818b4b5c201afc2, type: 2}
+  m_toolLevel: []
+  m_enabled: 0
 --- !u!1 &2545840041961956014
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,7 +559,6 @@ GameObject:
   - component: {fileID: 8304518256993672759}
   - component: {fileID: 1547900350974240465}
   - component: {fileID: 410641304151498657}
-  - component: {fileID: -2061430852416345224}
   - component: {fileID: 589769455237743653}
   - component: {fileID: 2176857556641392338}
   - component: {fileID: 1341152067951338783}
@@ -661,6 +681,7 @@ MonoBehaviour:
   m_playerMove: {fileID: 8290167387053188898}
   m_playerMining: {fileID: 8304518256993672759}
   m_playerAction: {fileID: 1547900350974240465}
+  m_circularSaw: {fileID: 5256686776641540133}
 --- !u!114 &8290167387053188898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -687,9 +708,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 869e35a3835c10d4ca5af0c9194277b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_circularSaw: {fileID: 1753217405747691204}
-  m_circularSawSpeed: 10
-  m_circularSawRotate: 100
+  m_circularSaw: {fileID: 5256686776641540133}
   m_layerMask:
     serializedVersion: 2
     m_Bits: 8
@@ -739,7 +758,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   m_playerTool: {fileID: 410641304151498657}
-  m_playerUpgrade: {fileID: 0}
 --- !u!114 &410641304151498657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -758,30 +776,6 @@ MonoBehaviour:
   m_toolManager: {fileID: 8470617474418996794}
   m_debug: 0
   m_text: {fileID: 0}
---- !u!114 &-2061430852416345224
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6945831396311541013}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68eefbd3aac9bd3489c4f851d45c4b6b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_playerMining: {fileID: 8304518256993672759}
-  m_playerTool: {fileID: 410641304151498657}
-  m_stageDelimiter: 10
-  m_upgradeStage:
-  - {fileID: 11400000, guid: fd7e1cf44378e9f438ea19b5b7059570, type: 2}
-  - {fileID: 11400000, guid: 2975198c7e3b0f94fbaab6fdba4eed37, type: 2}
-  - {fileID: 11400000, guid: 2ff32ce5450641d48b3d8b769f65126b, type: 2}
-  - {fileID: 11400000, guid: a43869f39314345488fc74bcbb5a388a, type: 2}
-  - {fileID: 11400000, guid: 48720468d946883489ad89c22fdcb03b, type: 2}
-  - {fileID: 11400000, guid: 4b676267e7baf434ebc80f61ec65b1e1, type: 2}
-  m_upgradeStageValue: []
-  m_upgradeRank: 0
 --- !u!114 &589769455237743653
 MonoBehaviour:
   m_ObjectHideFlags: 0

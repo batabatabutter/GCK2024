@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
 	[Header("プレイヤーの設置スクリプト")]
 	[SerializeField] private PlayerAction m_playerAction = null;
 
+	[Header("採掘道具スクリプト")]
+	[SerializeField] private CircularSaw m_circularSaw = null;
+
 	// 入力
 	private Controls m_controls = null;
 
@@ -48,11 +51,11 @@ public class PlayerController : MonoBehaviour
 			m_playerAction.UseTool();
 		}
 
-
 		// 強化
 		if (m_controls.Player.Upgrade.WasPerformedThisFrame())
 		{
-			m_playerAction.Upgrade();
+			//m_playerAction.Upgrade();
+			m_circularSaw.Upgrade();
 		}
 
 		// ツール変更

@@ -5,22 +5,33 @@ using UnityEngine;
 public class CircularSaw : MonoBehaviour
 {
 	[System.Serializable]
-	public struct CircularSawSprite
+	public struct ToolLevel
 	{
 		public MiningData.MiningType type;
-		public Sprite sprite;
+		public int level;
 	}
 
+	[Header("丸のこの種類")]
+	[SerializeField] private MiningData.MiningType m_type;
 	[Header("丸のこの移動速度")]
 	[SerializeField] private float m_circularSawSpeed = 1.0f;
 	[Header("丸のこの回転速度")]
 	[SerializeField] private float m_circularSawRotate = 100.0f;
 
-	[Header("丸のこの画像")]
-	[SerializeField] private List<CircularSawSprite> m_sprites = new();
+	[Header("強化段階の区切り")]
+	[SerializeField] private int m_stageDelimiter = 10;
 
 	[Header("スプライトの設定先")]
 	[SerializeField] private SpriteRenderer m_spriteRenderer = null;
+
+	[Header("採掘データベース")]
+	[SerializeField] private MiningDataBase m_dataBase = null;
+	private Dictionary<MiningData.MiningType, MiningData> m_miningDatas = new();
+
+	[Header("ツールのレベル")]
+	[SerializeField] private ToolLevel[] m_toolLevel = null;
+	[SerializeField] private bool m_enabled = false;
+	private Dictionary<MiningData.MiningType, int> m_toolLevels = new();
 
 
 
@@ -30,6 +41,30 @@ public class CircularSaw : MonoBehaviour
 		if (m_spriteRenderer == null)
 		{
 			m_spriteRenderer = GetComponent<SpriteRenderer>();
+		}
+
+		// ツールの基本情報
+		foreach (MiningData data in m_dataBase.MiningData)
+		{
+			// 上書き防止
+			if (m_miningDatas.ContainsKey(data.Type))
+				continue;
+
+			m_miningDatas[data.Type] = data;
+		}
+
+		if (m_enabled)
+		{
+			// ツールのレベル
+			foreach (ToolLevel toolLevel in m_toolLevel)
+			{
+				// 上書き防止
+				if (m_toolLevels.ContainsKey(toolLevel.type))
+					continue;
+
+				m_toolLevels[toolLevel.type] = toolLevel.level;
+			}
+
 		}
 
 	}
@@ -57,6 +92,44 @@ public class CircularSaw : MonoBehaviour
 
 		// 丸のこの位置を返す
 		return transform.position + (circularSawToMining * Time.deltaTime * m_circularSawSpeed);
+	}
+
+	// 採掘値取得
+	public MiningData.MiningValue GetMiningData()
+	{
+		// 基本データ取得
+		MiningData miningData = m_miningDatas[m_type];
+		// 基礎値取得
+		MiningData.MiningValue value = miningData.Value;
+		// 強化レベル取得
+		int level = m_toolLevels[m_type];
+
+		// 強化ランク
+		int rank = 0;
+
+		while (true)
+		{
+			// 加算量
+			int lv = level % m_stageDelimiter;
+			level /= m_stageDelimiter;
+
+			// 採掘値加算
+			value += miningData.Upgrades[rank].Value * lv;
+
+			// ランクが強化段階以上
+			if (rank >= miningData.Upgrades.Length)
+				continue;
+
+			// ランクアップ
+			rank++;
+		}
+
+	}
+
+	// 強化レベルアップ
+	public void Upgrade(int level = 1)
+	{
+		m_toolLevels[m_type] += level;
 	}
 
 	// のこの種類設定
