@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,6 +31,7 @@ public class CircularSaw : MonoBehaviour
 
 	[Header("ツールのレベル")]
 	[SerializeField] private ToolLevel[] m_toolLevel = null;
+	[Tooltip("インスペクターの値を反映させる")]
 	[SerializeField] private bool m_enabled = false;
 	private Dictionary<MiningData.MiningType, int> m_toolLevels = new();
 
@@ -141,8 +143,30 @@ public class CircularSaw : MonoBehaviour
 		m_type = type;
 		// スプライトの設定
 		m_spriteRenderer.sprite = m_miningDatas[type].Sprite;
+
+		Debug.Log(type + "に変更");
+	}
+	public void SetType(string typeStr)
+	{
+		// 大文字に変換
+		typeStr = typeStr.ToUpper();
+		// 種類の設定
+		if (Enum.IsDefined(typeof(MiningData.MiningType), typeStr))
+		{
+			SetType(Enum.Parse<MiningData.MiningType>(typeStr));
+		}
+		else
+		{
+			Debug.Log(typeStr + "は[" + typeof(MiningData.MiningType) + "]に存在しません");
+		}
 	}
 
+
+	// 種類
+	public MiningData.MiningType MiningType
+	{
+		get { return m_type; }
+	}
 
 	// レベル設定
 	public Dictionary<MiningData.MiningType, int> MiningLevels
