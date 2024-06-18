@@ -1328,6 +1328,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2274965954909220427}
     m_Modifications:
+    - target: {fileID: 3690111635748340125, guid: 8dbd68be12a3a2e4b9b6b2449db19c3a, type: 3}
+      propertyPath: m_playerItem
+      value: 
+      objectReference: {fileID: 6054228071190134199}
     - target: {fileID: 7175014653313544060, guid: 8dbd68be12a3a2e4b9b6b2449db19c3a, type: 3}
       propertyPath: m_Name
       value: CircularSaw

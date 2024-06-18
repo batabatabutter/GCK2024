@@ -7,6 +7,9 @@ using UnityEngine;
 
 public class SaveDataReadWrite : MonoBehaviour
 {
+	// セーブ機能のインスタンス
+	public static SaveDataReadWrite m_instance;
+
 	[System.Serializable]
 	public struct KeyValue<TKey, TValue>
 	{
@@ -21,6 +24,19 @@ public class SaveDataReadWrite : MonoBehaviour
 	}
 
 	[System.Serializable]
+	public class DungeonState
+	{
+		// ダンジョンのレベル
+		public int dungeonLevel = 1;
+		// ダンジョンのクリア状況
+		public bool dungeonClear = false;
+		// ダンジョンのブロック配置
+		public List<List<BlockData.BlockType>> blockList = new();
+		// ダンジョンのターン経過
+		public int turn = 0;
+	}
+
+	[System.Serializable]
 	public class SaveData
 	{
 		// アイテム所持数
@@ -29,10 +45,8 @@ public class SaveDataReadWrite : MonoBehaviour
 		// 採掘道具のレベル
 		public List<KeyValue<MiningData.MiningType, int>> miningLevel = new();
 
-		// ダンジョンのレベル
-		public int[] dungeonLevel = new int[5];
-		// ダンジョンのクリア状況
-		public bool[] dungeonClear = new bool[5];
+		// ダンジョンの状態
+		public DungeonState[] dungeonStates = new DungeonState[5];
 
 	}
 
@@ -43,17 +57,23 @@ public class SaveDataReadWrite : MonoBehaviour
 	private Dictionary<ItemData.ItemType, int> m_items = new();
 	// 採掘レベル
 	private Dictionary<MiningData.MiningType, int> m_miningLevels = new();
-	// ダンジョンのレベル
-	private int[] m_dungeonLevel = new int[5];
-	// ダンジョンのクリア状況
-	private bool[] m_dungeonClear = new bool[5];
+	// ダンジョンの状態
+	private DungeonState[] m_dungeonStates = new DungeonState[5];
+
 
 
 
 	private void Awake()
 	{
-		// 破棄されないオブジェクトにする
-		DontDestroyOnLoad(this);
+		if (m_instance == null)
+		{
+			m_instance = this;
+		}
+		else
+		{
+			// 複数作られた場合は破棄する
+			Destroy(gameObject);
+		}
 
 		// ファイル名の設定
 		m_filePath = Application.dataPath + "/" + m_filePath;
@@ -103,7 +123,7 @@ public class SaveDataReadWrite : MonoBehaviour
 	public void Write()
 	{
 		// データ取得
-		SaveData saveData = GetData();
+		SaveData saveData = GetSaveData();
 		// 書き込み形式に変換
 		string json = JsonUtility.ToJson(saveData);
 		// 書き込むファイルを開く
@@ -127,17 +147,11 @@ public class SaveDataReadWrite : MonoBehaviour
 		get { return m_miningLevels; }
 		set { m_miningLevels = value; }
 	}
-	// ダンジョンのレベル
-	public int[] DungeonLevel
+	// ダンジョンの状態
+	public DungeonState[] DungeonStates
 	{
-		get { return m_dungeonLevel; }
-		set { m_dungeonLevel = value; }
-	}
-	// ダンジョンのクリア状況
-	public bool[] DungeonClear
-	{
-		get { return m_dungeonClear; }
-		set { m_dungeonClear = value; }
+		get { return m_dungeonStates; }
+		set { m_dungeonStates = value; }
 	}
 
 
@@ -158,14 +172,12 @@ public class SaveDataReadWrite : MonoBehaviour
 		{
 			m_miningLevels[level.key] = level.value;
 		}
-		// ダンジョンレベル
-		m_dungeonLevel = data.dungeonLevel;
-		// ダンジョンのクリア状況
-		m_dungeonClear = data.dungeonClear;
+		// ダンジョンの状態
+		m_dungeonStates = data.dungeonStates;
 	}
 
 	// データの取得
-	private SaveData GetData()
+	private SaveData GetSaveData()
 	{
 		// データ作成
 		SaveData saveData = new();
@@ -180,10 +192,8 @@ public class SaveDataReadWrite : MonoBehaviour
 		{
 			saveData.miningLevel.Add(new KeyValue<MiningData.MiningType, int>(level.Key, 0));
 		}
-		// ダンジョンレベル
-		saveData.dungeonLevel = m_dungeonLevel;
-		// ダンジョンのクリア状況
-		saveData.dungeonClear = m_dungeonClear;
+		// ダンジョンの状態
+		saveData.dungeonStates = m_dungeonStates;
 
 		// セーブデータを返す
 		return saveData;

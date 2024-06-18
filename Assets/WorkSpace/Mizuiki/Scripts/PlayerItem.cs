@@ -144,11 +144,12 @@ public class PlayerItem : MonoBehaviour
 		return picCount;
 	}
 
-	// アイテムを消費する
+	// アイテムを消費する(ツールの種類)
 	public void ConsumeMaterials(ToolData data, int value = 1)
 	{
 		ConsumeMaterials(data.ItemMaterials, value);
 	}
+	// アイテムを消費する(アイテムの数)
 	public void ConsumeMaterials(Items[] items, int value = 1)
 	{
 		for (int i = 0; i < items.Length; i++)
@@ -166,6 +167,32 @@ public class PlayerItem : MonoBehaviour
 			// [type] を [count] 消費する
 			m_items[type] -= items[i].count * value;
 		}
+	}
+
+	public bool CheckCreate(Items[] items, int value = 1)
+	{
+		foreach (Items item in items)
+		{
+			// アイテムの種類取得
+			ItemData.ItemType type = item.Type;
+
+			// アイテムが存在しない
+			if (!m_items.ContainsKey(type))
+			{
+				Debug.Log(type + "が存在しない");
+				return false;
+			}
+
+			// 所持数が必要数未満
+			if (m_items[type] < item.count * value)
+			{
+				Debug.Log(type + "が足りない");
+				return false;
+			}
+		}
+
+		// どこにも引っかからなかったから作成可能である
+		return true;
 	}
 
 	// アイテムの所持数取得

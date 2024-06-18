@@ -36,6 +36,9 @@ public class CircularSaw : MonoBehaviour
 	// レベルの辞書
 	private Dictionary<MiningData.MiningType, int> m_toolLevels = new();
 
+	[Header("アイテム")]
+	[SerializeField] private PlayerItem m_playerItem = null;
+
 
 
 	private void Awake()
@@ -131,10 +134,68 @@ public class CircularSaw : MonoBehaviour
 		return value;
 	}
 
+	// 必要素材の取得
+	private Items[] GetNeedMaterials(int addLevel)
+	{
+		// 必要素材
+		Items[] items = new Items[0];
+
+		for (int i = 0; i < addLevel; i++)
+		{
+			// 強化ランクの取得
+			int r = GetRank(m_toolLevels[m_type] + i);
+
+			// 必要素材取得
+			Items[] cost = m_miningDatas[m_type].Upgrades[r].Cost;
+			// [items] と [cost] を結合するための入れ物
+			Items[] dst = new Items[items.Length + cost.Length];
+
+			// 必要素材の追加
+			Array.Copy(items, dst, items.Length);
+			Array.Copy(cost, 0, dst, items.Length, cost.Length);
+			items = dst;
+		}
+
+		return items;
+	}
+
+	// 強化ランクの取得
+	private int GetRank(int add)
+	{
+		// 区切りごとのランクにする
+		int rank = add / m_stageDelimiter;
+
+		// 上限を超えないようにクランプ
+		rank = Mathf.Clamp(rank, 0, m_miningDatas[m_type].Upgrades.Length);
+
+		return rank;
+	}
+
 	// 強化レベルアップ
 	public void Upgrade(int level = 1)
 	{
+		// 必要素材の取得
+		Items[] items = GetNeedMaterials(level);
+
+		// ツールのアップグレードができない
+		if (!m_playerItem.CheckCreate(items))
+		{
+			Debug.Log("アップグレードできないよ");
+			return;
+		}
+
+		Debug.Log("アップグレード : " + m_type + " : " + m_toolLevels[m_type] + "->" + (m_toolLevels[m_type] + level));
+
+		// ツールのレベル加算
 		m_toolLevels[m_type] += level;
+
+		// 素材の消費
+		m_playerItem.ConsumeMaterials(items);
+
+		// データ保存
+		SaveDataReadWrite.m_instance.MiningLevel = m_toolLevels;
+		SaveDataReadWrite.m_instance.Items = m_playerItem.Items;
+		SaveDataReadWrite.m_instance.Write();
 	}
 
 	// のこの種類設定
