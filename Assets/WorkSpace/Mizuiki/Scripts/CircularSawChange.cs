@@ -45,11 +45,6 @@ public class CircularSawChange : MonoBehaviour
 
 	}
 
-	private void Update()
-	{
-		m_selectImage.rectTransform.anchoredPosition = m_iconPosition[m_circularSaw.MiningType];
-	}
-
 	// 半径の反映
 	[ContextMenu("SetRadius")]
 	public void SetRadius()
@@ -85,6 +80,13 @@ public class CircularSawChange : MonoBehaviour
 			m_iconPosition[button.MiningType] = button.GetRectPosition();
 		}
 	}
+
+	// セレクターの位置を変更する
+	public void ChangeSelector()
+	{
+		m_selectImage.rectTransform.anchoredPosition = m_iconPosition[m_circularSaw.MiningType];
+	}
+
 
 	// 近づいたらキャンバスを表示する
 	private void OnTriggerEnter2D(Collider2D collision)

@@ -11,6 +11,9 @@ public class CircularSawChangeButton : MonoBehaviour
 	[Header("丸のこ")]
 	[SerializeField] private CircularSaw m_circularSaw = null;
 
+	[Header("切りかえクラス")]
+	[SerializeField] CircularSawChange m_circularChange = null;
+
 	[Header("ボタン")]
 	[SerializeField] private Button m_button = null;
 
@@ -36,6 +39,10 @@ public class CircularSawChangeButton : MonoBehaviour
 
 		// 種類変更
 		m_circularSaw.SetType(m_miningType);
+
+		// セレクター変更
+		m_circularChange.ChangeSelector();
+
 	}
 
 	// UI座標取得

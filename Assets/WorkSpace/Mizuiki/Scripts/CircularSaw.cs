@@ -33,6 +33,7 @@ public class CircularSaw : MonoBehaviour
 	[SerializeField] private ToolLevel[] m_toolLevel = null;
 	[Tooltip("インスペクターの値を反映させる")]
 	[SerializeField] private bool m_enabled = false;
+	// レベルの辞書
 	private Dictionary<MiningData.MiningType, int> m_toolLevels = new();
 
 

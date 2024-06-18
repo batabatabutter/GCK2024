@@ -150,6 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_miningType: 4
   m_circularSaw: {fileID: 0}
+  m_circularChange: {fileID: 1570660049342539224}
   m_button: {fileID: 6448930804677518413}
 --- !u!1 &1007739002702241572
 GameObject:
@@ -301,6 +302,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_miningType: 2
   m_circularSaw: {fileID: 0}
+  m_circularChange: {fileID: 1570660049342539224}
   m_button: {fileID: 1574732160563917527}
 --- !u!1 &1517493372940574128
 GameObject:
@@ -348,7 +350,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1517493372940574128}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
@@ -743,19 +745,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6642794555352925829}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &5554825444366402182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -783,6 +773,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_miningType: 0
   m_circularSaw: {fileID: 0}
+  m_circularChange: {fileID: 1570660049342539224}
   m_button: {fileID: 5263003134808649623}
 --- !u!1 &4498053259705885998
 GameObject:
@@ -934,6 +925,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_miningType: 1
   m_circularSaw: {fileID: 0}
+  m_circularChange: {fileID: 1570660049342539224}
   m_button: {fileID: 6751303475479946949}
 --- !u!1 &4558187669435275276
 GameObject:
@@ -1085,6 +1077,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_miningType: 3
   m_circularSaw: {fileID: 0}
+  m_circularChange: {fileID: 1570660049342539224}
   m_button: {fileID: 6276100311314685080}
 --- !u!1 &5492999632105462941
 GameObject:
@@ -1979,4 +1972,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_miningType: 5
   m_circularSaw: {fileID: 0}
+  m_circularChange: {fileID: 1570660049342539224}
   m_button: {fileID: 7002285176072120130}
