@@ -180,6 +180,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10b5371f416b6a64894f9c64a4e77b15, type: 3}
+--- !u!4 &788513226 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2274965954909220427, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
+  m_PrefabInstance: {fileID: 1718537546}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &852897482
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -368,6 +373,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1046442909946542254, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1046442909946542254, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1046442909946542254, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10
+      objectReference: {fileID: 0}
     - target: {fileID: 2274965954909220427, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -419,6 +436,10 @@ PrefabInstance:
     - target: {fileID: 6945831396311541013, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7681465729337878221, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
+      propertyPath: orthographic size
+      value: 5.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -549,12 +570,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4584195238956917296, guid: 5aff2ae286158094aad2fd149b145600, type: 3}
+      propertyPath: m_Follow
+      value: 
+      objectReference: {fileID: 788513226}
+    - target: {fileID: 4584195238956917296, guid: 5aff2ae286158094aad2fd149b145600, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6298152921769326241, guid: 5aff2ae286158094aad2fd149b145600, type: 3}
       propertyPath: m_Name
       value: CircularSawChanger
       objectReference: {fileID: 0}
+    - target: {fileID: 8475213374101076762, guid: 5aff2ae286158094aad2fd149b145600, type: 3}
+      propertyPath: m_Follow
+      value: 
+      objectReference: {fileID: 788513226}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6624171750462042825, guid: 5aff2ae286158094aad2fd149b145600, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5aff2ae286158094aad2fd149b145600, type: 3}

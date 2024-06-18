@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,9 @@ public class CircularSawChange : MonoBehaviour
 
 	[Header("丸のこ変更キャンバス")]
 	[SerializeField] private Canvas m_canvas = null;
+
+	[Header("丸のこ選択画面用バーチャルカメラ")]
+	[SerializeField] private CinemachineVirtualCamera m_virtualCamera = null;
 
 	[Header("ボタン")]
 	[SerializeField] private CircularSawChangeButton[] m_buttons = null;
@@ -32,6 +36,13 @@ public class CircularSawChange : MonoBehaviour
 		SetRadius();
 		// ボタン設定
 		SetButtons();
+
+		// キャンバスを非表示にしておく
+		m_canvas.enabled = false;
+
+		// バーチャルカメラを無効にしておく
+		m_virtualCamera.enabled = false;
+
 	}
 
 	private void Update()
@@ -83,7 +94,10 @@ public class CircularSawChange : MonoBehaviour
 			return;
 
 		// キャンバスを表示する
-		m_canvas.gameObject.SetActive(true);
+		m_canvas.enabled = true;
+
+		// バーチャルカメラを有効にする
+		m_virtualCamera.enabled = true;
 	}
 
 	// 離れたらキャンバスを非表示にする
@@ -94,6 +108,9 @@ public class CircularSawChange : MonoBehaviour
 			return;
 
 		// キャンバスを非表示にする
-		m_canvas.gameObject.SetActive(false);
+		m_canvas.enabled = false;
+
+		// バーチャルカメラを無効にする
+		m_virtualCamera.enabled = false;
 	}
 }
