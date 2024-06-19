@@ -30,10 +30,10 @@ public class SaveDataReadWrite : MonoBehaviour
 		public int dungeonLevel = 1;
 		// ダンジョンのクリア状況
 		public bool dungeonClear = false;
-		// ダンジョンのブロック配置
-		public List<List<BlockData.BlockType>> blockList = new();
 		// ダンジョンのターン経過
 		public int turn = 0;
+		// ダンジョンのブロック配置
+		public List<List<BlockData.BlockType>> blockList = new();
 	}
 
 	[System.Serializable]
@@ -48,6 +48,7 @@ public class SaveDataReadWrite : MonoBehaviour
 		// ダンジョンの状態
 		public DungeonState[] dungeonStates = new DungeonState[5];
 
+		public Dictionary<int, string> hoge = new();
 	}
 
 	[Header("ファイル名")]
@@ -81,31 +82,54 @@ public class SaveDataReadWrite : MonoBehaviour
 		// ファイルが存在する場合は読み込んでおく
 		if (File.Exists(m_filePath))
 		{
-			Read();
+			Load();
 			return;
 		}
 
 		Debug.Log("ファイルがないよ");
 
 		// ファイルがないからデータを作る
-		// アイテム
-		foreach (ItemData.ItemType type in Enum.GetValues(typeof(ItemData.ItemType)))
-		{
-			m_items[type] = 0;
-		}
-		// 採掘道具
-		foreach (MiningData.MiningType type in Enum.GetValues(typeof(MiningData.MiningType)))
-		{
-			m_miningLevels[type] = 0;
-		}
-
-		Write();
+		CreateNewData();
 
 	}
 
+	[ContextMenu("CreateNewData")]
+	public void CreateNewData()
+	{
+		// アイテム
+		Dictionary<ItemData.ItemType, int> items = new();
+		foreach (ItemData.ItemType type in Enum.GetValues(typeof(ItemData.ItemType)))
+		{
+			items[type] = 0;
+		}
+		// 採掘道具
+		Dictionary<MiningData.MiningType, int> miningLevels = new();
+		foreach (MiningData.MiningType type in Enum.GetValues(typeof(MiningData.MiningType)))
+		{
+			miningLevels[type] = 0;
+		}
+		// ダンジョンの状態
+		DungeonState[] dungeonState = new DungeonState[5];
+		//foreach (DungeonState ds in dungeonState)
+		for (int i = 0; i < 5; i++)
+		{
+			DungeonState ds = dungeonState[i] = new();
+			ds.blockList = new();
+			for (int j = 0; j < 2; j++)
+			{
+				ds.blockList.Add(new List<BlockData.BlockType> { BlockData.BlockType.STONE, BlockData.BlockType.STONE, BlockData.BlockType.STONE});
+			}
+		}
+		// パス取得
+		string path = Application.dataPath + "/" + m_filePath;
+
+		// 書き込み
+		Save(items, miningLevels, dungeonState, path);
+
+	}
 
 	// 読み込み
-	public void Read()
+	public void Load()
 	{
 		// ファイル読み込み
 		StreamReader reader = new(m_filePath);
@@ -120,14 +144,18 @@ public class SaveDataReadWrite : MonoBehaviour
 	}
 
 	// 書き込み
-	public void Write()
+	public void Save()
+	{
+		Save(m_items, m_miningLevels, m_dungeonStates, m_filePath);
+	}
+	public void Save(Dictionary<ItemData.ItemType, int> items, Dictionary<MiningData.MiningType, int> miningLevels, DungeonState[] dungeonStates, string path)
 	{
 		// データ取得
-		SaveData saveData = GetSaveData();
+		SaveData saveData = GetSaveData(items, miningLevels, dungeonStates);
 		// 書き込み形式に変換
 		string json = JsonUtility.ToJson(saveData);
 		// 書き込むファイルを開く
-		StreamWriter writer = new(m_filePath);
+		StreamWriter writer = new(path);
 		// 書き込み
 		writer.Write(json);
 		// ファイルを閉じる
@@ -179,21 +207,25 @@ public class SaveDataReadWrite : MonoBehaviour
 	// データの取得
 	private SaveData GetSaveData()
 	{
+		return GetSaveData(m_items, m_miningLevels, m_dungeonStates);
+	}
+	private SaveData GetSaveData(Dictionary<ItemData.ItemType, int> items, Dictionary<MiningData.MiningType, int> miningLevels, DungeonState[] dungeonStates)
+	{
 		// データ作成
 		SaveData saveData = new();
 
 		// アイテム所持数
-		foreach (KeyValuePair<ItemData.ItemType, int> item in m_items)
+		foreach (KeyValuePair<ItemData.ItemType, int> item in items)
 		{
-			saveData.itemData.Add(new KeyValue<ItemData.ItemType, int>(item.Key, 0));
+			saveData.itemData.Add(new KeyValue<ItemData.ItemType, int>(item.Key, item.Value));
 		}
 		// 採掘レベル
-		foreach (KeyValuePair<MiningData.MiningType, int> level in m_miningLevels)
+		foreach (KeyValuePair<MiningData.MiningType, int> level in miningLevels)
 		{
-			saveData.miningLevel.Add(new KeyValue<MiningData.MiningType, int>(level.Key, 0));
+			saveData.miningLevel.Add(new KeyValue<MiningData.MiningType, int>(level.Key, level.Value));
 		}
 		// ダンジョンの状態
-		saveData.dungeonStates = m_dungeonStates;
+		saveData.dungeonStates = dungeonStates;
 
 		// セーブデータを返す
 		return saveData;

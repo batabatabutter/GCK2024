@@ -122,7 +122,7 @@ public class BlockGenerator : MonoBehaviour
         {
             // ’n–Ê‚ğe‚Éİ’è‚µ‚Ä¶¬
             obj = CreateObject(ground.transform, data.Prefab, position);
-            obj.GetComponent<Block>().Ground = ground.GetComponent<Ground>();
+            //obj.GetComponent<Block>().Ground = ground.GetComponent<Ground>();
         }
         // ’n–Ê‚Í‚È‚¢
         else

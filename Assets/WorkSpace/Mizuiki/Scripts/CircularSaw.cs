@@ -195,7 +195,7 @@ public class CircularSaw : MonoBehaviour
 		// ƒf[ƒ^•Û‘¶
 		SaveDataReadWrite.m_instance.MiningLevel = m_toolLevels;
 		SaveDataReadWrite.m_instance.Items = m_playerItem.Items;
-		SaveDataReadWrite.m_instance.Write();
+		SaveDataReadWrite.m_instance.Save();
 	}
 
 	// ‚Ì‚±‚Ìí—Şİ’è

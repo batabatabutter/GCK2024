@@ -28,8 +28,8 @@ public class Block : /*ObjectAffectLight*/MonoBehaviour
     //[Header("子のスプライト")]
     //[SerializeField] private SpriteRenderer m_childSprite = null;
 
-    //  地面のライト情報
-    private Ground m_ground = null;
+    ////  地面のライト情報
+    //private Ground m_ground = null;
 
     // ブロックが破壊されている
     private bool m_isBroken = false;
@@ -224,11 +224,11 @@ public class Block : /*ObjectAffectLight*/MonoBehaviour
         set { m_blockData = value; }
     }
 
-    //  地面
-    public Ground Ground 
-    { 
-        get { return m_ground; } 
-        set { m_ground = value; }
-    }
+    ////  地面
+    //public Ground Ground 
+    //{ 
+    //    get { return m_ground; } 
+    //    set { m_ground = value; }
+    //}
 
 }
