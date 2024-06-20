@@ -336,7 +336,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   m_player: {fileID: 0}
-  m_dungeonAttacker: {fileID: 0}
+  m_dungeonAttacker: {fileID: 7528456396296654258}
 --- !u!114 &1597414855661764655
 MonoBehaviour:
   m_ObjectHideFlags: 0

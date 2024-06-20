@@ -17,20 +17,8 @@ MonoBehaviour:
   rankLimit: 10
   isRandom: 0
   attackTableList:
-  - type: 0
-    name: 
-    overNum: 0.2
-    pattern:
-    - {fileID: 11400000, guid: 8ccac405280721c4a9ec115c4d2f627c, type: 2}
-    - {fileID: 11400000, guid: 792b17b51b1feff45b6751367ffa15d1, type: 2}
-    - {fileID: 11400000, guid: 430b6838008c3044aa94b8275832e676, type: 2}
-  - type: 1
-    name: 
-    overNum: 0
-    pattern:
-    - {fileID: 11400000, guid: 4afcaceda909e244ba966bfb048392f8, type: 2}
-    - {fileID: 11400000, guid: 1e73b4da6947bfa4b844a8dabe768849, type: 2}
-    - {fileID: 11400000, guid: 15bafa99ef44fe6438307424b06303ba, type: 2}
+  - {fileID: 11400000, guid: a71f05f953954ea4fb05ed7aeee7f90b, type: 2}
+  - {fileID: 11400000, guid: 68c43fb3737b6fb4b89015dcb11603af, type: 2}
   attackTableRange: 5
   m_attackGradeData:
     attackMaxDistance: 10
