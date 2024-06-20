@@ -10,6 +10,7 @@ public class DungeonData : ScriptableObject
         TEN_X_TEN,      // 10 * 10
         DIGGING,        // ŒŠŒ@‚è
         MAZE,           // –À˜H
+        CAVE,           // “´ŒA
 
         OVER,
     }

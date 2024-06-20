@@ -22,6 +22,9 @@ public class PlaySceneManager : MonoBehaviour
     [Header("ステージ番号取得用オブジェクト")]
     [SerializeField] private StageNumScriptableObject m_stageNumScriptableObj;
 
+    [Header("ダンジョンマネージャ")]
+    [SerializeField] private DungeonManager m_dungeonManager = null;
+
     //  プレイヤー
     private GameObject m_player;
     //  UIキャンバス
@@ -52,12 +55,20 @@ public class PlaySceneManager : MonoBehaviour
     void Awake()
     {
         //  ステージ番号設定
-        if (m_debugFlag) m_stageNum = m_debugStageNum;
-        else m_stageNum = m_stageNumScriptableObj.stageNum;
+        if (m_debugFlag)
+        {
+            m_stageNum = m_debugStageNum;
+        }
+        else
+        {
+            m_stageNum = m_stageNumScriptableObj.stageNum;
+        }
 
         //  ステージ作成
-        GetComponent<DungeonGenerator>().SetStageNum(m_stageNum);
-        GetComponent<DungeonGenerator>().CreateStage();
+        //GetComponent<DungeonGenerator>().SetStageNum(m_stageNum);
+        //GetComponent<DungeonGenerator>().CreateStage();
+        m_dungeonManager.SetSceneManager(this);
+        m_dungeonManager.GenerateDungeon(m_stageNum);
 
         //  UI生成
         m_playUI = Instantiate(m_playUIObj);

@@ -19,6 +19,9 @@ public class _TestJson : MonoBehaviour
 		public List<List<BlockData.BlockType>> blockList = new();
 	}
 
+	[Header("CSV")]
+	[SerializeField] private TextAsset m_csvData = null;
+
 	[ContextMenu("TestSave")]
 	public void SaveTest()
 	{
@@ -37,7 +40,7 @@ public class _TestJson : MonoBehaviour
 		}
 
 		// CSVの作成
-		WriteLoadCSV.WriteCSV(data.blockList, "Data/TestData.csv");
+		WriteReadCSV.WriteCSV(data.blockList, "Data/TestData.csv");
 
 		// 書き込み形式に変換
 		string json = JsonUtility.ToJson(data);
@@ -62,6 +65,14 @@ public class _TestJson : MonoBehaviour
 		// データ形式に変換
 		List<List<int>> saveData = JsonUtility.FromJson<List<List<int>>>(json);
 		Debug.Log(saveData);
+	}
+
+	[ContextMenu("TestLoadCSV")]
+	public void LoadTestCSV()
+	{
+		var data = WriteReadCSV.ReadCSV<BlockData.BlockType>(m_csvData);
+
+		Debug.Log(data);
 	}
 }
 

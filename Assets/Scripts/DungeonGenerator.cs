@@ -1,17 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static DungeonGenerator;
 
 public class DungeonGenerator : MonoBehaviour
 {
-	[System.Serializable]
-    public class BlockOdds
-    {
-        [Header("種類")]
-        public BlockData.BlockType type;
-        [Header("確率")]
-        public int odds;
-    }
 	[System.Serializable]
 	public struct BlockGenerateData
 	{
@@ -34,15 +25,6 @@ public class DungeonGenerator : MonoBehaviour
     [Header("ダンジョンデータベース")]
     [SerializeField] private DungeonDataBase m_dungeonDataBase;
 
-	//[Header("チャンクのサイズ")]
-	//[SerializeField] private int m_chunkSize = 10;
-	//[Header("表示チャンク数")]
-	//[SerializeField] private int m_activeChunk = 3;
-	//// チャンクの二次元配列
-	//private readonly List<List<GameObject>> m_chunk = new();
-	////ブロックの親
-	//private GameObject m_parent = null;
-
 	[Header("ブロック生成スクリプト")]
     [SerializeField] private BlockGenerator m_blockGenerator;
 	[Header("核からプレイヤーの出現しない距離")]
@@ -64,15 +46,8 @@ public class DungeonGenerator : MonoBehaviour
 	private readonly List<Block> m_blocksList = new();
 
 
-	[System.Serializable]
-	public struct Generator
-	{
-		public DungeonData.Pattern pattern;
-		public DungeonGeneratorBase generator;
-	}
-
 	[Header("ダンジョン生成スクリプト")]
-    [SerializeField] private Generator[] m_generators = null;
+    [SerializeField] private List<DungeonGeneratorBase> m_generators = null;
 	private readonly Dictionary<DungeonData.Pattern, DungeonGeneratorBase> m_dungeonGenerators = new();
 
 
@@ -80,16 +55,14 @@ public class DungeonGenerator : MonoBehaviour
     {
 		// ブロックジェネレータの取得
         m_blockGenerator = GetComponent<BlockGenerator>();
-		//// 親になるオブジェクトを生成
-		//m_parent = new GameObject("Blocks");
 		// ダンジョン生成クラス
-		foreach (Generator generator in m_generators)
+		foreach (DungeonGeneratorBase generator in m_generators)
 		{
 			// 上書き防止
-			if (m_dungeonGenerators.ContainsKey(generator.pattern))
+			if (m_dungeonGenerators.ContainsKey(generator.Pattern))
 				continue;
 			// ジェネレータの設定
-			m_dungeonGenerators[generator.pattern] = generator.generator;
+			m_dungeonGenerators[generator.Pattern] = generator;
 		}
     }
 
@@ -106,45 +79,14 @@ public class DungeonGenerator : MonoBehaviour
 		}
 	}
 
-	//private void Update()
-	//{
-	//	// プレイヤーのいるチャンク
-	//	var pl = m_playSceneManager.GetPlayer();
-	//	Vector2Int playerChunk = new((int)pl.transform.position.x / m_chunkSize, (int)pl.transform.position.y / m_chunkSize);
-
-	//	for (int y = 0; y < m_chunk.Count; y++)
-	//	{
-	//		for (int x = 0; x < m_chunk[y].Count; x++)
-	//		{
-	//			// プレイヤーチャンクとの距離
-	//			float distance = Vector2Int.Distance(playerChunk, new Vector2Int(x, y));
-
-	//			// 表示チャンク内
-	//			if (distance < m_activeChunk)
-	//			{
-	//				if (m_chunk[y][x].activeSelf == false)
-	//				{
-	//					m_chunk[y][x].SetActive(true);
-	//				}
-	//			}
-	//			// 表示チャンク外
-	//			else
-	//			{
-	//				if (m_chunk[y][x].activeSelf == true)
-	//				{
-	//					m_chunk[y][x].SetActive(false);
-	//				}
-	//			}
-	//		}
-	//	}
-
-	//}
-
 	/// <summary>
 	/// ステージ作成
 	/// </summary>
-	public void CreateStage()
+	public void CreateStage(int stateNum)
     {
+		// ステージ番号の設定
+		m_stageNum = stateNum;
+
         // ダンジョンのデータ取得
         DungeonData dungeonData = m_dungeonDataBase.dungeonDatas[m_stageNum];
 
@@ -220,36 +162,17 @@ public class DungeonGenerator : MonoBehaviour
 		//岩盤で囲う
 		CreateBedrock(dungeonSize);
 
-		//地面の生成
-		//CreateGround(dungeonSize);
-
-    }
+	}
 
 
+	public PlaySceneManager PlaySceneManager
+	{
+		set { m_playSceneManager = value; }
+	}
 
 
-	//private int LotteryBlock(List<BlockOdds> blockOddsList)
- //   {
- //       //確率の抽選
- //       List<int> oddsList = new ();
 
- //       //全ての確率合算
- //       int allOdds = 0;
 
- //       //ブロックの種類の数
- //       for (int i = 0; i < blockOddsList.Count; i++)
- //       {
- //           //ブロックの確率
- //           for (int j = 0; j < blockOddsList[i].odds; j++)
- //           {
- //               oddsList.Add(i);
- //           }
- //           //ブロックの確率を加算
- //           allOdds += blockOddsList[i].odds;
- //       }
- //       //抽選
- //       return oddsList[Random.Range(0, allOdds)];
- //   }
 
 	// ブロックの情報生成
 	private bool IsCreateBlock(Vector2 pos, BlockGenerateData data)
@@ -299,32 +222,18 @@ public class DungeonGenerator : MonoBehaviour
 			blockGenerateData[i].offset = Random.value;
 		}
 
-		//// チャンクの生成
-		//for (int y = 0; y < mapList.Count / m_chunkSize; y++)
-		//{
-		//	m_chunk.Add(new());
-		//	for (int x = 0; x < mapList[y].Count / m_chunkSize; x++)
-		//	{
-		//		m_chunk[y].Add(new GameObject("(" + x + ", " + y + ")"));
-		//		m_chunk[y][x].transform.parent = m_parent.transform;
-		//	}
-		//}
-
 		// ブロック生成
 		for (int y = 0; y < mapList.Count; y++)
 		{
 			for (int x = 0; x < mapList[y].Count; x++)
 			{
-				//// チャンク取得
-				//Transform chunk = m_chunk[y / m_chunkSize][x / m_chunkSize].transform;
-
 				// 生成する座標
 				Vector2 position = new(x, y);
 				//プレイヤー
 				if ((int)m_playerPos.x == x && (int)m_playerPos.y == y)
 				{
 					// 空のブロックを生成
-					m_blockGenerator.GenerateBlock(BlockData.BlockType.OVER, position/*, chunk*/);
+					m_blockGenerator.GenerateBlock(BlockData.BlockType.OVER, position);
 					continue;
 				}
 				//コアを生成
@@ -338,14 +247,14 @@ public class DungeonGenerator : MonoBehaviour
 					// 生成するブロックの種類
 					BlockData.BlockType type = CreateBlockType(blockGenerateData, new Vector2(x, y));
 					// ブロック生成
-					GameObject block = m_blockGenerator.GenerateBlock(type, position/*, chunk*/);
+					GameObject block = m_blockGenerator.GenerateBlock(type, position);
 					// ブロックリストに追加
 					m_blocksList.Add(block.GetComponent<Block>());
 				}
 				else
 				{
 					// 空のブロックを生成
-					m_blockGenerator.GenerateBlock(BlockData.BlockType.OVER, position/*, chunk*/);
+					m_blockGenerator.GenerateBlock(BlockData.BlockType.OVER, position);
 				}
 			}
 		}
