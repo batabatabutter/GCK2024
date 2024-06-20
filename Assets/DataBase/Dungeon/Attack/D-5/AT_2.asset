@@ -14,4 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tableName: "\u30D6\u30ED\u30C3\u30AF\u305D\u3053\u305D\u3053"
   overNum: 0.3
-  pattern: []
+  pattern:
+  - {fileID: 11400000, guid: 137a98ff486cc4d4d9bd92dddf7fc40b, type: 2}
+  - {fileID: 11400000, guid: e22280c31bfaa534f9fddadadbb6765a, type: 2}
+  - {fileID: 11400000, guid: cba99599600d12c429cc23f506f5ed24, type: 2}
