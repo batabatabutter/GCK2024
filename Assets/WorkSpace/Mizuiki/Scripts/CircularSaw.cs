@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static MiningData;
 
 public class CircularSaw : MonoBehaviour
 {
@@ -10,6 +11,18 @@ public class CircularSaw : MonoBehaviour
 	{
 		public MiningData.MiningType type;
 		public int level;
+	}
+	// 採掘方向のRay
+	public struct MiningRay
+	{
+		public Vector2 direction;
+		public Vector2 origin;
+		public float length;
+
+		public readonly Vector2 MiningPos()
+		{
+			return origin + (direction * length);
+		}
 	}
 
 	[Header("丸のこの種類")]
@@ -33,12 +46,16 @@ public class CircularSaw : MonoBehaviour
 	[SerializeField] private ToolLevel[] m_toolLevel = null;
 	[Tooltip("インスペクターの値を反映させる")]
 	[SerializeField] private bool m_enabled = false;
-	// レベルの辞書
-	private Dictionary<MiningData.MiningType, int> m_toolLevels = new();
-
 	[Header("アイテム")]
 	[SerializeField] private PlayerItem m_playerItem = null;
 
+	// レベルの辞書
+	private Dictionary<MiningData.MiningType, int> m_toolLevels = new();
+
+	// プレイヤー
+	private Transform m_player = null;
+	// 採掘範囲
+	private float m_miningRange = 2.0f;
 
 
 	private void Awake()
@@ -59,6 +76,7 @@ public class CircularSaw : MonoBehaviour
 			m_miningDatas[data.Type] = data;
 		}
 
+		// インスペクター設定有効
 		if (m_enabled)
 		{
 			// ツールのレベル
@@ -71,6 +89,48 @@ public class CircularSaw : MonoBehaviour
 				m_toolLevels[toolLevel.type] = toolLevel.level;
 			}
 		}
+
+		// 親の設定
+		m_player = transform.parent;
+
+	}
+
+	private void Update()
+	{
+		// マウスの位置を取得
+		Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+		// 移動後の位置
+		Vector3 afterPos = mousePos;
+
+		// プレイヤーからの距離が採掘範囲より大きい
+		if (Vector3.Distance(m_player.position, afterPos) > m_miningRange)
+		{
+			// 採掘範囲に収めた位置を設定
+			afterPos = m_player.position + (afterPos - m_player.position).normalized * m_miningRange;
+		}
+
+		// 丸のこからマウスへのベクトル
+		Vector3 circularSawToMining = afterPos - transform.position;
+		// 丸のことマウスの距離
+		float distance = circularSawToMining.magnitude;
+
+		// 採掘位置へのベクトル正規化
+		circularSawToMining.Normalize();
+
+		// 距離が 1f の移動量以内ならそのまま
+		if (distance <= m_circularSawSpeed * Time.deltaTime)
+		{
+			//afterPos = mousePos;
+		}
+		else
+		{
+			afterPos = transform.position + (m_circularSawSpeed * Time.deltaTime * circularSawToMining);
+		}
+
+		// 座標を設定
+		transform.position = afterPos;
+
 	}
 
 	// 回す
@@ -79,25 +139,25 @@ public class CircularSaw : MonoBehaviour
 		transform.localEulerAngles += m_circularSawRotate * speed * Time.deltaTime * Vector3.back;
 	}
 
-	// 丸のこの位置取得
-	public Vector3 SetPosition(Vector3 miningPoint)
+	// 丸のこの位置設定
+	public void SetPosition(Vector3 miningPoint)
 	{
-		// 丸のこから採掘位置へのベクトル
-		Vector3 circularSawToMining = miningPoint - transform.position;
-		// 丸のこと採掘位置の距離
-		float distance = circularSawToMining.magnitude;
+		transform.position = miningPoint;
+	}
 
-		// 距離が 1f の移動量以内ならそのまま採掘地点を返す
-		if (distance <= m_circularSawSpeed * Time.deltaTime)
-			return miningPoint;
+	// 採掘範囲設定
+	public void SetRange(float range, float size)
+	{
+		// 範囲の設定
+		m_miningRange = range;
 
-		// 採掘位置へのベクトル正規化
-		circularSawToMining.Normalize();
+		// スケール
+		float scale = Mathf.Max(size, 1.0f);
 
-		transform.position += m_circularSawSpeed * Time.deltaTime * circularSawToMining;
+		// 丸のこのサイズ設定
+		transform.localScale = Vector3.one * scale;
 
-		// 丸のこの位置を返す
-		return transform.position + (m_circularSawSpeed * Time.deltaTime * circularSawToMining);
+
 	}
 
 	// 採掘値取得
@@ -133,6 +193,30 @@ public class CircularSaw : MonoBehaviour
 
 		return value;
 	}
+	// 採掘用のRay取得
+	public MiningRay GetMiningRay(Transform player)
+	{
+		// プレイヤーの位置から丸のこの位置へのベクトル
+		Vector2 playerToCircular = transform.position - player.position;
+		// プレイヤーから丸のこまでの距離
+		float length = playerToCircular.magnitude;
+		// ベクトル正規化
+		playerToCircular.Normalize();
+
+		MiningRay miningRay = new()
+		{
+			direction = playerToCircular,
+			origin = player.position,
+			length = length,
+		};
+
+		return miningRay;
+	}
+
+
+
+
+
 
 	// 必要素材の取得
 	private Items[] GetNeedMaterials(int addLevel)

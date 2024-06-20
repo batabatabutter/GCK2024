@@ -1,25 +1,20 @@
-using Microsoft.Win32.SafeHandles;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using static Unity.Collections.AllocatorManager;
+using UnityEngine.UI;
 
 public class PlayerMining : MonoBehaviour
 {
-    // 採掘方向のRay
-    struct MiningRay
-    {
-        public Vector2 direction;
-        public Vector2 origin;
-        public float length;
+    //// 採掘方向のRay
+    //struct MiningRay
+    //{
+    //    public Vector2 direction;
+    //    public Vector2 origin;
+    //    public float length;
 
-        public readonly Vector2 MiningPos()
-        {
-            return origin + (direction * length);
-        }
-    }
+    //    public readonly Vector2 MiningPos()
+    //    {
+    //        return origin + (direction * length);
+    //    }
+    //}
 
     [Header("丸のこ")]
     [SerializeField] private CircularSaw m_circularSaw = null;
@@ -41,6 +36,9 @@ public class PlayerMining : MonoBehaviour
     // 採掘のクールタイム
     private float m_miningCoolTime = 0.0f;
 
+    // 採掘対象ブロック
+    private Transform m_miningBlock = null;
+
     // 採掘回数
     private int m_miningCount = 0;
     // 与えたダメージ
@@ -51,6 +49,7 @@ public class PlayerMining : MonoBehaviour
     [SerializeField] private bool m_debug = true;
     [SerializeField] private GameObject m_debugMiningRange;
     [SerializeField] private GameObject m_debugMiningPoint;
+    [SerializeField] private Text       m_debugText = null;
 
     // Start is called before the first frame update
     void Start()
@@ -72,7 +71,7 @@ public class PlayerMining : MonoBehaviour
         }
 
         // 丸のこのサイズ設定
-        SetCircularSawScale();
+        m_circularSaw.SetRange(m_miningValue.range, m_miningValue.size);
     }
 
     // Update is called once per frame
@@ -81,24 +80,28 @@ public class PlayerMining : MonoBehaviour
         // 採掘値の計算
         m_miningValue = m_circularSaw.GetMiningValue() * m_miningValueRate * m_miningValueBoost;
 
-        // 採掘クールタイム
-        if (m_miningCoolTime > 0.0f)
+        // 丸のこのサイズ設定
+        m_circularSaw.SetRange(m_miningValue.range, m_miningValue.size);
+
+		// 採掘クールタイム
+		if (m_miningCoolTime > 0.0f)
         {
             m_miningCoolTime -= Time.deltaTime;
         }
 
-        // マウスの位置を取得
-        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		// 採掘対象ブロックのリセット
+		m_miningBlock = null;
 
         // 採掘位置
         Vector2 miningPoint = Vector2.zero;
 
         // 採掘用のRay取得
-        MiningRay miningRay = GetMiningPoint(mousePos);
+        CircularSaw.MiningRay miningRay = m_circularSaw.GetMiningRay(transform);
 
         // プレイヤーから採掘方向へのRayCast
         RaycastHit2D[] rayCasts = Physics2D.RaycastAll(miningRay.origin, miningRay.direction, miningRay.length, m_layerMask);
-        bool hit = false;
+        // ブロックに当たったフラグ
+        bool hitBlock = false;
         foreach (RaycastHit2D rayCast in rayCasts)
         {
             // タグが Block
@@ -106,7 +109,10 @@ public class PlayerMining : MonoBehaviour
             {
                 // 当たった位置を採掘ポイントにする
                 miningPoint = rayCast.point;
-                hit = true;
+                // 採掘ブロックの設定
+                m_miningBlock = rayCast.transform;
+                // 当たった
+                hitBlock = true;
                 break;
             }
 
@@ -114,30 +120,29 @@ public class PlayerMining : MonoBehaviour
             if (rayCast.transform.CompareTag("Tool"))
             {
                 // マウスカーソルと同じグリッド
-                if (MyFunction.CheckSameGrid(rayCast.transform.position, mousePos))
+                if (MyFunction.CheckSameGrid(rayCast.transform.position, m_circularSaw.transform.position))
                 {
                     miningPoint = rayCast.transform.position;
-                    hit = true;
                     break;
                 }
             }
         }
-        // 当たったものがない
-        if (!hit)
+
+        // ブロックに当たった
+        if (hitBlock)
         {
-            // 採掘ポイント
-            miningPoint = miningRay.origin + (miningRay.direction * miningRay.length);
-        }
-
-        // 丸のこのサイズ設定
-        SetCircularSawScale();
-
-        // 採掘ポイント設定
-        m_circularSaw.SetPosition(miningPoint);
+            // 採掘ポイント設定
+            m_circularSaw.SetPosition(miningPoint);
+            Debug.Log("HIT");
+		}
 
         if (m_debug)
         {
-            m_debugMiningPoint.transform.position = miningPoint;
+            m_debugText.text = "";
+            foreach (RaycastHit2D hit2D in rayCasts)
+            {
+                m_debugText.text += hit2D + "\n";
+            }
         }
 
     }
@@ -208,32 +213,6 @@ public class PlayerMining : MonoBehaviour
 
 
 
-    private MiningRay GetMiningPoint(Vector2 mousePos)
-    {
-        // プレイヤーの位置
-        Vector2 playerPos = transform.position;
-
-        // プレイヤーの位置からマウスの位置へのベクトル
-        Vector2 playerToMouse = mousePos - playerPos;
-        // プレイヤーからマウスまでの距離
-        float length = playerToMouse.magnitude;
-        if (length > m_miningValue.range)
-        {
-            length = m_miningValue.range;
-        }
-        // ベクトル正規化
-        playerToMouse.Normalize();
-
-        MiningRay miningRay = new()
-        {
-            direction = playerToMouse,
-            origin = playerPos,
-            length = length,
-        };
-
-        return miningRay;
-    }
-
     /// <summary>
     /// ブロックにダメージを与える
     /// </summary>
@@ -272,6 +251,14 @@ public class PlayerMining : MonoBehaviour
     {
         // ブロックの取得
         Collider2D[] blocks = Physics2D.OverlapCircleAll(center, m_miningValue.size / 2.0f, LayerMask.GetMask("Block"));
+
+        // 
+        if (blocks.Length == 0 &&
+            m_miningBlock)
+        {
+            CauseDamageToBlock(m_miningBlock);
+            return;
+        }
 
         foreach (Collider2D block in blocks)
         {
@@ -316,17 +303,6 @@ public class PlayerMining : MonoBehaviour
 
         // 採掘力を返す
         return power;
-    }
-
-    // 丸のこのサイズ設定
-    private void SetCircularSawScale()
-    {
-        // スケール
-        float scale = Mathf.Max(m_miningValue.size, 1.0f);
-
-        // 丸のこのサイズ設定
-        m_circularSaw.transform.localScale = Vector3.one * scale;
-
     }
 
 }
