@@ -46,20 +46,18 @@ public class SaveDataReadWrite : MonoBehaviour
 		public List<KeyValue<MiningData.MiningType, int>> miningLevel = new();
 
 		// ダンジョンの状態
-		public DungeonState[] dungeonStates = new DungeonState[5];
-
-		public Dictionary<int, string> hoge = new();
+		public DungeonState[] dungeonStates = new DungeonState[DungeonDataBase.DUNGEON_COUNT];
 	}
 
-	[Header("ファイル名")]
-	[SerializeField] private string m_filePath = "Data/SaveData.json";
+	[Header("ファイル名(拡張子は付けない)")]
+	[SerializeField] private string m_fileName = "Data/SaveData";
 
 	// アイテム所持数
 	private Dictionary<ItemData.ItemType, int> m_items = new();
 	// 採掘レベル
 	private Dictionary<MiningData.MiningType, int> m_miningLevels = new();
 	// ダンジョンの状態
-	private DungeonState[] m_dungeonStates = new DungeonState[5];
+	private DungeonState[] m_dungeonStates = new DungeonState[DungeonDataBase.DUNGEON_COUNT];
 
 
 
@@ -74,13 +72,14 @@ public class SaveDataReadWrite : MonoBehaviour
 		{
 			// 複数作られた場合は破棄する
 			Destroy(gameObject);
+			return;
 		}
 
 		// ファイル名の設定
-		m_filePath = Application.dataPath + "/" + m_filePath;
+		string filePath = Application.dataPath + "/" + m_fileName + ".json";
 
 		// ファイルが存在する場合は読み込んでおく
-		if (File.Exists(m_filePath))
+		if (File.Exists(filePath))
 		{
 			Load();
 			return;
@@ -93,7 +92,39 @@ public class SaveDataReadWrite : MonoBehaviour
 
 	}
 
-	[ContextMenu("CreateNewData")]
+	[ContextMenu("CreateNewFile")]
+	public void CreateNewFile()
+	{
+		// アイテム
+		Dictionary<ItemData.ItemType, int> items = new();
+		foreach (ItemData.ItemType type in Enum.GetValues(typeof(ItemData.ItemType)))
+		{
+			items[type] = 0;
+		}
+		// 採掘道具
+		Dictionary<MiningData.MiningType, int> miningLevels = new();
+		foreach (MiningData.MiningType type in Enum.GetValues(typeof(MiningData.MiningType)))
+		{
+			miningLevels[type] = 0;
+		}
+		// ダンジョンの状態
+		DungeonState[] dungeonState = new DungeonState[DungeonDataBase.DUNGEON_COUNT];
+		for (int i = 0; i < DungeonDataBase.DUNGEON_COUNT; i++)
+		{
+			DungeonState ds = dungeonState[i] = new();
+			ds.blockList = new();
+			for (int j = 0; j < 2; j++)
+			{
+				ds.blockList.Add(new List<BlockData.BlockType> { BlockData.BlockType.STONE, BlockData.BlockType.STONE, BlockData.BlockType.STONE });
+			}
+		}
+		// パス取得
+		string path = Application.dataPath + "/" + m_fileName;
+
+		// 書き込み
+		Save(items, miningLevels, dungeonState, path);
+	}
+
 	public void CreateNewData()
 	{
 		// アイテム
@@ -109,9 +140,8 @@ public class SaveDataReadWrite : MonoBehaviour
 			miningLevels[type] = 0;
 		}
 		// ダンジョンの状態
-		DungeonState[] dungeonState = new DungeonState[5];
-		//foreach (DungeonState ds in dungeonState)
-		for (int i = 0; i < 5; i++)
+		DungeonState[] dungeonState = new DungeonState[DungeonDataBase.DUNGEON_COUNT];
+		for (int i = 0; i < DungeonDataBase.DUNGEON_COUNT; i++)
 		{
 			DungeonState ds = dungeonState[i] = new();
 			ds.blockList = new();
@@ -121,7 +151,7 @@ public class SaveDataReadWrite : MonoBehaviour
 			}
 		}
 		// パス取得
-		string path = Application.dataPath + "/" + m_filePath;
+		string path = Application.dataPath + "/" + m_fileName;
 
 		// 書き込み
 		Save(items, miningLevels, dungeonState, path);
@@ -131,35 +161,45 @@ public class SaveDataReadWrite : MonoBehaviour
 	// 読み込み
 	public void Load()
 	{
-		// ファイル読み込み
-		StreamReader reader = new(m_filePath);
-		// データ読み取り
-		string json = reader.ReadToEnd();
-		// ファイルを閉じる
-		reader.Close();
+		// ファイルパス
+		string path = Application.dataPath + "/" + m_fileName;
+
+		// Jsonファイル読み出し
+		string json = MyFunction.Reader(path + ".json");
 		// データ形式に変換
 		SaveData saveData = JsonUtility.FromJson<SaveData>(json);
+
+		for (int i = 0; i < DungeonDataBase.DUNGEON_COUNT; i++)
+		{
+			// CSVファイル読み出し
+			string csv = MyFunction.Reader(path + i + ".csv");
+			// データ設定
+			saveData.dungeonStates[i].blockList = WriteReadCSV.ReadCSV<BlockData.BlockType>(csv);
+		}
+
 		// データ設定
 		SetData(saveData);
+
+		Debug.Log("読み出し完了");
 	}
 
 	// 書き込み
 	public void Save()
 	{
-		Save(m_items, m_miningLevels, m_dungeonStates, m_filePath);
+		Save(m_items, m_miningLevels, m_dungeonStates, m_fileName);
 	}
-	public void Save(Dictionary<ItemData.ItemType, int> items, Dictionary<MiningData.MiningType, int> miningLevels, DungeonState[] dungeonStates, string path)
+	public void Save(Dictionary<ItemData.ItemType, int> items, Dictionary<MiningData.MiningType, int> miningLevels, DungeonState[] dungeonStates, string fileName)
 	{
+		string path = Application.dataPath + "/" + fileName;
+
 		// データ取得
 		SaveData saveData = GetSaveData(items, miningLevels, dungeonStates);
 		// 書き込み形式に変換
 		string json = JsonUtility.ToJson(saveData);
-		// 書き込むファイルを開く
-		StreamWriter writer = new(path);
-		// 書き込み
-		writer.Write(json);
-		// ファイルを閉じる
-		writer.Close();
+		// データ書き込み
+		MyFunction.Writer(path + "/" + m_fileName + ".json", json);
+
+		Debug.Log("書き込み完了");
 	}
 
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class MyFunction
@@ -222,4 +223,59 @@ public class MyFunction
 	{
 		return Mathf.PerlinNoise(pos.x + val, pos.y + val);
 	}
+
+	// データの読み取り
+	static public string Reader(string path)
+	{
+		// ファイルが存在しない
+		if (!File.Exists(path))
+		{
+			Debug.Log(path + "は存在しません");
+			return "";
+		}
+
+		// ファイルを開く
+		StreamReader reader = new(path);
+		// 読み取り
+		string data = reader.ReadToEnd();
+		// ファイルを閉じる
+		reader.Close();
+		// 読み取ったデータを返す
+		return data;
+	}
+	// データの書き込み
+	static public void Writer(string path, string data)
+	{
+		// 書き込むファイルを開く
+		StreamWriter writer = new(path);
+		// 書き込み
+		writer.Write(data);
+		// ファイルを閉じる
+		writer.Close();
+	}
+	static public void Writer(string path, string[] data)
+	{
+		// 書き込みファイル
+		StreamWriter writer = new(path, false);
+		// 文字列をファイルに追加
+		for (int i = 0; i < data.Length; i++)
+		{
+			writer.WriteLine(data[i]);
+		}
+		// ファイルを閉じる
+		writer.Close();
+	}
+	static public void Writer(string path, List<string> data)
+	{
+		// 書き込みファイル
+		StreamWriter writer = new(path, false);
+		// 文字列をファイルに追加
+		foreach (string str in data)
+		{
+			writer.WriteLine(str);
+		}
+		// ファイルを閉じる
+		writer.Close();
+	}
+
 }

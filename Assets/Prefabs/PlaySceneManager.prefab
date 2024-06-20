@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 792408576829412996}
   - component: {fileID: -618236753607932433}
   - component: {fileID: -600300867920135826}
+  - component: {fileID: 3428923868392154157}
+  - component: {fileID: 3418975677349665234}
   - component: {fileID: -4963957752362924521}
   - component: {fileID: -1378431894499735817}
   - component: {fileID: 1479931723885810416}
@@ -110,10 +112,10 @@ MonoBehaviour:
   m_playSceneManager: {fileID: 3469568166959932924}
   m_ground: {fileID: 6018421707374535805, guid: f1554866b93c910478350b8c6589feb9, type: 3}
   m_generators:
-  - pattern: 0
-    generator: {fileID: -618236753607932433}
-  - pattern: 1
-    generator: {fileID: -600300867920135826}
+  - {fileID: -618236753607932433}
+  - {fileID: -600300867920135826}
+  - {fileID: 3428923868392154157}
+  - {fileID: 3418975677349665234}
 --- !u!114 &-618236753607932433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,6 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4acffe1975897f47a7ce5b700d3c3e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_pattern: 0
 --- !u!114 &-600300867920135826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,6 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0455d59bf1346c94a923cf9a1ecbeed5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_pattern: 1
   m_roomRange:
     min: 0
     max: 0
@@ -151,6 +155,39 @@ MonoBehaviour:
   m_roomOreChunkCount:
     min: 0
     max: 0
+--- !u!114 &3428923868392154157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1614570275442964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86f4a4ba9a230834c9f83032fc90d9d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_pattern: 2
+  m_mazeType: 0
+  m_wallWidth: 1
+  m_wallHeight: 1
+  m_pathWidth: 1
+  m_pathHeight: 1
+--- !u!114 &3418975677349665234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1614570275442964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37388ec8e88b6eb4fb00e6f649633cb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_pattern: 3
+  m_cavity: 0.5
+  m_noiseScale: 1
 --- !u!114 &-4963957752362924521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,6 +232,7 @@ MonoBehaviour:
   m_dungeonDataBase: {fileID: 11400000, guid: 0bf61c7eff449f24d9512881d58682a1, type: 2}
   m_enemyDataBase: {fileID: 11400000, guid: ca452888acf86a640a52ed7e456cb571, type: 2}
   m_playSceneManager: {fileID: 3469568166959932924}
+  m_enemyManager: {fileID: 0}
   m_spawnRadius: 0
   m_detectionLayer:
     serializedVersion: 2
