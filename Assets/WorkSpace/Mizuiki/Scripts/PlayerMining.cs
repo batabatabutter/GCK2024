@@ -83,6 +83,9 @@ public class PlayerMining : MonoBehaviour
         // 丸のこのサイズ設定
         m_circularSaw.SetRange(m_miningValue.range, m_miningValue.size);
 
+        // 丸のこの更新
+        m_circularSaw.Move(transform);
+
 		// 採掘クールタイム
 		if (m_miningCoolTime > 0.0f)
         {
@@ -133,7 +136,6 @@ public class PlayerMining : MonoBehaviour
         {
             // 採掘ポイント設定
             m_circularSaw.SetPosition(miningPoint);
-            Debug.Log("HIT");
 		}
 
         if (m_debug)

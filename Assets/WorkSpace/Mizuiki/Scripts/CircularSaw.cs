@@ -95,7 +95,46 @@ public class CircularSaw : MonoBehaviour
 
 	}
 
-	private void Update()
+	//private void Update()
+	//{
+	//	// マウスの位置を取得
+	//	Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+	//	// 移動後の位置
+	//	Vector3 afterPos = mousePos;
+
+	//	// プレイヤーからの距離が採掘範囲より大きい
+	//	if (Vector3.Distance(m_player.position, afterPos) > m_miningRange)
+	//	{
+	//		// 採掘範囲に収めた位置を設定
+	//		afterPos = m_player.position + (afterPos - m_player.position).normalized * m_miningRange;
+	//	}
+
+	//	// 丸のこからマウスへのベクトル
+	//	Vector3 circularSawToMining = afterPos - transform.position;
+	//	// 丸のことマウスの距離
+	//	float distance = circularSawToMining.magnitude;
+
+	//	// 採掘位置へのベクトル正規化
+	//	circularSawToMining.Normalize();
+
+	//	// 距離が 1f の移動量以内ならそのまま
+	//	if (distance <= m_circularSawSpeed * Time.deltaTime)
+	//	{
+	//		//afterPos = mousePos;
+	//	}
+	//	else
+	//	{
+	//		afterPos = transform.position + (m_circularSawSpeed * Time.deltaTime * circularSawToMining);
+	//	}
+
+	//	// 座標を設定
+	//	transform.position = afterPos;
+
+	//}
+
+	// 動かす
+	public void Move(Transform player)
 	{
 		// マウスの位置を取得
 		Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -104,10 +143,10 @@ public class CircularSaw : MonoBehaviour
 		Vector3 afterPos = mousePos;
 
 		// プレイヤーからの距離が採掘範囲より大きい
-		if (Vector3.Distance(m_player.position, afterPos) > m_miningRange)
+		if (Vector3.Distance(player.position, afterPos) > m_miningRange)
 		{
 			// 採掘範囲に収めた位置を設定
-			afterPos = m_player.position + (afterPos - m_player.position).normalized * m_miningRange;
+			afterPos = player.position + (afterPos - player.position).normalized * m_miningRange;
 		}
 
 		// 丸のこからマウスへのベクトル
@@ -130,7 +169,6 @@ public class CircularSaw : MonoBehaviour
 
 		// 座標を設定
 		transform.position = afterPos;
-
 	}
 
 	// 回す
