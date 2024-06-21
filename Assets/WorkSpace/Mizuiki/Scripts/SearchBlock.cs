@@ -144,7 +144,38 @@ public class SearchBlock : MonoBehaviour
 	}
 
 	// ブロックの設定
-	public void SetSearchBlocks(List<Block> blocks)
+	//public void SetSearchBlocks(List<Block> blocks)
+ //   {
+ //       foreach (Block block in blocks)
+ //       {
+
+ //           //  nullならスキップ
+ //           if (!block) continue;
+
+ //           if (block.BlockData == null)
+ //               continue;
+
+ //           // ブロックの種類取得
+ //           BlockData.BlockType type = block.BlockData.Type;
+
+ //           // キーが存在しない
+ //           if(!m_searchBlocks.ContainsKey(type))
+ //           {
+ //               m_searchBlocks[type] = new();
+ //           }
+
+ //           // ブロックの追加
+ //           m_searchBlocks[type].Add(block.transform);
+ //       }
+
+	//	// 開始と同時にサーチする
+	//	if (m_awake)
+	//	{
+	//		SearchOne(BlockData.BlockType.CORE);
+	//	}
+
+	//}
+	public void SetSearchBlocks(Block[,] blocks)
     {
         foreach (Block block in blocks)
         {

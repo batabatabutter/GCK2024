@@ -39,7 +39,7 @@ public class TestDungeonGenerator : MonoBehaviour
 	private List<List<BlockData.BlockType>> m_blockTypes = new();
 
 	// 生成したブロックの情報
-	private readonly List<Block> m_objectBlock = new();
+	private Block[,] m_objectBlock;
 
 
 
@@ -63,6 +63,9 @@ public class TestDungeonGenerator : MonoBehaviour
 			// SCV読み込み
 			mapList = GenerateSCV();
 		}
+
+		// ブロック配列のサイズ
+		m_objectBlock = new Block[m_dungeonSize.y, m_dungeonSize.x];
 
 		// マップの生成
 		SetBlockType(mapList);
@@ -167,7 +170,7 @@ public class TestDungeonGenerator : MonoBehaviour
 				// ブロックがあれば追加
 				if (obj.TryGetComponent(out Block block))
 				{
-					m_objectBlock.Add(block);
+					m_objectBlock[y, x] = block;
 				}
 
 

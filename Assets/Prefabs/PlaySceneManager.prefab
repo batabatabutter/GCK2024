@@ -107,6 +107,7 @@ MonoBehaviour:
   m_playSceneManager: {fileID: 3469568166959932924}
   m_generator: {fileID: 8354655699082599593}
   m_attacker: {fileID: 3016508279071666021}
+  m_enemyGenerator: {fileID: 239731632877828248}
 --- !u!114 &8855510582352198966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,6 +268,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c0037650f2f4a0499506b4d38ebc047, type: 3}
+--- !u!114 &239731632877828248 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4824775624701483599, guid: 3c0037650f2f4a0499506b4d38ebc047, type: 3}
+  m_PrefabInstance: {fileID: 4730672384926868183}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fcb0d63b65dbb743aee8129fa2afdeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3016508279071666021 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7528456396296654258, guid: 3c0037650f2f4a0499506b4d38ebc047, type: 3}

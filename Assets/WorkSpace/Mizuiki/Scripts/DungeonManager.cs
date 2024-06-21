@@ -13,6 +13,9 @@ public class DungeonManager : MonoBehaviour
     [Header("アタッカー")]
     [SerializeField] private DungeonAttacker m_attacker = null;
 
+    [Header("エネミー")]
+    [SerializeField] private EnemyGenerator m_enemyGenerator = null;
+
 
 
     // ダンジョン生成
@@ -28,6 +31,13 @@ public class DungeonManager : MonoBehaviour
 
         // 子の設定
         m_generator.PlaySceneManager = playSceneManager;
+    }
+
+    // クリア時の呼び出し
+    public void Clear()
+    {
+        m_attacker.enabled = false;
+        m_enemyGenerator.enabled = false;
     }
 
 }

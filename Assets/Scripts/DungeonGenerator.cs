@@ -42,8 +42,10 @@ public class DungeonGenerator : MonoBehaviour
     //プレイヤーの位置
     private Vector2 m_playerPos;
 
-	// ブロックのリスト
-	private readonly List<Block> m_blocksList = new();
+	//// ブロックのリスト
+	//private readonly List<Block> m_blocksList = new();
+	// ブロックの配列
+	private Block[,] m_blocks;
 
 
 	[Header("ダンジョン生成スクリプト")]
@@ -72,7 +74,7 @@ public class DungeonGenerator : MonoBehaviour
 		if (m_playSceneManager.GetPlayer().TryGetComponent(out SearchBlock search))
 		{
 			// サーチにブロックを設定する
-			search.SetSearchBlocks(m_blocksList);
+			search.SetSearchBlocks(m_blocks);
 			// サーチ範囲を設定
 			Vector2Int size = m_dungeonDataBase.dungeonDatas[m_stageNum].Size;
 			search.MarkerMaxScale = Mathf.Max(size.x, size.y) / 2.0f;
@@ -98,6 +100,9 @@ public class DungeonGenerator : MonoBehaviour
 
 		// ダンジョンのサイズ
 		Vector2Int dungeonSize = new(mapList[0].Count, mapList.Count);
+
+		// ブロック配列のサイズ決定
+		m_blocks = new Block[dungeonSize.y, dungeonSize.x];
 
 		// コアの生成座標決定(無限ループにならないように回数制限をつける)
 		for (int i = 0; i < 1000000; i++)
@@ -141,9 +146,10 @@ public class DungeonGenerator : MonoBehaviour
 		GameObject co = m_blockGenerator.GenerateBlock(BlockData.BlockType.CORE, new Vector3(m_corePos.x, m_corePos.y));
 		// スプライトの設定
 		co.GetComponent<SpriteRenderer>().sprite = dungeonData.CoreSprite;
-		// ブロックリストに追加
-		m_blocksList.Add(co.GetComponent<Block>());
-
+		//// ブロックリストに追加
+		//m_blocksList.Add(co.GetComponent<Block>());
+		// ブロック配列に代入
+		m_blocks[m_corePos.y, m_corePos.x] = co.GetComponent<Block>();
 
 		//  プレイシーンマネージャーが無かったら格納しない
 		if (m_playSceneManager == null)
@@ -229,6 +235,8 @@ public class DungeonGenerator : MonoBehaviour
 			{
 				// 生成する座標
 				Vector2 position = new(x, y);
+				// 生成したブロック
+				Block block = null;
 				//プレイヤー
 				if ((int)m_playerPos.x == x && (int)m_playerPos.y == y)
 				{
@@ -247,15 +255,17 @@ public class DungeonGenerator : MonoBehaviour
 					// 生成するブロックの種類
 					BlockData.BlockType type = CreateBlockType(blockGenerateData, new Vector2(x, y));
 					// ブロック生成
-					GameObject block = m_blockGenerator.GenerateBlock(type, position);
-					// ブロックリストに追加
-					m_blocksList.Add(block.GetComponent<Block>());
+					block = m_blockGenerator.GenerateBlock(type, position).GetComponent<Block>();
+					//// ブロックリストに追加
+					//m_blocksList.Add(block.GetComponent<Block>());
 				}
 				else
 				{
 					// 空のブロックを生成
 					m_blockGenerator.GenerateBlock(BlockData.BlockType.OVER, position);
 				}
+				// ブロック配列に代入
+				m_blocks[y, x] = block;
 			}
 		}
 

@@ -85,7 +85,10 @@ public class PlaySceneManager : MonoBehaviour
         {
             //  ゲームクリア
             if (m_core == null || m_core.IsDestroyed() /*|| !m_core.activeInHierarchy*/)
+            {
                 m_gameState = GameState.Clear;
+                m_dungeonManager.Clear();
+            }
             //  ゲームオーバー
             else if (m_player.GetComponent<Player>().HitPoint <= 0)
                 m_gameState = GameState.Failed;
