@@ -32,16 +32,22 @@ public class PlayerItem : MonoBehaviour
 		col.isTrigger = true;
 
 		// 所持アイテム数の初期化
-		foreach(ItemData itemData in m_itemDataBase.item)
+		if (SaveDataReadWrite.m_instance)
 		{
-			m_items[itemData.Type] = 0;
-
-			// デバッグがオンになっていたら所持数をカンストさせる
-			if (m_debug)
+			m_items = SaveDataReadWrite.m_instance.Items;
+		}
+		else
+		{
+			foreach (ItemData itemData in m_itemDataBase.item)
 			{
-				m_items[itemData.Type] = GetMaxCount(itemData.Type);
-			}
+				m_items[itemData.Type] = 0;
 
+				// デバッグがオンになっていたら所持数をカンストさせる
+				if (m_debug)
+				{
+					m_items[itemData.Type] = GetMaxCount(itemData.Type);
+				}
+			}
 		}
 	}
 

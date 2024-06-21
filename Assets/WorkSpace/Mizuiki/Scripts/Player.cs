@@ -19,12 +19,6 @@ public class Player : MonoBehaviour
     private float m_invincible = 0.0f;
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        //Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/WorkSpace/Kawase/Tool/Tool_Prefab/Tool_Toach.prefab"), transform);
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -32,8 +26,7 @@ public class Player : MonoBehaviour
         {
 			// 無敵時間の経過
 			m_invincible -= Time.time;
-        }
-        
+        }        
     }
 
     // ダメージ

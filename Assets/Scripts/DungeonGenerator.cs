@@ -176,7 +176,10 @@ public class DungeonGenerator : MonoBehaviour
 		set { m_playSceneManager = value; }
 	}
 
-
+	public Block[,] Blocks
+	{
+		get { return m_blocks; }
+	}
 
 
 

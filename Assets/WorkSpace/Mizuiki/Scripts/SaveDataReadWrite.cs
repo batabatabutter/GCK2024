@@ -145,9 +145,18 @@ public class SaveDataReadWrite : MonoBehaviour
 		// 書き込み形式に変換
 		string json = JsonUtility.ToJson(saveData);
 		// データ書き込み
-		MyFunction.Writer(path + "/" + m_fileName + ".json", json);
+		MyFunction.Writer(path + ".json", json);
 
 		Debug.Log("書き込み完了");
+	}
+
+	// ステージの保存
+	public void SaveBlocks(int stageNum)
+	{
+		// ファイル名
+		string fileName = m_fileName + stageNum + ".csv";
+		// データ書き込み
+		WriteReadCSV.WriteCSV(m_dungeonStates[stageNum].blockList, fileName);
 	}
 
 	// ****************************** データの作成 ****************************** //
@@ -212,29 +221,6 @@ public class SaveDataReadWrite : MonoBehaviour
 
 	// ****************************** データの設定 ****************************** //
 	// ダンジョンのブロック配置設定
-	public void SetBlocks(List<List<Block>> blocks, int stageNum)
-	{
-		List<List<BlockData.BlockType>> blockTypes = new();
-
-		foreach (List<Block> row in blocks)
-		{
-			List<BlockData.BlockType> blockType = new();
-
-			foreach (Block block in row)
-			{
-				// ブロックが存在しない
-				if (block == null)
-				{
-					blockType.Add(BlockData.BlockType.OVER);
-					continue;
-				}
-				// ブロックの種類取得
-				blockType.Add(block.BlockData.Type);
-			}
-			// リスト追加
-			blockTypes.Add(blockType);
-		}
-	}
 	public void SetBlocks(Block[,] blocks, int stageNum)
 	{
 		List<List<BlockData.BlockType>> blockTypes = new();
@@ -260,6 +246,12 @@ public class SaveDataReadWrite : MonoBehaviour
 		// ダンジョンの状態を設定する
 		m_dungeonStates[stageNum].blockList = blockTypes;
 
+	}
+
+	// クリア設定
+	public void SetClear(int stageNum)
+	{
+		m_dungeonStates[stageNum].dungeonClear = true;
 	}
 
 

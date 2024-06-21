@@ -2,11 +2,11 @@
 	"itemData": [
 		{
 			"key": 0,
-			"value": 0
+			"value": 37
 		},
 		{
 			"key": 1,
-			"value": 0
+			"value": 14
 		},
 		{
 			"key": 2,
@@ -114,7 +114,7 @@
 	"dungeonStates": [
 		{
 			"dungeonLevel": 1,
-			"dungeonClear": false,
+			"dungeonClear": true,
 			"turn": 0
 		},
 		{
