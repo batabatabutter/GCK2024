@@ -525,7 +525,7 @@ GameObject:
   - component: {fileID: 2176857556641392338}
   - component: {fileID: 1341152067951338783}
   - component: {fileID: 5339453787166087908}
-  m_Layer: 2
+  m_Layer: 13
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -693,6 +693,7 @@ MonoBehaviour:
   m_debug: 0
   m_debugMiningRange: {fileID: 2893017820186787880}
   m_debugMiningPoint: {fileID: 4010198376372952305}
+  m_debugText: {fileID: 0}
 --- !u!114 &1547900350974240465
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -432,6 +432,42 @@ public class PlayerTool : MonoBehaviour
 			m_ignoreTool.Remove((ToolData.ToolType)blockType++);
 		}
 
+		// ツールの作成
+		foreach (ToolData toolData in m_dataBase.tool)
+		{
+			// ツールの種類
+			ToolData.ToolType type = toolData.Type;
+
+			// ステージで無効なツール
+			if (m_ignoreTool.Contains(type))
+				continue;
+
+			// 上書き防止
+			if (m_tools.ContainsKey(type))
+				continue;
+
+			// 新たなツールの作成
+			m_tools[type] = new()
+			{
+				// データベースの情報を設定
+				data = toolData
+			};
+
+			// サポートツール更新用
+			if (toolData.Category == ToolData.ToolCategory.SUPPORT)
+			{
+				if (toolData.Prefab)
+				{
+					// サポートツールの更新を行うためのオブジェクトを生成
+					Tool tool = Instantiate(toolData.Prefab.GetComponent<Tool>(), m_toolContainer.transform);
+					// 使用時に設定できるようにリストに追加
+					m_toolScripts[type] = tool;
+					// ツールマネージャーにも追加
+					m_toolManager.AddTool(tool);
+				}
+			}
+		}
+
 	}
 
 

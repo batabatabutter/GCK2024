@@ -20,6 +20,8 @@ MonoBehaviour:
   lightLevel: 0
   prefab: {fileID: 3457520386420079125, guid: cbe61a2527b59f44ea88ed42d8cd8019, type: 3}
   sprite: {fileID: 0}
+  miningSE: {fileID: 0}
+  destroySE: {fileID: 0}
   dropItem:
   - type: 0
     count: 1
@@ -27,6 +29,6 @@ MonoBehaviour:
   - type: 200
     count: 1
     rate: 1
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color: {r: 0, g: 0, b: 0, a: 1}
   order: 0
   mapIcon: {fileID: 0}

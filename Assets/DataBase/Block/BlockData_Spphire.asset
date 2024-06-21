@@ -29,6 +29,6 @@ MonoBehaviour:
   - type: 209
     count: 1
     rate: 1
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color: {r: 0, g: 0, b: 0, a: 1}
   order: 0
   mapIcon: {fileID: 0}

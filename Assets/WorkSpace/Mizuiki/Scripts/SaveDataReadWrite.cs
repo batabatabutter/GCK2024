@@ -273,7 +273,11 @@ public class SaveDataReadWrite : MonoBehaviour
 		get { return m_dungeonStates; }
 		set { m_dungeonStates = value; }
 	}
-
+	// ƒtƒ@ƒCƒ‹–¼
+	public string FileName
+	{
+		get { return m_fileName; }
+	}
 
 
 
