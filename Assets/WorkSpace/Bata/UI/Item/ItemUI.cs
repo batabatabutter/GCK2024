@@ -20,8 +20,8 @@ public class ItemUI : MonoBehaviour
 
     //  シーンマネージャー
     private PlaySceneManager m_playSceneManager;
-    //  プレイヤー
-    private GameObject m_player;
+    // アイテム
+    private PlayerItem m_playerItem;
 
     //  デバッグ用
     [Header("デバッグ用")]
@@ -58,7 +58,7 @@ public class ItemUI : MonoBehaviour
         for(int i = 0; i < m_data.item.Count; i++) 
         {
             //  アイテム数設定
-            var num = m_player.transform.Find("Item").gameObject.GetComponent<PlayerItem>().Items[m_data.item[i].Type];
+            var num = m_playerItem.Items[m_data.item[i].Type];
             if (num == 0)
             {
                 m_itemObjects[i].SetActive(false);
@@ -86,9 +86,12 @@ public class ItemUI : MonoBehaviour
         else
         {
             //  プレイヤー格納
-            m_player = m_playSceneManager.GetPlayer();
+            m_playerItem = m_playSceneManager.Player.transform.Find("Item").gameObject.GetComponent<PlayerItem>();
         }
         //  プレイヤーが見つからなかったらデバッグ状態に
-        if (m_player == null) m_debug = true;
-    }
+        if (m_playerItem == null)
+        {
+			m_debug = true;
+		}
+	}
 }

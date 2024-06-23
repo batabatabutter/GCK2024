@@ -31,8 +31,8 @@ public class DungeonGenerator : MonoBehaviour
     [SerializeField] private int m_playerLength = 35;
     [Header("プレイヤー")]
     [SerializeField] private GameObject m_playerPrefab;
-    [Header("プレイシーンマネージャー")]
-    [SerializeField] private PlaySceneManager m_playSceneManager;
+    //[Header("プレイシーンマネージャー")]
+    //[SerializeField] private PlaySceneManager m_playSceneManager;
 
     [Header("地面")]
     [SerializeField] private GameObject m_ground;
@@ -41,6 +41,9 @@ public class DungeonGenerator : MonoBehaviour
     private Vector2Int m_corePos;
     //プレイヤーの位置
     private Vector2 m_playerPos;
+
+	// コア
+	private Block m_dungeonCore;
 
 	// ブロックの配列
 	private Block[,] m_blocks;
@@ -66,26 +69,26 @@ public class DungeonGenerator : MonoBehaviour
 		}
     }
 
-	private void Start()
-	{
-		// サーチの設定
-		if (m_playSceneManager.GetPlayer().TryGetComponent(out SearchBlock search))
-		{
-			// サーチにブロックを設定する
-			search.SetSearchBlocks(m_blocks);
-			// サーチ範囲を設定
-			Vector2Int size = m_dungeonDataBase.dungeonDatas[m_stageNum].Size;
-			search.MarkerMaxScale = Mathf.Max(size.x, size.y) / 2.0f;
-		}
-	}
+	//private void Start()
+	//{
+	//	// サーチの設定
+	//	if (m_playSceneManager.GetPlayer().TryGetComponent(out SearchBlock search))
+	//	{
+	//		// サーチにブロックを設定する
+	//		search.SetSearchBlocks(m_blocks);
+	//		// サーチ範囲を設定
+	//		Vector2Int size = m_dungeonDataBase.dungeonDatas[m_stageNum].Size;
+	//		search.MarkerMaxScale = Mathf.Max(size.x, size.y) / 2.0f;
+	//	}
+	//}
 
 	/// <summary>
 	/// ステージ作成
 	/// </summary>
-	public void CreateStage(int stateNum, Vector3 playerPos = new Vector3(), Vector3 corePos = new Vector3())
+	public void CreateStage(int stageNum)
     {
 		// ステージ番号の設定
-		m_stageNum = stateNum;
+		m_stageNum = stageNum;
 
         // ダンジョンのデータ取得
         DungeonData dungeonData = m_dungeonDataBase.dungeonDatas[m_stageNum];
@@ -93,32 +96,32 @@ public class DungeonGenerator : MonoBehaviour
         // 生成パターン取得
         DungeonData.Pattern pattern = dungeonData.DungeonPattern;
 
-		// セーブデータ取得
-		SaveDataReadWrite saveData = SaveDataReadWrite.m_instance;
+		// ダンジョンのサイズ
+		Vector2Int dungeonSize = new(dungeonData.Size.x, dungeonData.Size.y);
+		// ブロック配列のサイズ決定
+		m_blocks = new Block[dungeonSize.y, dungeonSize.x];
 
-		// セーブデータが存在している
-		if (saveData)
-		{
-			// ステージクリア済みの場合はクリア時のステージを再生成
-			if (saveData.DungeonStates[m_stageNum].dungeonClear)
-			{
-				// パス取得
-				string path = Application.dataPath + "/" + saveData.FileName + ".csv";
-				// CSVデータ取得
-				string csvData = MyFunction.Reader(path);
-				// ブロック生成
-				GenerateBlock(WriteReadCSV.ReadCSV<BlockData.BlockType>(csvData));
-				return;
-			}
-		}
+		//// セーブデータ取得
+		//SaveDataReadWrite saveData = SaveDataReadWrite.m_instance;
+
+		//// セーブデータが存在している
+		//if (saveData)
+		//{
+		//	// ステージクリア済みの場合はクリア時のステージを再生成
+		//	if (saveData.DungeonStates[m_stageNum].dungeonClear)
+		//	{
+		//		// パス取得
+		//		string path = Application.dataPath + "/" + saveData.FileName + stageNum + ".csv";
+		//		// CSVデータ取得
+		//		string csvData = MyFunction.Reader(path);
+		//		// ブロック生成
+		//		GenerateBlock(WriteReadCSV.ReadCSV<BlockData.BlockType>(csvData));
+		//		return;
+		//	}
+		//}
 
 		// ダンジョンのマップ取得
 		List<List<string>> mapList = m_dungeonGenerators[pattern].GenerateDungeon(dungeonData);
-		// ダンジョンのサイズ
-		Vector2Int dungeonSize = new(dungeonData.Size.x, dungeonData.Size.y);
-
-		// ブロック配列のサイズ決定
-		m_blocks = new Block[dungeonSize.y, dungeonSize.x];
 
 		// コアの生成座標決定(無限ループにならないように回数制限をつける)
 		for (int i = 0; i < 1000000; i++)
@@ -152,29 +155,32 @@ public class DungeonGenerator : MonoBehaviour
 		while (MyFunction.DetectCollision(m_playerPos, m_corePos, new Vector2(m_playerLength, m_playerLength))
 		);
 
-		//  プレイヤーの生成
-		GameObject pl = Instantiate(m_playerPrefab, m_playerPos, Quaternion.identity);
-		m_blockGenerator.SetPlayerTransform(pl.transform);
-		// 使用しないツールの設定
-		pl.GetComponent<PlayerTool>().SetIgnoreTool(dungeonData.BlockGenerateData);
+		////  プレイヤーの生成
+		//GameObject pl = Instantiate(m_playerPrefab, m_playerPos, Quaternion.identity);
+		//m_blockGenerator.SetPlayerTransform(pl.transform);
+		//// 使用しないツールの設定
+		//pl.GetComponent<PlayerTool>().SetIgnoreTool(dungeonData.BlockGenerateData);
 
 		// coreの生成
 		GameObject co = m_blockGenerator.GenerateBlock(BlockData.BlockType.CORE, new Vector3(m_corePos.x, m_corePos.y));
 		// スプライトの設定
 		co.GetComponent<SpriteRenderer>().sprite = dungeonData.CoreSprite;
+		// コア設定
+		m_dungeonCore = co.GetComponent<Block>();
 		// ブロック配列に代入
-		m_blocks[m_corePos.y, m_corePos.x] = co.GetComponent<Block>();
+		m_blocks[m_corePos.y, m_corePos.x] = m_dungeonCore;
 
-		//  プレイシーンマネージャーが無かったら格納しない
-		if (m_playSceneManager == null)
-		{
-			Debug.Log("Error:Playerの格納に失敗 PlaySceneManagerが見つかりません:DungeonManager");
-		}
-		else
-		{
-			m_playSceneManager.SetPlayer(pl);
-			m_playSceneManager.SetCore(co);
-		}
+
+		////  プレイシーンマネージャーが無かったら格納しない
+		//if (m_playSceneManager == null)
+		//{
+		//	Debug.Log("Error:Playerの格納に失敗 PlaySceneManagerが見つかりません:DungeonManager");
+		//}
+		//else
+		//{
+		//	//m_playSceneManager.SetPlayer(pl);
+		//	m_playSceneManager.SetCore(co);
+		//}
 
 		// ブロック生成
 		GenerateBlock(mapList, dungeonData.BlockGenerateData);
@@ -184,12 +190,28 @@ public class DungeonGenerator : MonoBehaviour
 
 	}
 
-
-	public PlaySceneManager PlaySceneManager
+	// プレイヤーのトランスフォーム設定
+	public void SetPlayerTransform(Transform player)
 	{
-		set { m_playSceneManager = value; }
+		m_blockGenerator.SetPlayerTransform(player);
 	}
 
+	//public PlaySceneManager PlaySceneManager
+	//{
+	//	set { m_playSceneManager = value; }
+	//}
+
+	// コア
+	public Block DungeonCore
+	{
+		get { return m_dungeonCore; }
+	}
+	// プレイヤーの位置
+	public Vector3 PlayerPosition
+	{
+		get { return m_playerPos; }
+	}
+	// ブロック
 	public Block[,] Blocks
 	{
 		get { return m_blocks; }
@@ -284,7 +306,7 @@ public class DungeonGenerator : MonoBehaviour
 			}
 		}
 	}
-	private void GenerateBlock(List<List<BlockData.BlockType>> blocks)
+	public void GenerateBlock(List<List<BlockData.BlockType>> blocks)
 	{
 		for (int y = 0; y < blocks.Count; y++)
 		{
@@ -295,7 +317,9 @@ public class DungeonGenerator : MonoBehaviour
 				// 位置
 				Vector2 pos = new(x, y);
 
-				m_blocks[y, x] = m_blockGenerator.GenerateBlock(type, pos).GetComponent<Block>();
+				// 生成ブロック
+				GameObject block = m_blockGenerator.GenerateBlock(type, pos);
+				m_blocks[y, x] = block.GetComponent<Block>();
 			}
 		}
 	}

@@ -52,13 +52,8 @@ public class SaveDataReadWrite : MonoBehaviour
 	[Header("ファイル名(拡張子は付けない)")]
 	[SerializeField] private string m_fileName = "Data/SaveData";
 
-	[Header("対象データ")]
-	[Header("アイテム")]
-	[SerializeField] private bool m_isItem = true;
-	[Header("採掘レベル")]
-	[SerializeField] private bool m_isMiningLevel = true;
-	[Header("ダンジョンの状態")]
-	[SerializeField] private bool m_isDungeonStates = true;
+	[Header("読み書き対象データ")]
+	[SerializeField] private bool m_isCSV = false;
 
 	// アイテム所持数
 	private Dictionary<ItemData.ItemType, int> m_items = new();
@@ -113,7 +108,7 @@ public class SaveDataReadWrite : MonoBehaviour
 		SaveData saveData = JsonUtility.FromJson<SaveData>(json);
 
 		// ダンジョンのデータ読み出し
-		if (m_isDungeonStates)
+		if (m_isCSV)
 		{
 			for (int i = 0; i < DungeonDataBase.DUNGEON_COUNT; i++)
 			{

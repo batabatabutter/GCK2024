@@ -19,12 +19,11 @@ public class ToolUI : MonoBehaviour
     [SerializeField, Range(0.0f, 1.0f)] private float m_graphScaleDeg;
 
     //  HP格納
-    private List<GameObject> m_toolObjects = new List<GameObject>();
+    private List<GameObject> m_toolObjects = new();
 
     //  シーンマネージャー
     private PlaySceneManager m_playSceneManager;
     //  プレイヤー
-    private GameObject m_player;
     private PlayerTool m_plTool;
     private PlayerItem m_plItem;
 
@@ -76,7 +75,7 @@ public class ToolUI : MonoBehaviour
         int centerNum = m_toolObjects.Count / 2;
 
         //  ID
-        List<ToolData.ToolType> useToolTypes = new List<ToolData.ToolType>(m_plTool.Tools.Keys);
+        List<ToolData.ToolType> useToolTypes = new(m_plTool.Tools.Keys);
         //  レアツールなら
         if (m_plTool.IsRareTool)
         {
@@ -112,7 +111,7 @@ public class ToolUI : MonoBehaviour
             if (thisToolID < 0) 
                 thisToolID = useToolTypes.Count + thisToolID;
             else if (thisToolID >= useToolTypes.Count) 
-                thisToolID = thisToolID - useToolTypes.Count;
+                thisToolID -= useToolTypes.Count;
             //  タイプに変換
             ToolData.ToolType thisToolType = useToolTypes[thisToolID];
 
@@ -170,17 +169,19 @@ public class ToolUI : MonoBehaviour
     {
         m_playSceneManager = playSceneManager;
 
+        Player player = null;
+
         //  プレイシーンマネージャーが無かったら格納しない
         if (m_playSceneManager == null)
             Debug.Log("Error:Playerの格納に失敗 PlaySceneManagerが見つかりません:ToolUI");
         else
         {
             //  プレイヤー格納
-            m_player = m_playSceneManager.GetPlayer();
-            m_plTool = m_player.GetComponent<PlayerTool>();
-            m_plItem = m_player.transform.Find("Item").gameObject.GetComponent<PlayerItem>();
+            player = m_playSceneManager.Player;
+            m_plTool = player.GetComponent<PlayerTool>();
+            m_plItem = player.transform.Find("Item").gameObject.GetComponent<PlayerItem>();
         }
         //  プレイヤーが見つからなかったらデバッグ状態に
-        if (m_player == null) m_debug = true;
+        if (player == null) m_debug = true;
     }
 }

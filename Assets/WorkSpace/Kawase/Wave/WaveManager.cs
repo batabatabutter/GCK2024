@@ -60,9 +60,9 @@ public class WaveManager : MonoBehaviour
         //  プレイシーンマネージャー
         var pS = GetComponent<PlaySceneManager>();
         //  プレイヤー座標取得
-        m_playerTr = pS.GetPlayer().transform;
+        m_playerTr = pS.Player.transform;
         //  コアの座標取得
-        m_coreTr = pS.GetCore().transform;
+        m_coreTr = pS.Core.transform;
         //  コアとプレイヤーの距離取得
         m_distancePlayerCore = Vector2.Distance(m_playerTr.position, m_coreTr.position);
         

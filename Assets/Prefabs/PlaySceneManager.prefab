@@ -50,6 +50,7 @@ MonoBehaviour:
   m_resultUIObj: {fileID: 1747404755759647418, guid: d1e56d12ecc105b4fa70903103fa961e, type: 3}
   m_stageNumScriptableObj: {fileID: 11400000, guid: 0ddb2feb839c39a4b8711c3b2833423a, type: 2}
   m_dungeonManager: {fileID: 1741486930040333759}
+  m_player: {fileID: 0}
   m_debugFlag: 0
   m_debugStageNum: 0
   m_uiFlag: 1
@@ -108,6 +109,7 @@ MonoBehaviour:
   m_generator: {fileID: 8354655699082599593}
   m_attacker: {fileID: 3016508279071666021}
   m_enemyGenerator: {fileID: 239731632877828248}
+  m_stageNum: 0
 --- !u!114 &8855510582352198966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,7 +158,6 @@ MonoBehaviour:
   m_blockGenerator: {fileID: 8891896943501305165}
   m_playerLength: 20
   m_playerPrefab: {fileID: 6945831396311541013, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
-  m_playSceneManager: {fileID: 3469568166959932924}
   m_ground: {fileID: 6018421707374535805, guid: f1554866b93c910478350b8c6589feb9, type: 3}
   m_generators:
   - {fileID: 7363045102197527589}
@@ -251,6 +252,10 @@ PrefabInstance:
       propertyPath: m_playSceneManager
       value: 
       objectReference: {fileID: 3469568166959932924}
+    - target: {fileID: 7528456396296654258, guid: 3c0037650f2f4a0499506b4d38ebc047, type: 3}
+      propertyPath: m_dungeonManager
+      value: 
+      objectReference: {fileID: 1741486930040333759}
     - target: {fileID: 7924930004826067373, guid: 3c0037650f2f4a0499506b4d38ebc047, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0

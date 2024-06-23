@@ -84,8 +84,10 @@ public class DungeonAttack : MonoBehaviour
     //クルータイム記憶
     float m_keepCoolTime;
 
-    GameObject m_target;
-    GameObject m_core;
+    // 攻撃対象
+    Transform m_target;
+    // コア
+    Block m_core;
 
     //攻撃の選択用
     bool m_isFall = false;
@@ -109,8 +111,8 @@ public class DungeonAttack : MonoBehaviour
         //ウェーブ数の取得
         m_wave = m_waveManager.WaveNum;
         //タゲとコア
-        m_target = m_sceneManager.GetPlayer();
-        m_core = m_sceneManager.GetCore();
+        m_target = m_sceneManager.Player.transform;
+        m_core = m_sceneManager.Core;
         //攻撃間隔
         m_keepCoolTime =
             m_dungeonDataBase.dungeonDatas[GetComponent<DungeonGenerator>().GetStageNum()].DungeonWaves[m_wave].geterateEnemyInterval;
@@ -143,7 +145,7 @@ public class DungeonAttack : MonoBehaviour
         //coreとプレイヤーが近いとコウゲキが2倍
         if(m_core != null) 
         {
-            if (Vector2.Distance(m_core.transform.position, m_target.transform.position) < m_attackLength)
+            if (Vector2.Distance(m_core.transform.position, m_target.position) < m_attackLength)
             {
                 ratio = 2;
 
@@ -210,8 +212,8 @@ public class DungeonAttack : MonoBehaviour
 
     private void FallrockAttack()
     {
-        Vector3 rockfallPos = new (m_target.transform.position.x, m_target.transform.position.y + heightRock, 0);
-        Vector3 highlightPos = new (m_target.transform.position.x, m_target.transform.position.y - HEIGLIGHT_HEIGHT, 0);
+        Vector3 rockfallPos = new (m_target.position.x, m_target.position.y + heightRock, 0);
+        Vector3 highlightPos = new (m_target.position.x, m_target.position.y - HEIGLIGHT_HEIGHT, 0);
 
         Instantiate(m_fallRock, rockfallPos, Quaternion.identity);
         Instantiate(m_fallRockHighlight, highlightPos, Quaternion.identity);
@@ -228,26 +230,26 @@ public class DungeonAttack : MonoBehaviour
 
         if(rand == (int)Direction.UP)
         {
-            rollingPos = new Vector3(m_target.transform.position.x,m_target.transform.position.y + m_up, 0);
+            rollingPos = new Vector3(m_target.position.x,m_target.position.y + m_up, 0);
 
             rollingRotation = 180;
 
         }
         else if(rand == (int)Direction.RIGHT)
         {
-            rollingPos = new Vector3(m_target.transform.position.x + m_right, m_target.transform.position.y, 0);
+            rollingPos = new Vector3(m_target.position.x + m_right, m_target.position.y, 0);
             rollingRotation = 90;
 
         }
         else if (rand == (int)Direction.DWON)
         {
-            rollingPos = new Vector3(m_target.transform.position.x, m_target.transform.position.y - m_down, 0);
+            rollingPos = new Vector3(m_target.position.x, m_target.position.y - m_down, 0);
             rollingRotation = 0;
 
         }
         else
         {
-            rollingPos = new Vector3(m_target.transform.position.x - m_left, m_target.transform.position.y, 0);
+            rollingPos = new Vector3(m_target.position.x - m_left, m_target.position.y, 0);
             rollingRotation = 270;
 
         }
@@ -259,7 +261,7 @@ public class DungeonAttack : MonoBehaviour
     }
     private void BankAttack()
     {
-        Vector3 pos = m_target.transform.position;
+        Vector3 pos = m_target.position;
 
         pos.x -= 1;
         pos.y += 1;

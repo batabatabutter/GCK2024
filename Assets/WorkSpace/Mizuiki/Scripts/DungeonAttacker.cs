@@ -15,6 +15,9 @@ public class DungeonAttacker : MonoBehaviour
 		public DungeonAttackBase attack;
 	}
 
+	[Header("ダンジョンマネージャ")]
+	[SerializeField] private DungeonManager m_dungeonManager = null;
+
 	[Header("---------- 攻撃状態 ----------")]
 	[Header("攻撃状態")]
 	[SerializeField] private bool m_active = false;
@@ -89,9 +92,9 @@ public class DungeonAttacker : MonoBehaviour
 			if (parent.TryGetComponent(out PlaySceneManager scene))
 			{
 				// プレイヤーを取得
-				m_target = scene.GetPlayer().transform;
-				// コアの位置を取得
-				m_corePosition = scene.GetCore().transform;
+				m_target = scene.Player.transform;
+				//// コアの位置を取得
+				//m_corePosition = scene.Core.transform;
 			}
 			// 親からダンジョンジェネレータを取得
 			if (parent.TryGetComponent(out DungeonGenerator generator))
@@ -99,6 +102,13 @@ public class DungeonAttacker : MonoBehaviour
 				m_attackData = generator.GetDungeonData().AttackData;
 			}
 		}
+
+		// ダンジョンジェネレータ取得
+		DungeonGenerator dungeonGenerator = m_dungeonManager.DungeonGenerator;
+		// 攻撃情報取得
+		m_attackData = dungeonGenerator.GetDungeonData().AttackData;
+		// コア取得
+		m_corePosition = dungeonGenerator.DungeonCore.transform;
 
 		// データの設定
 		SetAttackData();

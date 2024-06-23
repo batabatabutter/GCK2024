@@ -20,7 +20,7 @@ public class HPUI : MonoBehaviour
     //  シーンマネージャー
     private PlaySceneManager m_playSceneManager;
     //  プレイヤー
-    private GameObject m_player;
+    private Player m_player;
 
     //  デバッグ用
     [Header("デバッグ用")]
@@ -42,7 +42,7 @@ public class HPUI : MonoBehaviour
         //  攻撃
         int val = 0;
         if (m_debug) val = m_debugMaxHP;
-        else val = m_player.GetComponent<Player>().MaxLife;
+        else val = m_player.MaxLife;
 
         //  UI生成
         Vector2 size = m_hpGaugeFrame.GetComponent<RectTransform>().sizeDelta;
@@ -74,9 +74,9 @@ public class HPUI : MonoBehaviour
         int hpVal = 0;
         int maxHpVal = 0;
         int armorVal = 0;
-        hpVal = m_player.GetComponent<Player>().HitPoint;
-        maxHpVal = m_player.GetComponent<Player>().MaxLife;
-        armorVal = m_player.GetComponent<Player>().Armor;
+        hpVal = m_player.HitPoint;
+        maxHpVal = m_player.MaxLife;
+        armorVal = m_player.Armor;
         
         //  UI変化
         //  生成位置
@@ -130,8 +130,8 @@ public class HPUI : MonoBehaviour
         if (m_debug)
         {
             //  体力増減
-            if (Input.GetKeyDown(KeyCode.Q)) m_player.GetComponent<Player>().AddDamage(1);
-            if (Input.GetKeyDown(KeyCode.W)) m_player.GetComponent<Player>().AddDamage(-1);
+            if (Input.GetKeyDown(KeyCode.Q)) m_player.AddDamage(1);
+            if (Input.GetKeyDown(KeyCode.W)) m_player.AddDamage(-1);
         }
 
     }
@@ -147,7 +147,7 @@ public class HPUI : MonoBehaviour
         else
         {
             //  プレイヤー格納
-            m_player = m_playSceneManager.GetPlayer();
+            m_player = m_playSceneManager.Player;
         }
         //  プレイヤーが見つからなかったらデバッグ状態に
         if (m_player == null) m_debug = true;

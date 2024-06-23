@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,7 +36,18 @@ public class SearchBlock : MonoBehaviour
 
 	private void Awake()
 	{
+        // サーチ対象のブロックを設定
         m_blockType = SerializeUtil.Restore<BlockData.BlockType>(m_searchBlockType);
+
+        // 範囲外にならないように辞書にキーだけ登録しておく
+        foreach (BlockData.BlockType key in Enum.GetValues(typeof(BlockData.BlockType)))
+        {
+            // キーがなければ新しく生成
+            if (!m_searchBlocks.ContainsKey(key))
+            {
+				m_searchBlocks[key] = new();
+			}
+		}
 	}
 
     // Update is called once per frame
@@ -54,7 +66,7 @@ public class SearchBlock : MonoBehaviour
         m_targetBlocks.Clear();
 
         // サーチ対象がなければ返す
-        if (m_searchBlocks.Count == 0)
+        if (m_searchBlocks[type].Count == 0)
         {
 			Debug.Log("サーチ対象がないよ");
 			return;
@@ -143,43 +155,10 @@ public class SearchBlock : MonoBehaviour
 
 	}
 
-	// ブロックの設定
-	//public void SetSearchBlocks(List<Block> blocks)
- //   {
- //       foreach (Block block in blocks)
- //       {
-
- //           //  nullならスキップ
- //           if (!block) continue;
-
- //           if (block.BlockData == null)
- //               continue;
-
- //           // ブロックの種類取得
- //           BlockData.BlockType type = block.BlockData.Type;
-
- //           // キーが存在しない
- //           if(!m_searchBlocks.ContainsKey(type))
- //           {
- //               m_searchBlocks[type] = new();
- //           }
-
- //           // ブロックの追加
- //           m_searchBlocks[type].Add(block.transform);
- //       }
-
-	//	// 開始と同時にサーチする
-	//	if (m_awake)
-	//	{
-	//		SearchOne(BlockData.BlockType.CORE);
-	//	}
-
-	//}
 	public void SetSearchBlocks(Block[,] blocks)
     {
         foreach (Block block in blocks)
         {
-
             //  nullならスキップ
             if (!block) continue;
 

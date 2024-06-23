@@ -24,7 +24,7 @@ public class EnemyGenerator : MonoBehaviour
     [SerializeField] LayerMask m_detectionLayer;  
 
     [Header("プレイヤー")]
-    [SerializeField] private GameObject m_player;
+    [SerializeField] private Transform m_player;
 
 	//出現する敵のリスト
 	readonly List<Enemy.Type> m_spawnList = new();
@@ -64,7 +64,7 @@ public class EnemyGenerator : MonoBehaviour
 			// プレイヤー取得
 			if (m_player == null)
 			{
-				m_player = m_playSceneManager.GetPlayer();
+				m_player = m_playSceneManager.Player.transform;
 			}
 
 		}
@@ -172,7 +172,7 @@ public class EnemyGenerator : MonoBehaviour
 	public void Spawn(Enemy.Type type, float radius)
     {
         // 指定レイヤーのオブジェクトを検知
-		Collider2D[] colliders = Physics2D.OverlapCircleAll(m_player.transform.position, radius, m_detectionLayer);
+		Collider2D[] colliders = Physics2D.OverlapCircleAll(m_player.position, radius, m_detectionLayer);
         // コライダー配列をリストにする
 		List<Collider2D> collidersList = new(colliders);
 

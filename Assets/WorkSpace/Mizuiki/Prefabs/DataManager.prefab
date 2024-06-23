@@ -44,4 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 407249b75b58ffd47b0a852fd8d821e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_filePath: Data/SaveData.json
+  m_fileName: Data/SaveData
+  m_isItem: 1
+  m_isMiningLevel: 1
+  m_isDungeonStates: 1
