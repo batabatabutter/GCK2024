@@ -113,6 +113,7 @@ GameObject:
   - component: {fileID: 3949940642845526296}
   - component: {fileID: 3306135901460379443}
   - component: {fileID: 5749226048849378569}
+  - component: {fileID: 9152705989591808541}
   m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
@@ -181,6 +182,21 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Score
+--- !u!114 &9152705989591808541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3303566247459580130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 5, y: 5}
+  m_UseGraphicAlpha: 1
 --- !u!1 &7878608174691198015
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,15 +341,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2a4db8137e46b5438d850570b53c08b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_lightLevel: 0
-  m_receiveLightLevel: 0
-  m_spriteRenderer: {fileID: 0}
-  m_mapObject: {fileID: 0}
   m_blockEndurance: 100
-  m_dontBroken: 0
-  m_canPossess: 0
+  m_isntBroken: 0
+  m_isPossessEnemy: 0
+  m_isWeak: 0
   m_blockData: {fileID: 0}
   m_itemDataBase: {fileID: 0}
   m_stageNumObj: {fileID: 11400000, guid: 0ddb2feb839c39a4b8711c3b2833423a, type: 2}
+  m_stageSelectManager: {fileID: 0}
   m_stageText: {fileID: 5749226048849378569}
   m_stageNum: 0
