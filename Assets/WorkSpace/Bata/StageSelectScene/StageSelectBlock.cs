@@ -7,9 +7,14 @@ using UnityEngine.UIElements;
 
 public class StageSelectBlock : Block
 {
+    [Header("---------- ステージ選択 ----------")]
+
     //  ステージ番号選択用
     [Header("ステージ番号")]
     [SerializeField] StageNumScriptableObject m_stageNumObj;
+
+    [Header("マネージャ")]
+    [SerializeField] private StageSelectManager m_stageSelectManager = null;
 
     //  テキスト
     [Header("テキスト")]
@@ -31,14 +36,25 @@ public class StageSelectBlock : Block
 
     public override void DropItem(int stageID = 1)
     {
-        m_stageNumObj.stageNum = m_stageNum;
-        SceneManager.LoadScene("PlayScene");
+        m_stageSelectManager.ChangeScene(m_stageNum);
     }
 
-    private void ChangeScene()
+    // マネージャ
+    public StageSelectManager StageSelectManager
     {
-		m_stageNumObj.stageNum = m_stageNum;
-		SceneManager.LoadScene("PlayScene");
-	}
+        set { m_stageSelectManager = value; }
+    }
+
+    //   private void ChangeScene()
+    //   {
+    //       // ステージ番号設定
+    //	m_stageNumObj.stageNum = m_stageNum;
+    //       // 装備設定
+    //       SaveDataReadWrite.m_instance.MiningType = ;
+    //       // セーブ
+    //       SaveDataReadWrite.m_instance.Save();
+    //       // シーン読み込み
+    //	SceneManager.LoadScene("PlayScene");
+    //}
 
 }

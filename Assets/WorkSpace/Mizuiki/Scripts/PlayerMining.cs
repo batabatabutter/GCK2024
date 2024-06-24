@@ -173,7 +173,11 @@ public class PlayerMining : MonoBehaviour
         return m_circularSaw.transform.position - transform.position;
     }
 
-
+    // ŠÛ‚Ì‚±
+    public CircularSaw CircularSaw
+    {
+        get { return m_circularSaw; }
+    }
     // ”{—¦
     public MiningData.MiningValue MiningValueRate
     {

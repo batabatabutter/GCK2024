@@ -1,10 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StageSelectManager : MonoBehaviour
 {
-    [Header("ステージセレクトブロック")]
+	[Header("ステージ番号")]
+	[SerializeField] StageNumScriptableObject m_stageNumObj;
+
+    [Header("プレイヤー")]
+    [SerializeField] private GameObject m_player = null;
+
+	[Header("ステージセレクトブロック")]
     [SerializeField] private GameObject m_stageSelectBlock;
 
     [Header("ステージ情報")]
@@ -75,6 +82,8 @@ public class StageSelectManager : MonoBehaviour
             var bl = Instantiate(m_stageSelectBlock, parent.transform);
             // ステージ番号設定
             bl.GetComponent<StageSelectBlock>().SetStageNum(i);
+            // マネージャ設定
+            bl.GetComponent<StageSelectBlock>().StageSelectManager = this;
             // コアのスプライト設定
             bl.GetComponent<SpriteRenderer>().sprite = m_dungeonDataBase.dungeonDatas[i].CoreSprite;
             // 角度(右回りにするためにマイナスをつける)
@@ -92,9 +101,16 @@ public class StageSelectManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ChangeScene(int stageNum)
     {
-        
-    }
+		// ステージ番号設定
+		m_stageNumObj.stageNum = stageNum;
+		// 装備設定
+		SaveDataReadWrite.m_instance.MiningType = m_player.GetComponent<PlayerMining>().CircularSaw.MiningType;
+		// セーブ
+		SaveDataReadWrite.m_instance.Save();
+		// シーン読み込み
+		SceneManager.LoadScene("PlayScene");
+
+	}
 }

@@ -14,6 +14,8 @@ public class BlockGenerator : MonoBehaviour
 
     [Header("マップオブジェクト")]
     [SerializeField] private GameObject m_mapObject = null;
+    [Header("マップの目隠し")]
+    [SerializeField] private GameObject m_mapBlind = null;
 
     [Header("地面")]
     [SerializeField] private GameObject m_ground = null;
@@ -75,6 +77,8 @@ public class BlockGenerator : MonoBehaviour
 
 		// 地面を生成
 		GameObject ground = Instantiate(m_ground, position, Quaternion.identity, blockParent.transform);
+        // マップの目隠し生成
+        Instantiate(m_mapBlind, position, Quaternion.identity, ground.transform);
 
         // 影(ブロックの目隠し)を生成
         Instantiate(m_shadow, position, Quaternion.identity, shadowParent.transform);
@@ -139,6 +143,7 @@ public class BlockGenerator : MonoBehaviour
             blockSprite.color = data.Color;
         }
 
+        // マップ生成
         if (m_mapObject)
         {
             // マップオブジェクトの生成

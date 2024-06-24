@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static MiningData;
 
 public class CircularSaw : MonoBehaviour
 {
@@ -93,6 +92,12 @@ public class CircularSaw : MonoBehaviour
 		// e‚Ìİ’è
 		m_player = transform.parent;
 
+	}
+
+	private void Start()
+	{
+		// ‘•”õİ’è
+		SetType(SaveDataReadWrite.m_instance.MiningType);
 	}
 
 	//private void Update()

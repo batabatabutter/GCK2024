@@ -39,6 +39,9 @@ public class SaveDataReadWrite : MonoBehaviour
 	[System.Serializable]
 	public class SaveData
 	{
+		// 装備
+		public MiningData.MiningType miningType = MiningData.MiningType.BALANCE;
+
 		// アイテム所持数
 		public List<KeyValue<ItemData.ItemType, int>> itemData = new();
 
@@ -55,6 +58,8 @@ public class SaveDataReadWrite : MonoBehaviour
 	[Header("読み書き対象データ")]
 	[SerializeField] private bool m_isCSV = false;
 
+	// 装備
+	private MiningData.MiningType m_miningType = MiningData.MiningType.BALANCE;
 	// アイテム所持数
 	private Dictionary<ItemData.ItemType, int> m_items = new();
 	// 採掘レベル
@@ -129,14 +134,14 @@ public class SaveDataReadWrite : MonoBehaviour
 	// 書き込み
 	public void Save()
 	{
-		Save(m_items, m_miningLevels, m_dungeonStates, m_fileName);
+		Save(m_miningType, m_items, m_miningLevels, m_dungeonStates, m_fileName);
 	}
-	public void Save(Dictionary<ItemData.ItemType, int> items, Dictionary<MiningData.MiningType, int> miningLevels, DungeonState[] dungeonStates, string fileName)
+	public void Save(MiningData.MiningType mining, Dictionary<ItemData.ItemType, int> items, Dictionary<MiningData.MiningType, int> miningLevels, DungeonState[] dungeonStates, string fileName)
 	{
 		string path = Application.dataPath + "/" + fileName;
 
 		// データ取得
-		SaveData saveData = GetSaveData(items, miningLevels, dungeonStates);
+		SaveData saveData = GetSaveData(mining, items, miningLevels, dungeonStates);
 		// 書き込み形式に変換
 		string json = JsonUtility.ToJson(saveData);
 		// データ書き込み
@@ -158,6 +163,8 @@ public class SaveDataReadWrite : MonoBehaviour
 	[ContextMenu("CreateNewFile")]
 	public void CreateNewFile()
 	{
+		// 装備
+		MiningData.MiningType miningType = MiningData.MiningType.BALANCE;
 		// アイテム
 		Dictionary<ItemData.ItemType, int> items = new();
 		foreach (ItemData.ItemType type in Enum.GetValues(typeof(ItemData.ItemType)))
@@ -185,11 +192,13 @@ public class SaveDataReadWrite : MonoBehaviour
 		string path = Application.dataPath + "/" + m_fileName;
 
 		// 書き込み
-		Save(items, miningLevels, dungeonState, path);
+		Save(miningType, items, miningLevels, dungeonState, path);
 	}
 
 	public void CreateNewData()
 	{
+		// 装備
+		m_miningType = MiningData.MiningType.BALANCE;
 		// アイテム
 		foreach (ItemData.ItemType type in Enum.GetValues(typeof(ItemData.ItemType)))
 		{
@@ -255,6 +264,12 @@ public class SaveDataReadWrite : MonoBehaviour
 	}
 
 
+	// 装備
+	public MiningData.MiningType MiningType
+	{
+		get { return m_miningType; }
+		set { m_miningType = value; }
+	}
 	// アイテム所持数
 	public Dictionary<ItemData.ItemType, int> Items
 	{
@@ -284,6 +299,8 @@ public class SaveDataReadWrite : MonoBehaviour
 	// データの設定
 	private void SetData(SaveData data)
 	{
+		// 装備
+		m_miningType = data.miningType;
 		// アイテム所持数
 		m_items.Clear();
 		foreach (KeyValue<ItemData.ItemType, int> item in data.itemData)
@@ -303,13 +320,15 @@ public class SaveDataReadWrite : MonoBehaviour
 	// データの取得
 	private SaveData GetSaveData()
 	{
-		return GetSaveData(m_items, m_miningLevels, m_dungeonStates);
+		return GetSaveData(m_miningType, m_items, m_miningLevels, m_dungeonStates);
 	}
-	private SaveData GetSaveData(Dictionary<ItemData.ItemType, int> items, Dictionary<MiningData.MiningType, int> miningLevels, DungeonState[] dungeonStates)
+	private SaveData GetSaveData(MiningData.MiningType mining, Dictionary<ItemData.ItemType, int> items, Dictionary<MiningData.MiningType, int> miningLevels, DungeonState[] dungeonStates)
 	{
 		// データ作成
 		SaveData saveData = new();
 
+		// 装備設定
+		saveData.miningType = mining;
 		// アイテム所持数
 		foreach (KeyValuePair<ItemData.ItemType, int> item in items)
 		{
