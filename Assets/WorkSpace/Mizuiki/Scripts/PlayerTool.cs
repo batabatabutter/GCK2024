@@ -477,8 +477,13 @@ public class PlayerTool : MonoBehaviour
 	{
 		get { return m_tools; }
 	}
-	// 選択ツール取得
-	public ToolData.ToolType ToolType
+    //	ツール取得
+    public Dictionary<ToolData.ToolType, Tool> ToolScripts
+    {
+        get { return m_toolScripts; }
+    }
+    // 選択ツール取得
+    public ToolData.ToolType ToolType
 	{
 		get { return m_toolType; }
 	}

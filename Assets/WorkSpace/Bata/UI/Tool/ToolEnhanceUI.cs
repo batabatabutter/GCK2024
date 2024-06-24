@@ -22,7 +22,7 @@ public class ToolEnhanceUI : MonoBehaviour
     //  シーンマネージャー
     private PlaySceneManager m_playSceneManager;
     //  プレイヤー
-    private GameObject m_player;
+    private Player m_player;
     private PlayerTool m_plTool;
 
     //  デバッグ用
@@ -79,7 +79,7 @@ public class ToolEnhanceUI : MonoBehaviour
         else
         {
             //  プレイヤー格納
-            m_player = m_playSceneManager.GetPlayer();
+            m_player = m_playSceneManager.Player;
             m_plTool = m_player.GetComponent<PlayerTool>();
         }
         //  プレイヤーが見つからなかったらデバッグ状態に
