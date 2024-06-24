@@ -15,6 +15,8 @@ public class BlockBomb : Block
         OVER,
     }
 
+    [Header("---------- 爆弾 ----------")]
+
     [Header("ブロックへの爆破ダメージ")]
     [SerializeField] private float m_blockExplosionPower = 1.0f;
     [Header("プレイヤーへの爆破ダメージ")]
@@ -109,8 +111,8 @@ public class BlockBomb : Block
 				// トリガーにする
 				circle.isTrigger = true;
 
-				// レイヤーを Block 以外にする
-				gameObject.layer = 0;
+				// レイヤーを Bomb にする
+				gameObject.layer = LayerMask.NameToLayer("Bomb");
 
 				break;
 

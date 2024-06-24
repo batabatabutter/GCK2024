@@ -301,7 +301,7 @@ public class CircularSaw : MonoBehaviour
 		int rank = add / m_stageDelimiter;
 
 		// ãŒÀ‚ğ’´‚¦‚È‚¢‚æ‚¤‚ÉƒNƒ‰ƒ“ƒv
-		rank = Mathf.Clamp(rank, 0, m_miningDatas[m_type].Upgrades.Length);
+		rank = Mathf.Clamp(rank, 0, m_miningDatas[m_type].Upgrades.Length - 1);
 
 		return rank;
 	}

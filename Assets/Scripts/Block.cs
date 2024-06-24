@@ -95,7 +95,7 @@ public class Block : /*ObjectAffectLight*/MonoBehaviour
 	/// ブロックを破壊
 	/// </summary>
 	/// <returns>ブロックが壊れた</returns>
-	public bool BrokenBlock(int dropCount = 1)
+	public virtual bool BrokenBlock(int dropCount = 1)
 	{
 		// 破壊不可能ブロックの場合は処理しない
 		if (m_isntBroken)

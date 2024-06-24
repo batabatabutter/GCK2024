@@ -32,7 +32,7 @@ public class PlayerItem : MonoBehaviour
 		col.isTrigger = true;
 
 		// ŠƒAƒCƒeƒ€”‚Ì‰Šú‰»
-		if (SaveDataReadWrite.m_instance)
+		if (SaveDataReadWrite.m_instance && !m_debug)
 		{
 			m_items = SaveDataReadWrite.m_instance.Items;
 		}
