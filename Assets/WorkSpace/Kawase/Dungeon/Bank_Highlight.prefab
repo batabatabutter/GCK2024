@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 4186963142711600102}
   - component: {fileID: 1104648470530667379}
   - component: {fileID: 429898056423041034}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Bank_Highlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}

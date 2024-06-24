@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4562057464658136584}
   - component: {fileID: 928479459523801071}
   - component: {fileID: 7844296568216975351}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: RollRock_HighLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}

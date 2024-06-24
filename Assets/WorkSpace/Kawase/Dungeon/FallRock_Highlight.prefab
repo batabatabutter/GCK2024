@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5832341247806784243}
   - component: {fileID: -6457559721075105889}
   - component: {fileID: -4818926009694650232}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: FallRock_Highlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}

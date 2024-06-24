@@ -72,6 +72,8 @@ public class DungeonManager : MonoBehaviour
         SaveDataReadWrite saveData = SaveDataReadWrite.m_instance;
         // クリア設定
         saveData.SetClear(m_stageNum);
+        // ダンジョンのレベルを上げる
+        saveData.AddLevel(m_stageNum);
         // ブロック配置
         saveData.SetBlocks(m_generator.Blocks, m_stageNum);
         saveData.SaveBlocks(m_stageNum);
