@@ -100,6 +100,9 @@ public class CircularSawChange : MonoBehaviour
 
 		// バーチャルカメラを有効にする
 		m_virtualCamera.enabled = true;
+
+		// 選択位置設定
+		ChangeSelector();
 	}
 
 	// 離れたらキャンバスを非表示にする

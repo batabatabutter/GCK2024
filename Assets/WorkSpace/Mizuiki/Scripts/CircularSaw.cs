@@ -96,8 +96,16 @@ public class CircularSaw : MonoBehaviour
 
 	private void Start()
 	{
-		// 装備設定
-		SetType(SaveDataReadWrite.m_instance.MiningType);
+		// セーブデータ取得
+		SaveDataReadWrite saveData = SaveDataReadWrite.m_instance;
+
+		if (saveData)
+		{
+			// 装備設定
+			SetType(saveData.MiningType);
+			// 採掘レベル
+			MiningLevels = saveData.MiningLevel;
+		}
 	}
 
 	//private void Update()
