@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BlockCore : Block
 {
+	[Header("---------- ГRГA ----------")]
+
 	[Header("ПoМы")]
 	[SerializeField] private GameObject m_exit = null;
 

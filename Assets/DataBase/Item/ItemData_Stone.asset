@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: "\u77F3"
   typeStr: 0:STONE
-  sprite: {fileID: 21300000, guid: 379ae7fe6f7d28d479eb89a40c5524e2, type: 3}
+  sprite: {fileID: 21300000, guid: 73ae2d24bf8c94a42a93f4db84f10a3a, type: 3}
   prefab: {fileID: 3463832332005368329, guid: f5cfcee0633651a4d8105fc02df88bfe, type: 3}

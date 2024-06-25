@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2728532183037607872}
   - component: {fileID: 3512536480321443913}
   m_Layer: 0
-  m_Name: SearchBlock
+  m_Name: Search_Block
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

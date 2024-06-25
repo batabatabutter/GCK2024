@@ -23,11 +23,6 @@ public class StageSelectBlock : Block
     //  ステージ番号
     [SerializeField] int m_stageNum;
 
-	private void OnCollisionEnter2D(Collision2D collision)
-	{
-		
-	}
-
 	public void SetStageNum(int num)
     {
         m_stageNum = num;

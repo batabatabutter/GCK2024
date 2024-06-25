@@ -37,11 +37,11 @@ public class Block : /*ObjectAffectLight*/MonoBehaviour
 
 	private void Awake()
 	{
-		// データベースが設定されてない
-		if (m_itemDataBase == null)
-		{
-			Debug.Log(gameObject.name + "のアイテムデータベースを設定してね");
-		}
+		//// データベースが設定されてない
+		//if (m_itemDataBase == null)
+		//{
+		//	Debug.Log(gameObject.name + "のアイテムデータベースを設定してね");
+		//}
         //m_childSprite.sortingOrder = (int)(1000 - transform.position.y);
 	}
 

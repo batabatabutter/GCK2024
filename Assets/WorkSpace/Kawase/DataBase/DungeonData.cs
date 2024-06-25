@@ -41,6 +41,9 @@ public class DungeonData : ScriptableObject
         [SerializeField] public float restTimeRate;
     }
 
+    [Header("ダンジョン名")]
+    [SerializeField] private string dungeonName = "";
+
     [Header("コアの画像")]
     [SerializeField] private Sprite coreSprite = null;
     [Header("ステージの色")]
@@ -68,6 +71,7 @@ public class DungeonData : ScriptableObject
     [Header("攻撃の情報")]
     [SerializeField] private DungeonAttackData attackData;
 
+    public string DungeonName => dungeonName;
     public Sprite CoreSprite => coreSprite;
     public Color StageColor => stageColor;
     public Pattern DungeonPattern => pattern;
