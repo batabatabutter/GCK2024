@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 213245053963813260}
   - component: {fileID: 4847895769350608379}
   - component: {fileID: 8561698777580433370}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Iwa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
