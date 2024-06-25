@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StageEntryBlock : Block
+public class StageEntryBlock : CheckBlock
 {
 	[Header("---------- “üŒû ----------")]
 

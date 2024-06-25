@@ -46,6 +46,8 @@ public class DungeonData : ScriptableObject
 
     [Header("コアの画像")]
     [SerializeField] private Sprite coreSprite = null;
+    [Header("出入り口のアイコン画像")]
+    [SerializeField] private Sprite thumbnailSprite = null;
     [Header("ステージの色")]
     [SerializeField] private Color stageColor = Color.white;
 
@@ -73,6 +75,7 @@ public class DungeonData : ScriptableObject
 
     public string DungeonName => dungeonName;
     public Sprite CoreSprite => coreSprite;
+    public Sprite ThumbnailSprite => thumbnailSprite;
     public Color StageColor => stageColor;
     public Pattern DungeonPattern => pattern;
     public Vector2Int Size => size;

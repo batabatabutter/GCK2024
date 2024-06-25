@@ -44,13 +44,13 @@ public class ResultUI : MonoBehaviour
         switch(m_manager.GetGameState())
         {
             case PlaySceneManager.GameState.Clear:
-                //  透明度変化
-                m_resultGroop.alpha = Mathf.Min(m_resultGroop.alpha + Time.deltaTime, 1.0f);
-                //  テキスト変化
-                m_resultText.text = m_clearText;
-                //  表示
-                m_resultButton1.gameObject.SetActive(true);
-                m_resultButton2.gameObject.SetActive(true);
+                ////  透明度変化
+                //m_resultGroop.alpha = Mathf.Min(m_resultGroop.alpha + Time.deltaTime, 1.0f);
+                ////  テキスト変化
+                //m_resultText.text = m_clearText;
+                ////  表示
+                //m_resultButton1.gameObject.SetActive(true);
+                //m_resultButton2.gameObject.SetActive(true);
 
                 break;
             case PlaySceneManager.GameState.Failed:

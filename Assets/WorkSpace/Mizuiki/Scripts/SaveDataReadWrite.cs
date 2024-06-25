@@ -188,11 +188,8 @@ public class SaveDataReadWrite : MonoBehaviour
 				ds.blockList.Add(new List<BlockData.BlockType> { BlockData.BlockType.STONE, BlockData.BlockType.STONE, BlockData.BlockType.STONE });
 			}
 		}
-		// ƒpƒXæ“¾
-		string path = Application.dataPath + "/" + m_fileName;
-
 		// ‘‚«‚İ
-		Save(miningType, items, miningLevels, dungeonState, path);
+		Save(miningType, items, miningLevels, dungeonState, m_fileName);
 	}
 
 	public void CreateNewData()

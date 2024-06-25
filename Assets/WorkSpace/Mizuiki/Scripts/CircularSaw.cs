@@ -330,7 +330,7 @@ public class CircularSaw : MonoBehaviour
 		// データ保存
 		SaveDataReadWrite.m_instance.MiningLevel = m_toolLevels;
 		SaveDataReadWrite.m_instance.Items = m_playerItem.Items;
-		SaveDataReadWrite.m_instance.Save();
+		//SaveDataReadWrite.m_instance.Save();
 	}
 
 	// のこの種類設定
@@ -341,7 +341,7 @@ public class CircularSaw : MonoBehaviour
 		// スプライトの設定
 		m_spriteRenderer.sprite = m_miningDatas[type].Sprite;
 
-		Debug.Log(type + "に変更");
+		//Debug.Log(type + "に変更");
 	}
 	public void SetType(string typeStr)
 	{

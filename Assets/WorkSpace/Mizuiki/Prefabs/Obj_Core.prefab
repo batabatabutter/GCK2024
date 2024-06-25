@@ -177,4 +177,4 @@ MonoBehaviour:
   m_isWeak: 0
   m_blockData: {fileID: 11400000, guid: 083cffce9de04fd458dd4c3fb0a0f4b9, type: 2}
   m_itemDataBase: {fileID: 11400000, guid: c534141616c2bbc4ba996d4d9f120330, type: 2}
-  m_exit: {fileID: 3584993475108489714, guid: ad8bf6c4944a96b43a22e91cffd3507d, type: 3}
+  m_exit: {fileID: 5945494633538682151, guid: 93ec57e2a0ba47544a9f74ebae897289, type: 3}

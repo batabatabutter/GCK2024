@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa84212b9e0b7d545bfe8d5a76ca7050, type: 3}
   m_Name: DunegonData_1
   m_EditorClassIdentifier: 
+  dungeonName: 
   coreSprite: {fileID: 21300000, guid: 8c587d340b009294a9593a57ba159b11, type: 3}
+  thumbnailSprite: {fileID: 21300000, guid: aa78b629a1bcfa64893156c76c2fce61, type: 3}
   stageColor: {r: 1, g: 1, b: 1, a: 1}
   patternStr: 0:TEN_X_TEN
   size: {x: 50, y: 50}
@@ -24,7 +26,7 @@ MonoBehaviour:
     rateMin: 1
     rateMax: 1
     noiseScale: 0
-    offset: 0.20114401
+    offset: 0.95773137
   - blockType: 101
     range:
       min: 0
@@ -32,7 +34,7 @@ MonoBehaviour:
     rateMin: 0.3
     rateMax: 0.42
     noiseScale: 0.2
-    offset: 0.36654988
+    offset: 0.51673335
   - blockType: 1070
     range:
       min: 0
@@ -40,7 +42,7 @@ MonoBehaviour:
     rateMin: 0.02
     rateMax: 0.05
     noiseScale: 0.4
-    offset: 0.5011888
+    offset: 0.2795706
   - blockType: 1110
     range:
       min: 0
@@ -48,7 +50,7 @@ MonoBehaviour:
     rateMin: 0.02
     rateMax: 0.05
     noiseScale: 0.4
-    offset: 0.39549607
+    offset: 0.574351
   dungeonWaves:
   - generateEnemyType: 0000000001000000
     generateEnemyNum: 3

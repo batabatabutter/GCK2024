@@ -38,7 +38,7 @@ public class CircularSawChange : MonoBehaviour
 		SetButtons();
 
 		// キャンバスを非表示にしておく
-		m_canvas.enabled = false;
+		m_canvas.gameObject.SetActive(false);
 
 		// バーチャルカメラを無効にしておく
 		m_virtualCamera.enabled = false;
@@ -96,7 +96,7 @@ public class CircularSawChange : MonoBehaviour
 			return;
 
 		// キャンバスを表示する
-		m_canvas.enabled = true;
+		m_canvas.gameObject.SetActive(true);
 
 		// バーチャルカメラを有効にする
 		m_virtualCamera.enabled = true;
@@ -113,7 +113,7 @@ public class CircularSawChange : MonoBehaviour
 			return;
 
 		// キャンバスを非表示にする
-		m_canvas.enabled = false;
+		m_canvas.gameObject.SetActive(false);
 
 		// バーチャルカメラを無効にする
 		m_virtualCamera.enabled = false;
