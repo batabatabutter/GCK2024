@@ -23,6 +23,6 @@ MonoBehaviour:
   miningSE: {fileID: 0}
   destroySE: {fileID: 0}
   dropItem: []
-  color: {r: 0, g: 0, b: 0, a: 1}
+  color: {r: 1, g: 1, b: 1, a: 1}
   order: 0
   mapIcon: {fileID: 0}

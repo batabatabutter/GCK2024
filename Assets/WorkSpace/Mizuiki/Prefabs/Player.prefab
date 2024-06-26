@@ -155,7 +155,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 10304
+    m_Bits: 2112
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: cb8f767f98572264cb1d551b174f1c3d, type: 2}
   m_TargetDisplay: 0
@@ -352,6 +352,8 @@ MonoBehaviour:
   m_eyeSprites:
   - {fileID: 21300000, guid: 65b6e0ea4e1bace42a63c9d33ddb1233, type: 3}
   - {fileID: 21300000, guid: c70a368915590af4db6205f4e245c6f8, type: 3}
+  m_blinkTime: 0.1
+  m_blinkInterval: 1
   m_playerMining: {fileID: 8304518256993672759}
   m_amplitude: {x: 0.04, y: 0.12}
 --- !u!1 &4010198376372952305

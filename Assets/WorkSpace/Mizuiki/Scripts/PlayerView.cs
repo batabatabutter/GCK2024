@@ -72,10 +72,12 @@ public class PlayerView : MonoBehaviour
 
         float rand = Random.Range(0.0f, 1.0f);
 
+        // –Ú‚ðŠJ‚¯‚Ä‚¨‚±‚¤
         if (rand >= 1.0f / m_blinkInterval * Time.deltaTime)
         {
             m_playerEye.sprite = m_eyeSprites[0];
         }
+        // •Â‚¶‚È‚«‚á
         else
         {
             m_playerEye.sprite = m_eyeSprites[1];

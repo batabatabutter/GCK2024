@@ -45,6 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_fileName: Data/SaveData
-  m_isItem: 1
-  m_isMiningLevel: 1
-  m_isDungeonStates: 1
+  m_isCSV: 0
