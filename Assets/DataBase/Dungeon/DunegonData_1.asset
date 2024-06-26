@@ -15,7 +15,7 @@ MonoBehaviour:
   dungeonName: 
   coreSprite: {fileID: 21300000, guid: 8c587d340b009294a9593a57ba159b11, type: 3}
   thumbnailSprite: {fileID: 21300000, guid: aa78b629a1bcfa64893156c76c2fce61, type: 3}
-  stageColor: {r: 1, g: 1, b: 1, a: 1}
+  stageColor: {r: 1, g: 0, b: 0.49019608, a: 1}
   patternStr: 0:TEN_X_TEN
   size: {x: 50, y: 50}
   blockGenerateData:

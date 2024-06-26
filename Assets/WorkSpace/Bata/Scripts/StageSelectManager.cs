@@ -132,8 +132,11 @@ public class StageSelectManager : MonoBehaviour
 			entryBlock.StageEntryCanvas = m_stageEntryCanvas;
 			// コアのスプライト設定
 			entryBlock.CoreIcon.sprite = m_dungeonDataBase.dungeonDatas[i].ThumbnailSprite;
-			// コアの色設定
-			entryBlock.CoreIcon.color = m_dungeonDataBase.dungeonDatas[i].StageColor;
+			// クリア済みならコアの色設定
+			if (SaveDataReadWrite.m_instance.DungeonStates[i].dungeonClear)
+			{
+				entryBlock.CoreIcon.color = m_dungeonDataBase.dungeonDatas[i].StageColor;
+			}
 
 			// 角度(右回りにするためにマイナスをつける)
 			float angle = -degree * i * Mathf.Deg2Rad;

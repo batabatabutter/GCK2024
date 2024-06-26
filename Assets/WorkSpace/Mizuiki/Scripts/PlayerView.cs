@@ -7,8 +7,15 @@ public class PlayerView : MonoBehaviour
     [Header("プレイヤーの目")]
     [SerializeField] private SpriteRenderer m_playerEye = null;
 
-    [Header("目のスプライト")]
+    [Header("目のスプライト"), Tooltip("0->開いてる, 1->閉じてる")]
     [SerializeField] private List<Sprite> m_eyeSprites = new();
+
+    [Header("瞬きの時間")]
+    [SerializeField] private float m_blinkTime = 0.1f;
+    private float m_blinkTimer = 0.0f;
+
+    [Header("平均的な瞬き間隔(秒)")]
+    [SerializeField] private float m_blinkInterval = 1.0f;
 
     [Header("プレイヤーの採掘情報")]
     [SerializeField] private PlayerMining m_playerMining = null;
@@ -45,5 +52,34 @@ public class PlayerView : MonoBehaviour
         // 座標設定
         m_playerEye.transform.position = m_playerMining.transform.position + (Vector3)(m_amplitude * miningVec.normalized * rate);
 
+        // 瞬き
+        Blink();
+
+    }
+
+
+
+    // 瞬き
+    private void Blink()
+    {
+        // 目を閉じてる
+        if (m_blinkTimer > 0.0f)
+        {
+            // 時間経過
+            m_blinkTimer -= Time.deltaTime;
+            return;
+        }
+
+        float rand = Random.Range(0.0f, 1.0f);
+
+        if (rand >= 1.0f / m_blinkInterval * Time.deltaTime)
+        {
+            m_playerEye.sprite = m_eyeSprites[0];
+        }
+        else
+        {
+            m_playerEye.sprite = m_eyeSprites[1];
+            m_blinkTimer = m_blinkTime;
+        }
     }
 }

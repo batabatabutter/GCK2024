@@ -78,7 +78,7 @@ public class BlockGenerator : MonoBehaviour
 		// 地面を生成
 		GameObject ground = Instantiate(m_ground, position, Quaternion.identity, blockParent.transform);
         // マップの目隠し生成
-        Instantiate(m_mapBlind, position, Quaternion.identity, ground.transform);
+        Instantiate(m_mapBlind, ground.transform);
 
         // 影(ブロックの目隠し)を生成
         Instantiate(m_shadow, position, Quaternion.identity, shadowParent.transform);
