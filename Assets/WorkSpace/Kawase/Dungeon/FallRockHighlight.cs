@@ -49,7 +49,7 @@ public class FallRockHighlight : MonoBehaviour
             transform.transform.localScale  = new Vector3(scale, scale / 2, scale);
         }
 
-        GetComponent<SpriteRenderer>().color = new Color(1.0f,0.0f,0.0f,alpha);
+        GetComponent<SpriteRenderer>().color = new Color(0.2f,0.2f,0.2f,alpha);
 
 
         if(alpha > 1.1f)

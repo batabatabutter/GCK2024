@@ -12,6 +12,7 @@ public class FallRock : MonoBehaviour
     [Header("地面についた後の余韻")]
     [SerializeField] float extraTime = 0.5f;
 
+    private GameObject m_highLight = null;
 
     Rigidbody2D rd;
 
@@ -73,12 +74,15 @@ public class FallRock : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<FallRockHighlight>())
+        if (collision.gameObject.TryGetComponent(out FallRockHighlight highLight))
         {
-            ishitPlayer = true;
+            if (m_highLight == highLight.gameObject)
+            {
+				ishitPlayer = true;
 
-            rd.AddForce(new Vector3(0.0f, 10.0f, 0.0f), ForceMode2D.Impulse);
-        }
+				rd.AddForce(new Vector3(0.0f, 10.0f, 0.0f), ForceMode2D.Impulse);
+			}
+		}
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -89,9 +93,13 @@ public class FallRock : MonoBehaviour
 
             Destroy(gameObject);
         }
-
     }
 
+    // ハイライト設定
+    public void SetHighLight(GameObject highLight)
+    {
+        m_highLight = highLight;
+    }
 
 
 }
