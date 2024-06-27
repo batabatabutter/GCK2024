@@ -138,10 +138,11 @@ public class BlockGenerator : MonoBehaviour
         //block.LightLevel = data.LightLevel;
 
         // 色の設定
-        if (obj.TryGetComponent(out SpriteRenderer blockSprite))
-        {
-            blockSprite.color = data.Color;
-        }
+        block.SetColor(data.Color);
+        //if (obj.TryGetComponent(out SpriteRenderer blockSprite))
+        //{
+        //    blockSprite.color = data.Color;
+        //}
 
         // マップ生成
         if (m_mapObject)

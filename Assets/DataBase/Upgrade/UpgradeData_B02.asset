@@ -23,5 +23,5 @@ MonoBehaviour:
   cost:
   - typeStr: 0:STONE
     count: 100
-  - typeStr: 2:STEEL
+  - typeStr: 1:COAL
     count: 20

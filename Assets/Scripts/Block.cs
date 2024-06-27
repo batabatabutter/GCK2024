@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Block : /*ObjectAffectLight*/MonoBehaviour
+public class Block : MonoBehaviour
 {
     [Header("---------- ブロック ----------")]
     [Header("ブロックの耐久")]
@@ -25,8 +25,8 @@ public class Block : /*ObjectAffectLight*/MonoBehaviour
     [Header("アイテムのデータベース")]
     [SerializeField] private ItemDataBase m_itemDataBase = null;
 
-    //[Header("子のスプライト")]
-    //[SerializeField] private SpriteRenderer m_childSprite = null;
+    [Header("子のスプライト")]
+    [SerializeField] private SpriteRenderer m_stoneSpriteRenderer = null;
 
     ////  地面のライト情報
     //private Ground m_ground = null;
@@ -169,6 +169,7 @@ public class Block : /*ObjectAffectLight*/MonoBehaviour
     public void SetSprite(Sprite sprite)
     {
         int order = (int)(1000 - transform.position.y);
+        // 本体に表示順設定
 		if (TryGetComponent(out SpriteRenderer spriteRenderer))
 		{
 			spriteRenderer.sprite = sprite;
@@ -195,6 +196,14 @@ public class Block : /*ObjectAffectLight*/MonoBehaviour
         m_blockEndurance *= MyFunction.BLOCK_WEAK;
     }
 
+    // 色を設定する
+    public void SetColor(Color color)
+    {
+        if (m_stoneSpriteRenderer)
+        {
+            m_stoneSpriteRenderer.color = color;
+        }
+    }
 
 
 	// 耐久力
