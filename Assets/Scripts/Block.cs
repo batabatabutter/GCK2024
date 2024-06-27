@@ -203,7 +203,11 @@ public class Block : MonoBehaviour
         {
             m_stoneSpriteRenderer.color = color;
         }
-    }
+        else
+        {
+			GetComponent<SpriteRenderer>().color = color;
+		}
+	}
 
 
 	// ‘Ï‹v—Í
