@@ -20,4 +20,8 @@ MonoBehaviour:
     critical: 0
     criticalDamage: 0
     itemDrop: 1
-  cost: []
+  cost:
+  - typeStr: 0:STONE
+    count: 50
+  - typeStr: 5:COPPER
+    count: 50

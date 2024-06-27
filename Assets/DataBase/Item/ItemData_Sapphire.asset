@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: "\u30B5\u30D5\u30A1\u30A4\u30A2"
   typeStr: 1090:BIR_SAPPHIRE
-  sprite: {fileID: 21300000, guid: b784fcf0e3f94db4c9e8fc66bccd53fe, type: 3}
+  sprite: {fileID: 21300000, guid: 6c5ff04017071384594e30402052eae9, type: 3}
   prefab: {fileID: 3463832332005368329, guid: f5cfcee0633651a4d8105fc02df88bfe, type: 3}

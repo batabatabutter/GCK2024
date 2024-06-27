@@ -23,5 +23,5 @@ MonoBehaviour:
   cost:
   - typeStr: 0:STONE
     count: 40
-  - typeStr: 0:STONE
-    count: 40
+  - typeStr: 5:COPPER
+    count: 50
