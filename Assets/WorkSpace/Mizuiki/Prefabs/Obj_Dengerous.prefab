@@ -143,18 +143,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9474868ea8711d4b9b895789ee7b879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_lightLevel: 3
-  m_receiveLightLevel: 0
-  m_spriteRenderer: {fileID: 0}
-  m_mapObject: {fileID: 0}
   m_blockEndurance: 100
-  m_dontBroken: 0
+  m_isntBroken: 0
+  m_isPossessEnemy: 0
+  m_isWeak: 0
   m_blockData: {fileID: 0}
   m_itemDataBase: {fileID: 0}
   m_blockExplosionPower: 1000
   m_playerExplosionDamage: 1
   m_explosionRange: 2
   m_timeToExplosion: 1
-  m_damage: 0
+  m_damage: 1
+  m_itemDropRate: 0
   m_state: 0
   m_detonateBlock: {fileID: 2201125515662036576, guid: 41fb87af326b1aa4088fb371add4c842, type: 3}
+  m_bombSE: {fileID: 0}

@@ -30,6 +30,8 @@ public class BlockBomb : Block
 
     [Header("破壊の方式(ダメージ方式/確定破壊)")]
     [SerializeField] private bool m_damage = true;
+    [Header("即時爆破ダメージ")]
+    [SerializeField] private float m_immediateDamage = 1000.0f;
 
     [Header("ブロック破壊時のアイテムドロップ倍率")]
     [SerializeField] private int m_itemDropRate = 0;
@@ -128,10 +130,16 @@ public class BlockBomb : Block
     // 起爆する
     public void Detonate()
     {
-        // 爆破状態にする
-        m_state = BombState.DETONATE;
+        // 起爆前
+        if (m_state == BombState.STAY)
+        {
+			// 爆破状態にする
+			m_state = BombState.DETONATE;
 
-    }
+			// スプライトの色を変える
+			GetComponent<SpriteRenderer>().color = Color.red;
+		}
+	}
 
 
 	// 爆破ダメージを与える
@@ -185,5 +193,13 @@ public class BlockBomb : Block
 
         return true;
     }
+	// 破壊しようとされている
+	public override bool BrokenBlock(int dropCount = 1)
+	{
+        // 起爆
+        Detonate();
+
+        return true;
+	}
 
 }
