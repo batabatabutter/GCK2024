@@ -606,7 +606,7 @@ MonoBehaviour:
   m_circularSaw: {fileID: 5256686776641540133}
   m_layerMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 32776
   m_miningValueRate:
     range: 1
     size: 1

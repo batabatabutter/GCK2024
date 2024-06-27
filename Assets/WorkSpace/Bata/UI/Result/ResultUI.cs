@@ -54,14 +54,18 @@ public class ResultUI : MonoBehaviour
 
                 break;
             case PlaySceneManager.GameState.Failed:
-                //  透明度変化
-                m_resultGroop.alpha = Mathf.Min(m_resultGroop.alpha + Time.deltaTime, 1.0f);
-                //  テキスト変化
-                m_resultText.text = m_failedText;
-                //  表示
-                m_resultButton1.gameObject.SetActive(true);
-                m_resultButton2.gameObject.SetActive(true);
-                break;
+				////  透明度変化
+				//m_resultGroop.alpha = Mathf.Min(m_resultGroop.alpha + Time.deltaTime, 1.0f);
+				////  テキスト変化
+				//m_resultText.text = m_failedText;
+				////  表示
+				//m_resultButton1.gameObject.SetActive(true);
+				//m_resultButton2.gameObject.SetActive(true);
+
+				// シーン切り替え
+				SceneManager.LoadScene("StageSelectScene");
+
+				break;
             default:
                 break;
         }

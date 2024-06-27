@@ -381,11 +381,80 @@ PrefabInstance:
       propertyPath: m_Name
       value: Obj_Core
       objectReference: {fileID: 0}
+    - target: {fileID: 3960490107896100198, guid: f1a01b4a88dec5a4b8c8aa680c5ea67d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1a01b4a88dec5a4b8c8aa680c5ea67d, type: 3}
+--- !u!1001 &217745258
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1570660049342539224, guid: 5aff2ae286158094aad2fd149b145600, type: 3}
+      propertyPath: m_circularSaw
+      value: 
+      objectReference: {fileID: 852393460}
+    - target: {fileID: 2055570808813981616, guid: 5aff2ae286158094aad2fd149b145600, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2055570808813981616, guid: 5aff2ae286158094aad2fd149b145600, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2055570808813981616, guid: 5aff2ae286158094aad2fd149b145600, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2055570808813981616, guid: 5aff2ae286158094aad2fd149b145600, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2055570808813981616, guid: 5aff2ae286158094aad2fd149b145600, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2055570808813981616, guid: 5aff2ae286158094aad2fd149b145600, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2055570808813981616, guid: 5aff2ae286158094aad2fd149b145600, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2055570808813981616, guid: 5aff2ae286158094aad2fd149b145600, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2055570808813981616, guid: 5aff2ae286158094aad2fd149b145600, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2055570808813981616, guid: 5aff2ae286158094aad2fd149b145600, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6298152921769326241, guid: 5aff2ae286158094aad2fd149b145600, type: 3}
+      propertyPath: m_Name
+      value: CircularSawChanger
+      objectReference: {fileID: 0}
+    - target: {fileID: 8475213374101076762, guid: 5aff2ae286158094aad2fd149b145600, type: 3}
+      propertyPath: m_Follow
+      value: 
+      objectReference: {fileID: 539302612}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5aff2ae286158094aad2fd149b145600, type: 3}
 --- !u!1 &425261719
 GameObject:
   m_ObjectHideFlags: 0
@@ -3424,6 +3493,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6945831396311541013, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
   m_PrefabInstance: {fileID: 993138394}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &852393460 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5256686776641540133, guid: 307c8aff0336edd4388e263fdd8e1e0e, type: 3}
+  m_PrefabInstance: {fileID: 993138394}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a86ce1bdbdee85f4f842c8d5eea23de8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &993138394
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10272,6 +10352,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StageExit_Block
       objectReference: {fileID: 0}
+    - target: {fileID: 5945494633538682151, guid: 93ec57e2a0ba47544a9f74ebae897289, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6907157628598577038, guid: 93ec57e2a0ba47544a9f74ebae897289, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2
@@ -10332,5 +10416,6 @@ SceneRoots:
   - {fileID: 1370910746}
   - {fileID: 733277774717280244}
   - {fileID: 147273724}
-  - {fileID: 993138394}
   - {fileID: 4546326351009182765}
+  - {fileID: 993138394}
+  - {fileID: 217745258}

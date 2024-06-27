@@ -17,8 +17,8 @@ MonoBehaviour:
   miningValue:
     range: 3
     size: 0
-    power: 100
-    speed: 2
+    power: 200
+    speed: 1
     critical: 0
     criticalDamage: 200
     itemDrop: 100
