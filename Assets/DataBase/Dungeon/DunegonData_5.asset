@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa84212b9e0b7d545bfe8d5a76ca7050, type: 3}
+  m_Name: DunegonData_5
+  m_EditorClassIdentifier: 
+  dungeonName: 
+  coreSprite: {fileID: 21300000, guid: 49637a999236f464599a68037dd877ed, type: 3}
+  thumbnailSprite: {fileID: 21300000, guid: 5b46dd872b273514b8b39e7b80a36cd2, type: 3}
+  stageColor: {r: 1, g: 1, b: 1, a: 1}
+  patternStr: 0:TEN_X_TEN
+  size: {x: 65, y: 65}
+  blockGenerateData:
+  - blockType: 0
+    range:
+      min: 0
+      max: 100
+    rateMin: 1
+    rateMax: 1
+    noiseScale: 0
+    offset: 0.17019011
+  - blockType: 101
+    range:
+      min: 0
+      max: 100
+    rateMin: 0.35
+    rateMax: 0.4
+    noiseScale: 0.2
+    offset: 0.81503165
+  - blockType: 503
+    range:
+      min: 0
+      max: 100
+    rateMin: 0.1
+    rateMax: 0.12
+    noiseScale: 0.2
+    offset: 0.41934615
+  - blockType: 1110
+    range:
+      min: 0
+      max: 100
+    rateMin: 0.02
+    rateMax: 0.05
+    noiseScale: 0.4
+    offset: 0.6107834
+  - blockType: 1050
+    range:
+      min: 0
+      max: 100
+    rateMin: 0.02
+    rateMax: 0.05
+    noiseScale: 0.2
+    offset: 0.28480878
+  dungeonWaves:
+  - generateEnemyType: 02000000
+    generateEnemyNum: 2
+    geterateEnemyInterval: 5
+  - generateEnemyType: 0300000002000000
+    generateEnemyNum: 3
+    geterateEnemyInterval: 5
+  - generateEnemyType: 0200000003000000
+    generateEnemyNum: 5
+    geterateEnemyInterval: 5
+  restWaveTime: 30
+  restWaveMaxRate: 0
+  restTimeData:
+  - distanceRate: 0.1
+    restTimeRate: 0
+  - distanceRate: 0.3
+    restTimeRate: 0.3
+  - distanceRate: 0.7
+    restTimeRate: 0.5
+  - distanceRate: 1
+    restTimeRate: 1
+  attackData: {fileID: 11400000, guid: 24f71792ef5cc0a4894f408cd298f7cf, type: 2}
+  dungeonCSV:
+  - {fileID: 4900000, guid: 0e35215235d219d46be3f40a33eaba2e, type: 3}
+  - {fileID: 4900000, guid: 6961f29b4be0e05478a47f0aea956a73, type: 3}
+  - {fileID: 4900000, guid: 7fb8f74acffc03c429d0e84c487b5514, type: 3}
+  - {fileID: 4900000, guid: 78d705811d53abd438c636ee509bd43c, type: 3}
+  - {fileID: 4900000, guid: b013fb72dc7745e4c9dff799a6d1917f, type: 3}

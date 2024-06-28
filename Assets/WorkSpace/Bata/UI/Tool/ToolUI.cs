@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ToolUI : MonoBehaviour
@@ -18,12 +19,13 @@ public class ToolUI : MonoBehaviour
     [SerializeField, Range(0.0f, 1.0f)] private float m_graphScaleDeg;
 
     //  HP格納
-    private List<GameObject> m_toolObjects = new List<GameObject>();
+    private List<GameObject> m_toolObjects = new();
 
     //  シーンマネージャー
     private PlaySceneManager m_playSceneManager;
     //  プレイヤー
-    private GameObject m_player;
+    private PlayerTool m_plTool;
+    private PlayerItem m_plItem;
 
     //  デバッグ用
     [Header("デバッグ用")]
@@ -55,9 +57,9 @@ public class ToolUI : MonoBehaviour
 
             //  大きさカウント
             if (i != centerNum)
-                totalWidth += m_toolFrame.GetComponent<RectTransform>().sizeDelta.x * m_graphScaleDeg + m_offset.x;
+                totalWidth += size.x * m_graphScaleDeg + m_offset.x;
             else
-                totalWidth += m_toolFrame.GetComponent<RectTransform>().sizeDelta.x + m_offset.x;
+                totalWidth += size.x + m_offset.x;
 
             //  追加
             m_toolObjects.Add(frame);
@@ -68,69 +70,72 @@ public class ToolUI : MonoBehaviour
     void Update()
     {
         //  スライダー式
-        //  レアフラグ
-        bool isRare = m_player.GetComponent<PlayerTool>().IsRareTool;
         //  ツールの数
         ToolData.ToolType playerToolType;
         int centerNum = m_toolObjects.Count / 2;
 
         //  ID
-        int minID = 0;
-        int maxID = 0;
-        if (isRare)
+        List<ToolData.ToolType> useToolTypes = new(m_plTool.Tools.Keys);
+        //  レアツールなら
+        if (m_plTool.IsRareTool)
         {
-            minID = (int)ToolData.ToolType.RARE + 1;
-            maxID = m_toolDataBase.toolRareData.Count + (int)ToolData.ToolType.RARE;
-            playerToolType = m_player.GetComponent<PlayerTool>().ToolTypeRare;
+            playerToolType = m_plTool.ToolTypeRare;
+            useToolTypes.RemoveAll(x => x < ToolData.ToolType.RARE);
         }
         else
         {
-            minID = 0;
-            maxID = m_toolDataBase.toolNormalData.Count - 1;
-            playerToolType = m_player.GetComponent<PlayerTool>().ToolType;
+            playerToolType = m_plTool.ToolType;
+            useToolTypes.RemoveAll(x => x >= ToolData.ToolType.RARE);
         }
 
-        //  ツールを番号に変換
-        int playerToolNum = (int)playerToolType;
+        //  現在の番号取得
+        int nowNum = 0;
+        for (int i = 0; i < useToolTypes.Count; i++) 
+        {
+            if (playerToolType == useToolTypes[i])
+                nowNum = i;
+        }
+
 
         //  デバッグ
         if (m_debug) Debug.Log("現在のツール:" + playerToolType);
 
         for (int i = 0; i < m_toolObjects.Count; i++)
         {
+            //  フレーム
+            var toolFrame = m_toolObjects[i].GetComponent<ToolFrame>();
+
             //  対応ツール
-            int thisToolID = playerToolNum - (centerNum - i);
+            int thisToolID = nowNum - (centerNum - i);
             //  オーバーしてたら修正
-            if (thisToolID < minID) thisToolID = (maxID + 1) - minID + thisToolID;
-            else if (thisToolID > maxID) thisToolID = thisToolID - (maxID + 1) + minID;
+            if (thisToolID < 0) 
+                thisToolID = useToolTypes.Count + thisToolID;
+            else if (thisToolID >= useToolTypes.Count) 
+                thisToolID -= useToolTypes.Count;
             //  タイプに変換
-            ToolData.ToolType thisToolType = (ToolData.ToolType)thisToolID;
+            ToolData.ToolType thisToolType = useToolTypes[thisToolID];
+
 
             //  大きさ変更
             m_toolObjects[i].transform.localScale = Vector3.one * m_graphScaleDeg;
 
             //  ツール数設定
-            m_toolObjects[i].GetComponent<ToolFrame>().SetIsSelected(false);
+            toolFrame.SetIsSelected(false);
             //  ツール画像設定
-            m_toolObjects[i].GetComponent<ToolFrame>().SetImage(m_toolDataBase.toolDic[thisToolType].Icon);
+            toolFrame.SetImage(m_toolDataBase.toolDic[thisToolType].Icon);
             //  ツール作成可能数設定
-            //if (!isRare)
-                m_toolObjects[i].GetComponent<ToolFrame>().SetNum(GetToolUseNum(thisToolType));
+            toolFrame.SetNum(GetToolUseNum(thisToolType));
 
             //  クールタイムがあるなら0.0～1.0に補間
             if (m_toolDataBase.toolDic[thisToolType].RecastTime > 0)
             {
-                //if (!isRare)
-                    m_toolObjects[i].GetComponent<ToolFrame>()
-                .GetRecastImage().fillAmount =
-                m_player.GetComponent<PlayerAction>()
-                .GetToolRecast(thisToolType) /
-                m_toolDataBase.toolDic[thisToolType].RecastTime;
+                toolFrame.GetRecastImage().fillAmount =
+                    m_plTool.RecastTime(thisToolType) / 
+                    m_toolDataBase.toolDic[thisToolType].RecastTime;
             }
             else
             {
-                m_toolObjects[i].GetComponent<ToolFrame>()
-                    .GetRecastImage().fillAmount = 0.0f;
+                toolFrame.GetRecastImage().fillAmount = 0.0f;
             }
         }
 
@@ -149,13 +154,11 @@ public class ToolUI : MonoBehaviour
         for (int i = 0; i < m_toolDataBase.toolDic[toolType].ItemMaterials.Length; i++)
         {
             //  アイテム
-            ItemData.ItemType type = m_toolDataBase.toolDic[toolType].ItemMaterials[i].type;
+            ItemData.ItemType type = m_toolDataBase.toolDic[toolType].ItemMaterials[i].Type;
             int count = m_toolDataBase.toolDic[toolType].ItemMaterials[i].count;
 
             //  所持アイテム数から作成可能数を割り出す
-            num = Mathf.Min(num,
-                m_player.transform.Find("Item").gameObject.
-                GetComponent<PlayerItem>().Items[type] / count);
+            num = Mathf.Min(num, m_plItem.Items[type] / count);
         }
 
         return num;
@@ -166,15 +169,19 @@ public class ToolUI : MonoBehaviour
     {
         m_playSceneManager = playSceneManager;
 
+        Player player = null;
+
         //  プレイシーンマネージャーが無かったら格納しない
         if (m_playSceneManager == null)
             Debug.Log("Error:Playerの格納に失敗 PlaySceneManagerが見つかりません:ToolUI");
         else
         {
             //  プレイヤー格納
-            m_player = m_playSceneManager.GetPlayer();
+            player = m_playSceneManager.Player;
+            m_plTool = player.GetComponent<PlayerTool>();
+            m_plItem = player.transform.Find("Item").gameObject.GetComponent<PlayerItem>();
         }
         //  プレイヤーが見つからなかったらデバッグ状態に
-        if (m_player == null) m_debug = true;
+        if (player == null) m_debug = true;
     }
 }

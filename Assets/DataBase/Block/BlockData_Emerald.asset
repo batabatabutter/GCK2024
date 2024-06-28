@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: BlockData_Emerald
   m_EditorClassIdentifier: 
   blockName: "\u30A8\u30E1\u30E9\u30EB\u30C9"
-  typeStr: 205:BIR_EMERALD
+  typeStr: 1050:BIR_EMERALD
   endurance: 700
   dontBroken: 0
+  canPossess: 0
   lightLevel: 3
   prefab: {fileID: 3457520386420079125, guid: cbe61a2527b59f44ea88ed42d8cd8019, type: 3}
   sprite: {fileID: 21300000, guid: fe1af026b055e694b9dca336a11ed636, type: 3}
+  miningSE: {fileID: 8300000, guid: d82ddbd5c237e1a4aa68709ffbc132b9, type: 3}
+  destroySE: {fileID: 8300000, guid: 7a45759381fe92d4e97955f5064868a8, type: 3}
   dropItem:
   - type: 0
     count: 1
@@ -26,6 +29,6 @@ MonoBehaviour:
   - type: 205
     count: 1
     rate: 1
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color: {r: 0.46666667, g: 0.8352941, b: 0.59607846, a: 1}
   order: 0
   mapIcon: {fileID: 0}

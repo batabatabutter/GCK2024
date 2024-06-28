@@ -28,14 +28,14 @@ public class Item : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        // リジッドボディがなければつける
-        if (GetComponent<Rigidbody2D>() == null)
-        {
-            Rigidbody2D rigidbody = gameObject.AddComponent<Rigidbody2D>();
-            rigidbody.isKinematic = true;
-        }
+        //// リジッドボディがなければつける
+        //if (GetComponent<Rigidbody2D>() == null)
+        //{
+        //    Rigidbody2D rigidbody = gameObject.AddComponent<Rigidbody2D>();
+        //    rigidbody.isKinematic = true;
+        //}
 
         // 元の位置を設定する
         m_originalPos = transform.position;

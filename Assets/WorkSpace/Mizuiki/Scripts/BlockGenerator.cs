@@ -1,26 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
 public class BlockGenerator : MonoBehaviour
 {
+    [Header("チャンク管理クラス")]
+    [SerializeField] private ChunkManager m_chunkManager = null;
+
     [Header("ブロックのデータベース")]
     [SerializeField] private BlockDataBase m_blockDataBase = null;
 
     [Header("マップオブジェクト")]
     [SerializeField] private GameObject m_mapObject = null;
+    [Header("マップの目隠し")]
+    [SerializeField] private GameObject m_mapBlind = null;
 
     [Header("地面")]
     [SerializeField] private GameObject m_ground = null;
 
-    [Header("光源処理をするか否か")]
-    [SerializeField] private bool m_isBrightness = false;
-    [Header("光源処理をするオブジェクト")]
-    [SerializeField] private GameObject m_lightObject = null;
+    [Header("影(ブロックの目隠し)")]
+    [SerializeField] private GameObject m_shadow = null;
+    // 影の親
+    private GameObject m_shadowParent = null;
 
-    //  プレイヤーの座標
-    private Transform m_playerTr;
+	//ブロックの親
+	private GameObject m_blockParent = null;
+
+
+
 
     private void Awake()
 	{
@@ -39,13 +48,43 @@ public class BlockGenerator : MonoBehaviour
     /// <param name="parent">親</param>
     /// <param name="isBlockBrightness">ブロック明るさをつけるかどうか</param>
     /// <param name="isGroundBrightness">地面明るさをつけるかどうか</param>
-    public GameObject GenerateBlock(BlockData.BlockType type, Vector2 position, Transform parent = null, bool isBlockBrightness = false, bool isGroundBrightness = false)
+    public GameObject GenerateBlock(BlockData.BlockType type, Vector2 position/*, Transform parent = null*/)
     {
-        // 光源の設定
-        m_isBrightness = isBlockBrightness;
+        // ブロックの親生成
+        if (m_blockParent == null)
+            m_blockParent = new GameObject("Block");
+        // 影の親生成
+        if(m_shadowParent == null)
+            m_shadowParent = new GameObject("Shadow");
+        m_shadowParent.SetActive(false);
+
+
+        // 親を取得
+        Transform blockParent = m_blockParent.transform;
+        Transform shadowParent = m_shadowParent.transform;
+
+        // チャンクマネージャーがある
+        if (m_chunkManager)
+        {
+            // 現在チャンクを親にする
+            ChunkManager.Chunk chunk = m_chunkManager.GetChunk(position);
+            // ブロックチャンクの設定
+            blockParent = chunk.blockChunk.transform;
+            // ブロックチャンクの親設定
+            blockParent.parent = m_blockParent.transform;
+            // 影チャンクの設定
+            shadowParent= chunk.shadowChunk.transform;
+            // 影チャンクの親設定
+            shadowParent.parent = m_shadowParent.transform;
+		}
 
 		// 地面を生成
-		GameObject ground = CreateObject(parent, m_ground, position);
+		GameObject ground = Instantiate(m_ground, position, Quaternion.identity, blockParent.transform);
+        // マップの目隠し生成
+        Instantiate(m_mapBlind, ground.transform);
+
+        // 影(ブロックの目隠し)を生成
+        Instantiate(m_shadow, position, Quaternion.identity, shadowParent.transform);
 
         // ブロックのデータ取得
         BlockData data = MyFunction.GetBlockData(m_blockDataBase, type);
@@ -74,21 +113,18 @@ public class BlockGenerator : MonoBehaviour
         else
         {
             // 親を設定して生成
-            obj = CreateObject(parent, data.Prefab, position);
+            obj = CreateObject(blockParent.transform, data.Prefab, position);
         }
-
-		// 画像の設定
-		if (data.Sprite)
-		{
-			if (obj.TryGetComponent(out SpriteRenderer sprite))
-			{
-				sprite.sprite = data.Sprite;
-			}
-		}
 
         // データの設定
         if (!obj.TryGetComponent(out Block block))
             return obj;
+
+		// 画像の設定
+		if (data.Sprite)
+		{
+            block.SetSprite(data.Sprite);
+		}
 
         // 名前の設定
         block.name = data.Type.ToString() + "_BLOCK";
@@ -99,9 +135,19 @@ public class BlockGenerator : MonoBehaviour
         block.Endurance = data.Endurance;
         // 破壊不可
         block.DontBroken = data.DontBroken;
-        // 光源レベル
-        block.LightLevel = data.LightLevel;
+        // 憑依可能
+        block.CanPossess = data.CanPossess;
+        //// 光源レベル
+        //block.LightLevel = data.LightLevel;
 
+        // 色の設定
+        block.SetColor(data.Color);
+        //if (obj.TryGetComponent(out SpriteRenderer blockSprite))
+        //{
+        //    blockSprite.color = data.Color;
+        //}
+
+        // マップ生成
         if (m_mapObject)
         {
             // マップオブジェクトの生成
@@ -112,8 +158,8 @@ public class BlockGenerator : MonoBehaviour
             map.BlockColor = data.Color;
             // 表示順の設定
             mapObj.GetComponent<SpriteRenderer>().sortingOrder = data.Order;
-            // マップオブジェクトを設定
-            block.MapObject = map;
+            //// マップオブジェクトを設定
+            //block.MapObject = map;
         }
 
         return obj;
@@ -134,30 +180,14 @@ public class BlockGenerator : MonoBehaviour
         {
             obj = Instantiate(gameObject, position, Quaternion.identity);
         }
-        // 光源の設定
-		if (m_isBrightness)
-		{
-            // 光源処理用のオブジェクト生成
-            GameObject light = Instantiate(m_lightObject, obj.transform);
 
-            // 光源スクリプトの追加
-			var br = obj.AddComponent<ChangeBrightness>();
-            // プレイヤーのトランスフォームを設定する
-			br.SetPlayerTransform(m_playerTr);
-
-            // ブロックの取得
-            if (obj.TryGetComponent(out Block block))
-            {
-				// 光源コライダー生成
-				light.GetComponent<ObjectLight>().FlashLight(block.LightLevel);
-				// ブロックの設定
-				br.Block = block;
-			}
-		}
 		// 生成したオブジェクトを返す
 		return obj;
     }
 
     //  プレイヤー座標系設定
-    public void SetPlayerTransform(Transform tr) { m_playerTr = tr; }
+    public void SetPlayerTransform(Transform player)
+    {
+        m_chunkManager.Player = player;
+    }
 }

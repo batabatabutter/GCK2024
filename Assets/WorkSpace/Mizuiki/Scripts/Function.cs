@@ -1,58 +1,85 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class MyFunction
 {
+	static public float BLOCK_WEAK => 0.8f;
+
 	// 範囲
 	[System.Serializable]
 	public struct MinMax
 	{
-		[Min(0)]
 		public int min;
-		[Min(1)]
 		public int max;
+
+		public readonly bool Within(int val)
+		{
+			// 最小値より小さい
+			if (val < min)
+				return false;
+			// 最大値より大きい
+			if (val > max)
+				return false;
+			// 数値が含まれている
+			return true;
+		}
+		public readonly bool Within(float val)
+		{
+			// 最小値より小さい
+			if (val < min)
+				return false;
+			// 最大値より大きい
+			if (val > max)
+				return false;
+			// 数値が含まれている
+			return true;
+		}
+	}
+	[System.Serializable]
+	public struct MinMaxFloat
+	{
+		[Min(0.0f)]
+		public float min;
+		[Min(0.0f)]
+		public float max;
+	}
+
+	public enum Direction
+	{
+		UP,
+		RIGHT,
+		DOWN,
+		LEFT,
+
+		RANDOM,
 	}
 
 	// 四捨五入
 	static public Vector2 RoundHalfUp(Vector2 value)
 	{
-		value.x = RoundHalfUp(value.x);
-		value.y = RoundHalfUp(value.y);
+		value.x = Mathf.Round(value.x);
+		value.y = Mathf.Round(value.y);
 
 		return value;
 	}
 	static public Vector3 RoundHalfUp(Vector3 value)
 	{
-		value.x = RoundHalfUp(value.x);
-		value.y = RoundHalfUp(value.y);
-		value.z = RoundHalfUp(value.z);
+		value.x = Mathf.Round(value.x);
+		value.y = Mathf.Round(value.y);
+		value.z = Mathf.Round(value.z);
 
 		return value;
-	}
-	static public float RoundHalfUp(float value)
-	{
-		// 小数点以下の取得
-		float fraction = value - MathF.Floor(value);
-
-		// 小数点以下が0.5未満
-		if (fraction < 0.5f)
-		{
-			// 切り捨てる
-			return MathF.Floor(value);
-		}
-		// 切り上げる
-		return MathF.Floor(value) + 1.0f;
-
 	}
 	// 四捨五入(int)
 	static public Vector2Int RoundHalfUpInt(Vector2 value)
 	{
 		Vector2Int val = new()
 		{
-			x = (int)RoundHalfUp(value.x),
-			y = (int)RoundHalfUp(value.y)
+			x = Mathf.RoundToInt(value.x),
+			y = Mathf.RoundToInt(value.y)
 		};
 
 		return val;
@@ -94,6 +121,23 @@ public class MyFunction
 		// ベクトル正規化
 		direction.Normalize();
 
+		return direction;
+	}
+
+	// ランダムな方向取得
+	static public Direction GetRandomDirection()
+	{
+		// ランダムな方向取得
+		int rand = UnityEngine.Random.Range(0, (int)Direction.RANDOM);
+		// Enumで返す
+		return (Direction)rand;
+	}
+	static public Direction GetDirection(Direction direction)
+	{
+		if (direction == Direction.RANDOM)
+		{
+			return GetRandomDirection();
+		}
 		return direction;
 	}
 
@@ -139,6 +183,7 @@ public class MyFunction
 		return null;
 	}
 
+	// 単純なボックスコライダー
 	static public bool DetectCollision(Vector2 point, Vector2 boxPos, Vector2 boxSize)
 	{
 		if (point.x < boxPos.x + boxSize.x &&
@@ -152,4 +197,85 @@ public class MyFunction
 		// 当たらない
 		return false;
 	}
+
+	// 距離の取得
+	static public int GetLength(Vector2Int p1, Vector2Int p2)
+	{
+		// x の距離
+		int x = Math.Abs(p1.x - p2.x);
+		// y の距離
+		int y = Math.Abs(p1.y - p2.y);
+
+		return x + y;
+	}
+	static public int GetLength(int x1, int y1, int x2, int y2)
+	{
+		// x の距離
+		int x = Math.Abs(x1 - x2);
+		// y の距離
+		int y = Math.Abs(y1 - y2);
+
+		return x + y;
+	}
+
+	// ノイズの取得
+	static public float GetNoise(Vector2 pos, float val)
+	{
+		return Mathf.PerlinNoise(pos.x + val, pos.y + val);
+	}
+
+	// データの読み取り
+	static public string Reader(string path)
+	{
+		// ファイルが存在しない
+		if (!File.Exists(path))
+		{
+			Debug.Log(path + "は存在しません");
+			return "";
+		}
+
+		// ファイルを開く
+		StreamReader reader = new(path);
+		// 読み取り
+		string data = reader.ReadToEnd();
+		// ファイルを閉じる
+		reader.Close();
+		// 読み取ったデータを返す
+		return data;
+	}
+	// データの書き込み
+	static public void Writer(string path, string data)
+	{
+		// 書き込むファイルを開く
+		StreamWriter writer = new(path);
+		// 書き込み
+		writer.Write(data);
+		// ファイルを閉じる
+		writer.Close();
+	}
+	static public void Writer(string path, string[] data)
+	{
+		// 書き込みファイル
+		StreamWriter writer = new(path, false);
+		// 文字列をファイルに追加
+		for (int i = 0; i < data.Length; i++)
+		{
+			writer.WriteLine(data[i]);
+		}
+		// ファイルを閉じる
+		writer.Close();
+	}
+	static public void Writer(string path, List<string> data)
+	{
+		// 書き込みファイル
+		StreamWriter writer = new(path, false);
+		// 文字列をファイルに追加
+		foreach (string str in data)
+		{
+			writer.WriteLine(str);
+		}
+		// ファイルを閉じる
+		writer.Close();
+	}
+
 }

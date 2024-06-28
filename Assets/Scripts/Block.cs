@@ -2,22 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Block : MonoBehaviour
 {
+    [Header("---------- ブロック ----------")]
     [Header("ブロックの耐久")]
     [SerializeField] private float m_blockEndurance = 100;
 
     [Header("破壊不可")]
-    [SerializeField] private bool m_dontBroken = false;
+    [SerializeField] private bool m_isntBroken = false;
 
-    [Header("自分自身の発する光源レベル")]
-    [SerializeField] private int m_lightLevel = 0;
-    [Header("受けている光源レベル")]
-    [SerializeField] private int m_receiveLightLevel = 0;
-    private float m_receiveLightValue = 1.0f;    // 明度
-	[Header("スプライトレンダー")]
-    [SerializeField] private SpriteRenderer m_spriteRenderer;
+    [Header("敵の憑りつき可能")]
+    [SerializeField] private bool m_isPossessEnemy = false;
+
+    [Header("弱体化")]
+    [SerializeField] private bool m_isWeak = false;
 
     [Header("ブロックの情報")]
     [SerializeField] private BlockData m_blockData = null;
@@ -25,8 +25,11 @@ public class Block : MonoBehaviour
     [Header("アイテムのデータベース")]
     [SerializeField] private ItemDataBase m_itemDataBase = null;
 
-    [Header("子のマップオブジェクト")]
-    [SerializeField] private MapObject m_mapObject = null;
+    [Header("子のスプライト")]
+    [SerializeField] private SpriteRenderer m_stoneSpriteRenderer = null;
+
+    ////  地面のライト情報
+    //private Ground m_ground = null;
 
     // ブロックが破壊されている
     private bool m_isBroken = false;
@@ -34,24 +37,12 @@ public class Block : MonoBehaviour
 
 	private void Awake()
 	{
-		// スプライトレンダーがなければ取得
-		if (!m_spriteRenderer)
-		{
-			m_spriteRenderer = GetComponent<SpriteRenderer>();
-		}
-		// データベースが設定されてない
-		if (m_itemDataBase == null)
-		{
-			Debug.Log(gameObject.name + "のアイテムデータベースを設定してね");
-		}
-	}
-
-	// Start is called before the first frame update
-	void Start()
-    {
-        // 光源初期化
-        ReceiveLightLevel = 0;
-
+		//// データベースが設定されてない
+		//if (m_itemDataBase == null)
+		//{
+		//	Debug.Log(gameObject.name + "のアイテムデータベースを設定してね");
+		//}
+        //m_childSprite.sortingOrder = (int)(1000 - transform.position.y);
 	}
 
     // Update is called once per frame
@@ -62,7 +53,10 @@ public class Block : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        
+
+        ////  光源処理
+        //if (Ground)
+        //    ReceiveLightLevel = m_ground.ReceiveLightLevel;
     }
 
 	/// <summary>
@@ -73,20 +67,58 @@ public class Block : MonoBehaviour
 	public virtual bool AddMiningDamage(float power, int dropCount = 1)
     {
         // 破壊不可能ブロックの場合は処理しない
-        if (m_dontBroken)
+        if (m_isntBroken)
             return false;
 
         // 採掘ダメージ加算
         m_blockEndurance -= power;
+
 
         // 耐久が0になった
         if (m_blockEndurance <= 0.0f)
         {
             BrokenBlock(dropCount);
         }
+        else
+        {
+            if (m_blockData)
+            {
+				//  採掘音発生
+				AudioManager.Instance.PlaySE(m_blockData.MiningSE, transform.position);
+			}
+		}
 
         return true;
     }
+
+	/// <summary>
+	/// ブロックを破壊
+	/// </summary>
+	/// <returns>ブロックが壊れた</returns>
+	public virtual bool BrokenBlock(int dropCount = 1)
+	{
+		// 破壊不可能ブロックの場合は処理しない
+		if (m_isntBroken)
+			return false;
+
+		// すでに破壊されている
+		if (m_isBroken)
+			return false;
+
+        if (m_blockData)
+        {
+            //  破壊音発生
+            AudioManager.Instance.PlaySE(m_blockData.DestroySE, transform.position);
+        }
+		// アイテムドロップ
+		DropItem(dropCount);
+
+        // 自身を削除
+        Destroy(gameObject);
+		m_isBroken = true;
+
+		return true;
+	}
 
 	// アイテムドロップ
 	public virtual void DropItem(int dropCount = 1)
@@ -122,13 +154,8 @@ public class Block : MonoBehaviour
                 item.Drop(dropItem.count * dropCount);
             }
 
-            //  明るさがついていたら
-            if(GetComponent<ChangeBrightness>())
-            {
-                // 明るさの概念を追加
-                var itemBr = obj.AddComponent<ChangeBrightness>();
-                itemBr.SetPlayerTransform(GetComponent<ChangeBrightness>().GetPlayerTransform());
-            }
+            ////  明るさが次第
+            //obj.GetComponent<ObjectAffectLight>().BrightnessFlag = BrightnessFlag;
 
             // 画像を設定
             if (obj.TryGetComponent(out SpriteRenderer sprite))
@@ -138,35 +165,53 @@ public class Block : MonoBehaviour
         }
 	}
 
+    // スプライトの設定
+    public void SetSprite(Sprite sprite)
+    {
+        int order = (int)(1000 - transform.position.y);
+        // 本体に表示順設定
+		if (TryGetComponent(out SpriteRenderer spriteRenderer))
+		{
+			spriteRenderer.sprite = sprite;
+			spriteRenderer.sortingOrder = order;
+		}
+        //if (m_childSprite)
+        //{
+        //    m_childSprite.sprite = sprite;
+        //    m_childSprite.sortingOrder = order;
+        //}
+	}
 
+    // 弱体化させる
+    public void Weaken()
+    {
+        // すでに弱体化している
+        if (m_isWeak)
+            return;
 
-	/// <summary>
-	/// ブロックを破壊
-	/// </summary>
-	/// <returns>ブロックが壊れた</returns>
-	public bool BrokenBlock(int dropCount = 1)
-	{
-		// 破壊不可能ブロックの場合は処理しない
-		if (m_dontBroken)
-			return false;
+        // 弱体化を設定
+        m_isWeak = true;
+        
+        // 耐久を減らす
+        m_blockEndurance *= MyFunction.BLOCK_WEAK;
+    }
 
-        // すでに破壊されている
-        if (m_isBroken)
-            return false;
-
-		// アイテムドロップ
-		DropItem(dropCount);
-
-		// 自身を削除
-		Destroy(gameObject);
-        m_isBroken = true;
-
-        return true;
+    // 色を設定する
+    public void SetColor(Color color)
+    {
+        if (m_stoneSpriteRenderer)
+        {
+            m_stoneSpriteRenderer.color = color;
+        }
+        else
+        {
+			GetComponent<SpriteRenderer>().color = color;
+		}
 	}
 
 
-    // 耐久力
-    public float Endurance
+	// 耐久力
+	public float Endurance
     {
         set { m_blockEndurance = value; }
     }
@@ -174,38 +219,16 @@ public class Block : MonoBehaviour
     // 破壊不可能か
     public bool DontBroken
     {
-        get { return m_dontBroken; }
-        set { m_dontBroken = value; }
+        get { return m_isntBroken; }
+        set { m_isntBroken = value; }
     }
 
-    // 自身の持つ光源レベル
-    public int LightLevel
+    // 憑依
+    public bool CanPossess
     {
-        get { return m_lightLevel; }
-        set { m_lightLevel = value; }
+        get { return m_isPossessEnemy; }
+        set { m_isPossessEnemy = value; }
     }
-
-    // 受けている明るさ
-    public int ReceiveLightLevel
-    {
-        get { return m_receiveLightLevel; }
-        set
-        {
-			// 明るさレベルの設定(受けている光源レベルと自身の光源レベルを比較して大きいほうの明るさになる)
-            m_receiveLightLevel = Mathf.Max(value, m_lightLevel);
-			// 明度を計算
-			m_receiveLightValue = m_receiveLightLevel / 7.0f;
-            // 明度の値を 0 ~ 1 にクランプ
-            m_receiveLightValue = Mathf.Clamp(m_receiveLightValue, 0.0f, 1.0f);
-			// 色を設定
-			m_spriteRenderer.color = new (m_receiveLightValue, m_receiveLightValue, m_receiveLightValue, 1.0f);
-            // マップオブジェクトの明度を設定
-            if (m_mapObject)
-            {
-				m_mapObject.SetValue(m_receiveLightValue);
-			}
-		}
-	}
 
     // ブロックデータ
     public BlockData BlockData
@@ -214,10 +237,11 @@ public class Block : MonoBehaviour
         set { m_blockData = value; }
     }
 
-    // マップオブジェクト
-    public MapObject MapObject
-    {
-        set { m_mapObject = value; }
-    }
+    ////  地面
+    //public Ground Ground 
+    //{ 
+    //    get { return m_ground; } 
+    //    set { m_ground = value; }
+    //}
 
 }

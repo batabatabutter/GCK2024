@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd8a29c577fa6a04a8a7a00301e0b625, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_toolType: 102
+  toolTypeStr: 1111:RANGE_DESTROYER
   m_boost:
     range: 0
     size: 1

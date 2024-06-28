@@ -19,8 +19,8 @@ public class PlayerAction : MonoBehaviour
 
 	[Header("ツールスクリプト")]
 	[SerializeField] private PlayerTool m_playerTool = null;
-	[Header("アップグレードスクリプト")]
-	[SerializeField] private PlayerUpgrade m_playerUpgrade = null;
+	//[Header("アップグレードスクリプト")]
+	//[SerializeField] private PlayerUpgrade m_playerUpgrade = null;
 
 	// ツール設置可能
 	private bool m_canPut = true;
@@ -35,11 +35,11 @@ public class PlayerAction : MonoBehaviour
 			m_playerTool = GetComponent<PlayerTool>();
 		}
 
-		// アップグレードがなければ取得
-		if (m_playerUpgrade == null)
-		{
-			m_playerUpgrade = GetComponent<PlayerUpgrade>();
-		}
+		//// アップグレードがなければ取得
+		//if (m_playerUpgrade == null)
+		//{
+		//	m_playerUpgrade = GetComponent<PlayerUpgrade>();
+		//}
 
     }
 
@@ -120,11 +120,11 @@ public class PlayerAction : MonoBehaviour
 
 	}
 
-	// 強化
-	public void Upgrade()
-	{
-		m_playerUpgrade.Upgrade();
-	}
+	//// 強化
+	//public void Upgrade()
+	//{
+	//	m_playerUpgrade.Upgrade();
+	//}
 
 	// ツールの使用
 	public void UseTool()
@@ -132,7 +132,7 @@ public class PlayerAction : MonoBehaviour
 		// アイテムが設置できない
 		if (!m_canPut)
 		{
-			Debug.Log("すでにツールがある");
+            Debug.Log("すでにツールがある");
 			return;
 		}
 
@@ -144,21 +144,21 @@ public class PlayerAction : MonoBehaviour
 	// ツール変更
 	public void ChangeTool(int val)
 	{
-		m_playerTool.ChangeTool(val);
+        m_playerTool.ChangeTool(val);
+		AudioManager.Instance.PlaySE(AudioDataID.Select);
+    }
 
-	}
-
-	// ツールの切り替え
-	public void SwitchTool()
+    // ツールの切り替え
+    public void SwitchTool()
 	{
-		m_playerTool.SwitchTool();
+        m_playerTool.SwitchTool();
+        AudioManager.Instance.PlaySE(AudioDataID.Change);
+    }
 
-	}
 
 
-
-	// 選択ツールの取得
-	public ToolData.ToolType ToolType
+    // 選択ツールの取得
+    public ToolData.ToolType ToolType
 	{
 		get { return m_playerTool.ToolType; }
 	}

@@ -47,31 +47,34 @@ public class DungeonGeneratorCSV : DungeonGeneratorBase
 
 			}
 
-			// ファイルを改行区切りで配列に格納
-			string[] lines = dungeonCSV[i].text.Split('\n');
-			// 読みだしたデータ格納用リスト
-			List<List<string>> list = new();
-			// ファイルの内容を1行ずつ処理
-			foreach (string line in lines)
-			{
-				// 文字列がない
-				if (line == "")
-					break;
+			//// ファイルを改行区切りで配列に格納
+			//string[] lines = dungeonCSV[i].text.Split('\n');
+			//// 読みだしたデータ格納用リスト
+			//List<List<string>> list = new();
+			//// ファイルの内容を1行ずつ処理
+			//foreach (string line in lines)
+			//{
+			//	// 文字列がない
+			//	if (line == "")
+			//		break;
 
-				// 改行を削除した文字列をカンマ区切りで配列に格納
-				string[] values = line.Remove(line.Length - 1).Split(',');
-				// 各行のデータを格納するリスト
-				List<string> rowData = new();
-				// 各列の値を処理する
-				foreach (string value in values)
-				{
-					// データをリストに追加
-					rowData.Add(value);
-				}
+			//	// 改行を削除した文字列をカンマ区切りで配列に格納
+			//	string[] values = line.Remove(line.Length - 1).Split(',');
+			//	// 各行のデータを格納するリスト
+			//	List<string> rowData = new();
+			//	// 各列の値を処理する
+			//	foreach (string value in values)
+			//	{
+			//		// データをリストに追加
+			//		rowData.Add(value);
+			//	}
 
-				// 行のデータをCSVデータに追加
-				list.Add(rowData);
-			}
+			//	// 行のデータをCSVデータに追加
+			//	list.Add(rowData);
+			//}
+
+			// CSVデータ読み込み
+			List<List<string>> list = WriteReadCSV.ReadCSV(dungeonCSV[i]);
 			//３次元に入れる
 			mapListManager.Add(list);
 		}
@@ -107,10 +110,6 @@ public class DungeonGeneratorCSV : DungeonGeneratorBase
 
 				}
 
-				//// 生成座標
-				//Vector2Int pos = new((originX * 10) + x, (originY * 10) + y);
-				//// マップ追加
-				//m_mapList[pos.y][pos.x] = mapList[y][x];
 			}
 		}
 	}

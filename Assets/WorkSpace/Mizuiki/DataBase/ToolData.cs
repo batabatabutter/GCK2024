@@ -15,23 +15,27 @@ public class ToolData : ScriptableObject
 
 		NORMAL_NUM,		//	現在のツール数
 
-		RARE	= 100,		// ここからレアツール
+		RARE	= ItemData.ItemType.BIRTHDAY_STONE,		// ここからレアツール
 
-		HOLY_TOACH,				// 聖火
-		RANGE_DESTROYER,		// 範囲破壊つるはし
-		SHIELD,					// シールド
+		// エメラルド : 5月
+		HEALING_TOACH = ItemData.ItemType.BIR_EMERALD,	// 癒しの松明
+		DOUBLE_PICAXE,									// 倍増つるはし
+		LIMIT_TOTEM,									// 制限のトーテム
 
-		DRILL,					// ドリル
-		DENGEROUS_BOMB,         // 危険爆弾
-		HEAVY_ARMOR,			// 重鎧
+		// ルビー : 7月
+		DRILL = ItemData.ItemType.BIR_RUBY,				// ドリル
+		DENGEROUS_BOMB,									// 危険爆弾
+		HEAVY_ARMOR,									// 重鎧
 
-		HEALING_TOACH,			// 癒しの松明
-		DOUBLE_PICAXE,			// 倍増つるはし
-		LIMIT_TOTEM,			// 制限のトーテム
+		// サファイア : 9月
+		HAMMER = ItemData.ItemType.BIR_SAPPHIRE,		// ハンマー
+		MINING_BOMB,									// 採掘爆弾
+		HEALING_AURA,									// 癒しのオーラ
 
-		HAMMER,					// ハンマー
-		MINING_BOMB,			// 採掘爆弾
-		HEALING_AURA,			// 癒しのオーラ
+		// トパーズ : 11月
+		HOLY_TOACH = ItemData.ItemType.BIR_TOPAZ,		// 聖火
+		RANGE_DESTROYER,								// 範囲破壊つるはし
+		SHIELD,											// シールド
 
 		OVER
 	}
@@ -55,6 +59,8 @@ public class ToolData : ScriptableObject
 	private ToolCategory category = ToolCategory.SUPPORT;
 	[Header("ツールのアイコン画像"), SerializeField]
 	private Sprite icon = null;
+	[Header("ツールの使用時音声"), SerializeField]
+	private AudioClip useSE = null;
 	[Header("リキャスト時間"), SerializeField]
 	private float recastTime = 0.0f;
 	[Header("ツールのプレハブ"), SerializeField]
@@ -67,6 +73,7 @@ public class ToolData : ScriptableObject
 	public ToolType Type => type;
 	public ToolCategory Category => category;
 	public Sprite Icon => icon;
+	public AudioClip UseSE => useSE;
 	public float RecastTime => recastTime;
 	public GameObject Prefab => prefab;
 	public Items[] ItemMaterials => itemMaterials;

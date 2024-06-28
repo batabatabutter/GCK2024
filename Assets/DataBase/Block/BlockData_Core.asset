@@ -16,9 +16,12 @@ MonoBehaviour:
   typeStr: 501:CORE
   endurance: 300
   dontBroken: 0
+  canPossess: 1
   lightLevel: 4
-  prefab: {fileID: 3457520386420079125, guid: cbe61a2527b59f44ea88ed42d8cd8019, type: 3}
+  prefab: {fileID: 3960490107896100198, guid: f1a01b4a88dec5a4b8c8aa680c5ea67d, type: 3}
   sprite: {fileID: 21300000, guid: 59cdbd82374245341b978fcda902e8bd, type: 3}
+  miningSE: {fileID: 8300000, guid: d82ddbd5c237e1a4aa68709ffbc132b9, type: 3}
+  destroySE: {fileID: 8300000, guid: 7a45759381fe92d4e97955f5064868a8, type: 3}
   dropItem: []
   color: {r: 1, g: 0, b: 0, a: 1}
   order: 0

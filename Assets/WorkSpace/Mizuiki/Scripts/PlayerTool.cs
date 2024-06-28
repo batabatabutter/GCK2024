@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class PlayerTool : MonoBehaviour
 {
+	// ツールの更新情報
 	public class ToolContainer
 	{
 		public ToolData data = null;		// ツールの情報
@@ -20,13 +21,20 @@ public class PlayerTool : MonoBehaviour
 	[Header("アイテム")]
 	[SerializeField] private PlayerItem m_playerItem;
 
-	[Header("ツール")]
-	[SerializeField] private Dictionary<ToolData.ToolType, ToolContainer> m_tools = new();
 	[Header("ツール格納用オブジェクト")]
 	[SerializeField] private GameObject m_toolContainer = null;
 
+	[Header("ツールマネージャ")]
+	[SerializeField] private ToolManager m_toolManager = null;
+
+	// 使用ツール
+	private readonly Dictionary<ToolData.ToolType, ToolContainer> m_tools = new();
+
+	// ステージで使用しないツール
+	private readonly List<ToolData.ToolType> m_ignoreTool = new();
+
 	// ツール更新用のオブジェクト
-	private Dictionary<ToolData.ToolType, Tool> m_toolScripts = new();
+	private readonly Dictionary<ToolData.ToolType, Tool> m_toolScripts = new();
 
 	// レアツールを選択
 	private bool m_rare = false;
@@ -60,6 +68,10 @@ public class PlayerTool : MonoBehaviour
 			// ツールの種類
 			ToolData.ToolType type = toolData.Type;
 
+			// ステージで無効なツール
+			if (m_ignoreTool.Contains(type))
+				continue;
+
 			// 上書き防止
 			if (m_tools.ContainsKey(type))
 				continue;
@@ -76,7 +88,12 @@ public class PlayerTool : MonoBehaviour
 			{
 				if (toolData.Prefab)
 				{
-					m_toolScripts[type] = Instantiate(toolData.Prefab.GetComponent<Tool>(), m_toolContainer.transform);
+					// サポートツールの更新を行うためのオブジェクトを生成
+					Tool tool = Instantiate(toolData.Prefab.GetComponent<Tool>(), m_toolContainer.transform);
+					// 使用時に設定できるようにリストに追加
+					m_toolScripts[type] = tool;
+					// ツールマネージャーにも追加
+					m_toolManager.AddTool(tool);
 				}
 			}
 		}
@@ -290,13 +307,16 @@ public class PlayerTool : MonoBehaviour
 				break;
 		}
 
-		// 素材を消費する
-		m_playerItem.ConsumeMaterials(data);
+        //	音を鳴らす
+        AudioManager.Instance.PlaySE(data.UseSE);
+
+        // 素材を消費する
+        m_playerItem.ConsumeMaterials(data);
 
 	}
 
 	// 設置する
-	public void Put(ToolData data, Vector3 position, bool con = false)
+	public void Put(ToolData data, Vector3 position)
 	{
 		// プレハブが設定されていなければ返す
 		if (!data.Prefab)
@@ -306,17 +326,8 @@ public class PlayerTool : MonoBehaviour
 		GameObject tool = Instantiate(data.Prefab, position, Quaternion.identity);
 		// アクティブにする(念のため)
 		tool.SetActive(true);
-
-		//	ブロックスクリプトがあるならplayer座標取得
-		var br = tool.GetComponent<ChangeBrightness>();
-		if (br) br.SetPlayerTransform(transform);
-
-        // 素材を消費する
-        if (con)
-		{
-			m_playerItem.ConsumeMaterials(data);
-		}
-
+		// マネージャーに追加
+		m_toolManager.AddTool(gameObject.GetComponent<Tool>());
 	}
 
 	// ツールを作成できるかチェック
@@ -340,7 +351,7 @@ public class PlayerTool : MonoBehaviour
 		for (int i = 0; i < data.ItemMaterials.Length; i++)
 		{
 			// アイテムの種類
-			ItemData.ItemType type = data.ItemMaterials[i].type;
+			ItemData.ItemType type = data.ItemMaterials[i].Type;
 
 			// アイテムが存在しない
 			if (!m_playerItem.Items.ContainsKey(type))
@@ -363,16 +374,116 @@ public class PlayerTool : MonoBehaviour
 		// 必要素材数所持している
 		return true;
 	}
+	public bool CheckCreate(Items[] items, int value = 1)
+	{
+		for (int i = 0; i < items.Length; i++)
+		{
+			// アイテムの種類
+			ItemData.ItemType type = items[i].Type;
+
+			// アイテムが存在しない
+			if (!m_playerItem.Items.ContainsKey(type))
+			{
+				Debug.Log("アイテムが存在しない");
+				return false;
+			}
+
+			// 必要数
+			int count = items[i].count * value;
+
+			// 所持アイテム数が必要素材数未満
+			if (m_playerItem.Items[type] < count)
+			{
+				// 作成できない
+				return false;
+			}
+		}
+		// 必要素材数所持している
+		return true;
+	}
 
 	// 素材の消費
-	public void ConsumeMaterials(ToolData data, int value = 1)
+	public void ConsumeMaterials(Items[] items, int value = 1)
 	{
-		m_playerItem.ConsumeMaterials(data, value);
+		m_playerItem.ConsumeMaterials(items, value);
+	}
+
+	// 使用不可能ツールの設定
+	public void SetIgnoreTool(DungeonGenerator.BlockGenerateData[] blockGenerateData)
+	{
+		// リスト初期化
+		foreach (ToolData tool in m_dataBase.tool)
+		{
+			// 通常ツールの場合はリストに入れない
+			if (tool.Type < ToolData.ToolType.RARE)
+				continue;
+
+			m_ignoreTool.Add(tool.Type);
+		}
+
+		// 使用するものはリストから除外
+		foreach (DungeonGenerator.BlockGenerateData block in blockGenerateData)
+		{
+			// ブロックの種類ツールと互換性のある数値に変換
+			int blockType = (int)block.blockType;
+			// 3種類のツールをリストから除外
+			m_ignoreTool.Remove((ToolData.ToolType)blockType);
+			m_ignoreTool.Remove((ToolData.ToolType)blockType++);
+			m_ignoreTool.Remove((ToolData.ToolType)blockType++);
+		}
+
+		// ツールの作成
+		foreach (ToolData toolData in m_dataBase.tool)
+		{
+			// ツールの種類
+			ToolData.ToolType type = toolData.Type;
+
+			// ステージで無効なツール
+			if (m_ignoreTool.Contains(type))
+				continue;
+
+			// 上書き防止
+			if (m_tools.ContainsKey(type))
+				continue;
+
+			// 新たなツールの作成
+			m_tools[type] = new()
+			{
+				// データベースの情報を設定
+				data = toolData
+			};
+
+			// サポートツール更新用
+			if (toolData.Category == ToolData.ToolCategory.SUPPORT)
+			{
+				if (toolData.Prefab)
+				{
+					// サポートツールの更新を行うためのオブジェクトを生成
+					Tool tool = Instantiate(toolData.Prefab.GetComponent<Tool>(), m_toolContainer.transform);
+					// 使用時に設定できるようにリストに追加
+					m_toolScripts[type] = tool;
+					// ツールマネージャーにも追加
+					m_toolManager.AddTool(tool);
+				}
+			}
+		}
+
 	}
 
 
-	// 選択ツール取得
-	public ToolData.ToolType ToolType
+
+	// 使用ツール取得
+	public Dictionary<ToolData.ToolType, ToolContainer> Tools
+	{
+		get { return m_tools; }
+	}
+    //	ツール取得
+    public Dictionary<ToolData.ToolType, Tool> ToolScripts
+    {
+        get { return m_toolScripts; }
+    }
+    // 選択ツール取得
+    public ToolData.ToolType ToolType
 	{
 		get { return m_toolType; }
 	}

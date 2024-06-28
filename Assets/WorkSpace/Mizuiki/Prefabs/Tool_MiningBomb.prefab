@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 3584993475108489714}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -115,7 +115,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -144,16 +144,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_blockEndurance: 100
-  m_dontBroken: 0
-  m_lightLevel: 3
-  m_receiveLightLevel: 0
-  m_spriteRenderer: {fileID: 0}
+  m_isntBroken: 0
+  m_isPossessEnemy: 0
+  m_isWeak: 0
   m_blockData: {fileID: 11400000, guid: e8355ac22db923c44adf486803772450, type: 2}
   m_itemDataBase: {fileID: 11400000, guid: c534141616c2bbc4ba996d4d9f120330, type: 2}
   m_blockExplosionPower: 1000
   m_playerExplosionDamage: 0
   m_explosionRange: 5
   m_timeToExplosion: 3
-  m_damage: 0
+  m_damage: 1
+  m_itemDropRate: 1
   m_state: 1
   m_detonateBlock: {fileID: 2201125515662036576, guid: 41fb87af326b1aa4088fb371add4c842, type: 3}
+  m_bombSE: {fileID: 0}

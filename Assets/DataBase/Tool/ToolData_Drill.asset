@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: ToolData_Drill
   m_EditorClassIdentifier: 
   toolName: "\u30C9\u30EA\u30EB"
-  typeStr: 104:DRILL
+  typeStr: 1070:DRILL
   category: 1
   icon: {fileID: 21300000, guid: 279644b5f782ce74cba4fb31c82701de, type: 3}
+  useSE: {fileID: 0}
   recastTime: 10
   prefab: {fileID: 524177092823824717, guid: 687f91ee2012dc64e97946cd339e5990, type: 3}
   itemMaterials:
-  - typeStr: 207:BIR_RUBY
+  - typeStr: 1070:BIR_RUBY
     count: 1
   - typeStr: 0:STONE
     count: 5

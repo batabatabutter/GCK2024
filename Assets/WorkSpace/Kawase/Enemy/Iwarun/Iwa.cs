@@ -51,7 +51,7 @@ public class Iwa : Enemy_AttackBall
         Vector2 startLocation = transform.parent.position;
 
         // 親オブジェクトの正面方向を取得する
-        m_velocityDirection = (Vector2)(targetPos - startLocation).normalized;
+        m_velocityDirection = MyFunction.GetFourDirection((targetPos - startLocation).normalized);
 
         transform.parent = null;
         m_isMove = true;

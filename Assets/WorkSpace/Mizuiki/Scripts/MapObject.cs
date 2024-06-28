@@ -6,7 +6,9 @@ public class MapObject : MonoBehaviour
 {
     [Header("ブロックの色")]
     [SerializeField] private Color m_blockColor = Color.white;
-	public float value = 0.0f;
+
+	// 明度
+	public float m_value = 0.0f;
     // 自身のスプライト
     private SpriteRenderer m_ownSprite;
 
@@ -22,7 +24,7 @@ public class MapObject : MonoBehaviour
 	{
 		Color color = m_blockColor * new Color(value, value, value, 1.0f);
 		m_ownSprite.color = color;
-		this.value = value;
+		m_value = value;
 	}
 
 	// ブロックの色

@@ -11,7 +11,7 @@ public class PlayerMove : MonoBehaviour
     [Header("速さ")]
     [SerializeField] private float m_speed = 1.0f;
 
-    private Animator m_animator;
+    //private Animator m_animator;
 
 
     // Start is called before the first frame update
@@ -20,8 +20,8 @@ public class PlayerMove : MonoBehaviour
         // リジットボディ取得
         m_rigidbody = GetComponent<Rigidbody2D>();
 
-        // アニメーター取得
-        m_animator = GetComponent<Animator>();
+        //// アニメーター取得
+        //m_animator = GetComponent<Animator>();
 
     }
 
@@ -35,19 +35,20 @@ public class PlayerMove : MonoBehaviour
     {
         if (velocity.magnitude <= 0.0f)
         {
-            m_animator.SetBool("Move", false);
+            //m_animator.SetBool("Move", false);
+            // 移動量の設定のみで処理を終了する
             m_rigidbody.velocity = velocity;
             return;
         }
 
-        m_animator.SetBool("Move", true);
+        //m_animator.SetBool("Move", true);
 
 		// 移動量設定
 		m_rigidbody.velocity = velocity * m_speed;
 
-		// アニメーターに方向を設定
-		m_animator.SetFloat("X", velocity.x);
-		m_animator.SetFloat("Y", velocity.y);
+		//// アニメーターに方向を設定
+		//m_animator.SetFloat("X", velocity.x);
+		//m_animator.SetFloat("Y", velocity.y);
 
 	}
 }

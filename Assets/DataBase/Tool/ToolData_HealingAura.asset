@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: ToolData_HealingAura
   m_EditorClassIdentifier: 
   toolName: "\u7652\u3057\u306E\u30AA\u30FC\u30E9"
-  typeStr: 112:HEALING_AURA
+  typeStr: 1092:HEALING_AURA
   category: 1
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 8b8cee4caffc5aa459bf6ee3770a2600, type: 3}
+  useSE: {fileID: 0}
   recastTime: 10
   prefab: {fileID: 6405283266790632720, guid: 1e7f3f81fc8f66e409ff199cc607fe1a, type: 3}
   itemMaterials:
-  - typeStr: 209:BIR_SAPPHIRE
+  - typeStr: 1090:BIR_SAPPHIRE
     count: 1

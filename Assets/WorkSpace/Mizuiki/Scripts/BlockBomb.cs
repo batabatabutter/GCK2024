@@ -15,6 +15,8 @@ public class BlockBomb : Block
         OVER,
     }
 
+    [Header("---------- 爆弾 ----------")]
+
     [Header("ブロックへの爆破ダメージ")]
     [SerializeField] private float m_blockExplosionPower = 1.0f;
     [Header("プレイヤーへの爆破ダメージ")]
@@ -28,6 +30,11 @@ public class BlockBomb : Block
 
     [Header("破壊の方式(ダメージ方式/確定破壊)")]
     [SerializeField] private bool m_damage = true;
+    [Header("即時爆破ダメージ")]
+    [SerializeField] private float m_immediateDamage = 1000.0f;
+
+    [Header("ブロック破壊時のアイテムドロップ倍率")]
+    [SerializeField] private int m_itemDropRate = 0;
 
     [Header("爆破状態")]
     [SerializeField] private BombState m_state = BombState.STAY;
@@ -35,6 +42,9 @@ public class BlockBomb : Block
 
     [Header("爆発させる用のブロック")]
     [SerializeField] private GameObject m_detonateBlock = null;
+
+    [Header("爆発音声")]
+    [SerializeField] private AudioClip m_bombSE = null;
 
     //// 爆破可能か
     //private bool m_canExplosion = false;
@@ -82,6 +92,9 @@ public class BlockBomb : Block
 					// 起爆ブロックの生成
 					Instantiate(m_detonateBlock, transform.position, Quaternion.identity);
 
+                    //  爆発音
+                    AudioManager.Instance.PlaySE(m_bombSE, transform.position);
+
 					// 一回生成したら null にする
 					m_detonateBlock = null;
 				}
@@ -100,8 +113,8 @@ public class BlockBomb : Block
 				// トリガーにする
 				circle.isTrigger = true;
 
-				// レイヤーを Block 以外にする
-				gameObject.layer = 0;
+				// レイヤーを Bomb にする
+				gameObject.layer = LayerMask.NameToLayer("Bomb");
 
 				break;
 
@@ -117,10 +130,16 @@ public class BlockBomb : Block
     // 起爆する
     public void Detonate()
     {
-        // 爆破状態にする
-        m_state = BombState.DETONATE;
+        // 起爆前
+        if (m_state == BombState.STAY)
+        {
+			// 爆破状態にする
+			m_state = BombState.DETONATE;
 
-    }
+			// スプライトの色を変える
+			GetComponent<SpriteRenderer>().color = Color.red;
+		}
+	}
 
 
 	// 爆破ダメージを与える
@@ -139,7 +158,7 @@ public class BlockBomb : Block
                 // ダメージ方式
                 if (m_damage)
                 {
-                    block.AddMiningDamage(m_blockExplosionPower);
+                    block.AddMiningDamage(m_blockExplosionPower, m_itemDropRate);
                 }
                 // 破壊方式
                 else
@@ -174,5 +193,13 @@ public class BlockBomb : Block
 
         return true;
     }
+	// 破壊しようとされている
+	public override bool BrokenBlock(int dropCount = 1)
+	{
+        // 起爆
+        Detonate();
+
+        return true;
+	}
 
 }

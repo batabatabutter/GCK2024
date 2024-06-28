@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class BlockLight : ObjectLight
 {
-    [SerializeField] private Block m_block;
-
     // Start is called before the first frame update
     private void Start()
     {
-        if (m_block)
+        //  Žæ“¾
+        if (transform.parent.TryGetComponent<ObjectAffectLight>(out ObjectAffectLight affectLight))
         {
-            LightLevel = m_block.LightLevel;
+            LightLevel = affectLight.LightLevel;
             FlashLight(LightLevel);
         }
     }

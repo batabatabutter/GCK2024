@@ -7,6 +7,9 @@ public class Enemy_AttackBall : MonoBehaviour
     //宿り先
     protected GameObject m_dwellBlock;
 
+    [Header("ブロックにダメージを与える攻撃力")]
+    [SerializeField] int m_blockDamage = 0;
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
@@ -31,6 +34,9 @@ public class Enemy_AttackBall : MonoBehaviour
         // ブロックに当たった場合
         if (collision.gameObject.CompareTag("Block") && collision.gameObject != m_dwellBlock)
         {
+            //ブロックにダメージを与える
+            collision.gameObject.GetComponent<Block>().AddMiningDamage(m_blockDamage, 0);
+
             // オブジェクトを破壊する
             DestroyThis();
         }

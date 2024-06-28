@@ -12,17 +12,6 @@ public class TestDungeonGenerator : MonoBehaviour
 	[Header("ダンジョンのサイズ")]
 	[SerializeField] private Vector2Int m_dungeonSize;
 
-	[System.Serializable]
-	struct MapBlock
-	{
-		public string mapName;
-		public BlockData.BlockType blockType;
-	}
-
-	[Header("生成ブロック")]
-	[SerializeField] private MapBlock[] m_setBlocks;
-	private readonly Dictionary<string, BlockData.BlockType> m_blocks = new();
-
 	[Header("ブロックジェネレータ")]
 	[SerializeField] private BlockGenerator m_blockGenerator;
 
@@ -31,30 +20,35 @@ public class TestDungeonGenerator : MonoBehaviour
 	[Header("生成スクリプトの配列")]
 	[SerializeField] private DungeonGeneratorBase[] m_dungeonGenerators;
 
-	[Header("プレイヤー(インスタンス用)")]
-	[SerializeField] GameObject m_player = null;
+	[Header("コアの座標")]
+	[SerializeField] private Vector2Int m_corePosition = Vector2Int.zero;
+	[Header("コアのスプライト")]
+	[SerializeField] private Sprite m_coreSprite = null;
 
 
-	// Start is called before the first frame update
+	[Header("各ブロックの生成情報")]
+	[SerializeField] private DungeonGenerator.BlockGenerateData[] m_generateBlocks;
+
+	[Header("プレイヤー(トランスフォーム用)")]
+	[SerializeField] private GameObject m_player = null;
+
+	[Header("ダンジョンアタッカー(コア設定用)")]
+	[SerializeField] private DungeonAttacker m_dungeonAttacker = null;
+
+	// 生成するブロックの種類行列
+	private List<List<BlockData.BlockType>> m_blockTypes = new();
+
+	// 生成したブロックの情報
+	private Block[,] m_objectBlock;
+
+
+
 	void Start()
 	{
-		// ブロックの設定
-		for (int i = 0; i < m_setBlocks.Length; i++)
-		{
-			MapBlock mapBlock = m_setBlocks[i];
-
-			// 上書き防止
-			if (m_blocks.ContainsKey(mapBlock.mapName))
-				continue;
-
-			// ブロックの種類設定
-			m_blocks[mapBlock.mapName] = mapBlock.blockType;
-		}
-
-		// プレイヤーが設定されていれば生成
+		// プレイヤーのトランスフォーム設定
 		if (m_player != null)
 		{
-			Instantiate(m_player);
+			m_blockGenerator.SetPlayerTransform(m_player.transform);
 		}
 
 		List<List<string>> mapList;
@@ -70,36 +64,115 @@ public class TestDungeonGenerator : MonoBehaviour
 			mapList = GenerateSCV();
 		}
 
-		// マップの生成
-		Generate(mapList);
+		// ブロック配列のサイズ
+		m_objectBlock = new Block[m_dungeonSize.y, m_dungeonSize.x];
 
+		// マップの生成
+		SetBlockType(mapList);
+		Generate(m_blockTypes);
+
+		if (m_player.TryGetComponent(out SearchBlock search))
+		{
+			search.SetSearchBlocks(m_objectBlock);
+		}
 	}
 
-	// Update is called once per frame
-	void Update()
+	// ブロックの種類設定
+	private void SetBlockType(List<List<string>> mapList)
 	{
+		// ブロックの種類のリスト
+		List<List<BlockData.BlockType>> typeLists = new();
 
+		// ブロック生成用のランダムなオフセット設定
+		for (int i = 0; i < m_generateBlocks.Length; i++)
+		{
+			m_generateBlocks[i].offset = Random.value;
+		}
+
+		for (int y = 0; y < mapList.Count; y++)
+		{
+			List<BlockData.BlockType> typeList = new();
+
+			for (int x = 0; x < mapList[y].Count; x++)
+			{
+				string name = mapList[y][x];
+
+				// ブロックナシ
+				if (name == "0")
+				{
+					typeList.Add(BlockData.BlockType.OVER);
+				}
+				// ブロックアリ
+				else if (name == "1")
+				{
+					// 生成するブロックの種類
+					BlockData.BlockType type = BlockData.BlockType.STONE;
+					// 生成ブロック種類分ループ
+					foreach (DungeonGenerator.BlockGenerateData blocks in m_generateBlocks)
+					{
+						// ブロックを生成する
+						if (GenerateBlock(new Vector2(x, y), blocks))
+						{
+							// 生成する場合は上書きしていく
+							type = blocks.blockType;
+						}
+					}
+					// 最終的な結果を生成ブロックとして追加
+					typeList.Add(type);
+				}
+				// 確定鉱石
+				else if (name == "2")
+				{
+					typeList.Add(CreateOre());
+				}
+				// 念のためその他
+				else
+				{
+					typeList.Add(BlockData.BlockType.OVER);
+				}
+			}
+			// 追加
+			typeLists.Add(typeList);
+		}
+
+		m_blockTypes = typeLists;
 	}
 
 	// ダンジョンの生成
-	private void Generate(List<List<string>> mapList)
+	private void Generate(List<List<BlockData.BlockType>> mapList)
 	{
 		// 読みだしたデータをもとにダンジョン生成をする
 		for (int y = 0; y < mapList.Count; y++)
 		{
 			for (int x = 0; x < mapList[y].Count; x++)
 			{
-				string name = mapList[y][x];
-
-				// キーが存在しない場合は何も生成しない
-				if (!m_blocks.ContainsKey(name))
-					continue;
+				BlockData.BlockType name = mapList[y][x];
 
 				// 生成座標
 				Vector3 pos = new(x, y, 0.0f);
 
+				GameObject obj;
+
+				// コアの生成
+				if (new Vector2Int(x, y) == m_corePosition)
+				{
+					obj = m_blockGenerator.GenerateBlock(BlockData.BlockType.CORE, pos);
+					m_dungeonAttacker.CorePosition = obj.transform;
+					// コアのスプライト設定
+					obj.GetComponent<SpriteRenderer>().sprite = m_coreSprite;
+				}
 				// ブロックの生成
-				m_blockGenerator.GenerateBlock(m_blocks[name], pos, null, true);
+				else
+				{
+					obj = m_blockGenerator.GenerateBlock(name, pos);
+				}
+
+				// ブロックがあれば追加
+				if (obj.TryGetComponent(out Block block))
+				{
+					m_objectBlock[y, x] = block;
+				}
+
 
 			}
 		}
@@ -139,5 +212,52 @@ public class TestDungeonGenerator : MonoBehaviour
 		return mapList;
 	}
 
+	// ブロックの情報生成
+	private bool GenerateBlock(Vector2 pos, DungeonGenerator.BlockGenerateData data)
+	{
+		float dis = Vector2.Distance(m_corePosition, pos);
+
+		// 生成範囲内
+		if (data.range.Within(dis))
+		{
+			// ノイズの取得
+			float noise = Mathf.PerlinNoise((pos.x * data.noiseScale) + data.offset, (pos.y * data.noiseScale) + data.offset);
+			// 生成範囲の中央値
+			float center = (data.range.min + data.range.max) / 2.0f;
+			// 生成範囲の中央からの距離
+			float centerDis = Mathf.Abs(center - dis);
+			// 生成の幅
+			float wid = data.range.max - data.range.min;
+			// ラープの値
+			float t = 1.0f - (centerDis / (wid / 2.0f));
+			// 生成率の取得
+			float rate = Mathf.Lerp(data.rateMin, data.rateMax, t);
+
+			// 鉱石
+			if (noise < rate)
+			{
+				return true;
+			}
+			// 石
+			else
+			{
+				return false;
+			}
+		}
+		// 生成範囲外
+		else
+		{
+			return false;
+		}
+	}
+
+
+	// 鉱石
+	private BlockData.BlockType CreateOre()
+	{
+		int rand = Random.Range((int)BlockData.BlockType.ORE_BEGIN + 1, (int)BlockData.BlockType.ORE_END);
+
+		return (BlockData.BlockType)rand;
+	}
 
 }

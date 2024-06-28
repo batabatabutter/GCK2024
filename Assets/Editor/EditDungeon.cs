@@ -19,20 +19,6 @@ public class EditDungeon : EditorWindow
 	// ブロックタイルマップ名
 	private string m_blockTilemapName = "Block";
 
-	//// 地面タイルの保存名
-	//private string m_baseTileName = "1";
-	//// 岩盤ブロックの保存名
-	//private string m_bedrockBlockName = "2";
-	//// 核の生成範囲ブロック
-	//private string m_coreBlockName = "3";
-
-	//// 地面タイルのスプライトのパス
-	//private string m_baseTileSpritePath = "Assets/MapChip/a2_0.asset";
-	//// 破壊不可能ブロックタイルのスプライトのパス
-	//private string m_bedrockBlockSpritePath = "Assets/MapChip/a5_21.asset";
-	//// 核の生成範囲ブロックのタイルのスプライトパス
-	//private string m_coreBlockSpritePath = "Assets/MapChip/a5_84.asset";
-
 	// 空白タイル名
 	private string m_nullTileName = "0";
 
@@ -96,33 +82,6 @@ public class EditDungeon : EditorWindow
 
 		// 間をあける
 		GUILayout.Space(10);
-
-		//// 地面タイルの保存名
-		//GUILayout.Label("地面タイルの保存名");
-		//m_baseTileName = GUILayout.TextField(m_baseTileName);
-		//// 地面タイルのパス
-		//GUILayout.Label("地面タイルのパス");
-		//m_baseTileSpritePath = GUILayout.TextField(m_baseTileSpritePath);
-
-		//// 間をあける
-		//GUILayout.Space(10);
-
-		//// 岩盤ブロックの保存名
-		//GUILayout.Label("岩盤ブロックの保存名");
-		//m_bedrockBlockName = GUILayout.TextField(m_bedrockBlockName);
-		//// 岩盤ブロックのタイルのパス
-		//GUILayout.Label("岩盤ブロックのタイルのパス");
-		//m_bedrockBlockSpritePath = GUILayout.TextField(m_bedrockBlockSpritePath);
-
-		//// 間をあける
-		//GUILayout.Space(10);
-
-		//// 核ブロックの保存名
-		//GUILayout.Label("核ブロックの保存名");
-		//m_coreBlockName = GUILayout.TextField(m_coreBlockName);
-		//// 核ブロックのタイルのパス
-		//GUILayout.Label("核ブロックのタイルのパス");
-		//m_coreBlockSpritePath = GUILayout.TextField(m_coreBlockSpritePath);
 
 		GUILayout.Label("タイルの保存名とパス");
 		// 参考 : https://bta25fun.wixsite.com/modev/post/2019/12/19/%E3%82%A8%E3%83%87%E3%82%A3%E3%82%BF%E6%8B%A1%E5%BC%B5%E3%81%A7%E9%85%8D%E5%88%97%E5%A4%89%E6%95%B0%E3%81%AE%E5%85%A5%E5%8A%9B%E6%AC%84%E3%82%92%E5%87%BA%E3%81%99%E3%81%AB%E3%81%AF
@@ -247,13 +206,6 @@ public class EditDungeon : EditorWindow
 		Vector3Int size = baseTile.cellBounds.size;
 		// マップの開始位置取得
 		Vector3Int position = baseTile.cellBounds.position;
-
-		//// 地面タイルのスプライト取得
-		//Sprite baseSprite = AssetDatabase.LoadAssetAtPath<UnityEngine.Tilemaps.Tile>(m_baseTileSpritePath).sprite;
-		//// 岩盤タイルのスプライト取得
-		//Sprite bedrockSprite = AssetDatabase.LoadAssetAtPath<UnityEngine.Tilemaps.Tile>(m_bedrockBlockSpritePath).sprite;
-		//// 核タイルのスプライト取得
-		//Sprite coreSprite = AssetDatabase.LoadAssetAtPath<UnityEngine.Tilemaps.Tile>(m_coreBlockSpritePath).sprite;
 
 		// 戻り値用の空の文字配列
 		string[] ret = new string[size.y];

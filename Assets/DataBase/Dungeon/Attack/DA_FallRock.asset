@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d3370d2922863c4e8dcd18c8ebaf0c8, type: 3}
+  m_Name: DA_FallRock
+  m_EditorClassIdentifier: 
+  stayTime: 20
+  attackTime: 10
+  rankLimit: 10
+  isRandom: 0
+  attackTableList:
+  - {fileID: 11400000, guid: 0f01c6ac84ff00c4493cdc8385c44b74, type: 2}
+  - {fileID: 11400000, guid: 0be544ae5731bdf4fbefbabcf61589e5, type: 2}
+  - {fileID: 11400000, guid: 1dfa0f1747837234c851de33aed3e888, type: 2}
+  attackTableRange: 5
+  m_attackGradeData:
+    attackMaxDistance: 10
+    attackGradeRange:
+      min: 0.5
+      max: 1
+    attackGradeStep: 1
+    attackGrade:
+    - distance: 0.1
+      magnification: 1.5
+    - distance: 0.5
+      magnification: 1.2
+    - distance: 1
+      magnification: 1

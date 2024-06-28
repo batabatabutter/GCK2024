@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 /// <summary>
-/// 一番親アダムイブ
+/// 一番親
 /// </summary>
-public class Enemy : MonoBehaviour
+public class Enemy : ObjectAffectLight
 {
     //種類
     public enum Type
@@ -21,7 +22,7 @@ public class Enemy : MonoBehaviour
     public enum System
     {
         Dwell,//宿り型
-
+        Mob, //Mob型
 
         OverID
     }
@@ -83,7 +84,8 @@ public class Enemy : MonoBehaviour
             GetComponent<CircleCollider2D>().radius = m_enemyData.radius;
         }
 
-
+        //  生成時音声
+        AudioManager.Instance.PlaySE(m_enemyData.GenerateSE, transform.position);
     }
 
     // Update is called once per frame
@@ -115,7 +117,6 @@ public class Enemy : MonoBehaviour
                     m_attackCoolTime -= Time.deltaTime;
                 }
             }
-
         }
     }
 
@@ -127,6 +128,7 @@ public class Enemy : MonoBehaviour
     {
         DropItem();
 
+        AudioManager.Instance.PlaySE(m_enemyData.DeathSE, transform.position);
         Destroy(gameObject);
     }
 
@@ -153,8 +155,14 @@ public class Enemy : MonoBehaviour
             // アイテムのゲームオブジェクトを生成
             GameObject obj = Instantiate(data.Prefab, transform.position, Quaternion.identity);
 
-            // 明るさの概念を追加
-            obj.AddComponent<ChangeBrightness>();
+            ////  明るさが次第
+            //obj.GetComponent<ObjectAffectLight>().BrightnessFlag = BrightnessFlag;
+
+            // 画像を設定
+            if (obj.TryGetComponent(out SpriteRenderer sprite))
+            {
+                sprite.sprite = data.Sprite;
+            }
 
             // 名前を変える
             obj.name = "Material_" + dropItem.type.ToString();
@@ -167,11 +175,7 @@ public class Enemy : MonoBehaviour
                 // ドロップ数の設定
                 item.Drop(dropItem.count);
             }
-
-
         }
-
-
     }
 
 

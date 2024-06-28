@@ -12,21 +12,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82a82efb7a028c246a3f184825fdc42f, type: 3}
   m_Name: DungeonData_Dig_01
   m_EditorClassIdentifier: 
-  pattern: 1
-  dungeonOdds:
-  - type: 0
-    odds: 66
-  - type: 1
-    odds: 33
-  - type: 207
-    odds: 1
-  dungeonAttackPattern: 000000000100000002000000
-  dungeonAttackCoolTime: 6
-  enemy: 00000000
-  enemySpawnTime: 5
-  dungeonSize: {x: 0, y: 0}
-  dungeonCSV: []
+  coreSprite: {fileID: 21300000, guid: 5b0a43a3d658e004db95257e742d0179, type: 3}
+  stageColor: {r: 1, g: 1, b: 1, a: 1}
+  patternStr: 0:TEN_X_TEN
   size: {x: 50, y: 50}
+  blockGenerateData:
+  - blockType: 0
+    range:
+      min: 0
+      max: 100
+    rateMin: 1
+    rateMax: 1
+    noiseScale: 0
+    offset: 0.29635575
+  - blockType: 101
+    range:
+      min: 0
+      max: 100
+    rateMin: 0.3
+    rateMax: 0.3
+    noiseScale: 0.2
+    offset: 0.99419236
+  - blockType: 1070
+    range:
+      min: 0
+      max: 100
+    rateMin: 0.02
+    rateMax: 0.1
+    noiseScale: 0.4
+    offset: 0.37941784
+  - blockType: 1090
+    range:
+      min: 0
+      max: 100
+    rateMin: 0.02
+    rateMax: 0.1
+    noiseScale: 0.4
+    offset: 0.22440675
+  dungeonWaves: []
+  restWaveTime: 0
+  restWaveMaxRate: 0
+  restTimeData: []
+  attackData: {fileID: 11400000, guid: 84e33d87ad14bc44bab3ca7e8f464fdc, type: 2}
   roomRange:
     min: 5
     max: 15

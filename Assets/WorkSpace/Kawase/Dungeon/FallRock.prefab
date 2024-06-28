@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6342639106760780756}
   - component: {fileID: 2632039569981089194}
   - component: {fileID: 5128157075522709514}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: FallRock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,9 +76,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.6075471, g: 0.3106514, b: 0.3106514, a: 1}
+  m_SortingOrder: 2000
+  m_Sprite: {fileID: 21300000, guid: 7fa39230c98125d47b3504ab11970f82, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -102,6 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fallTime: 3
   damage: 1
+  extraTime: 0.5
 --- !u!58 &2632039569981089194
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -136,7 +137,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
 --- !u!50 &5128157075522709514
 Rigidbody2D:
   serializedVersion: 4
@@ -175,13 +176,13 @@ GameObject:
   - component: {fileID: 7113969992266149345}
   - component: {fileID: 6396768565092336466}
   - component: {fileID: 9012413715377998880}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: FallRockText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7113969992266149345
 Transform:
   m_ObjectHideFlags: 0

@@ -13,19 +13,22 @@ MonoBehaviour:
   m_Name: BlockData_Spphire
   m_EditorClassIdentifier: 
   blockName: "\u30B5\u30D5\u30A1\u30A4\u30A2"
-  typeStr: 209:BIR_SAPPHIRE
+  typeStr: 1090:BIR_SAPPHIRE
   endurance: 700
   dontBroken: 0
+  canPossess: 0
   lightLevel: 3
   prefab: {fileID: 3457520386420079125, guid: cbe61a2527b59f44ea88ed42d8cd8019, type: 3}
-  sprite: {fileID: 21300000, guid: fe1af026b055e694b9dca336a11ed636, type: 3}
+  sprite: {fileID: 21300000, guid: 7574d49dc605f624c8291eba56f1dffc, type: 3}
+  miningSE: {fileID: 8300000, guid: d82ddbd5c237e1a4aa68709ffbc132b9, type: 3}
+  destroySE: {fileID: 8300000, guid: 7a45759381fe92d4e97955f5064868a8, type: 3}
   dropItem:
   - type: 0
     count: 1
     rate: 1
-  - type: 209
+  - type: 1090
     count: 1
     rate: 1
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color: {r: 0.4862745, g: 0.63529414, b: 0.87058824, a: 1}
   order: 0
   mapIcon: {fileID: 0}

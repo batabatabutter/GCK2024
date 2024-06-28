@@ -16,6 +16,7 @@ MonoBehaviour:
   typeStr: 0:TOACH
   category: 0
   icon: {fileID: 21300000, guid: 223de06691087c042840edf6164abf95, type: 3}
+  useSE: {fileID: 8300000, guid: c91da4bf6f9a5fb42807aed0f7a41459, type: 3}
   recastTime: 0
   prefab: {fileID: 1605569564547797263, guid: 5cd6e11a21e8d74498a673fc06be8e44, type: 3}
   itemMaterials:

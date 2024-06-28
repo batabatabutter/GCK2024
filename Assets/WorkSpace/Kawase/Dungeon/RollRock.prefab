@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2959267024542880358}
   - component: {fileID: 6953959129775562387}
+  - component: {fileID: 1725173205252730279}
   - component: {fileID: 181616485328629231}
   - component: {fileID: 5067466797843133355}
-  - component: {fileID: 1725173205252730279}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: RollRock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30,8 +30,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 81513944488393814}
   m_Father: {fileID: 0}
@@ -76,9 +76,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.6075471, g: 0.3106514, b: 0.3106514, a: 1}
+  m_SortingOrder: 3
+  m_Sprite: {fileID: 21300000, guid: a11abcd963e9bd842bbbbd4162ced13b, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -88,6 +88,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1725173205252730279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 796929451571866827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90c418cad7aa2cf41aa8709e995b3fe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_rollTime: 3
+  m_destroyTime: 10
+  m_speed: 5
+  m_finalScale: 0.9
+  m_damage: 1
 --- !u!58 &181616485328629231
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -122,7 +139,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
 --- !u!50 &5067466797843133355
 Rigidbody2D:
   serializedVersion: 4
@@ -150,22 +167,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1725173205252730279
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 796929451571866827}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90c418cad7aa2cf41aa8709e995b3fe5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rollTime: 3
-  destroyTime: 10
-  speed: 5
-  damage: 1
 --- !u!1 &1658120789252126386
 GameObject:
   m_ObjectHideFlags: 0
@@ -177,13 +178,13 @@ GameObject:
   - component: {fileID: 81513944488393814}
   - component: {fileID: 2908022642950883632}
   - component: {fileID: 4181912024369832911}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: RollRockText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &81513944488393814
 Transform:
   m_ObjectHideFlags: 0

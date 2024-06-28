@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: T_BlockData_Bomb
   m_EditorClassIdentifier: 
   blockName: "\u7206\u5F3E"
-  typeStr: 1001:BOMB
+  typeStr: 10001:BOMB
   endurance: 1
   dontBroken: 0
+  canPossess: 0
   lightLevel: 0
   prefab: {fileID: 0}
   sprite: {fileID: 21300000, guid: 92266822cb345e743a0f64be6fce1a60, type: 3}
+  miningSE: {fileID: 0}
+  destroySE: {fileID: 0}
   dropItem: []
   color: {r: 0.2603773, g: 0.2603773, b: 0.2603773, a: 1}
   order: 0

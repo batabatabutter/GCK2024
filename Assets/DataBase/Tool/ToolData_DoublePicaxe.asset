@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: ToolData_DoublePicaxe
   m_EditorClassIdentifier: 
   toolName: "\u500D\u5897\u3064\u308B\u306F\u3057"
-  typeStr: 108:DOUBLE_PICAXE
+  typeStr: 1051:DOUBLE_PICAXE
   category: 1
   icon: {fileID: 21300000, guid: df9d1c68fdc3ced4380914b2f84a95c0, type: 3}
+  useSE: {fileID: 0}
   recastTime: 10
   prefab: {fileID: 2280796163066816382, guid: 80e89238203f0cf4baa9f0bfeabcd0ed, type: 3}
   itemMaterials:
-  - typeStr: 205:BIR_EMERALD
+  - typeStr: 1050:BIR_EMERALD
     count: 1
   - typeStr: 0:STONE
     count: 7
