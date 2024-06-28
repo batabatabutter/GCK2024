@@ -295,6 +295,7 @@ public class CircularSaw : MonoBehaviour
 		Debug.Log("アップグレード : " + m_type + " : " + m_toolLevels[m_type] + "->" + (m_toolLevels[m_type] + level));
 
 		// エフェクト出す
+		m_animator.transform.position = new Vector3(0.0f, transform.localScale.y / 2.0f, 0.0f);
 		m_animator.SetTrigger("LevelUp");
 
 		// ツールのレベル加算
