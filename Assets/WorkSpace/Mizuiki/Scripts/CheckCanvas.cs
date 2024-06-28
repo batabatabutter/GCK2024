@@ -35,7 +35,7 @@ public class CheckCanvas : MonoBehaviour
 	// キャンバス表示
 	public virtual void SetEnabled(bool enabled)
 	{
-		m_canvas.enabled = enabled;
+		m_canvas.gameObject.SetActive(enabled);
 	}
 
 

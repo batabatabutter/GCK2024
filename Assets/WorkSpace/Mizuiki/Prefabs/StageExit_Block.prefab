@@ -211,6 +211,7 @@ MonoBehaviour:
   m_isWeak: 0
   m_blockData: {fileID: 0}
   m_itemDataBase: {fileID: 0}
+  m_stoneSpriteRenderer: {fileID: 0}
   m_checkCanvas: {fileID: 2582446594640191576}
   m_spriteRenderer: {fileID: 0}
 --- !u!1 &6271076272257705918
@@ -416,10 +417,6 @@ PrefabInstance:
     - target: {fileID: 6021587873221089382, guid: 868df26b1fc9d7448a33d895ca5c3212, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 6455489609167687712, guid: 868df26b1fc9d7448a33d895ca5c3212, type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9038085669163464925, guid: 868df26b1fc9d7448a33d895ca5c3212, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

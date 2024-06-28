@@ -19,8 +19,8 @@ public class DungeonManager : MonoBehaviour
     [Header("ダンジョン番号")]
     [SerializeField] private int m_stageNum = 0;
 
-    [Header("ダンジョンの稼働状態")]
-    [SerializeField] private bool m_isActive = true;
+    //[Header("ダンジョンの稼働状態")]
+    //[SerializeField] private bool m_isActive = true;
 
 
 

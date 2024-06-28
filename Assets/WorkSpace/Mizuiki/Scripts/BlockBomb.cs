@@ -30,8 +30,8 @@ public class BlockBomb : Block
 
     [Header("破壊の方式(ダメージ方式/確定破壊)")]
     [SerializeField] private bool m_damage = true;
-    [Header("即時爆破ダメージ")]
-    [SerializeField] private float m_immediateDamage = 1000.0f;
+    //[Header("即時爆破ダメージ")]
+    //[SerializeField] private float m_immediateDamage = 1000.0f;
 
     [Header("ブロック破壊時のアイテムドロップ倍率")]
     [SerializeField] private int m_itemDropRate = 0;

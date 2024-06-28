@@ -38,8 +38,8 @@ public class DungeonAttacker : MonoBehaviour
 	[Header("攻撃の情報")]
 	[SerializeField] private DungeonAttackData m_attackData = null;
 
-	[Header("ダンジョンのレベル")]
-	[SerializeField] private int m_dungeonLevel = 1;
+	//[Header("ダンジョンのレベル")]
+	//[SerializeField] private int m_dungeonLevel = 1;
 
 	// ランダム攻撃
 	private bool m_random = false;

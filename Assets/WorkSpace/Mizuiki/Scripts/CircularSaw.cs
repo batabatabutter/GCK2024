@@ -48,6 +48,9 @@ public class CircularSaw : MonoBehaviour
 	[Header("アイテム")]
 	[SerializeField] private PlayerItem m_playerItem = null;
 
+	[Header("アニメーター")]
+	[SerializeField] private Animator m_animator = null;
+
 	// レベルの辞書
 	private Dictionary<MiningData.MiningType, int> m_toolLevels = new();
 
@@ -108,43 +111,13 @@ public class CircularSaw : MonoBehaviour
 		}
 	}
 
-	//private void Update()
-	//{
-	//	// マウスの位置を取得
-	//	Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-	//	// 移動後の位置
-	//	Vector3 afterPos = mousePos;
-
-	//	// プレイヤーからの距離が採掘範囲より大きい
-	//	if (Vector3.Distance(m_player.position, afterPos) > m_miningRange)
-	//	{
-	//		// 採掘範囲に収めた位置を設定
-	//		afterPos = m_player.position + (afterPos - m_player.position).normalized * m_miningRange;
-	//	}
-
-	//	// 丸のこからマウスへのベクトル
-	//	Vector3 circularSawToMining = afterPos - transform.position;
-	//	// 丸のことマウスの距離
-	//	float distance = circularSawToMining.magnitude;
-
-	//	// 採掘位置へのベクトル正規化
-	//	circularSawToMining.Normalize();
-
-	//	// 距離が 1f の移動量以内ならそのまま
-	//	if (distance <= m_circularSawSpeed * Time.deltaTime)
-	//	{
-	//		//afterPos = mousePos;
-	//	}
-	//	else
-	//	{
-	//		afterPos = transform.position + (m_circularSawSpeed * Time.deltaTime * circularSawToMining);
-	//	}
-
-	//	// 座標を設定
-	//	transform.position = afterPos;
-
-	//}
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.G))
+		{
+			m_animator.SetTrigger("LevelUp");
+		}
+	}
 
 	// 動かす
 	public void Move(Transform player)
@@ -320,6 +293,9 @@ public class CircularSaw : MonoBehaviour
 		}
 
 		Debug.Log("アップグレード : " + m_type + " : " + m_toolLevels[m_type] + "->" + (m_toolLevels[m_type] + level));
+
+		// エフェクト出す
+		m_animator.SetTrigger("LevelUp");
 
 		// ツールのレベル加算
 		m_toolLevels[m_type] += level;
