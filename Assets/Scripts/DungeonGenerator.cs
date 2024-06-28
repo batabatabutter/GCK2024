@@ -56,17 +56,7 @@ public class DungeonGenerator : MonoBehaviour
 
     private void Awake()
     {
-		// ブロックジェネレータの取得
-        m_blockGenerator = GetComponent<BlockGenerator>();
-		// ダンジョン生成クラス
-		foreach (DungeonGeneratorBase generator in m_generators)
-		{
-			// 上書き防止
-			if (m_dungeonGenerators.ContainsKey(generator.Pattern))
-				continue;
-			// ジェネレータの設定
-			m_dungeonGenerators[generator.Pattern] = generator;
-		}
+
     }
 
 	//private void Start()
@@ -87,8 +77,24 @@ public class DungeonGenerator : MonoBehaviour
 	/// </summary>
 	public void CreateStage(int stageNum)
     {
-		// ステージ番号の設定
-		m_stageNum = stageNum;
+        // ブロックジェネレータの取得
+        m_blockGenerator = GetComponent<BlockGenerator>();
+
+		if (m_dungeonGenerators.Count == 0)
+		{
+			// ダンジョン生成クラス
+			foreach (DungeonGeneratorBase generator in m_generators)
+			{
+				// 上書き防止
+				if (m_dungeonGenerators.ContainsKey(generator.Pattern))
+					continue;
+				// ジェネレータの設定
+				m_dungeonGenerators[generator.Pattern] = generator;
+			}
+		}
+
+        // ステージ番号の設定
+        m_stageNum = stageNum;
 
         // ダンジョンのデータ取得
         DungeonData dungeonData = m_dungeonDataBase.dungeonDatas[m_stageNum];

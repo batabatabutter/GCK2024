@@ -38,12 +38,6 @@ public class BlockGenerator : MonoBehaviour
 		{
             Debug.Log(gameObject.name + "にブロックデータベースを設定してね");
 		}
-
-        // ブロックの親生成
-        m_blockParent = new GameObject("Block");
-        // 影の親生成
-        m_shadowParent = new GameObject("Shadow");
-        m_shadowParent.SetActive(false);
 	}
 
     /// <summary>
@@ -56,6 +50,15 @@ public class BlockGenerator : MonoBehaviour
     /// <param name="isGroundBrightness">地面明るさをつけるかどうか</param>
     public GameObject GenerateBlock(BlockData.BlockType type, Vector2 position/*, Transform parent = null*/)
     {
+        // ブロックの親生成
+        if (m_blockParent == null)
+            m_blockParent = new GameObject("Block");
+        // 影の親生成
+        if(m_shadowParent == null)
+            m_shadowParent = new GameObject("Shadow");
+        m_shadowParent.SetActive(false);
+
+
         // 親を取得
         Transform blockParent = m_blockParent.transform;
         Transform shadowParent = m_shadowParent.transform;
