@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9102e5fe6745808438d597f5ef891521, type: 3}
-  m_Name: BlockData_Spphire
+  m_Name: BlockData_Ruby
   m_EditorClassIdentifier: 
-  blockName: "\u30B5\u30D5\u30A1\u30A4\u30A2"
-  typeStr: 1090:BIR_SAPPHIRE
+  blockName: "\u30EB\u30D3\u30FC"
+  typeStr: 1070:BIR_RUBY
+  color: {r: 0.9882353, g: 0.6313726, b: 0.62352943, a: 1}
   endurance: 700
   dontBroken: 0
   canPossess: 0
@@ -23,12 +24,11 @@ MonoBehaviour:
   miningSE: {fileID: 8300000, guid: d82ddbd5c237e1a4aa68709ffbc132b9, type: 3}
   destroySE: {fileID: 8300000, guid: 7a45759381fe92d4e97955f5064868a8, type: 3}
   dropItem:
-  - type: 0
+  - typeStr: 0:STONE
     count: 1
     rate: 1
-  - type: 1090
+  - typeStr: 1070:BIR_RUBY
     count: 1
     rate: 1
-  color: {r: 0.4862745, g: 0.63529414, b: 0.87058824, a: 1}
   order: 0
   mapIcon: {fileID: 0}

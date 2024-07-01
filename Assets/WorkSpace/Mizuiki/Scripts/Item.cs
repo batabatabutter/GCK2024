@@ -79,10 +79,14 @@ public class Item : MonoBehaviour
     /// ドロップ
     /// </summary>
     /// <param name="count">ドロップ数</param>
-    public void Drop(int count)
+    public void Drop(ItemData.ItemType type, int count, Color color)
     {
+        // 種類の設定
+        ItemType = type;
         // ドロップ数
         m_count = count;
+        // 色の設定
+        SetColor(color);
         // ドロップ方向
         m_dropDirection= new (Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f));
         m_dropDirection.Normalize();
@@ -138,6 +142,27 @@ public class Item : MonoBehaviour
         m_originalPos = transform.position;
 
 	}
+
+    // 色の設定
+    public void SetColor(Color color)
+    {
+        GetComponent<SpriteRenderer>().color = color;
+    }
+
+
+	public ItemData.ItemType ItemType
+	{
+		get { return m_itemType; }
+		set { m_itemType = value; }
+	}
+
+	public int Count
+	{
+		get { return m_count; }
+		set { m_count = value; }
+	}
+
+
 
 
 	private void OnTriggerEnter2D(Collider2D collision)
@@ -200,20 +225,5 @@ public class Item : MonoBehaviour
         }
 
         m_player = null;
-    }
-
-
-
-
-	public ItemData.ItemType ItemType
-    {
-        get { return m_itemType; }
-        set { m_itemType = value; }
-    }
-
-    public int Count
-    {
-        get { return m_count; }
-        set { m_count = value; }
     }
 }

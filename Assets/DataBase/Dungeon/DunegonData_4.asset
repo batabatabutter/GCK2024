@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: DunegonData_4
   m_EditorClassIdentifier: 
   dungeonName: "\u7BC4\u56F2"
-  coreSprite: {fileID: 21300000, guid: 5b0a43a3d658e004db95257e742d0179, type: 3}
-  thumbnailSprite: {fileID: 21300000, guid: 5b0678fed20d9ac4a97bab64e193c35a, type: 3}
-  stageColor: {r: 1, g: 1, b: 1, a: 1}
+  coreSprite: {fileID: 21300000, guid: 49637a999236f464599a68037dd877ed, type: 3}
+  thumbnailSprite: {fileID: 21300000, guid: 5b46dd872b273514b8b39e7b80a36cd2, type: 3}
+  stageColor: {r: 1, g: 0.6347813, b: 0.19999999, a: 1}
   patternStr: 0:TEN_X_TEN
   size: {x: 65, y: 65}
   blockGenerateData:
@@ -35,6 +35,14 @@ MonoBehaviour:
     rateMax: 0.4
     noiseScale: 0.2
     offset: 0.81503165
+  - blockType: 105
+    range:
+      min: 0
+      max: 100
+    rateMin: 0.2
+    rateMax: 0.35
+    noiseScale: 0.4
+    offset: 0.51870006
   - blockType: 503
     range:
       min: 0

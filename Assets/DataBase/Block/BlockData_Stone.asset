@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockName: "\u77F3"
   typeStr: 0:STONE
+  color: {r: 0.9, g: 0.9, b: 0.9, a: 1}
   endurance: 100
   dontBroken: 0
   canPossess: 1
@@ -23,9 +24,8 @@ MonoBehaviour:
   miningSE: {fileID: 8300000, guid: 68acdab7ffb731343ac2f2d7e2415fbc, type: 3}
   destroySE: {fileID: 8300000, guid: 09be74ac67edb24468f01c341f1499a0, type: 3}
   dropItem:
-  - type: 0
+  - typeStr: 0:STONE
     count: 1
     rate: 1
-  color: {r: 0.9, g: 0.9, b: 0.9, a: 1}
   order: 0
   mapIcon: {fileID: 0}

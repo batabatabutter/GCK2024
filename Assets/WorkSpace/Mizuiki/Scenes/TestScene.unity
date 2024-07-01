@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 75050970}
   - component: {fileID: 75050976}
   - component: {fileID: 75050971}
+  - component: {fileID: 75050977}
   - component: {fileID: 75050973}
   - component: {fileID: 75050974}
   - component: {fileID: 75050975}
@@ -174,14 +175,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 793fac54cbf7de84b87dddf28b92a2fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_dungeonData: {fileID: 0}
+  m_dungeonData: {fileID: 11400000, guid: 6849d2054549852458d98b7f1b4a3138, type: 2}
   m_dungeonSize: {x: 100, y: 100}
   m_blockGenerator: {fileID: 75050971}
   m_dungeonIndex: 1
   m_dungeonGenerators:
+  - {fileID: 75050977}
   - {fileID: 75050973}
-  - {fileID: 75050974}
   - {fileID: 75050975}
+  - {fileID: 75050974}
   m_corePosition: {x: 50, y: 50}
   m_coreSprite: {fileID: 21300000, guid: 9024f2996932c9b48a15e22fbae1be9b, type: 3}
   m_generateBlocks:
@@ -319,6 +321,19 @@ MonoBehaviour:
   m_player: {fileID: 0}
   m_chunkSize: 10
   m_activeChunk: 3
+--- !u!114 &75050977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 75050967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4acffe1975897f47a7ce5b700d3c3e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_pattern: 0
 --- !u!4 &102538595 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7924930004826067373, guid: 3c0037650f2f4a0499506b4d38ebc047, type: 3}

@@ -427,10 +427,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: StageEntry_Canvas
       objectReference: {fileID: 0}
-    - target: {fileID: 3205782551229251762, guid: 8b1432af332c4a34f8ac41e6f702d0e4, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3673638307806438728, guid: 8b1432af332c4a34f8ac41e6f702d0e4, type: 3}
       propertyPath: m_Pivot.x
       value: 0

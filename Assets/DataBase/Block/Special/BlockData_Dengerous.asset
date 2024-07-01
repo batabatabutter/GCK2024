@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockName: 
   typeStr: 503:DENGEROUS
+  color: {r: 1, g: 1, b: 1, a: 1}
   endurance: 100
   dontBroken: 0
   canPossess: 1
@@ -23,6 +24,5 @@ MonoBehaviour:
   miningSE: {fileID: 0}
   destroySE: {fileID: 0}
   dropItem: []
-  color: {r: 1, g: 1, b: 1, a: 1}
   order: 0
   mapIcon: {fileID: 0}

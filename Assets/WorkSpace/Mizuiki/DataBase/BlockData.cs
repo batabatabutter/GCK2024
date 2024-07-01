@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,9 +13,11 @@ public class BlockData : ScriptableObject
 
 		ORE_BEGIN = 100,// ここから鉱石
 		COAL,           // 石炭
-		STEEL,          // 鉄
+		COPPER,         // 銅
 		TIN,            // 錫
 		LEAD,           // 鉛
+		IRON,           // 鉄
+		STEEL,          // 鋼
 		ORE_END,		// 鉱石終了
 
 		BIRTHDAY		= 1000,     // ここから誕生石シリーズ
@@ -45,11 +48,13 @@ public class BlockData : ScriptableObject
 	[System.Serializable]
 	public struct DropItems
 	{
-		[Header("アイテムの種類")]
+		[Tooltip("アイテムの種類"), CustomEnum(typeof(ItemData.ItemType))]
+		public string typeStr;
+		[NonSerialized]
 		public ItemData.ItemType type;
-		[Header("ドロップ数"), Min(0)]
+		[Tooltip("ドロップ数"), Min(0)]
 		public int count;
-		[Header("ドロップ率"), Range(0f, 1f)]
+		[Tooltip("ドロップ率"), Range(0f, 1f)]
 		public float rate;
 	}
 
@@ -58,6 +63,8 @@ public class BlockData : ScriptableObject
 	[Header("ブロックの種類"), CustomEnum(typeof(BlockType))]
 	[SerializeField] private string typeStr = "";
 	private BlockType type;
+	[Header("色")]
+	[SerializeField] private Color color = Color.white;
 	[Header("ブロックの耐久力")]
 	[SerializeField] private float endurance = 100.0f;
 	[Header("破壊不可能")]
@@ -80,8 +87,6 @@ public class BlockData : ScriptableObject
 
 	[Header("---マップ---")]
 
-	[Header("マップ表示の色")]
-	[SerializeField] private Color color = Color.white;
 	[Header("表示順")]
 	[SerializeField] private int order = 0;
 	[Header("マップ表示アイコン(あれば設定)")]
@@ -105,6 +110,11 @@ public class BlockData : ScriptableObject
 	private void OnEnable()
 	{
 		type = SerializeUtil.Restore<BlockType>(typeStr);
+
+		for (int i = 0; i < dropItem.Length; i++)
+		{
+			dropItem[i].type = SerializeUtil.Restore<ItemData.ItemType>(dropItem[i].typeStr);
+		}
 	}
 
 	public BlockData(BlockData block)

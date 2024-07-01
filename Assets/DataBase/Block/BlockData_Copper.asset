@@ -10,25 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9102e5fe6745808438d597f5ef891521, type: 3}
-  m_Name: BlockData_BirGarnet
+  m_Name: BlockData_Copper
   m_EditorClassIdentifier: 
-  blockName: "\u30AC\u30FC\u30CD\u30C3\u30C8"
-  typeStr: 1010:BIR_GARNET
-  endurance: 1000
+  blockName: "\u9285"
+  typeStr: 102:COPPER
+  color: {r: 0.5, g: 1, b: 0.5196078, a: 1}
+  endurance: 160
   dontBroken: 0
-  canPossess: 0
+  canPossess: 1
   lightLevel: 0
   prefab: {fileID: 3457520386420079125, guid: cbe61a2527b59f44ea88ed42d8cd8019, type: 3}
-  sprite: {fileID: 21300000, guid: 2807ee7c8abb9fe45a5cd971b734b8bf, type: 3}
+  sprite: {fileID: 21300000, guid: 6aa86e719faf16c49854ec6370ae940a, type: 3}
   miningSE: {fileID: 0}
   destroySE: {fileID: 0}
   dropItem:
-  - type: 0
+  - typeStr: 2:COPPER
     count: 1
     rate: 1
-  - type: 1010
-    count: 1
-    rate: 1
-  color: {r: 0.9607843, g: 0.45490196, b: 0.56078434, a: 1}
   order: 0
   mapIcon: {fileID: 0}

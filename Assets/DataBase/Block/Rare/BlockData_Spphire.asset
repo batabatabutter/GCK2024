@@ -10,25 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9102e5fe6745808438d597f5ef891521, type: 3}
-  m_Name: BlockData_Emerald
+  m_Name: BlockData_Spphire
   m_EditorClassIdentifier: 
-  blockName: "\u30A8\u30E1\u30E9\u30EB\u30C9"
-  typeStr: 1050:BIR_EMERALD
+  blockName: "\u30B5\u30D5\u30A1\u30A4\u30A2"
+  typeStr: 1090:BIR_SAPPHIRE
+  color: {r: 0.4862745, g: 0.63529414, b: 0.87058824, a: 1}
   endurance: 700
   dontBroken: 0
   canPossess: 0
   lightLevel: 3
   prefab: {fileID: 3457520386420079125, guid: cbe61a2527b59f44ea88ed42d8cd8019, type: 3}
-  sprite: {fileID: 21300000, guid: fe1af026b055e694b9dca336a11ed636, type: 3}
+  sprite: {fileID: 21300000, guid: 7574d49dc605f624c8291eba56f1dffc, type: 3}
   miningSE: {fileID: 8300000, guid: d82ddbd5c237e1a4aa68709ffbc132b9, type: 3}
   destroySE: {fileID: 8300000, guid: 7a45759381fe92d4e97955f5064868a8, type: 3}
   dropItem:
-  - type: 0
+  - typeStr: 0:STONE
     count: 1
     rate: 1
-  - type: 205
+  - typeStr: 1090:BIR_SAPPHIRE
     count: 1
     rate: 1
-  color: {r: 0.46666667, g: 0.8352941, b: 0.59607846, a: 1}
   order: 0
   mapIcon: {fileID: 0}

@@ -14,10 +14,11 @@ public class ItemData : ScriptableObject
 	{
 		STONE	= 0,	// 岩
 		COAL,			// 石炭
-		STEEL,			// 鉄
+		COPPER,			// 銅
 		TIN,			// 錫
 		LEAD,			// 鉛
-		COPPER,			// 銅
+		IRON,			// 鉄
+		STEEL,			// 鋼
 
 		BIRTHDAY_STONE	= 1000,		// ここから誕生石シリーズ
 		BIR_GARNET		= 1010,		// ガーネット
@@ -45,11 +46,14 @@ public class ItemData : ScriptableObject
 	private Sprite sprite;
 	[Header("アイテムのプレハブ"), SerializeField]
 	private GameObject prefab = null;
+	[Header("アイテムの色"), SerializeField]
+	private Color color = Color.white;
 
 	public string Name => name;
 	public ItemType Type => type;
 	public Sprite Sprite => sprite;
 	public GameObject Prefab => prefab;
+	public Color Color => color;
 
 	private void OnEnable()
 	{

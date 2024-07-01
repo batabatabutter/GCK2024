@@ -7,7 +7,7 @@ using UnityEngine;
 public class TestDungeonGenerator : MonoBehaviour
 {
 	[Header("生成するダンジョンのデータ")]
-	[SerializeField] private Object m_dungeonData = null;
+	[SerializeField] private DungeonData m_dungeonData = null;
 
 	[Header("ダンジョンのサイズ")]
 	[SerializeField] private Vector2Int m_dungeonSize;
@@ -53,15 +53,21 @@ public class TestDungeonGenerator : MonoBehaviour
 
 		List<List<string>> mapList;
 
-		// 生成
-		if (m_dungeonGenerators.Length > 0)
+		// 生成クラスがない
+		if (m_dungeonGenerators.Length == 0)
 		{
-			mapList = m_dungeonGenerators[m_dungeonIndex].GenerateDungeon(m_dungeonSize);
+			Debug.Log("ダンジョン生成できない");
+			return;
+		}
+
+		// 生成
+		if (m_dungeonData)
+		{
+			mapList = m_dungeonGenerators[(int)m_dungeonData.DungeonPattern].GenerateDungeon(m_dungeonData);
 		}
 		else
 		{
-			// SCV読み込み
-			mapList = GenerateSCV();
+			mapList = m_dungeonGenerators[m_dungeonIndex].GenerateDungeon(m_dungeonSize);
 		}
 
 		// ブロック配列のサイズ
@@ -177,7 +183,7 @@ public class TestDungeonGenerator : MonoBehaviour
 			}
 		}
 
-	}
+		}
 
 	// CSV読み込みの生成
 	private List<List<string>> GenerateSCV()

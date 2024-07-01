@@ -173,7 +173,7 @@ public class Enemy : ObjectAffectLight
                 // í—Ş‚Ìİ’è
                 item.ItemType = dropItem.type;
                 // ƒhƒƒbƒv”‚Ìİ’è
-                item.Drop(dropItem.count);
+                item.Drop(data.Type, dropItem.count, data.Color);
             }
         }
     }

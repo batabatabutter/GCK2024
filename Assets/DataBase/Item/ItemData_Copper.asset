@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 10387625528c8cf4d99562735228409f, type: 3}
-  m_Name: ItemData_Steel
+  m_Name: ItemData_Copper
   m_EditorClassIdentifier: 
-  itemName: "\u92FC"
-  typeStr: 6:STEEL
-  sprite: {fileID: 21300000, guid: 4a4d6e9ff43f74041becd88c97874eba, type: 3}
+  itemName: "\u9285"
+  typeStr: 2:COPPER
+  sprite: {fileID: 21300000, guid: 9534939358a3ef840bee973b2150c1d0, type: 3}
   prefab: {fileID: 3463832332005368329, guid: f5cfcee0633651a4d8105fc02df88bfe, type: 3}
-  color: {r: 1, g: 0.19999999, b: 1, a: 1}
+  color: {r: 0.4645669, g: 1, b: 0.19999999, a: 1}

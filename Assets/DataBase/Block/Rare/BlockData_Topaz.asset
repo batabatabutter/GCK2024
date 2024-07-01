@@ -10,21 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9102e5fe6745808438d597f5ef891521, type: 3}
-  m_Name: BlockData_Steel
+  m_Name: BlockData_Topaz
   m_EditorClassIdentifier: 
-  blockName: "\u92FC"
-  typeStr: 106:STEEL
-  color: {r: 1, g: 0.5, b: 1, a: 1}
-  endurance: 300
+  blockName: "\u30C8\u30D1\u30FC\u30BA"
+  typeStr: 1110:BIR_TOPAZ
+  color: {r: 0.96862745, g: 0.75686276, b: 0.39607844, a: 1}
+  endurance: 700
   dontBroken: 0
   canPossess: 1
-  lightLevel: 0
+  lightLevel: 3
   prefab: {fileID: 3457520386420079125, guid: cbe61a2527b59f44ea88ed42d8cd8019, type: 3}
-  sprite: {fileID: 21300000, guid: 223b86629a3734e4ebebaf5e0a7ea63a, type: 3}
-  miningSE: {fileID: 8300000, guid: 68acdab7ffb731343ac2f2d7e2415fbc, type: 3}
-  destroySE: {fileID: 8300000, guid: 09be74ac67edb24468f01c341f1499a0, type: 3}
+  sprite: {fileID: 21300000, guid: 31b4f23c03186d247a6b73d602888825, type: 3}
+  miningSE: {fileID: 8300000, guid: d82ddbd5c237e1a4aa68709ffbc132b9, type: 3}
+  destroySE: {fileID: 8300000, guid: 7a45759381fe92d4e97955f5064868a8, type: 3}
   dropItem:
-  - typeStr: 6:STEEL
+  - typeStr: 0:STONE
+    count: 1
+    rate: 1
+  - typeStr: 1110:BIR_TOPAZ
     count: 1
     rate: 1
   order: 0

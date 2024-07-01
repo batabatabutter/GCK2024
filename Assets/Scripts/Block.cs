@@ -151,7 +151,7 @@ public class Block : MonoBehaviour
                 // í—Ş‚Ìİ’è
                 item.ItemType = dropItem.type;
                 // ƒhƒƒbƒv”‚Ìİ’è
-                item.Drop(dropItem.count * dropCount);
+                item.Drop(data.Type, dropItem.count * dropCount, data.Color);
             }
 
             ////  –¾‚é‚³‚ªŸ‘æ
