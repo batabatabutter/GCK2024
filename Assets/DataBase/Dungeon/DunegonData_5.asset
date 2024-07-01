@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa84212b9e0b7d545bfe8d5a76ca7050, type: 3}
   m_Name: DunegonData_5
   m_EditorClassIdentifier: 
-  dungeonName: 
+  dungeonName: "\u30AF\u30EA\u30C6\u30A3\u30AB\u30EB"
   coreSprite: {fileID: 21300000, guid: 49637a999236f464599a68037dd877ed, type: 3}
   thumbnailSprite: {fileID: 21300000, guid: 5b46dd872b273514b8b39e7b80a36cd2, type: 3}
   stageColor: {r: 1, g: 1, b: 1, a: 1}

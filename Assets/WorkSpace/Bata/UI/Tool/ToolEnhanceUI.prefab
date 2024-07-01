@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 466750092300979101}
   - component: {fileID: 1540481776783058722}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ToolEnhanceUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}

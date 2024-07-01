@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
@@ -17,6 +19,9 @@ public class Player : MonoBehaviour
     [Header("–³“GŽžŠÔ")]
     [SerializeField] private float m_invincibleTime = 1.0f;
     private float m_invincible = 0.0f;
+
+    //  ŠÖ”
+    private UnityEvent m_dmgEvents = new UnityEvent();
 
 
     // Update is called once per frame
@@ -48,6 +53,7 @@ public class Player : MonoBehaviour
 
         // ‘Ì—ÍŒ¸­
         m_life -= damage;
+        if (damage > 0) m_dmgEvents.Invoke();
         if (m_life <= 0) AudioManager.Instance.PlaySE(AudioDataID.DeadPlayer);
         else AudioManager.Instance.PlaySE(AudioDataID.GetDamage);
 
@@ -85,6 +91,11 @@ public class Player : MonoBehaviour
     {
         get { return m_armor; }
         set { m_armor = value; }
+    }
+
+    public UnityEvent DmgEvents
+    {
+        get { return m_dmgEvents; }
     }
 
 }
