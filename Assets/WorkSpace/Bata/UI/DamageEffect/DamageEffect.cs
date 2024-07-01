@@ -35,7 +35,7 @@ public class DamageEffect : MonoBehaviour
         //  プレイシーンマネージャー設定
         SetPlaySceneManager(GetComponentInParent<PlaySceneUICanvas>().GetPlaySceneManager());
 
-        //m_player.DmgEvents.AddListener(GenerateEffect);
+        m_player.DmgEvents.AddListener(GenerateEffect);
     }
 
     // Update is called once per frame
@@ -58,10 +58,11 @@ public class DamageEffect : MonoBehaviour
     /// <summary>
     /// ダメージを食らった時のエフェクト再生
     /// </summary>
-    private void GenerateEffect(bool isArmor = false)
+    private void GenerateEffect()
     {
-        if (isArmor) m_img.color = m_armorDmgColor;
-        else m_img.color = m_dmgColor;
+        //if (isArmor) m_img.color = m_armorDmgColor;
+        //else
+        m_img.color = m_dmgColor;
         m_timeCount = m_fadeOutTime;
     }
 
