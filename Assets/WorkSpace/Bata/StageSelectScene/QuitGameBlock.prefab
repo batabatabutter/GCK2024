@@ -270,6 +270,7 @@ MonoBehaviour:
   m_stoneSpriteRenderer: {fileID: 0}
   m_checkCanvas: {fileID: 7005214200287512421}
   m_spriteRenderer: {fileID: 0}
+  m_tappedAudio: {fileID: 8300000, guid: 8a1f1a305cd617c43afe54fe4a7b6c5a, type: 3}
 --- !u!1001 &287036241861862777
 PrefabInstance:
   m_ObjectHideFlags: 0

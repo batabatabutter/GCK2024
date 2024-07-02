@@ -294,6 +294,9 @@ MonoBehaviour:
   m_isWeak: 0
   m_blockData: {fileID: 0}
   m_itemDataBase: {fileID: 0}
+  m_stoneSpriteRenderer: {fileID: 0}
+  m_checkCanvas: {fileID: 0}
+  m_spriteRenderer: {fileID: 6675245998345760108}
+  m_tappedAudio: {fileID: 8300000, guid: 8a1f1a305cd617c43afe54fe4a7b6c5a, type: 3}
   m_stageNum: 0
   m_entryCanvas: {fileID: 0}
-  m_spriteRenderer: {fileID: 6675245998345760108}

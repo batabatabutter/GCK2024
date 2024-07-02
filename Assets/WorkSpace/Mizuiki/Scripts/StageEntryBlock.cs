@@ -23,8 +23,8 @@ public class StageEntryBlock : CheckBlock
 		// 表示テキスト
 		m_entryCanvas.Text = "ステージ" + m_stageNum;
 
-		// キャンバス表示
-		m_entryCanvas.SetEnabled(true);
+		// 基底クラス
+		base.AddMiningDamage(power, dropCount);
 
 		return false;
 	}

@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class CheckBlock : Block
 {
+	[Header("確認ブロック")]
+
 	[Header("意思確認キャンバス")]
 	[SerializeField] private CheckCanvas m_checkCanvas = null;
 
 	[Header("コアアイコンのスプライト")]
 	[SerializeField] private SpriteRenderer m_spriteRenderer = null;
+
+	[Header("たたいたときの音")]
+	[SerializeField] private AudioClip m_tappedAudio = null;
 
 
 
@@ -17,6 +22,9 @@ public class CheckBlock : Block
 	{
 		// キャンバス表示
 		m_checkCanvas.SetEnabled(true);
+
+		// 採掘音を鳴らす
+		AudioManager.Instance.PlaySE(m_tappedAudio, transform.position);
 
 		return false;
 	}

@@ -130,6 +130,7 @@ public class StageSelectManager : MonoBehaviour
 			entryBlock.StageNum = i;
 			// キャンバス設定
 			entryBlock.StageEntryCanvas = m_stageEntryCanvas;
+			entryBlock.CheckCanvas = m_stageEntryCanvas;
 			// コアのスプライト設定
 			entryBlock.CoreIcon.sprite = m_dungeonDataBase.dungeonDatas[i].ThumbnailSprite;
 			// クリア済みならコアの色設定
