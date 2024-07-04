@@ -227,7 +227,10 @@ public class EnemyGenerator : MonoBehaviour
 			return;
 		}
 
-		switch (m_enemyDataBase.enemyDatas[(int)type].system)
+        // エネミーの情報取得
+        EnemyData enemyData = m_enemyDataBase.enemyDatas[(int)type];
+
+		switch (enemyData.system)
 		{
 			case Enemy.System.Dwell:
 				// ブロック憑依型
@@ -238,13 +241,15 @@ public class EnemyGenerator : MonoBehaviour
                     // スポーン位置
 					Vector3 spawnPos = block.position;
                     // 敵を生成
-					GameObject enemy = Instantiate(m_enemyDataBase.enemyDatas[(int)type].prefab, spawnPos, Quaternion.identity, m_parent.transform);
+					GameObject enemy = Instantiate(enemyData.prefab, spawnPos, Quaternion.identity, m_parent.transform);
                     // エネミーマネージャーに追加
                     m_enemyManager.AddEnemy(enemy.GetComponent<Enemy>());
                     // 宿り先ブロックの登録
 					enemy.GetComponent<EnemyDwell>().DwellBlock = block.gameObject;
 					// ブロックを憑依済みにする == 憑依不可能状態にする
 					block.GetComponent<Block>().CanPossess = false;
+                    // スポーン音を鳴らす
+                    AudioManager.Instance.PlaySE(enemyData.GenerateSE);
 				}
 				else
 				{

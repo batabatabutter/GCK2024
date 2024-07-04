@@ -507,6 +507,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4686516575167299861, guid: 8b1432af332c4a34f8ac41e6f702d0e4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4686516575167299861, guid: 8b1432af332c4a34f8ac41e6f702d0e4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: StageEntryCanvas, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 7608335827237551325, guid: 8b1432af332c4a34f8ac41e6f702d0e4, type: 3}
       propertyPath: m_stageSelectManager
       value: 
