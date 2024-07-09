@@ -7,6 +7,8 @@ public class StageExitCanvas : CheckCanvas
 {
 	public override void Decision()
 	{
+		base.Decision();
+
 		// ÉZÅ[Éu
 		SaveDataReadWrite.m_instance.Save();
 

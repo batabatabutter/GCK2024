@@ -15,6 +15,8 @@ public enum AudioDataID
     Correct,
     Change,
     
+    // ƒAƒCƒeƒ€
+    PIC_UP,
 
     OverID
 }

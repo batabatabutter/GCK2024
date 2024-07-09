@@ -10,25 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9102e5fe6745808438d597f5ef891521, type: 3}
-  m_Name: BlockData_Coal
+  m_Name: BlockData_Tin
   m_EditorClassIdentifier: 
-  blockName: "\u77F3\u70AD"
-  typeStr: 101:COAL
-  color: {r: 0.8, g: 0.8, b: 0.8, a: 1}
-  endurance: 150
+  blockName: "\u932B"
+  typeStr: 103:TIN
+  color: {r: 0.5, g: 0.83333325, b: 1, a: 1}
+  endurance: 200
   dontBroken: 0
   canPossess: 1
   lightLevel: 0
   prefab: {fileID: 3457520386420079125, guid: cbe61a2527b59f44ea88ed42d8cd8019, type: 3}
-  sprite: {fileID: 21300000, guid: 8c26c89b3bfced24aa40319be86c496b, type: 3}
+  sprite: {fileID: 21300000, guid: 223b86629a3734e4ebebaf5e0a7ea63a, type: 3}
   miningSE: {fileID: 8300000, guid: 8a1f1a305cd617c43afe54fe4a7b6c5a, type: 3}
-  destroySE: {fileID: 8300000, guid: f03aab3a5b40f214db3f15b9b7d7ee6b, type: 3}
+  destroySE: {fileID: 8300000, guid: 15d20756ff73b884ba321c88cf7e4897, type: 3}
   dropItem:
-  - typeStr: 1:COAL
+  - typeStr: 3:TIN
     count: 1
     rate: 1
-  - typeStr: 1:COAL
-    count: 1
-    rate: 0.5
   order: 0
   mapIcon: {fileID: 0}

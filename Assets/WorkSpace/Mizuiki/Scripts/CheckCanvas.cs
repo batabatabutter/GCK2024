@@ -22,7 +22,8 @@ public class CheckCanvas : MonoBehaviour
 	// Œˆ’è
 	public virtual void Decision()
 	{
-
+		// Œˆ’è‰¹‚ð–Â‚ç‚·
+		AudioManager.Instance.PlaySE(AudioDataID.Select);
 	}
 
 	// ƒLƒƒƒ“ƒZƒ‹

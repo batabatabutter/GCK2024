@@ -143,6 +143,12 @@ public class PlayerItem : MonoBehaviour
 			picCount = count;
 		}
 
+		// アイテムを拾う音を鳴らす
+		if (AudioManager.Instance)
+		{
+			AudioManager.Instance.PlaySE(AudioDataID.PIC_UP);
+		}
+
 		// アイテムを拾う
 		m_items[type] += picCount;
 

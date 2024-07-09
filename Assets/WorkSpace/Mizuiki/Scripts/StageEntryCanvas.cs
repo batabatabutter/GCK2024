@@ -20,6 +20,8 @@ public class StageEntryCanvas : CheckCanvas
 	// Œˆ’è
 	public override void Decision()
 	{
+		base.Decision();
+
 		// ƒV[ƒ“Ø‚è‘Ö‚¦
 		m_stageSelectManager.ChangeScene(m_stageNum);
 	}

@@ -6,6 +6,8 @@ public class QuitGameCanvas : CheckCanvas
 {
 	public override void Decision()
 	{
+		base.Decision();
+
 		// ÉZÅ[Éu
 		SaveDataReadWrite.m_instance.Save();
 

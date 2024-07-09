@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9102e5fe6745808438d597f5ef891521, type: 3}
-  m_Name: BlockData_Tin
+  m_Name: BlockData_Stone
   m_EditorClassIdentifier: 
-  blockName: "\u932B"
-  typeStr: 103:TIN
-  color: {r: 0.5, g: 0.83333325, b: 1, a: 1}
-  endurance: 200
+  blockName: "\u77F3"
+  typeStr: 0:STONE
+  color: {r: 0.9, g: 0.9, b: 0.9, a: 1}
+  endurance: 100
   dontBroken: 0
   canPossess: 1
   lightLevel: 0
   prefab: {fileID: 3457520386420079125, guid: cbe61a2527b59f44ea88ed42d8cd8019, type: 3}
-  sprite: {fileID: 21300000, guid: 223b86629a3734e4ebebaf5e0a7ea63a, type: 3}
-  miningSE: {fileID: 8300000, guid: a3b72b064559dbf4dafa4cd7075aa42b, type: 3}
-  destroySE: {fileID: 8300000, guid: 09be74ac67edb24468f01c341f1499a0, type: 3}
+  sprite: {fileID: 21300000, guid: 95b0ac960128d724ba509e6e552debd6, type: 3}
+  miningSE: {fileID: 8300000, guid: 8a1f1a305cd617c43afe54fe4a7b6c5a, type: 3}
+  destroySE: {fileID: 8300000, guid: 15d20756ff73b884ba321c88cf7e4897, type: 3}
   dropItem:
-  - typeStr: 3:TIN
+  - typeStr: 0:STONE
     count: 1
     rate: 1
   order: 0
