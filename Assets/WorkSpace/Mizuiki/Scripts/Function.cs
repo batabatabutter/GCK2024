@@ -6,7 +6,11 @@ using UnityEngine;
 
 public class MyFunction
 {
+	// ブロックの弱体化割合
 	static public float BLOCK_WEAK => 0.8f;
+	// ステージの最大レベル
+	static public int MAX_STAGE_LEVEL => 10;
+
 
 	// 範囲
 	[System.Serializable]

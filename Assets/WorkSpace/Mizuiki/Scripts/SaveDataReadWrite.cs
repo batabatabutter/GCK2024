@@ -254,10 +254,17 @@ public class SaveDataReadWrite : MonoBehaviour
 	{
 		m_dungeonStates[stageNum].dungeonClear = true;
 	}
+
 	// ダンジョンのレベルを上げる
 	public void AddLevel(int stageNum)
 	{
 		m_dungeonStates[stageNum].dungeonLevel++;
+	}
+
+	// ダンジョンのレベルを取得
+	public int GetDungeonLevel(int dungeon)
+	{
+		return m_dungeonStates[dungeon].dungeonLevel;
 	}
 
 
