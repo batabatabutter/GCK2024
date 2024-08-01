@@ -94,11 +94,14 @@ public class DungeonGenerator : MonoBehaviour
 		// セーブデータ取得
 		SaveDataReadWrite saveData = SaveDataReadWrite.m_instance;
 
+		// ダンジョンのレベル
+		int dungeonLevel = 1;
+
 		// セーブデータが存在している
 		if (saveData)
 		{
 			// ダンジョンのレベル取得
-			int dungeonLevel = saveData.DungeonStates[stageNum].clearCount[0];
+			dungeonLevel = saveData.DungeonStates[stageNum].clearCount[0];
 		}
 
 		// ダンジョンのマップ取得
@@ -137,7 +140,7 @@ public class DungeonGenerator : MonoBehaviour
 		);
 
 		// coreの生成
-		GameObject co = m_blockGenerator.GenerateBlock(BlockData.BlockType.CORE, new Vector3(m_corePos.x, m_corePos.y));
+		GameObject co = m_blockGenerator.GenerateBlock(BlockData.BlockType.CORE, new Vector3(m_corePos.x, m_corePos.y), dungeonLevel);
 		// スプライトの設定
 		co.GetComponent<SpriteRenderer>().sprite = dungeonData.CoreSprite;
 		// コア設定
@@ -146,7 +149,7 @@ public class DungeonGenerator : MonoBehaviour
 		m_blocks[m_corePos.y, m_corePos.x] = m_dungeonCore;
 
 		// ブロック生成
-		GenerateBlock(mapList, dungeonData.BlockGenerateData);
+		GenerateBlock(mapList, dungeonData.BlockGenerateData, dungeonLevel);
 
 		//岩盤で囲う
 		CreateBedrock(dungeonSize);
@@ -222,7 +225,7 @@ public class DungeonGenerator : MonoBehaviour
 	}
 
 	// ブロックの生成
-	private void GenerateBlock(List<List<string>> mapList, BlockGenerateData[] blockGenerateData)
+	private void GenerateBlock(List<List<string>> mapList, BlockGenerateData[] blockGenerateData, int dungeonLevel)
 	{
 		// ブロック生成用のランダムなオフセット設定
 		for (int i = 0; i < blockGenerateData.Length; i++)
@@ -243,7 +246,7 @@ public class DungeonGenerator : MonoBehaviour
 				if ((int)m_playerPos.x == x && (int)m_playerPos.y == y)
 				{
 					// 空のブロックを生成
-					m_blockGenerator.GenerateBlock(BlockData.BlockType.OVER, position);
+					m_blockGenerator.GenerateBlock(BlockData.BlockType.OVER, position, dungeonLevel);
 					continue;
 				}
 				//コアを生成
@@ -257,19 +260,19 @@ public class DungeonGenerator : MonoBehaviour
 					// 生成するブロックの種類
 					BlockData.BlockType type = CreateBlockType(blockGenerateData, new Vector2(x, y));
 					// ブロック生成
-					block = m_blockGenerator.GenerateBlock(type, position).GetComponent<Block>();
+					block = m_blockGenerator.GenerateBlock(type, position, dungeonLevel).GetComponent<Block>();
 				}
 				else
 				{
 					// 空のブロックを生成
-					m_blockGenerator.GenerateBlock(BlockData.BlockType.OVER, position);
+					m_blockGenerator.GenerateBlock(BlockData.BlockType.OVER, position, dungeonLevel);
 				}
 				// ブロック配列に代入
 				m_blocks[y, x] = block;
 			}
 		}
 	}
-	public void GenerateBlock(List<List<BlockData.BlockType>> blocks)
+	public void GenerateBlock(List<List<BlockData.BlockType>> blocks, int dungeonLevel)
 	{
 		for (int y = 0; y < blocks.Count; y++)
 		{
@@ -281,7 +284,7 @@ public class DungeonGenerator : MonoBehaviour
 				Vector2 pos = new(x, y);
 
 				// 生成ブロック
-				GameObject block = m_blockGenerator.GenerateBlock(type, pos);
+				GameObject block = m_blockGenerator.GenerateBlock(type, pos, dungeonLevel);
 				m_blocks[y, x] = block.GetComponent<Block>();
 			}
 		}
@@ -313,14 +316,14 @@ public class DungeonGenerator : MonoBehaviour
 		for (int x = 0; x < size.x; x++)
 		{
 			// 上下
-			m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(x, -1    , 0));
-			m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(x, size.y, 0));
+			m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(x, -1    , 0), 1);
+			m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(x, size.y, 0), 1);
 		}
 		for (int y = 0; y < size.y; y++)
 		{
 			// 左右
-			m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(-1    , y, 0));
-			m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(size.y, y, 0));
+			m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(-1    , y, 0), 1);
+			m_blockGenerator.GenerateBlock(BlockData.BlockType.BEDROCK, new Vector3(size.y, y, 0), 1);
 		}
 	}
 

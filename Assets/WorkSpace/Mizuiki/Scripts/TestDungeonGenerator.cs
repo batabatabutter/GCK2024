@@ -162,7 +162,7 @@ public class TestDungeonGenerator : MonoBehaviour
 				// コアの生成
 				if (new Vector2Int(x, y) == m_corePosition)
 				{
-					obj = m_blockGenerator.GenerateBlock(BlockData.BlockType.CORE, pos);
+					obj = m_blockGenerator.GenerateBlock(BlockData.BlockType.CORE, pos, 1);
 					m_dungeonAttacker.CorePosition = obj.transform;
 					// コアのスプライト設定
 					obj.GetComponent<SpriteRenderer>().sprite = m_coreSprite;
@@ -170,7 +170,7 @@ public class TestDungeonGenerator : MonoBehaviour
 				// ブロックの生成
 				else
 				{
-					obj = m_blockGenerator.GenerateBlock(name, pos);
+					obj = m_blockGenerator.GenerateBlock(name, pos, 1);
 				}
 
 				// ブロックがあれば追加
