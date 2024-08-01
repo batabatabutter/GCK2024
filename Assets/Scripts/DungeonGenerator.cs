@@ -54,23 +54,7 @@ public class DungeonGenerator : MonoBehaviour
 	private readonly Dictionary<DungeonData.Pattern, DungeonGeneratorBase> m_dungeonGenerators = new();
 
 
-    private void Awake()
-    {
 
-    }
-
-	//private void Start()
-	//{
-	//	// サーチの設定
-	//	if (m_playSceneManager.GetPlayer().TryGetComponent(out SearchBlock search))
-	//	{
-	//		// サーチにブロックを設定する
-	//		search.SetSearchBlocks(m_blocks);
-	//		// サーチ範囲を設定
-	//		Vector2Int size = m_dungeonDataBase.dungeonDatas[m_stageNum].Size;
-	//		search.MarkerMaxScale = Mathf.Max(size.x, size.y) / 2.0f;
-	//	}
-	//}
 
 	/// <summary>
 	/// ステージ作成
@@ -107,24 +91,15 @@ public class DungeonGenerator : MonoBehaviour
 		// ブロック配列のサイズ決定
 		m_blocks = new Block[dungeonSize.y, dungeonSize.x];
 
-		//// セーブデータ取得
-		//SaveDataReadWrite saveData = SaveDataReadWrite.m_instance;
+		// セーブデータ取得
+		SaveDataReadWrite saveData = SaveDataReadWrite.m_instance;
 
-		//// セーブデータが存在している
-		//if (saveData)
-		//{
-		//	// ステージクリア済みの場合はクリア時のステージを再生成
-		//	if (saveData.DungeonStates[m_stageNum].dungeonClear)
-		//	{
-		//		// パス取得
-		//		string path = Application.dataPath + "/" + saveData.FileName + stageNum + ".csv";
-		//		// CSVデータ取得
-		//		string csvData = MyFunction.Reader(path);
-		//		// ブロック生成
-		//		GenerateBlock(WriteReadCSV.ReadCSV<BlockData.BlockType>(csvData));
-		//		return;
-		//	}
-		//}
+		// セーブデータが存在している
+		if (saveData)
+		{
+			// ダンジョンのレベル取得
+			int dungeonLevel = saveData.DungeonStates[stageNum].clearCount[0];
+		}
 
 		// ダンジョンのマップ取得
 		List<List<string>> mapList = m_dungeonGenerators[pattern].GenerateDungeon(dungeonData);
@@ -161,12 +136,6 @@ public class DungeonGenerator : MonoBehaviour
 		while (MyFunction.DetectCollision(m_playerPos, m_corePos, new Vector2(m_playerLength, m_playerLength))
 		);
 
-		////  プレイヤーの生成
-		//GameObject pl = Instantiate(m_playerPrefab, m_playerPos, Quaternion.identity);
-		//m_blockGenerator.SetPlayerTransform(pl.transform);
-		//// 使用しないツールの設定
-		//pl.GetComponent<PlayerTool>().SetIgnoreTool(dungeonData.BlockGenerateData);
-
 		// coreの生成
 		GameObject co = m_blockGenerator.GenerateBlock(BlockData.BlockType.CORE, new Vector3(m_corePos.x, m_corePos.y));
 		// スプライトの設定
@@ -175,18 +144,6 @@ public class DungeonGenerator : MonoBehaviour
 		m_dungeonCore = co.GetComponent<Block>();
 		// ブロック配列に代入
 		m_blocks[m_corePos.y, m_corePos.x] = m_dungeonCore;
-
-
-		////  プレイシーンマネージャーが無かったら格納しない
-		//if (m_playSceneManager == null)
-		//{
-		//	Debug.Log("Error:Playerの格納に失敗 PlaySceneManagerが見つかりません:DungeonManager");
-		//}
-		//else
-		//{
-		//	//m_playSceneManager.SetPlayer(pl);
-		//	m_playSceneManager.SetCore(co);
-		//}
 
 		// ブロック生成
 		GenerateBlock(mapList, dungeonData.BlockGenerateData);

@@ -32,6 +32,8 @@ public class SaveDataReadWrite : MonoBehaviour
 		public bool dungeonClear = false;
 		// ダンジョンのターン経過
 		public int turn = 0;
+		// 各レベルのクリア回数
+		public int[] clearCount = new int[11];
 		// ダンジョンのブロック配置
 		public List<List<BlockData.BlockType>> blockList = new();
 	}

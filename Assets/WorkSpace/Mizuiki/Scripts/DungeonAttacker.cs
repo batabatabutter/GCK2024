@@ -38,8 +38,8 @@ public class DungeonAttacker : MonoBehaviour
 	[Header("攻撃の情報")]
 	[SerializeField] private DungeonAttackData m_attackData = null;
 
-	//[Header("ダンジョンのレベル")]
-	//[SerializeField] private int m_dungeonLevel = 1;
+	[Header("ダンジョンのレベル")]
+	[SerializeField] private int m_dungeonLevel = 1;
 
 	// ランダム攻撃
 	private bool m_random = false;
@@ -156,6 +156,14 @@ public class DungeonAttacker : MonoBehaviour
 
 		// distance の昇順にソート
 		m_attackGrade.attackGrade.Sort((lhs, rhs) => lhs.distance.CompareTo(rhs.distance));
+
+		// データ取得
+		SaveDataReadWrite saveData = SaveDataReadWrite.m_instance;
+		if (saveData)
+		{
+			// ダンジョンのレベル取得
+			m_dungeonLevel = saveData.DungeonStates[dungeonGenerator.GetStageNum()].clearCount[0];
+		}
 
 	}
 
@@ -300,7 +308,7 @@ public class DungeonAttacker : MonoBehaviour
 		// 攻撃を開始する
 		m_active = true;
 		// 攻撃ターンの時間設定
-		m_attackTimer = m_attackTime;
+		m_attackTimer = m_attackTime * (1 + m_dungeonLevel * 0.2f);
 		// 攻撃テーブルの決定
 		DetermineAttackTable();
 		// 攻撃テーブル取得

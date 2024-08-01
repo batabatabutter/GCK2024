@@ -118,29 +118,34 @@
 	],
 	"dungeonStates": [
 		{
-			"dungeonLevel": 6,
+			"dungeonLevel": 1,
 			"dungeonClear": false,
-			"turn": 0
-		},
-		{
-			"dungeonLevel": 10,
-			"dungeonClear": false,
-			"turn": 0
+			"turn": 0,
+			"clearCount": [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
 		},
 		{
 			"dungeonLevel": 1,
 			"dungeonClear": false,
-			"turn": 0
+			"turn": 0,
+			"clearCount": [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
 		},
 		{
 			"dungeonLevel": 1,
 			"dungeonClear": false,
-			"turn": 0
+			"turn": 0,
+			"clearCount": [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
 		},
 		{
 			"dungeonLevel": 1,
 			"dungeonClear": false,
-			"turn": 0
+			"turn": 0,
+			"clearCount": [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+		},
+		{
+			"dungeonLevel": 1,
+			"dungeonClear": false,
+			"turn": 0,
+			"clearCount": [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
 		}
 	]
 }

@@ -45,10 +45,7 @@ public class BlockGenerator : MonoBehaviour
     /// </summary>
     /// <param name="type">生成するブロックの種類</param>
     /// <param name="position">生成する座標</param>
-    /// <param name="parent">親</param>
-    /// <param name="isBlockBrightness">ブロック明るさをつけるかどうか</param>
-    /// <param name="isGroundBrightness">地面明るさをつけるかどうか</param>
-    public GameObject GenerateBlock(BlockData.BlockType type, Vector2 position/*, Transform parent = null*/)
+    public GameObject GenerateBlock(BlockData.BlockType type, Vector2 position, int level)
     {
         // ブロックの親生成
         if (m_blockParent == null)
@@ -132,20 +129,14 @@ public class BlockGenerator : MonoBehaviour
         // データ
         block.BlockData = data;
         // 耐久
-        block.Endurance = data.Endurance;
+        block.Endurance = data.Endurance * level;
         // 破壊不可
         block.DontBroken = data.DontBroken;
         // 憑依可能
         block.CanPossess = data.CanPossess;
-        //// 光源レベル
-        //block.LightLevel = data.LightLevel;
 
         // 色の設定
         block.SetColor(data.Color);
-        //if (obj.TryGetComponent(out SpriteRenderer blockSprite))
-        //{
-        //    blockSprite.color = data.Color;
-        //}
 
         // マップ生成
         if (m_mapObject)
@@ -158,8 +149,6 @@ public class BlockGenerator : MonoBehaviour
             map.BlockColor = data.Color;
             // 表示順の設定
             mapObj.GetComponent<SpriteRenderer>().sortingOrder = data.Order;
-            //// マップオブジェクトを設定
-            //block.MapObject = map;
         }
 
         return obj;

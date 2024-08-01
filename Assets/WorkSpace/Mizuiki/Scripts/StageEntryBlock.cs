@@ -29,6 +29,17 @@ public class StageEntryBlock : CheckBlock
 		return false;
 	}
 
+	// プレイヤーが離れたらキャンバス非表示
+	private void OnTriggerExit2D(Collider2D collision)
+	{
+		// 離れたのがプレイヤー
+		if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+		{
+			// キャンバス非表示
+			m_entryCanvas.SetEnabled(false);
+		}
+	}
+
 
 	// ステージ番号
 	public int StageNum

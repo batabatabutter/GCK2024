@@ -41,6 +41,13 @@ public class StageEntryCanvas : CheckCanvas
 	{
 		base.Decision();
 
+		SaveDataReadWrite saveData = SaveDataReadWrite.m_instance;
+		if (saveData)
+		{
+			saveData.DungeonStates[m_stageNum].clearCount[0] = int.Parse(m_inputFieldLevel.text);
+			saveData.Save();
+		}
+
 		// ƒV[ƒ“Ø‚è‘Ö‚¦
 		m_stageSelectManager.ChangeScene(m_stageNum);
 	}
